@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login Page</title>
+	
+	<!-- Bootstrap -->
+	<link href="css/bootstrap.css" rel="stylesheet" media="screen">
+	<link href="css/custom.css" rel="stylesheet" media="screen">
+
+	<!-- Animo css-->
+	<link href="css/animate+animo.css" rel="stylesheet" media="screen">
+	
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	  <script src="assets/js/html5shiv.js"></script>
+	  <script src="assets/js/respond.min.js"></script>
+	<![endif]-->
+	
+	
+	<!-- Load jQuery -->
+	<script src="js/jquery.v2.0.3.js"></script>
+
+
+  </head>
+  <body>
+	<!-- 100% Width & Height container  -->
+	<div class="login-fullwidith">
+		
+		<!-- Login Wrap  -->
+		<div class="login-wrap forgot_password">
+            <div class="logo_new">
+                <img src="images/logo_avi.png" />
+            </div>
+			<div class="login-c1">
+				<div class="cpadding50">
+                   <h1>Find Your Account</h1>
+					<input type="text" class="form-control logpadding mail_icon" placeholder="Username" >
+					<br/>
+					<img src="images/reCAPTCHA_Sample_White.png" />
+				</div>
+			</div>
+			<div class="login-c2">
+				<div class="logmargfix">
+					<div class="chpadding50">
+							<div class="alignbottom">
+								<button class="btn-search4"  type="submit" onclick="errorMessage()">Submit</button>							
+							</div>
+							<div class="alignbottom2">
+							  <div class="checkbox">
+								<label>
+								  <input type="checkbox">Remember
+								</label>
+							  </div>
+							</div>
+					</div>
+				</div>
+			</div>
+			<div class="login-c3">
+				
+				<div class="right"><a href="#" class="whitelink">I can't identify my account</a></div>
+			</div>			
+		</div>
+		<!-- End of Login Wrap  -->
+	
+	</div>	
+	<!-- End of Container  -->
+
+	<!-- Javascript  -->
+	<!--<script src="js/initialize-loginpage.js"></script>-->
+	<script src="js/jquery.easing.js"></script>
+	<!-- Load Animo -->
+	<script src="js/animo.js"></script>
+	<script>
+	function errorMessage(){
+		$('.login-wrap').animo( { animation: 'tada' } );
+	}
+	</script>
+	
+  </body>
+</html>

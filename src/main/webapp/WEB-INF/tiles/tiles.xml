@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "tiles-config_3_0.dtd">
+       
+<tiles-definitions>
+    <definition name="indexTemplate" template="/WEB-INF/tilestemplate/jsp/indexTemplate.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="body" value="" />
+    </definition> 
+    <definition name="ajaxTemplate" template="/WEB-INF/tilestemplate/jsp/ajaxTemplate.jsp">
+        <put-attribute name="body" value="" />
+    </definition> 
+    <definition name="login" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Login" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/login.jsp" />
+    </definition>
+    <definition name="chat" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil chat" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/chat.jsp" />
+    </definition>
+      <definition name="leftActiviti" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Activiti" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/leftActiviti.jsp" />
+    </definition>
+      <definition name="myDocument" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil My Document" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/myDocument.jsp" />
+    </definition>
+      <definition name="getDocProperties" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil My Document" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/properties.jsp" />
+    </definition>
+    
+    <definition name="activitiDiagrams" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Activiti" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/activitiDiagrams.jsp" />
+    </definition>
+    <definition name="workflowForms" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Activiti" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/workflowForms.jsp" />
+    </definition>
+    <definition name="toDoTasks" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Tasks" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/toDoTasks.jsp" />
+    </definition>
+    <definition name="workflows" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Workflows" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/workflows.jsp" />
+    </definition>
+    <definition name="workflowHistory" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Workflow History" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/workflowHistory.jsp" />
+    </definition>
+
+    <definition name="userDashboardTemplate" template="/WEB-INF/tilestemplate/jsp/userDashboardTemplate.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="/WEB-INF/view/jsp/header.jsp" />
+        <put-attribute name="left" value="" />
+        <put-attribute name="chat" value="/WEB-INF/view/jsp/chat.jsp" />
+        <put-attribute name="body" value="" />
+    </definition> 
+    <definition name="userDashboard" extends="userDashboardTemplate">
+        <put-attribute name="title" value="Avi-Oil Dashboard" />
+        <put-attribute name="left" value="/WEB-INF/view/jsp/leftDocument.jsp" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/userDashboard.jsp" />
+    </definition>
+    
+    <definition name="activitiTemplate" template="/WEB-INF/tilestemplate/jsp/activitiTemplate.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="activitiMenu" value="/WEB-INF/view/jsp/activitiMenu.jsp" />
+        <put-attribute name="body" value="" />
+    </definition> 
+    
+    
+    
+    
+    
+    
+    
+    
+   
+    <definition name="shared" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Shared" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/shared.jsp" />
+    </definition>
+    <definition name="calender" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Calender" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/calender.jsp" />
+    </definition>
+    <definition name="userStatistics" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil User Statistics" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/userStatistics.jsp" />
+    </definition>
+    <definition name="recently" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil User Dashboard" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/recently.jsp" />
+    </definition>
+    <definition name="trash" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil User Dashboard" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/trash.jsp" />
+    </definition>
+    <definition name="index" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Login" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/index.jsp" />
+    </definition>
+    
+    <definition name="adminDashboard" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Welcome User" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/adminDashboard.jsp" />
+    </definition>
+    <definition name="fileSystem" extends="ajaxTemplate">
+        <put-attribute name="body" value="/WEB-INF/view/jsp/fileSystem.jsp" />
+    </definition>
+</tiles-definitions>

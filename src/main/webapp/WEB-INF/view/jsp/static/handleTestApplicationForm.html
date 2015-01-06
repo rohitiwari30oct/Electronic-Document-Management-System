@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="form_scolling_project">
+		<div class="from_main_leave">
+			<table id="handleWorkflowForm">
+				<tbody>
+					<tr>
+						<td colspan="2" class="table_heading">LEAVE APPLICATION FORM</td>
+					</tr>
+					<tr>
+						<td colspan="2">The application must be submitted at least 7
+							days before the date on which Earned Leave is to commence except
+							in the case of unforeseen circumstances. Sick Leave application
+							must be submitted within 2 working days from rejoining.</td>
+					</tr>
+
+					<tr>
+						<td>&nbsp;</td>
+						<td>Date <input type="text" id="todaysDate" name="todaysDate"
+							readonly="true"></td>
+					</tr>
+					<tr>
+						<td colspan="2" class="table_list">
+							<ul>
+								<li class="table_name">Name</li>
+								<li><input type="text" class="particular_1"
+									placeholder="Enter Name" id="empname" name="empname"
+									readonly="true"></li>
+								<li class="table_name">Emp.No.</li>
+								<li><input type="text" class="particular_1"
+									placeholder="Enter Emp.No." id="employeeID" name="employeeID"
+									readonly="true"></li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="table_list">
+							<ul>
+								<li class="table_name">Designation</li>
+								<li><input type="text" class="particular_1"
+									placeholder="Enter Designation" id="designation"
+									name="designation" readonly="true"></li>
+								<li class="table_name">Dept./Section</li>
+								<li><input type="text" class="particular_1"
+									placeholder="Enter Dept./Section" id="dept" name="dept"
+									readonly="true"></li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="nature_1"><label>Nature of
+								Leave applied for :</label> <input type="checkbox" id="earnedLeave"
+							name="leaveType" value="earned leave" readonly="true"><label>Earned
+								Leave</label> <input type="checkbox" id="sickLeave" name="leaveType"
+							value="sick leave" readonly="true">Sick Leave (Attach
+							medical certificate for more than 2 days)</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="applied">Date applied for leave <input
+							type="text" id="startDate" name="startDate" required
+							placeholder="dd/MM/yyyy" readonly="true"> To <input type="date"
+							id="toDate" name="toDate" required placeholder="dd/MM/yyyy" readonly="true">
+							No.of Days:<input type="text" placeholder="No. of Days"
+							id="numberOfDays" name="numberOfDays" readonly="true"></td>
+					</tr>
+					<tr>
+						<td colspan="2" class="nature_2"><label>Brief reasons
+								for leave</label> <textarea type="textarea"
+								placeholder="Brief reasons for leave" id="leaveMotivation"
+								name="leaveMotivation" readonly="true"></textarea>
+							<div class="addanddelete">
+								<div class="add_table"></div>
+								<div class="delete_table"></div>
+							</div></td>
+					</tr>
+					<tr>
+						<td colspan="2" class="nature_2"><label>Address while
+								on leave</label> <textarea type="textarea"
+								placeholder="Address while on leave" id="leaveaddress"
+								name="leaveaddress" readonly="true"></textarea>
+							<div class="addanddelete">
+								<div class="add_table"></div>
+								<div class="delete_table"></div>
+							</div></td>
+					</tr>
+					<tr>
+						<td colspan="2" class="nature_2"><label>Manager
+								Reason for Approval/Disapproval</label> <textarea type="textarea"
+								placeholder="Your reasons" id="managerMotivation"
+								name="managerMotivation"></textarea>
+							<div class="addanddelete">
+								<div class="add_table"></div>
+								<div class="delete_table"></div>
+							</div></td>
+					</tr>
+					<!-- <tr>
+									<td colspan="2"><label>Telephone(s)(if any )</label> <select
+										class="country_code" id="cntrycode" name="cntrycode">
+											<option>+91</option>
+											<option>+1</option>
+											<option>+41</option>
+											<option>+92</option>
+											<option>+81</option>
+											<option>+61</option>
+									</select> <select class="std_phone_11" id="stdcode" name="stdcode">
+											<option>011</option>
+											<option>080</option>
+											<option>0522</option>
+											<option>020</option>
+									</select> <input type="text" class="particular number std_phone"
+										placeholder="Enter Tel. no. "> Pin<input type="text"
+										class="pin" placeholder="Pin"></td>
+								</tr>
+								<tr>
+									<td colspan="2">Recommended / Not Recommended due to
+										:&nbsp;&nbsp;&nbsp;<input type="text"
+										class="particular recpmmed"
+										placeholder="Recommended / Not Recommended due to">
+									</td>
+								</tr>
+								<tr>
+									<td>Recommending Authority <input type="text"
+										placeholder="Recommending Authority" class="recomded"></td>
+									<td><input type="file">
+										<div class="claer"></div>Signature of the Applicant</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="leave"><label>Leave credit
+											available</label><input type="text" placeholder="Leave credit">
+										<input type="text" placeholder="Leave credit"> <input
+										type="checkbox" placeholder="Leave credit"> <label>Leave
+											granted with Pay/without pay</label></td>
+								</tr>
+								<tr>
+									<td colspan="2" class="leave"><label>No.of times
+											availed during the year</label><input type="text"
+										placeholder="No.of times"> <input type="text"
+										placeholder="No.of times"> <input type="checkbox">
+										<label>Leave not granted</label></td>
+								</tr>
+								<tr>
+									<td colspan="2" class="leave_1"><label>Personnel
+											Officer</label><input type="text" placeholder="Personnel Officer"><label>
+											Date</label><input type="date" class="small_date"> <label>Sanctioning
+											Authority</label><input type="text" placeholder="Sanctioning">
+										<label>Date</label><input type="date" class="small_date"></td>
+								</tr>
+								<tr>
+									<td colspan="2">(For the Applicant)</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="table_list">
+										<ul>
+											<li class="table_name">Name</li>
+											<li><input type="text" class="particular_1"
+												placeholder="Enter Name "></li>
+											<li class="table_name">Emp.No.</li>
+											<li><input type="text" class="particular_1"
+												placeholder="Enter Emp.No."></li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="table_list">
+										<ul>
+											<li class="table_name">Designation</li>
+											<li><input type="text" class="particular_1"
+												placeholder="Enter Designation"></li>
+											<li class="table_name">Dept./Section</li>
+											<li><input type="text" class="particular_1"
+												placeholder="Enter Dept./Section"></li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="emp_no"><label>You have
+											been granted</label><input type="text" placeholder="Granted">
+										<label> day earned /sick leave from</label> <input type="text"><label>to</label><input
+										type="text"></td>
+								</tr>
+								<tr>
+									<td>upon your request dated</td>
+									<td><input type="date"></td>
+								</tr>
+								<tr>
+									<td colspan="2" class="emp_no_1"><label>You have
+											to your credit</label><input type="text" placeholder="Credit"><label>days
+											earned leave and</label><input type="text" placeholder="Days Earned"><label>
+											days Sick leave</label> <input type="text"
+										placeholder="Days Sick Leave"></td>
+								</tr>
+								<tr>
+									<td>after account for the sanctioned leave</td>
+									<td><input type="text" placeholder="Sanctioned Leave"></td>
+								</tr>
+								<tr>
+									<td colspan="2" class="emp_no_1"><label>Your
+											request dated</label><input type="date"><label> was
+											considered but leave not granted due to exigencies of work. </label></td>
+								</tr> -->
+					<tr>
+						<td colspan="3"><div class="table_right">
+								<!----------/// ADD USER ----------->
+								<!-- <div class="Logged_User_tab_color add_user_js add_user_bg">SAVE</div> -->
+								<input type="button"
+									class="Logged_User_tab_color add_user_js add_user_bg"
+									value="APPROVE" onclick="proceedTheForm('accept')">
+								<!----------/// ADD USER END -------->
+								<!----------/// User List ----------->
+								<!--   <div class="Logged_User_tab  onclick">CANCEL</div> -->
+								<input type="button" class="Logged_User_tab  onclick"
+									value="REJECT" onclick="proceedTheForm('reject')">
+								<!----------/// User List END -------->
+
+							</div></td>
+					</tr>
+
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+</body>
+</html>

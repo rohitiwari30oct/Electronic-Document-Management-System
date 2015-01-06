@@ -1,0 +1,745 @@
+
+#mainform{
+    width:960px;
+    margin:20px auto;
+    padding-top:20px;
+    font-family:verdana;
+    display:block;
+}
+#contactdiv h2{
+    margin-left: 65px;
+}
+#contactdiv h3{
+    font-size:18px;
+    text-align:center;
+}
+#contactdiv_3 h2{
+    margin-left: 65px;}
+	
+	#contactdiv_77 h2{
+    margin-left: 65px;}
+#contactdiv_4 h2{
+    margin-left: 65px;}
+#contactdiv_5 h2{
+    margin-left: 65px;}
+#contactdiv_6 h2{
+    margin-left: 65px;}
+#contactdiv_66 h2{
+    margin-left: 65px;}
+#contactdiv_3 h3{
+    font-size:18px;
+    text-align:center;
+}
+#contactdiv_6 h3{
+    font-size:18px;
+    text-align:center;
+}
+#contactdiv_66 h3{
+font-size: 18px;
+text-align: left;
+font-family: monospace;
+font-weight: bold;
+margin: 0px;
+/* margin-bottom: 6px; */
+border-bottom: 1px solid #CECECE;
+padding-bottom: 8px;
+/* margin-bottom: 0px; */
+margin-bottom: 10px;
+
+}
+
+#contactdiv_77 h3{
+   font-size: 15px;
+text-align: center;
+margin: 0PX;
+}
+
+#contactdiv_4 h3{
+    font-size:18px;
+    text-align:center;
+}
+#contactdiv_5 h3{
+    font-size:18px;
+    text-align:center;
+}
+#onclick{
+
+}
+#contactdiv b{
+    font-size:18px;
+}
+#contactdiv_3 b{
+    font-size:18px;
+}
+#contactdiv_4 b{
+    font-size:18px;
+}
+#contactdiv_5 b{
+    font-size:18px;
+}
+#contactdiv_6 b{
+    font-size:18px;
+}
+#contactdiv_66 {
+    font-size:18px;
+}
+#popup{
+    padding-top:80px;
+}
+.form{
+    border-radius:2px;
+    padding:20px 30px;
+    box-shadow:0 0 15px;
+    font-size:14px;
+    font-weight:bold;
+    width:350px;
+    margin:20px 250px 0 35px;
+    float:left;
+}
+
+#contactdiv  input[type=text]{
+    width:100%;
+    height:16px;
+    margin-top:5px;
+    border:1px solid #999;
+    border-radius:3px;
+    padding:5px;margin-bottom: 8px;
+}
+#contactdiv_3{
+    width:100%;
+    height:35px;
+    margin-top:5px;
+    border:1px solid #999;
+    border-radius:3px;
+    padding:5px;
+}
+#contactdiv_4 input[type=text]{
+    width:100%;
+    height:35px;
+    margin-top:5px;
+    border:1px solid #999;
+    border-radius:3px;
+    padding:5px;
+}
+
+#contactdiv_77  input[type=text]{
+    width:100%;
+    height:35px;
+    margin-top:5px;
+    border:1px solid #999;
+    border-radius:3px;
+    padding:5px;
+}
+
+
+#contactdiv_5  input[type=text]{
+    width:100%;
+    height:35px;
+    margin-top:5px;
+    border:1px solid #999;
+    border-radius:3px;
+    padding:5px;
+}
+#contactdiv_6  input[type=text]{
+    width:100%;
+    height:35px;
+    margin-top:5px;
+    border:1px solid #999;
+    border-radius:3px;
+    padding:5px;
+}
+#contactdiv_66  input[type=text]{
+ width: 100%;
+height: 16px;
+margin-top: 5px;
+border: 1px solid #999;
+border-radius: 3px;
+padding: 5px;
+margin-bottom: 14px;
+}	
+#contactdiv_3  select{
+    width:100%;
+    height:35px;
+    margin-top:5px;
+    border:1px solid #999;
+    border-radius:3px;
+    padding:5px;margin-bottom: 13px;
+}
+
+#contactdiv_77  select{
+    width:100%;
+    height:35px;
+    margin-top:5px;
+    border:1px solid #999;
+    border-radius:3px;
+    padding:5px;margin-bottom: 13px;
+}
+
+#contactdiv_4  select{
+    width:100%;
+    height:35px;
+    margin-top:5px;
+    border:1px solid #999;
+    border-radius:3px;
+    padding:5px;margin-bottom: 13px;
+}
+#contactdiv_5  select{
+    width:100%;
+    height:35px;
+    margin-top:5px;
+    border:1px solid #999;
+    border-radius:3px;
+    padding:5px;margin-bottom: 13px;
+}
+#contactdiv_6  select{
+    width:100%;
+    height:35px;
+    margin-top:5px;
+    border:1px solid #999;
+    border-radius:3px;
+    padding:5px;margin-bottom: 13px;
+}
+#contactdiv_66  select{
+    width:100%;
+    height:35px;
+    margin-top:5px;
+    border:1px solid #999;
+    border-radius:3px;
+    padding:5px;margin-bottom: 13px;
+}
+#contactdiv input[type=button]{
+cursor: default !important;
+font-size: 11px;
+font-weight: bold;
+height: 29px;
+line-height: 27px;
+margin: 0 16px 0 0;
+min-width: 72px;
+outline: 0;
+padding: 0 8px;
+}
+
+#contactdiv66 input[type=button]{
+background: #0878A1;
+border: 1px solid white;
+font-family: verdana;
+/* font-Weight: bold; */
+font-size: 15px;
+color: white;margin-left: 41px !important;
+width: 31%;
+margin-right: 23PX;
+margin: 0 auto;
+margin-top: 11PX;
+outline: 0px;
+cursor: pointer;position: relative;
+}
+
+#contactdiv_3 input[type=button]{
+background: #0878A1;
+border: 1px solid white;
+font-family: verdana;
+/* font-Weight: bold; */
+font-size: 15px;
+color: white;
+width: 31%;
+margin-right: 23PX;
+margin: 0 auto;
+margin-top: 11PX;
+outline: 0px;
+cursor: pointer;
+}
+
+#contactdiv_5 input[type=button]{
+background: #0878A1;
+border: 1px solid white;
+font-family: verdana;
+/* font-Weight: bold; */
+font-size: 15px;
+color: white;
+width: 31%;
+margin-right: 23PX;
+margin: 0 auto;
+margin-top: 11PX;
+outline: 0px;
+cursor: pointer;
+}
+#contactdiv_6 input[type=button]{
+cursor: default;
+font-size: 11px;
+font-weight: bold;
+height: 29px;
+line-height: 27px;
+margin: 0 16px 0 0;
+min-width: 72px;
+outline: 0;
+padding: 0 8px;
+}
+#contactdiv_66 input[type=button]{
+cursor: default;
+font-size: 11px;
+font-weight: bold;
+height: 29px;
+line-height: 27px;
+margin: 0 16px 0 0;
+min-width: 72px;
+outline: 0;
+padding: 0 8px;
+}
+#contactdiv_77 input[type=button]{
+cursor: default;
+font-size: 11px;
+font-weight: bold;
+height: 29px;
+line-height: 27px;
+margin: 0 16px 0 0;
+min-width: 72px;
+outline: 0;
+padding: 0 8px;
+}
+
+
+
+#contactdiv_4 input[type=button]{
+  background: #0878A1;
+border: 1px solid white;
+font-family: verdana;
+/* font-Weight: bold; */
+font-size: 15px;
+color: white;
+width: 31%;
+margin-right: 23PX;
+margin: 0 auto;
+margin-top: 11PX;
+outline: 0px;
+cursor: pointer;
+}
+#contactdiv_5 input[type=button]{
+background: #0878A1;
+border: 1px solid white;
+font-family: verdana;
+/* font-Weight: bold; */
+font-size: 15px;
+color: white;
+width: 31%;
+margin-right: 23PX;
+margin: 0 auto;
+margin-top: 11PX;
+outline: 0px;
+cursor: pointer;
+padding-top: 7px;
+padding-bottom: 7px;
+border-radius: 2px;
+margin: 0 auto;margin-left: 41px !important;
+}
+
+
+#contactdiv_4 input[type=file]{
+	padding-bottom: 15px;
+	
+	}
+	#contactdiv_77 input[type=file]{
+	padding-bottom: 15px;
+	
+	}
+	
+	#contactdiv_5 input[type=file]{
+	padding-bottom: 15px;
+	
+	}
+	#contactdiv_6 input[type=file]{
+	border: 1px solid #ccc;
+    padding: 7px;
+	
+	}
+		#contactdiv_66 input[type=file]{
+	border: 1px solid #ccc;
+    padding: 7px;
+	
+	}
+#contactdiv textarea{
+    width:100%;
+    height: 58px;
+    margin-top:5px;
+    border-radius:3px;
+    padding:5px;
+    resize:none;
+	font-family: verdana;
+text-align: justify;margin-bottom: 16px;
+}
+#contactdiv_3 textarea{
+    width:100%;
+    height:80px;
+    margin-top:5px;
+    border-radius:3px;
+    padding:5px;
+    resize:none;
+	font-family: verdana;
+text-align: justify;
+}
+#contactdiv_77 textarea{
+    width:100%;
+    height:80px;
+    margin-top:5px;
+    border-radius:3px;
+    padding:5px;
+    resize:none;
+	font-family: verdana;
+text-align: justify;
+}
+#contactdiv_4 textarea{
+    width:100%;
+    height:80px;
+    margin-top:5px;
+    border-radius:3px;
+    padding:5px;
+    resize:none;
+	font-family: verdana;
+text-align: justify;
+}
+#contactdiv_5 textarea{
+    width:100%;
+    height:80px;
+    margin-top:5px;
+    border-radius:3px;
+    padding:5px;
+    resize:none;
+	font-family: verdana;
+text-align: justify;
+}
+#contactdiv_6 textarea{
+    width:100%;
+    height:80px;
+    margin-top:5px;
+    border-radius:3px;
+    padding:5px;
+    resize:none;
+	font-family: verdana;
+text-align: justify;
+}
+#contactdiv_66 textarea{
+    width:100%;
+    height:80px;
+    margin-top:5px;
+    border-radius:3px;
+    padding:5px;
+    resize:none;
+	font-family: verdana;
+text-align: justify;
+}
+#contactdiv{ 
+position: absolute;
+top: 0px;
+left: 0px;
+height: 100%;
+width: 100%;
+background: rgba(0, 0, 0, 0.25);
+display: none;
+z-index: 99999;
+position: fixed;
+/* bottom: 0px; */
+
+}
+#contactdiv_3{ 
+    opacity:0.92; 
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    background: #000;
+    display: none;
+	z-index: 99999;
+
+}
+#contactdiv_4{ 
+    opacity:0.92; 
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    background: #000;
+    display: none;
+	z-index: 99999;
+
+}
+#contactdiv_5{ 
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+background: rgba(0, 0, 0, 0.25);
+    display: none;
+	z-index: 99999;
+
+}
+#contactdiv_6{ 
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+background: rgba(0, 0, 0, 0.25);
+    display: none;
+	z-index: 99999;
+
+}
+#contactdiv_66{ 
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+background: rgba(0, 0, 0, 0.25);
+    display: none;
+	z-index: 99999;
+
+}
+#contactdiv_77{ 
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+background: rgba(0, 0, 0, 0.25);
+    display: none;
+	z-index: 99999;
+
+}
+#logindiv{
+    opacity:0.92; 
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    background: #000;
+    display: none;
+}
+
+#login,#contact{   
+    width:350px;
+    margin:0px;
+    background-color:white;
+    font-family:verdana;
+    position: relative;
+   border: 5px solid #DEDEDE;
+}
+.img{
+    float: right;
+    margin-top: -35px;
+    margin-right: -37px;
+}
+#contact{
+    left: 50%;
+    top: 50%;
+    margin-left:-210px;
+    margin-top:-255px;
+}
+#login{
+    left: 50%;
+    top: 50%;
+    margin-left:-210px;
+    margin-top:-158px;
+}
+/*---------------------Right side advertizement's css-----------------------*/
+#formget{
+    float:right;
+}
+/*------------------- RESPONSIVE WEB CSS ------------------*/
+/* All Smartphones in portrait and landscape ----------- */
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+/* YOUR STYLE GOES HERE */
+#content{ background:#f00;}
+}
+
+/* All Smartphones in landscape ----------- */
+@media only screen 
+and (min-width : 321px) {
+/* YOUR STYLE GOES HERE */
+}
+
+/* All Smartphones in portrait ----------- */
+@media only screen 
+and (max-width : 479px) {
+/* YOUR STYLE GOES HERE */
+}
+
+/***** ANDROID DEVICES *****/
+
+/* Android 240 X 320 ----------- */
+@media only screen
+and (max-width: 241px){
+/* YOUR STYLE GOES HERE */
+}
+
+/* Android(Samsung Galaxy) in portrait 380 X 685 ----------- */
+@media only screen
+and (min-width: 375px)
+and (max-width: 385px){
+/* YOUR STYLE GOES HERE */
+}
+
+/* Android(Samsung Galaxy) in Landscape 685 X  380 ----------- */
+@media only screen
+and (min-width: 680px)
+and (max-width: 690px){
+/* YOUR STYLE GOES HERE */
+}
+
+/* Kindle Portrait 600 X 1024 ----------- */
+@media only screen
+and (min-width: 595px)
+and (max-width: 610px){
+/* YOUR STYLE GOES HERE */
+}
+
+/* Kindle Landscape 1024 X 600 ----------- */
+@media only screen
+and (min-width: 1000px)
+and (max-width: 1030px){
+/* YOUR STYLE GOES HERE */
+#content{ background:#f00;}
+}
+
+/***** ALL GENERATION IPADS *****/
+
+/* iPads in portrait and landscape----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) {
+/* YOUR STYLE GOES HERE */  
+.statical_graph{ background:#f00;}
+}
+
+/* iPad in landscape----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape) {
+/* YOUR STYLE GOES HERE */
+.statical_graph{ background:#f00;}
+}
+
+/* iPad in portrait----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait){
+/* YOUR STYLE GOES HERE */
+.statical_graph{ background:#f00;}
+}
+
+
+
+/***** Retina IPAD 3 & 4*****/
+
+/* Retina iPad 3 & 4 in portrait and landscape----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px)
+and (-webkit-min-device-pixel-ratio: 2){
+/* YOUR STYLE GOES HERE */
+.statical_graph{ background:#f00;}
+}
+
+/* Retina iPad 3 & 4 in landscape----------- */
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape)
+and (-webkit-min-device-pixel-ratio: 2){
+/* YOUR STYLE GOES HERE */
+.statical_graph{ background:#f00;}
+}
+
+/* Retina iPad 3 & 4 in landscape----------- */
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait)
+and (-webkit-min-device-pixel-ratio: 2){
+/* YOUR STYLE GOES HERE */
+.statical_graph{ background:#f00;}
+}
+
+
+
+
+/***** IPAD 1 & 2 (ALSO IPAD MINI)*****/
+
+/* iPad 1 & 2 in portrait and landscape ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (-webkit-min-device-pixel-ratio: 1){
+/* YOUR STYLE GOES HERE */
+}
+
+/* iPad 1 & 2 in landscape ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape)
+and (-webkit-min-device-pixel-ratio: 1)  {
+/* YOUR STYLE GOES HERE */
+}
+
+/* iPad 1 & 2 in portrait ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) 
+and (-webkit-min-device-pixel-ratio: 1){
+/* YOUR STYLE GOES HERE */
+}
+
+/* Desktops and laptops ----------- */
+@media only screen 
+and (min-width : 1224px) {
+/* YOUR STYLE GOES HERE */
+}
+
+/* Large screens ----------- */
+@media only screen 
+and (min-width : 1824px) {
+/* YOUR STYLE GOES HERE */
+}
+
+/* Only iPhone 4 ----------- */
+@media
+only screen and (-webkit-min-device-pixel-ratio : 1.5),
+only screen and (min-device-pixel-ratio : 1.5) {
+/* YOUR STYLE GOES HERE */
+}
+.form >P{margin: 0PX;
+margin-top:5PX;margin-bottom: 5px;
+text-align:left;font-weight: normal !important;}
+
+
+
+.form > h3 {
+font-size: 18px !important;
+text-align: left !important;
+font-family: monospace!important;
+font-weight: bold!important;
+margin: 0px;
+/* margin-bottom: 6px; */
+border-bottom: 1px solid #CECECE!important;
+padding-bottom: 8px!important;
+/* margin-bottom: 0px; */
+margin-bottom: 10px!important;
+}
+.check_box_77{margin-top: 8px !important;margin-bottom: 15px !important;}
+.attachment_file{width: 333px !important;}
+.form_bottom_space{margin-bottom: 14px !important;}
+

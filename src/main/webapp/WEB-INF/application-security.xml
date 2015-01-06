@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ldap="http://www.springframework.org/schema/ldap"
+	xmlns="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/ldap http://www.springframework.org/schema/ldap/spring-ldap-2.0.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+<http pattern="/index" security="none"></http>
+
+<http auto-config="true" use-expressions="true">
+   <intercept-url pattern="/index" access="permitAll" />
+ <!--   <intercept-url pattern="/welcome" access="hasRole('user') or hasRole('admin')" />
+   <intercept-url pattern="/welcome/*" access="hasRole('user') or hasRole('admin')" />
+   <intercept-url pattern="/accountSettings.getPassword" access="hasRole('user') or hasRole('admin')" />
+   <intercept-url pattern="/createAlbum.*" access="hasRole('user')" />
+   <intercept-url pattern="/menuUser.*" access="hasRole('user')" />
+   <intercept-url pattern="/headerAll.*" access="hasRole('user') or hasRole('admin')" />
+   <intercept-url pattern="/showAlbum.*" access="hasRole('user')" /> -->
+  
+   <form-login login-page="/index" default-target-url="/welcome" authentication-failure-url= "/index"/>
+       
+   <logout logout-success-url="/logout" delete-cookies="JSESSIONID"/>
+  
+    <!-- enable remember me -->
+   <!--  <remember-me token-validity-seconds="1209600" data-source-ref="dataSource" /> -->
+   
+    <!-- enable session management -->
+    <!-- <session-management >
+        <concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>
+    </session-management>
+   -->
+</http>
+
+
+   
+<!--  
+
+<security:http auto-config="true" use-expressions="true">
+   <security:intercept-url pattern="/index" access="permitAll" />
+
+   <security:form-login login-page="/index" default-target-url="/welcome" authentication-failure-url= "/failtologin"/>
+        
+   <security:logout logout-success-url="/logout" delete-cookies="JSESSIONID"/>
+   
+    enable remember me 
+    <security:remember-me token-validity-seconds="1209600" data-source-ref="dataSource" />
+   
+    enable session management
+    <security:session-management >
+        <security:concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>
+    </security:session-management>
+   
+</security:http> -->
+<!--           <ldap-server
+    url="ldap://192.168.1.111:389"
+    manager-dn="CN=Administrator,CN=users,DC=silvereye,DC=co"
+    manager-password="##DJ##1890"
+/>
+<ldap:ldap-template id="ldapTemplate" />
+      <security:authentication-manager>
+         <security:ldap-authentication-provider 
+           user-search-filter="(uid={0})"
+           user-search-base="ou=users"
+           group-search-filter="(uniqueMember={0})"
+           group-search-base="ou=Users"
+           group-role-attribute="cn"
+           role-prefix="ROLE_">
+         </security:ldap-authentication-provider>
+ </security:authentication-manager>
+  
+ <security:ldap-server url="ldap://192.168.1.199:389/dc=avi-oil,dc=com" manager-dn="cn=admin,dc=avi-oil,dc=com" manager-password="redhat" /> 
+    --> 
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider ref="ldapAuthProvider" />
+    </authentication-manager>
+     
+    <beans:bean id="ldapContextSource" class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
+        <beans:constructor-arg value="ldap://192.168.1.199:389/dc=avi-oil,dc=com"/>
+        <beans:property name="userDn" value="cn=admin,dc=avi-oil,dc=com"/>
+        <beans:property name="password" value="redhat"/>
+    </beans:bean>
+     <beans:bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
+        <beans:constructor-arg ref="ldapContextSource" />
+    </beans:bean>
+    <beans:bean id="ldapAuthProvider" class="org.springframework.security.ldap.authentication.LdapAuthenticationProvider">
+        <beans:constructor-arg>
+            <beans:bean class="org.springframework.security.ldap.authentication.BindAuthenticator">
+                <beans:constructor-arg ref="ldapContextSource"/>
+                <beans:property name="userDnPatterns">
+                    <beans:list>
+                        <beans:value>uid={0},ou=Users</beans:value>
+                    </beans:list>
+                </beans:property>
+            </beans:bean>
+        </beans:constructor-arg>
+        <beans:constructor-arg>
+            <beans:bean class="org.springframework.security.ldap.userdetails.DefaultLdapAuthoritiesPopulator">
+                <beans:constructor-arg ref="ldapContextSource"/>
+                <beans:constructor-arg value="ou=Users"/>
+                <beans:property name="groupRoleAttribute" value="cn"/>
+            </beans:bean>
+        </beans:constructor-arg>
+    </beans:bean>
+ 
+    <global-method-security pre-post-annotations="enabled"/>
+</beans:beans>

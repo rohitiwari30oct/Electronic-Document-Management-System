@@ -1,0 +1,99 @@
+<!-- <?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:ldap="http://www.springframework.org/schema/ldap"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/ldap http://www.springframework.org/schema/ldap/spring-ldap-2.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<context:component-scan base-package="edms">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<jdbc:embedded-database type="HSQL" id="dataSource" />
+	<bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="emf">
+	<property name="packagesToScan" value="edms.entity" />
+	<property name="dataSource" ref="dataSource" />
+	<property name="jpaProperties">
+		<props>
+			<prop key="hibernate.show_sql">true</prop>
+			<prop key="hibernate.hbm2ddl.auto">create</prop>
+		</props>
+	</property>
+	<property name="persistenceProvider">
+		<bean class="org.hibernate.jpa.HibernatePersistenceProvider" />
+	</property>
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean class="org.springframework.orm.jpa.JpaTransactionManager"
+		id="transactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<jpa:repositories base-package="edms.repository" />
+ 	<ldap:context-source
+          url="ldap://192.168.1.111:389"
+          base="CN=Users,DC=silvereye,DC=co"
+          username="cn=administrator"
+          password="##DJ##18901" />
+
+   <ldap:ldap-template id="ldapTemplate" />
+
+   <bean id="personRepo" class="edms.helloworld.PersonRepoImpl">
+      <property name="ldapTemplate" ref="ldapTemplate" />
+   </bean>
+	<import resource="security.xml" />
+
+	<task:annotation-driven />
+	
+	<beans profile="dev">
+		<import resource="database-dev.xml"/>
+	</beans>
+
+	<beans profile="prod">
+		<import resource="database-prod.xml"/>
+	</beans>
+
+<bean id="contextSource"
+        class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
+  <constructor-arg value="ldap://monkeymachine:389/dc=springframework,dc=org"/>
+  <property name="userDn" value="cn=manager,dc=springframework,dc=org"/>
+  <property name="password" value="password"/>
+</bean>
+
+<bean id="ldapAuthProvider"
+    class="org.springframework.security.ldap.authentication.LdapAuthenticationProvider">
+ <constructor-arg>
+   <bean class="org.springframework.security.ldap.authentication.BindAuthenticator">
+     <constructor-arg ref="contextSource"/>
+     <property name="userDnPatterns">
+       <list><value>uid={0},ou=people</value></list>
+     </property>
+   </bean>
+ </constructor-arg>
+ <constructor-arg>
+   <bean
+     class="org.springframework.security.ldap.userdetails.DefaultLdapAuthoritiesPopulator">
+     <constructor-arg ref="contextSource"/>
+     <constructor-arg value="ou=groups"/>
+     <property name="groupRoleAttribute" value="ou"/>
+   </bean>
+ </constructor-arg>
+</bean>
+<bean id="userSearch"
+    class="org.springframework.security.ldap.search.FilterBasedLdapUserSearch">
+  <constructor-arg index="0" value=""/>
+  <constructor-arg index="1" value="(uid={0})"/>
+  <constructor-arg index="2" ref="contextSource" />
+</bean>
+</beans>
+ -->

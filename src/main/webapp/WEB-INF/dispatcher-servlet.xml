@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		 http://www.directwebremoting.org/schema/spring-dwr
+        http://www.directwebremoting.org/schema/spring-dwr-3.0.xsd">
+        
+    <dwr:configuration /> 
+	<mvc:annotation-driven />
+	<context:component-scan base-package="edms" />
+	<mvc:resources location="/WEB-INF/view/jsp/css/" mapping="css/**"/>
+	<mvc:resources location="/WEB-INF/view/jsp/images/" mapping="images/**"/>
+	<mvc:resources location="/WEB-INF/view/jsp/js/" mapping="js/**"/>
+	<mvc:resources mapping="static/**" location="/WEB-INF/view/jsp/static/" />
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tiles/tiles.xml</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.tiles3.TilesView" />
+	</bean>
+	
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+    <property name="basename" value="classpath:messages" />
+    <property name="defaultEncoding" value="UTF-8" />
+</bean>
+
+<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="ignoreUnresolvablePlaceholders" value="true"/>
+    <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+    <property name="searchSystemEnvironment" value="true"/>
+    <property name="locations">
+        <list>
+           <value>/WEB-INF/jdbc.properties</value>
+           <value>classpath:*.properties</value>
+        </list>
+    </property>
+</bean>
+	
+	<bean id="webContextFactory" class="org.directwebremoting.WebContextFactory"></bean>
+</beans>

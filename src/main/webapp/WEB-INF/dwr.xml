@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC
+    "-//GetAhead Limited//DTD Direct Web Remoting 3.0//EN"
+    "http://directwebremoting.org/schema/dwr30.dtd">  
+    <dwr>
+      <allow>
+        <create creator="new" javascript="ReverseClass" scope="application">
+          <param name="class" value="edms.chatdwr.ReverseClass"></param>
+        </create>
+        <convert match="edms.chatdwr.Data" converter="bean"></convert>
+      </allow>
+    </dwr>

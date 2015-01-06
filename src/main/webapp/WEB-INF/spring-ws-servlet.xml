@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:web-services="http://www.springframework.org/schema/web-services"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/web-services http://www.springframework.org/schema/web-services/web-services.xsd">
+<!-- 
+@Bean(name = "countries")
+	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema countriesSchema) {
+		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+		wsdl11Definition.setPortTypeName("CountriesPort");
+		wsdl11Definition.setLocationUri("/ws");
+		wsdl11Definition.setTargetNamespace("http://spring.io/guides/gs-producing-web-service");
+		wsdl11Definition.setSchema(countriesSchema);
+		return wsdl11Definition;
+	}
+
+	@Bean(name="documentFile")
+	public DefaultWsdl11Definition defaultWsdlDefinition(XsdSchema documentFileSchema){
+		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+		wsdl11Definition.setPortTypeName("DocumentFilePort");
+		wsdl11Definition.setLocationUri("/ws");
+		wsdl11Definition.setTargetNamespace("http://www.edms.com/documentFile");
+		wsdl11Definition.setSchema(documentFileSchema);
+		return wsdl11Definition;
+	}
+
+	@Bean
+	public XsdSchema countriesSchema() {
+		return new SimpleXsdSchema(new ClassPathResource("countries.xsd"));
+	}
+	@Bean
+	public XsdSchema documentFileSchema() {
+		return new SimpleXsdSchema(new ClassPathResource("documentFile.xsd"));
+	} 
+	<web-services:static-wsdl id="countries" location="countries.wsdl"/>-->
+	
+</beans>

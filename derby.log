@@ -1,0 +1,30 @@
+----------------------------------------------------------------
+2014-11-10 05:55:13.104 GMT:
+ Booting Derby version The Apache Software Foundation - Apache Derby - 10.5.3.0 - (802917): instance a816c00e-0149-9845-35e4-00000b650e60
+on database directory D:\FinalEDMS\java-blog-aggregator-master\repository\version\db  
+
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+2014-11-10 05:55:13.878 GMT:
+ Booting Derby version The Apache Software Foundation - Apache Derby - 10.5.3.0 - (802917): instance 888c4022-0149-9845-35e4-00000b650e60
+on database directory D:\FinalEDMS\java-blog-aggregator-master\repository\workspaces\edms\db  
+
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+2014-11-10 05:55:14.413 GMT:
+ Booting Derby version The Apache Software Foundation - Apache Derby - 10.5.3.0 - (802917): instance 6965c036-0149-9845-35e4-00000b650e60
+on database directory D:\FinalEDMS\java-blog-aggregator-master\repository\workspaces\security\db  
+
+Database Class Loader started - derby.database.classpath=''
+
+2014-11-10 05:55:14.728 GMT:
+Shutting down instance 6965c036-0149-9845-35e4-00000b650e60
+----------------------------------------------------------------
+
+2014-11-10 05:55:14.851 GMT:
+Shutting down instance 888c4022-0149-9845-35e4-00000b650e60
+----------------------------------------------------------------
+
+2014-11-10 05:55:14.942 GMT:
+Shutting down instance a816c00e-0149-9845-35e4-00000b650e60
+----------------------------------------------------------------

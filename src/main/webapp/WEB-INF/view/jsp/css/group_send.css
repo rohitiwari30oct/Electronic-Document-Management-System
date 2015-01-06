@@ -1,0 +1,32 @@
+@charset "utf-8";
+/* CSS Document */
+.main_div_user1{width: 724px;background: #E5E4E4;/* left: 34%; */float: left;position: relative;/* margin-top: 100px; */border: 1px solid #ccc;height: 232px;}
+.left_part1{ float: left;width: 168px;padding: 5px;background: #fff;border: 1px solid #ccc;border-left: none;border-bottom:none;min-height:192px;}
+.right_part1{ float: left;width: 481px;/* padding-bottom: 100px; *//* height: 398px; */background: #fff;border: 1px solid #ccc;border-right: none;
+border-bottom: none;min-height: 200px; }
+.mid_part1{ width:43px;  float:left; height:400px; margin-left:10px; margin-right:10px;}
+.go_here1,.come_here1{ padding: 6px;margin-top: 13px;}
+.clear1{ clear:both;}
+.left_user1{padding: 6px;border: 1px solid #f00;margin-bottom: 10px;}
+.go_right_to_left1{/* padding: 5px; */border-top: 1px solid #347229;/* margin: 5px; */border-bottom: 1px solid #347229;background: #EDEDED;padding-bottom: 4px;padding-top: 4px;}
+.come_here1{}
+.right_green1{ background:#24462C; color:#fff;}
+.active_go_right1{  color:#fff;}
+.new_11,.right_text1{font-family: verdana;font-size: 14px;padding: 5px;}
+.user_top_tap1{}
+.user_tab1,.roles_tab1{float: left;font-family: verdana;font-size: 14px;padding: 6px;}
+.role_tab_content1{ background:#f00;}
+.role_tab_content1{ display:none;}
+.user_tab_content1{}
+.active_user1,.active_roles1{ background:#f00; color:#fff;}
+.user_top_heading1{}
+.close_user_box1{float: right;padding: 5px;font-family: verdana; cursor:pointer;}
+table.user_table1{ table-layout:fixed;}
+table.user_table1 >tbody >tr.user_heading_11 >td{text-align: center;padding: 3px;border-bottom: 1px solid #ccc;background: #F0ECEC;width: 2px;
+padding-top: 7px;padding-bottom: 7px;border-right: 1px solid #ccc;}
+table.user_table1 >tbody >tr >td{
+text-align: center;}
+.user_table_heading1{width: 181px;text-align: left !important;padding-left: 20px !important;}
+.go_text1{width: 184px !important;padding-left: 17px; padding-left: 17px;text-align: left !important;}
+table.right_part_11 >tr >td {width: 68px;text-align: center; padding-bottom:4px; padding-top:4px;}
+
