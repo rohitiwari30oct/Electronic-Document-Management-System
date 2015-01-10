@@ -1,3 +1,5 @@
+
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -176,35 +178,7 @@ function getActivitiDiagramsPage(){
 	        });
 	}
 </script>
-<script type="text/javascript">
-	function getDocProperties(folderPath) {
-	//	alert(folderPath);
-	/* 	$.ajax({
-			type : "GET",
-			url : "${pageContext.request.contextPath}/getFileSystem",
-			data : {
-				'path' : folderPath
-			},
-			contentType : "application/json",
-			async : false,
-			success : function(data) {
-				$("#fileSystem").html(data);
-			}
-		}); */
 
-
-		/*  jQuery.get("myDocument", function( data ) {
-			 $( "#variedPagesHere" ).html( data );
-			});  */
-		jQuery.get("getDocProperties", 
-				 {
-			'path' : folderPath
-		},
-				function( data ) {
-	         $( ".right_icon_main" ).html( data );
-	        });
-	}
-</script>
 
 
 
@@ -371,47 +345,47 @@ function getActivitiDiagramsPage(){
                         </div>
                         <div class="menu_right">
                                         <ul>
-                                                 <li>
-                                                    <a href="#" title="Home" id="fileSystem"  onclick="getPage(this.id)"><div class="home"></div> Home<div class="claer"></div></a> 
+                                                 <li data-tooltip="Home">
+                                                    <a href="#" id="fileSystem"  onclick="getPage(this.id)"><div class="home"></div> Home<div class="claer"></div></a> 
                                                  </li>
-                                                 <li> 
-                                                    <a href="#" title="Download"><div class="download"></div>Download</a>
+                                                 <li data-tooltip="Download"> 
+                                                    <a href="#"><div class="download"></div>Download</a>
                                                  </li>
-                                                 <li class="add_folder "> 
-                                                    <a href="#" title="Create"><div class="create"></div> CREATE</a> 
+                                                 <li class="add_folder " data-tooltip="Create"> 
+                                                    <a href="#"><div class="create"></div> CREATE</a> 
                                                  </li>
-                                                 <li class="folder_icon_1"> 
-                                                    <a href="#" title="Upload"><div class="upload"></div>UPLOAD</a>
+                                                 <li class="folder_icon_1" data-tooltip="Upload"> 
+                                                    <a href="#"><div class="upload"></div>UPLOAD</a>
                                                  </li>
                                                 <!--  <li > 
                                                     <a href="#" title="Create"><div class="create_doc"></div>CREATE</a>
                                                  </li> -->
-                                                 <li> 
-                                                   <a href="#" title="Edit"><div class="edit"></div>Edit</a> 
+                                                 <li data-tooltip="Rename" > 
+                                                   <a href="#"class="renameFolder"><div class="edit"></div>Rename</a> 
                                                  </li>
-                                                 <li class="share"> 
-                                                   <a href="#" title="Update"><div class="update"></div>SHARE</a> 
+                                                 <li class="share" data-tooltip="Share"> 
+                                                   <a href="#"><div class="update"></div>SHARE</a> 
                                                  </li>
-                                                <li class="delete_folder"> 
+                                                <li class="delete_folder"  data-tooltip="Delete"> 
                                                    <a href="#" title="Delete"><div class="delet"></div>DELETE</a> 
                                                 </li>
-                                                <li rel="tab22">
-                                                    <a href="#" id='userStatistics' title="Delete" onclick="getPage(this.id)"><div class="graph_user_1"></div>STATISTICS</a>
+                                                <li rel="tab22" data-tooltip="User Statistics">
+                                                    <a href="#" id='userStatistics' onclick="getPage(this.id)"><div class="graph_user_1"></div>STATISTICS</a>
                                                 </li>
-                                                <li>
-                                                   <a href="#" id='calender' title="Delete" onclick="getPage(this.id)"><div class="calender_user_1" ></div>CALENDAR</a>
+                                                <li data-tooltip="Calender" >
+                                                   <a href="#" id='calender'onclick="getPage(this.id)"><div class="calender_user_1" ></div>CALENDAR</a>
                                                 </li>
-                                                <li>
-                                                   <a href='#' title="ACTIVITY" onclick="getActivitiDiagramsPage()"><div class="contact_user_1"></div>ACTIVITY</a>
+                                                <li data-tooltip="Activity">
+                                                   <a href='#' onclick="getActivitiDiagramsPage()"><div class="contact_user_1"></div>ACTIVITY</a>
                                                 </li>
-                                                <li>
-                                                   <a href="#" id='shared' title="Shared with me" onclick="getPage(this.id)"><div class="create_view"></div>SHARED</a>
+                                                <li data-tooltip="Shared with me">
+                                                   <a href="#" id='shared' onclick="getPage(this.id)"><div class="create_view"></div>SHARED</a>
                                                 </li>
-                                                <li>
-                                                   <a href="#" id='recently' title="Recently Accessed Documents" onclick="getPage(this.id)"><div class="recent_open"></div>RECENTLY</a>
+                                                <li data-tooltip="Recently Modified Documents">
+                                                   <a href="#" id='recently' onclick="getPage(this.id)"><div class="recent_open"></div>RECENTLY</a>
                                                 </li>
-                                                <li>
-                                                   <a href="#" id='trash' title="Trash" onclick="getPage(this.id)"><div class="my_doc"></div>RECYCLE</a>
+                                                <li data-tooltip="Trash" >
+                                                   <a href="#" id='trash'onclick="getPage(this.id)"><div class="my_doc"></div>RECYCLE</a>
                                                 </li>
                                       </ul>
                                    </div>
@@ -420,20 +394,36 @@ function getActivitiDiagramsPage(){
           
               <!---------------//// ADD GROUP USER POP UP ----------->
 <div id="contactdiv_6">
-	<form class="form" action="#" id="contact">
+
+  <form:form id="contact" class="form" method="post" action="uploadDocumentByJcr" commandName="fileupload" enctype="multipart/form-data">
 		<h3>Add New Documents</h3>
 		<p>
 			File Name: <span>*</span>
 		</p>
-		<input type="file" class="custom-file-input attachment_file">
+			<input class="custom-file-input attachment_file" type='file' id='file_browse' name="filedata" name="filedata" multiple  />
+        	<%-- <form:hidden path="filename" value="sdff"/>
+   			<form:hidden path="filedetails" value="sdf"/> --%>
+   			
+         	<input type="submit" value="Upload" class="upload" />
+         	<input type="button" value="Cancel" class="cancle" /> 
+        
+  </form:form> 
+ </div>
+
+<%-- 	<form class="form" action="#" id="contact">
+		<h3>Add New Documents</h3>
+		<p>
+			File Name: <span>*</span>
+		</p>
+		<input type="file" class="custom-file-input attachment_file" id='file_browse' name="filedata" multiple />
 		<div class="claer"></div>
 		<input type="checkbox" class="form_bottom_space" /><label>Notify
 			to users</label>
 		<div class="clear"></div>
 		<input type="button" id="send" value="Add" /> <input type="button"
 			id="cancel" value="Cancel" /> <br />
-	</form>
-</div>
+	</form> 
+</div>--%>
 <!-----------------/// ADD GROUP POP UP  END HERE ---------->
 
 

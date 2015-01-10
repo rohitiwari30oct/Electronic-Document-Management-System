@@ -1257,6 +1257,20 @@ z-index: 2;
 #contactdiv_66 {
 font-size: 18px;
 }
+#contactdiv_666 {
+position: absolute;
+top: 0px;
+left: 0px;
+height: 100%;
+width: 100%;
+background: rgba(0, 0, 0, 0.25);
+display: none;
+/*z-index: 99999;*/
+z-index: 2;
+}
+#contactdiv_666 {
+font-size: 18px;
+}
 #contactdiv_77 {
 position: absolute;
 top: 0px;
@@ -1289,6 +1303,26 @@ padding: 5px;
 margin-bottom: 14px;
 }
 #contactdiv_66 input[type=button] {
+cursor: default;
+font-size: 11px;
+font-weight: bold;
+height: 29px;
+line-height: 27px;
+margin: 0 16px 0 0;
+min-width: 72px;
+outline: 0;
+padding: 0 8px;
+}
+#contactdiv_666 input[type=text] {
+width: 100%;
+height: 16px;
+margin-top: 5px;
+border: 1px solid #999;
+border-radius: 3px;
+padding: 5px;
+margin-bottom: 14px;
+}
+#contactdiv_666 input[type=button] {
 cursor: default;
 font-size: 11px;
 font-weight: bold;
@@ -3535,7 +3569,7 @@ font-size: 12px;
 line-height: 1.2;
 display: block;
 margin: 0 auto;
-width: 80px; position:relative;top: 20px;
+width: 80px; position:relative;top:50px;
 }
 /* Directions */
 
@@ -3640,3 +3674,57 @@ border: 0px;
 border-radius: 3px;
 color: #FFFFFF;}
 .savePermissions{width: 95%;}
+
+data-tooltip="Work Flow"
+/*-------------------/// CSS FOR TOOLTIP STARED HERE ----------------*/
+/* Base styles for the element that has a tooltip */
+[data-tooltip], .tooltip {
+position: relative;
+cursor: pointer;
+}
+/* Base styles for the entire tooltip */
+[data-tooltip]:before, [data-tooltip]:after, .tooltip:before, .tooltip:after {
+position: absolute;
+visibility: hidden;
+-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+opacity: 0;
+-webkit-transition: opacity 0.2s ease-in-out,  visibility 0.2s ease-in-out,  -webkit-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+-moz-transition: opacity 0.2s ease-in-out,  visibility 0.2s ease-in-out,  -moz-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+transition: opacity 0.2s ease-in-out,  visibility 0.2s ease-in-out,  transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+-webkit-transform: translate3d(0, 0, 0);
+-moz-transform: translate3d(0, 0, 0);
+transform: translate3d(0, 0, 0);
+pointer-events: none;
+}
+/* Show the entire tooltip on hover and focus */
+[data-tooltip]:hover:before, [data-tooltip]:hover:after, [data-tooltip]:focus:before, [data-tooltip]:focus:after, .tooltip:hover:before, .tooltip:hover:after, .tooltip:focus:before, .tooltip:focus:after {
+visibility: visible;
+-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+opacity: 1;
+}
+/* Base styles for the tooltip's directional arrow */
+.tooltip:before, [data-tooltip]:before {
+z-index: 1001;
+border: 6px solid transparent;
+background: transparent;
+content: "";
+margin-top: 38px;
+margin-bottom: 0;
+border-top-color: transparent;
+border-bottom-color: #000;
+border-bottom-color: hsla(0, 73%, 43%, 0.9);
+margin-left: -8px;
+}
+/* Base styles for the tooltip's content area */
+.tooltip:after, [data-tooltip]:after {
+z-index: 1000;
+padding: 8px;
+/* width: 160px; */
+background-color: #000;
+background-color: hsla(0, 59%, 57%, 0.9);
+color: #fff;
+content: attr(data-tooltip);
+font-size: 12px;
+line-height: 1.2;}

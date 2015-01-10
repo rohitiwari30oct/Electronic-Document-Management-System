@@ -28,6 +28,6 @@ public class Config {
 	public static String JCR_USERNAME="admin";
 	public static String JCR_PASSWORD="admin";
 	public static String JCR_SYSTEM="jcr:system";
-	
+	public static String EDMS_DOMAIN="@avi-oil.com";
 	
 }

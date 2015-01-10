@@ -1,8 +1,12 @@
+<%@page import="edms.wsdl.File"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 
 
 <%List<Folder> folderList = (List<Folder>) request.getAttribute("folderList"); 
+
+List<File> fileList = (List<File>) request.getAttribute("fileList");
+System.out.println(fileList.size());
 String breadcum=(String)request.getAttribute("breadcum");
 Folder currentFolder=(Folder)request.getAttribute("currentFolder");
 String userid=(String)request.getAttribute("userid");
@@ -101,6 +105,7 @@ String userid=(String)request.getAttribute("userid");
 									%>
 								</ul>
 							</div>
+							  <input type="hidden" id="clickedFolder" value=""/>
 							<div class="clear"></div>
 							<div class="row_text middle_tab ">
 								<div class="white">
@@ -110,18 +115,18 @@ String userid=(String)request.getAttribute("userid");
 							</div>
 							<div class="claer"></div>
 							<div class="row_content">
-							<%-- 	<ul>
+								<ul>
 									<%
-									for (Folder folder : folderList) {
+									for (File file : fileList) {
 									%>
-									<li onclick="getDocProperties(this.id)"  class="select_box target" id="<%=folder.getFolderPath()%>"
-										ondblclick="getFileSystem(this.id)"><img src="images/ms_excel_big.png" />
-										<div class="clear"></div> <span><%=folder.getFolderName()%> </span></li>
+									<li onclick="getDocProperties(this.id)"  class="select_box target" id="<%=file.getFilePath()%>"
+										><img src="images/ms_excel_big.png" />
+										<div class="clear"></div> <span><%=file.getFileName()%> </span></li>
 									<%
 										}
 									%>
 									
-								</ul> --%>
+								</ul>
 							</div>
 						</div>
 						<!-------------------/// ROW FIRST CONTENT END HERE ----------------------->
@@ -386,7 +391,51 @@ String userid=(String)request.getAttribute("userid");
 
 				});
 				$("#contactdiv_66").css("display", "none");
-				alert($('#parentfolderName').val());
+				getDocProperties( $('#parentfolderName').val());
+			}
+		</script>
+	</form>
+</div>
+<div id="contactdiv_666">
+	<form class="form" action="#" id="contact">
+		<h3>Rename Folder</h3><p>
+			Folder name <span>*</span>
+		</p>
+		<input type="text" id="oldFolderName" value='<%=currentFolder.getFolderPath() %>'  />
+		<p>
+			Please enter a new Folder name <span>*</span>
+		</p>
+		<input type="text" id="newFolderName" />
+		<input type="hidden" id="parentfolderName" value='<%=currentFolder.getFolderPath() %>' /> <br />
+		<div class="clear"></div>
+		<input type="button" value="Rename" onclick="renameFolder()" />
+		<input type="button" id="cancel" value="Cancel" /> <br />
+		<script type="text/javascript">
+			function renameFolder() {
+				var oldfolder = $('#oldFolderName').val();
+				var newfolder = $('#newFolderName').val();
+				//alert(folder);
+				$.ajax({
+					type : "GET",
+					url : "${pageContext.request.contextPath}/renameDoc",
+					data : {
+						'oldFolderName' : oldfolder,
+						'newFolderName' : newfolder
+					},
+					contentType : "application/json",
+					async : false,
+					success : function(data) {
+						jQuery.get("getFileSystem", 
+               				 	{
+               					'path' : data
+               					},
+               				function( data ) {
+               	         		$( ".right" ).html( data );
+               	        		});
+						// alert(data);
+					}
+				});
+				$("#contactdiv_666").css("display", "none");
 				getDocProperties( $('#parentfolderName').val());
 			}
 		</script>
@@ -515,5 +564,42 @@ String userid=(String)request.getAttribute("userid");
             $("#target,#target2,#target3").contextmenu(option);
         });
     </script>
+    <script type="text/javascript">
+	function getDocProperties(folderPath) {
+		$('#oldFolderName').val(folderPath);
+		
+		jQuery.post("setCurrentFolder", 
+				 {
+			'path' : folderPath
+		},
+				function( data ) {
+	        });
+	//	alert(folderPath);
+	/* 	$.ajax({
+			type : "GET",
+			url : "${pageContext.request.contextPath}/getFileSystem",
+			data : {
+				'path' : folderPath
+			},
+			contentType : "application/json",
+			async : false,
+			success : function(data) {
+				$("#fileSystem").html(data);
+			}
+		}); */
+
+
+		/*  jQuery.get("myDocument", function( data ) {
+			 $( "#variedPagesHere" ).html( data );
+			});  */
+		jQuery.get("getDocProperties", 
+				 {
+			'path' : folderPath
+		},
+				function( data ) {
+	         $( ".right_icon_main" ).html( data );
+	        });
+	}
+</script>
               <!--------------/// RIGHT CLICK JS STRED END HERE ---------------->
 

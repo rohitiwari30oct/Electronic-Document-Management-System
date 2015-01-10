@@ -1,4 +1,6 @@
-       <%@page import="edms.wsdl.Folder"%>
+       <%@page import="java.util.ArrayList"%>
+<%@page import="edms.wsdl.VersionDetail"%>
+<%@page import="edms.wsdl.Folder"%>
 <%@page import="java.util.List"%>
 <%List<Folder> folderList = (List<Folder>) request.getAttribute("folderList"); 
 String breadcum=(String)request.getAttribute("breadcum");
@@ -82,101 +84,52 @@ String userid=(String)request.getAttribute("userid");
                                                   <div class="icon_right"></div>
                                                 </li>
                                                 <div class="content_right">
-                                                      <table>
-                                                            <tr class="history_content">
+                                                      <table> <tr class="history_content">
                                                                <td>Version</td>
                                                                <td>Date</td>
                                                                <td>Author</td>
-                                                               <td>Size</td>
+                                                               <td>Details</td>
                                                                <td>Action</td>
                                                              </tr>
-                                                             <tr>
-                                                                <td>0.1</td>
-                                                                <td>24/11/2014</td>
-                                                                <td>Invoice</td>
-                                                                <td>11.5 MB</td>
-                                                                <td><a href="#">View</a></td>
+                                                      <%
+                                                      List<VersionDetail> versionDetails=currentFolder.getVersionsHistory();
+                                                      for(VersionDetail versionDetail:versionDetails){
+                                                      %>
+                                                           <tr>
+                                                                <td><%=versionDetail.getVersionName() %></td>
+                                                                <td><%=versionDetail.getCreationDate() %></td>
+                                                                <td><%=versionDetail.getCreatedBy() %></td>
+                                                                <td><%=versionDetail.getDetails() %></td>
+                                                                <td><a href="#" id="<%=currentFolder.getFolderPath() %>,<%=versionDetail.getVersionName() %>" class="" onclick="restoreVersion(this.id)">Restore</a></td>
                                                              </tr>
-                                                              <tr>
-                                                                <td>0.1</td>
-                                                                <td>24/11/2014</td>
-                                                                <td>Invoice</td>
-                                                                <td>11.5 MB</td>
-                                                                <td><a href="#">View</a></td>
-                                                             </tr>
-                                                              <tr>
-                                                                <td>0.1</td>
-                                                                <td>24/11/2014</td>
-                                                                <td>Invoice</td>
-                                                                <td>11.5 MB</td>
-                                                                <td><a href="#">View</a></td>
-                                                             </tr>
-                                                              <tr>
-                                                                <td>0.1</td>
-                                                                <td>24/11/2014</td>
-                                                                <td>Invoice</td>
-                                                                <td>11.5 MB</td>
-                                                                <td><a href="#">View</a></td>
-                                                             </tr>
-                                                              <tr>
-                                                                <td>0.1</td>
-                                                                <td>24/11/2014</td>
-                                                                <td>Invoice</td>
-                                                                <td>11.5 MB</td>
-                                                                <td><a href="#">View</a></td>
-                                                             </tr>
-                                                              <tr>
-                                                                <td>0.1</td>
-                                                                <td>24/11/2014</td>
-                                                                <td>Invoice</td>
-                                                                <td>11.5 MB</td>
-                                                                <td><a href="#">View</a></td>
-                                                             </tr>
-                                                              <tr>
-                                                                <td>0.1</td>
-                                                                <td>24/11/2014</td>
-                                                                <td>Invoice</td>
-                                                                <td>11.5 MB</td>
-                                                                <td><a href="#">View</a></td>
-                                                             </tr>
-                                                              <tr>
-                                                                <td>0.1</td>
-                                                                <td>24/11/2014</td>
-                                                                <td>Invoice</td>
-                                                                <td>11.5 MB</td>
-                                                                <td><a href="#">View</a></td>
-                                                             </tr>
-                                                              <tr>
-                                                                <td>0.1</td>
-                                                                <td>24/11/2014</td>
-                                                                <td>Invoice</td>
-                                                                <td>11.5 MB</td>
-                                                                <td><a href="#">View</a></td>
-                                                             </tr>
-                                                              <tr>
-                                                                <td>0.1</td>
-                                                                <td>24/11/2014</td>
-                                                                <td>Invoice</td>
-                                                                <td>11.5 MB</td>
-                                                                <td><a href="#">View</a></td>
-                                                             </tr>
-                                                              <tr>
-                                                                <td>0.1</td>
-                                                                <td>24/11/2014</td>
-                                                                <td>Invoice</td>
-                                                                <td>11.5 MB</td>
-                                                                <td><a href="#">View</a></td>
-                                                             </tr>
-                                                              <tr>
-                                                                <td>0.1</td>
-                                                                <td>24/11/2014</td>
-                                                                <td>Invoice</td>
-                                                                <td>11.5 MB</td>
-                                                                <td><a href="#">View</a></td>
-                                                             </tr>
-                                                            
+                                                             <%} %>
+                                                             
+                                                              
                                                       </table>
+                                                <script type="text/javascript">
+                                                	function restoreVersion(folderPath){
+                                                		alert(folderPath);
+                                                		folderPath=folderPath.split(',');
+                                                		
+                                                		  $.ajax({
+                                          					type : "GET",
+                                          					url : "${pageContext.request.contextPath}/restoreVersion",
+                                          					data : {
+                                          						'folderPath' : folderPath[0],
+                                                    			'versionName' : folderPath[1]
+                                          					},
+                                          					contentType : "application/json",
+                                          					async : false,
+                                          					success : function(data) {
+                                          						//$("#folderView>.row_content>ul").append(data);
+                                          						 alert(data);
+                                          					}
+
+                                          				}); 
+                                                	
+                                                	}
                                                 
+                                                </script>
                                                 </div>
                                                 <li class="prew right_tab"><a href="#">PREVIEW</a>
                                                   <div class="icon_right"> </div>

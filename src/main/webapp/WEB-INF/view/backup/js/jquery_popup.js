@@ -26,9 +26,12 @@ $(document).ready(function() {
 	$(".folder_icon_1").click(function() {
         $("#contactdiv_6").css("display", "block");
     });
-	
+
     $(".add_folder").click(function() {
         $("#contactdiv_66").css("display", "block");
+    });
+    $(".edit").click(function() {
+        $("#contactdiv_666").css("display", "block");
     });
 	
 	$(".delete_folder").click(function() {

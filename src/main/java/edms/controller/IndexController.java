@@ -23,8 +23,6 @@ import edms.model.LoginModel;
 import edms.webservice.client.FolderClient;
 import edms.webservice.client.WorkflowClient;
 import edms.wsdl.Folder;
-import edms.wsdl.GetCountryRequest;
-import edms.wsdl.GetCountryResponse;
 import edms.wsdl.GetFolderByPathResponse;
 import edms.wsdl.GetFolderResponse;
 import edms.wsdl.GetRecycledDocsResponse;
@@ -339,7 +337,7 @@ public class IndexController {
 		Folder folderNode=folderByPath.getFolder();
 		map.addAttribute("principal", principal);
 		map.addAttribute("currentFolder",folderNode);
-		map.addAttribute("folderList", folderList);
+		map.addAttribute( "folderList", folderList);
 		map.addAttribute("folderClient",folderClient);
 		map.addAttribute("breadcum","/");
 		// map.addAttribute("nodeIterator", nodeIterator);

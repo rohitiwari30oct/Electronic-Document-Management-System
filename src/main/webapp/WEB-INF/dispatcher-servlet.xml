@@ -47,6 +47,8 @@
         </list>
     </property>
 </bean>
-	
+	<!-- Configure the multipart resolver -->
+<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+</bean>
 	<bean id="webContextFactory" class="org.directwebremoting.WebContextFactory"></bean>
 </beans>

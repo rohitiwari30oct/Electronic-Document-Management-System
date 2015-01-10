@@ -6,17 +6,6 @@ import java.security.Principal;
 import java.util.Iterator;
 import java.util.List;
 
-
-
-
-
-
-
-
-
-
-
-
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
@@ -36,21 +25,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import static org.springframework.ldap.query.LdapQueryBuilder.query;
-import edms.configuration.WeatherClient;
+import edms.core.Config;
+import edms.webservice.client.FileClient;
 import edms.webservice.client.FolderClient;
 import edms.wsdl.AssignSinglePermissionResponse;
 import edms.wsdl.CreateFolderResponse;
 import edms.wsdl.DeleteFolderResponse;
 import edms.wsdl.Folder;
-import edms.wsdl.GetCountryResponse;
+import edms.wsdl.GetFileResponse;
 import edms.wsdl.GetFolderByPathResponse;
 import edms.wsdl.GetFolderResponse;
-import edms.wsdl.GetRecycledDocsResponse;
 import edms.wsdl.GetSharedFoldersByPathResponse;
 import edms.wsdl.GetSharedFoldersResponse;
-import edms.wsdl.HasChildResponse;
 import edms.wsdl.RecycleFolderResponse;
+import edms.wsdl.RenameFolderRes;
+import edms.wsdl.RenameFolderResponse;
 import edms.wsdl.RestoreFolderResponse;
+import edms.wsdl.RestoreVersionResponse;
 import edms.wsdl.ShareFolderByPathResponse;
 
 @Controller
@@ -62,23 +53,24 @@ public class FolderController {
 	
 	@Autowired
 	private FolderClient folderClient;
-	
+
+	@Autowired private FileClient fileClient;
 	
 
 	@RequestMapping(value = "/shared", method = RequestMethod.GET)
 	public String getShared(ModelMap map,Principal principal,HttpServletRequest request) {
-		String calcPath="/"+principal.getName()+"@avi-oil.com";
+		String calcPath="/"+principal.getName()+Config.EDMS_DOMAIN;
 		HttpSession hs = request.getSession(false);
 		hs.setAttribute("currentFolder", calcPath);
-		GetSharedFoldersResponse folderResponse = folderClient.getSharedFoldersRequest(principal.getName()+"@avi-oil.com");
-		GetFolderByPathResponse folderByPath=folderClient.getFolderByPath(calcPath,principal.getName()+"@avi-oil.com");
+		GetSharedFoldersResponse folderResponse = folderClient.getSharedFoldersRequest(principal.getName()+Config.EDMS_DOMAIN);
+		GetFolderByPathResponse folderByPath=folderClient.getFolderByPath(calcPath,principal.getName()+Config.EDMS_DOMAIN);
 		Folder folderNode=folderByPath.getFolder();
 		List<Folder> folderList = folderResponse.getGetSharedFolders()
 				.getFolderListResult().getFolderList();
 		map.addAttribute("currentFolder",folderNode);
 		map.addAttribute("breadcum",calcPath);
 		map.addAttribute("folderList", folderList);
-		map.addAttribute("userid",principal.getName()+"@avi-oil.com");
+		map.addAttribute("userid",principal.getName()+Config.EDMS_DOMAIN);
 		return "shared";
 	}
 
@@ -94,14 +86,14 @@ public class FolderController {
 			calcPath += "/" + str[i];
 		}
 		hs.setAttribute("currentFolder", calcPath);
-		GetSharedFoldersByPathResponse folderResponse = folderClient.getSharedFoldersByPathRequest(principal.getName()+"@avi-oil.com", path);
-		GetFolderByPathResponse folderByPath=folderClient.getFolderByPath(path,principal.getName()+"@avi-oil.com");
+		GetSharedFoldersByPathResponse folderResponse = folderClient.getSharedFoldersByPathRequest(principal.getName()+Config.EDMS_DOMAIN, path);
+		GetFolderByPathResponse folderByPath=folderClient.getFolderByPath(path,principal.getName()+Config.EDMS_DOMAIN);
 		Folder folderNode=folderByPath.getFolder();
 		List<Folder> folderList = folderResponse.getGetSharedFoldersByPath().getFolderListResult().getFolderList();
 		map.addAttribute("currentFolder",folderNode);
 		map.addAttribute("breadcum",path);
 		map.addAttribute("folderList", folderList);
-		map.addAttribute("userid",principal.getName()+"@avi-oil.com");
+		map.addAttribute("userid",principal.getName()+Config.EDMS_DOMAIN);
 		return "shared";
 	}
 
@@ -111,16 +103,20 @@ public class FolderController {
 	public String getActivitiLeft(ModelMap map, Principal principal,
 			HttpServletRequest request){
 
-		String calcPath="/"+principal.getName()+"@avi-oil.com";
-		GetFolderResponse folderResponse = folderClient.getFolderRequest(calcPath,principal.getName()+"@avi-oil.com");
-		GetFolderByPathResponse folderByPath=folderClient.getFolderByPath(calcPath,principal.getName()+"@avi-oil.com");
+		String calcPath="/"+principal.getName()+Config.EDMS_DOMAIN;
+		GetFolderResponse folderResponse = folderClient.getFolderRequest(calcPath,principal.getName()+Config.EDMS_DOMAIN);
+		GetFolderByPathResponse folderByPath=folderClient.getFolderByPath(calcPath,principal.getName()+Config.EDMS_DOMAIN);
 		Folder folderNode=folderByPath.getFolder();
 		List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
 				.getFolderListResult().getFolderList();
+		GetFileResponse fileResponse=fileClient.getFileRequest(calcPath, principal.getName()+Config.EDMS_DOMAIN);
+				List<edms.wsdl.File> fileList=fileResponse.getGetFilesByParentFile().getFileListResult().getFileList();
+
+				map.addAttribute("folderList", folderList);
 		map.addAttribute("currentFolder",folderNode);
 		map.addAttribute("breadcum",calcPath);
 		map.addAttribute("folderList", folderList);
-		map.addAttribute("userid",principal.getName()+"@avi-oil.com");
+		map.addAttribute("userid",principal.getName()+Config.EDMS_DOMAIN);
 		return "myDocument";
 	}
 
@@ -128,16 +124,20 @@ public class FolderController {
 	@RequestMapping(value = "/fileSystem", method = RequestMethod.GET)
 	public String listFolder(ModelMap map, Principal principal,
 			HttpServletRequest request) {
-		String calcPath="/"+principal.getName()+"@avi-oil.com";
-		GetFolderResponse folderResponse = folderClient.getFolderRequest(calcPath,principal.getName()+"@avi-oil.com");
-		GetFolderByPathResponse folderByPath=folderClient.getFolderByPath(calcPath,principal.getName()+"@avi-oil.com");
+		String calcPath="/"+principal.getName()+Config.EDMS_DOMAIN;
+		GetFolderResponse folderResponse = folderClient.getFolderRequest(calcPath,principal.getName()+Config.EDMS_DOMAIN);
+		GetFolderByPathResponse folderByPath=folderClient.getFolderByPath(calcPath,principal.getName()+Config.EDMS_DOMAIN);
 		Folder folderNode=folderByPath.getFolder();
 		List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
 				.getFolderListResult().getFolderList();
+		GetFileResponse fileResponse=fileClient.getFileRequest(calcPath, principal.getName()+Config.EDMS_DOMAIN);
+		List<edms.wsdl.File> fileList=fileResponse.getGetFilesByParentFile().getFileListResult().getFileList();
+
+		map.addAttribute("folderList", folderList);
 		map.addAttribute("currentFolder",folderNode);
 		map.addAttribute("breadcum",calcPath);
-		map.addAttribute("folderList", folderList);
-		map.addAttribute("userid",principal.getName()+"@avi-oil.com");
+		map.addAttribute("fileList", fileList);
+			map.addAttribute("userid",principal.getName()+Config.EDMS_DOMAIN);
 		return "fileSystem";
 	}
 	
@@ -146,7 +146,7 @@ public class FolderController {
 	@RequestMapping(value = "/getDocProperties", method = RequestMethod.GET)
 	public String getDocProperties(ModelMap map, Principal principal,
 			HttpServletRequest request, @RequestParam String path) {
-	//listLdapUsersDetails(principal.getName()+"@avi-oil.com");
+	//listLdapUsersDetails(principal.getName()+Config.EDMS_DOMAIN);
 	HttpSession hs = request.getSession(false);
 	if (hs != null) {
 		System.out.println((String) hs.getAttribute("currentFolder"));
@@ -157,21 +157,30 @@ public class FolderController {
 		calcPath += "/" + str[i];
 	}
 	hs.setAttribute("currentFolder", calcPath);
-	GetFolderResponse folderResponse = folderClient.getFolderRequest(calcPath,principal.getName()+"@avi-oil.com");
-	GetFolderByPathResponse folderByPath=folderClient.getFolderByPath(calcPath,principal.getName()+"@avi-oil.com");
+	GetFolderResponse folderResponse = folderClient.getFolderRequest(calcPath,principal.getName()+Config.EDMS_DOMAIN);
+	GetFolderByPathResponse folderByPath=folderClient.getFolderByPath(calcPath,principal.getName()+Config.EDMS_DOMAIN);
 	Folder folderNode=folderByPath.getFolder();
 	List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
 			.getFolderListResult().getFolderList();
 	map.addAttribute("currentFolder",folderNode);
 	map.addAttribute("breadcum",calcPath);
 	map.addAttribute("folderList", folderList);
-	map.addAttribute("userid",principal.getName()+"@avi-oil.com");
+	map.addAttribute("userid",principal.getName()+Config.EDMS_DOMAIN);
 	return "getDocProperties";
 }
-	@RequestMapping(value = "/getFileSystem", method = RequestMethod.GET)
-	public String listFolder(ModelMap map, Principal principal,
+	
+	@RequestMapping(value = "/setCurrentFolder", method = RequestMethod.POST)
+	@ResponseBody
+	public String setCurrentFolder(ModelMap map, Principal principal,
 			HttpServletRequest request, @RequestParam String path) {
-	//listLdapUsersDetails(principal.getName()+"@avi-oil.com");
+		HttpSession hs = request.getSession(false);
+		hs.setAttribute("currentFolder", path);
+		return "";
+	}
+		@RequestMapping(value = "/getFileSystem", method = RequestMethod.GET)
+		public String listFolder(ModelMap map, Principal principal,
+				HttpServletRequest request, @RequestParam String path) {
+	//listLdapUsersDetails(principal.getName()+Config.EDMS_DOMAIN);
 	HttpSession hs = request.getSession(false);
 	if (hs != null) {
 		System.out.println((String) hs.getAttribute("currentFolder"));
@@ -182,16 +191,18 @@ public class FolderController {
 		calcPath += "/" + str[i];
 	}
 	hs.setAttribute("currentFolder", calcPath);
-	GetFolderResponse folderResponse = folderClient.getFolderRequest(calcPath,principal.getName()+"@avi-oil.com");
-	GetFolderByPathResponse folderByPath=folderClient.getFolderByPath(calcPath,principal.getName()+"@avi-oil.com");
+	GetFolderResponse folderResponse = folderClient.getFolderRequest(calcPath,principal.getName()+Config.EDMS_DOMAIN);
+	GetFolderByPathResponse folderByPath=folderClient.getFolderByPath(calcPath,principal.getName()+Config.EDMS_DOMAIN);
 	Folder folderNode=folderByPath.getFolder();
+	boolean success=folderResponse.getGetFoldersByParentFolder().isSuccess();
+	if(success){
 	List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
 			.getFolderListResult().getFolderList();
 	map.addAttribute("currentFolder",folderNode);
 	map.addAttribute("breadcum",calcPath);
 	map.addAttribute("folderList", folderList);
-	map.addAttribute("userid",principal.getName()+"@avi-oil.com");
-	return "fileSystem";
+	map.addAttribute("userid",principal.getName()+Config.EDMS_DOMAIN);
+	}return "fileSystem";
 }
 
 	private void listLdapUsersDetails(String userid) {
@@ -234,9 +245,12 @@ public class FolderController {
 		path=path.replaceFirst("_com", ".com");
 		path = path.replace('_', '/');
 		path = path.replace('*', ' ');
-		GetFolderResponse folderResponse = folderClient.getFolderRequest(path,principal.getName()+"@avi-oil.com");
+		GetFolderResponse folderResponse = folderClient.getFolderRequest(path,principal.getName()+Config.EDMS_DOMAIN);
 		List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
-				.getFolderListResult().getFolderList();
+				.getFolderListResult().getFolderList();GetFileResponse fileResponse=fileClient.getFileRequest(path, principal.getName()+Config.EDMS_DOMAIN);
+				List<edms.wsdl.File> fileList=fileResponse.getGetFilesByParentFile().getFileListResult().getFileList();
+
+				map.addAttribute("folderList", folderList);
 		map.addAttribute("folderClient", folderClient);
 		map.addAttribute("folderList", folderList);
 		map.addAttribute("principal", principal);
@@ -248,30 +262,29 @@ public class FolderController {
 	public String createFolder(ModelMap map, Principal principal,
 			HttpServletRequest request, @RequestParam String folderName)
 			  {
-		HttpSession hs = request.getSession(false);
-		String notes="this folder is testing folder";
-		String keywords="this,folder,is,testing,folder";
-		String parentFolder = (String) hs.getAttribute("currentFolder");
-		CreateFolderResponse createFolderResponse = folderClient.createFolder(
-				folderName, parentFolder, principal.getName()+"@avi-oil.com",keywords,notes);
-		Folder folder = createFolderResponse.getFolder();
-		String newFolder="";
-		if(folder!=null){
-		newFolder = "<li id='"
-				+ folder.getFolderPath()
-				+ "' ondblclick='getFileSystem(this.id)' >"
-				+ "<div class='folder_icon'></div>  <span>"
-				+ folder.getFolderPath().substring(folder.getFolderPath().lastIndexOf('/') + 1)
-				+ "</span>" 
-				+ "</li>";
-		}else{
-			return "access denied"; 
-		}
-		return newFolder;
+				HttpSession hs = request.getSession(false);
+				String notes="this folder is testing folder";
+				String keywords="this,folder,is,testing,folder";
+				String parentFolder = (String) hs.getAttribute("currentFolder");
+				CreateFolderResponse createFolderResponse = folderClient.createFolder(
+						folderName, parentFolder, principal.getName()+Config.EDMS_DOMAIN,keywords,notes);
+				Folder folder = createFolderResponse.getFolder();
+				String newFolder="";
+				if(folder!=null){
+				newFolder = "<li   class='select_box target' id='"
+						+ folder.getFolderPath()
+						+ "' ondblclick='getFileSystem(this.id)' >"
+						+ "<div class='folder_icon'></div>  <span>"
+						+ folder.getFolderPath().substring(folder.getFolderPath().lastIndexOf('/') + 1)
+						+ "</span>" 
+						+ "</li>";
+				}else{
+					return "access denied"; 
+				}
+				return newFolder;
 	}
 
 	@RequestMapping("/createSharedFolder")
-	@ResponseBody
 	public String createSharedFolder(ModelMap map, Principal principal,
 			HttpServletRequest request, @RequestParam String folderName)
 			  {
@@ -280,7 +293,7 @@ public class FolderController {
 		String keywords="this,folder,is,testing,folder";
 		String parentFolder = (String) hs.getAttribute("currentFolder");
 		CreateFolderResponse createFolderResponse = folderClient.createFolder(
-				folderName, parentFolder, principal.getName()+"@avi-oil.com",keywords,notes);
+				folderName, parentFolder, principal.getName()+Config.EDMS_DOMAIN,keywords,notes);
 		Folder folder = createFolderResponse.getFolder();
 		String newFolder="";
 		if(folder!=null){
@@ -307,7 +320,7 @@ public class FolderController {
 	@ResponseBody
 	public String shareFolder(ModelMap map,Principal principal, @RequestParam String users, @RequestParam String groups
 			, @RequestParam String userpermissions, @RequestParam String grouppermissions,HttpServletRequest request){
-		String userid=principal.getName()+"@avi-oil.com";
+		String userid=principal.getName()+Config.EDMS_DOMAIN;
 		HttpSession hs = request.getSession(false);
 		String folderName=(String)hs.getAttribute("currentFolder");
 		ShareFolderByPathResponse shareFolderByPathResponse = folderClient.shareFolderByPath(folderName, userid, users, groups, userpermissions, grouppermissions);
@@ -315,21 +328,47 @@ public class FolderController {
 		
 		return resp;
 	}
+	@RequestMapping("/renameDoc")
+	@ResponseBody
+	public String renameDoc(ModelMap map,Principal principal, @RequestParam String oldFolderName, @RequestParam String newFolderName,HttpServletRequest request){
+		String userid=principal.getName()+Config.EDMS_DOMAIN;
+		HttpSession hs = request.getSession(false);
+		String folderName=(String)hs.getAttribute("currentFolder");
+		RenameFolderResponse renameResponse = folderClient.renameFolder(oldFolderName, newFolderName, userid);
+		RenameFolderRes resp=renameResponse.getRenameFolderRes();
+		if(resp.isSuccess()){
+			return folderName.substring(0,folderName.lastIndexOf("/"));
+			}else{
+			return "Access Denied";}
+	}
+	@RequestMapping("/restoreVersion")
+	@ResponseBody
+	public String restoreVersion(ModelMap map,Principal principal, @RequestParam String folderPath, @RequestParam String versionName,HttpServletRequest request){
+		String userid=principal.getName()+Config.EDMS_DOMAIN;
+		RestoreVersionResponse restoreResponse = folderClient.restoreVersion(folderPath, versionName, userid);
+			return restoreResponse.getRestoreVersionResponse();
+	}
 	@RequestMapping("/recycleDoc")
 	@ResponseBody
 	public String recycleDoc(ModelMap map,Principal principal,HttpServletRequest request){
-		String userid=principal.getName()+"@avi-oil.com";
+		String userid=principal.getName()+Config.EDMS_DOMAIN;
 		HttpSession hs = request.getSession(false);
 		String folderName=(String)hs.getAttribute("currentFolder");
 		RecycleFolderResponse recycleFolderResponse = folderClient.recycleFolder(folderName,userid);
 		String resp=recycleFolderResponse.getRecycleFolderResponse();
-		System.out.println(folderName.substring(0,folderName.lastIndexOf("/")));
-		return folderName.substring(0,folderName.lastIndexOf("/"));
-	}
+		System.out.println(resp);
+		System.out.println(Boolean.getBoolean(resp)+folderName.substring(0,folderName.lastIndexOf("/")));
+		boolean res=Boolean.parseBoolean(resp) ;
+		if(res){
+			return folderName.substring(0,folderName.lastIndexOf("/"));
+			}else{
+				System.out.println("response after recycle doc fails "+folderName);
+			return folderName;
+			}}
 	@RequestMapping("/deleteDoc")
 	@ResponseBody
 	public String deleteDoc(ModelMap map,Principal principal,HttpServletRequest request,@RequestParam String folderPath){
-		String userid=principal.getName()+"@avi-oil.com";
+		String userid=principal.getName()+Config.EDMS_DOMAIN;
 		String folderName=folderPath;
 		DeleteFolderResponse deleteFolderResponse = folderClient.deleteFolder(folderName,userid);
 		String resp=deleteFolderResponse.getDeleteFolderResponse();
@@ -338,9 +377,8 @@ public class FolderController {
 	@RequestMapping("/restoreDoc")
 	@ResponseBody
 	public String restoreDoc(ModelMap map,Principal principal,HttpServletRequest request,@RequestParam String folderPath){
-		String userid=principal.getName()+"@avi-oil.com";
+		String userid=principal.getName()+Config.EDMS_DOMAIN;
 		String folderName=folderPath;
-		System.out.println(folderName+"sddddddddddddddddd");
 		RestoreFolderResponse restoreFolderResponse = folderClient.restoreFolder(folderName,userid);
 		String resp=restoreFolderResponse.getRestoreFolderResponse();
 		return resp;
@@ -349,7 +387,7 @@ public class FolderController {
 	@ResponseBody
 	public String assignSinglePermission(ModelMap map,Principal principal, @RequestParam String user, @RequestParam String value
 			, HttpServletRequest request){
-		String userid=principal.getName()+"@avi-oil.com";
+		String userid=principal.getName()+Config.EDMS_DOMAIN;
 		HttpSession hs = request.getSession(false);
 		String folderName=(String)hs.getAttribute("currentFolder");
 		AssignSinglePermissionResponse response = folderClient.assignSinglePermission(folderName, userid, user,value);

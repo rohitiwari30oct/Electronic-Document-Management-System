@@ -12,15 +12,16 @@
 		<apache.tiles>3.0.3</apache.tiles>
 		<spring.security.version>3.2.3.RELEASE</spring.security.version>
 	</properties>
-
-	<dependencies> 
-		<dependency>
+ 
+	<dependencies>
+	
+	<dependency>
 			<groupId>wsdl4j</groupId>
 			<artifactId>wsdl4j</artifactId>
 			<version>1.6.3</version>
 		</dependency>
 
-		<dependency>
+		<dependency> 
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
 			<version>1.1</version>
@@ -415,16 +416,16 @@
 						</goals>
 					</execution>
 				</executions>
-				<configuration>
+				<configuration>    
 					<schemaLanguage>WSDL</schemaLanguage>
 					<generatePackage>edms.wsdl</generatePackage>
 					<forceRegenerate>true</forceRegenerate>
 					<schemas>
 						<schema>
-							<url>http://localhost:8080/ws/countries.wsdl</url>
+							<url>http://localhost:8080/ws/documentFolder.wsdl</url>
 						</schema>
 						<schema>
-							<url>http://localhost:8080/ws/documentFolder.wsdl</url>
+							<url>http://localhost:8080/ws/documentFile.wsdl</url>
 						</schema>
 						<schema>
 							<url>http://localhost:8080/ws/workflow.wsdl</url>
@@ -433,7 +434,7 @@
 							<url>http://localhost:8080/ws/workflowHistory.wsdl</url>
 						</schema>
 					</schemas>
-				</configuration>
+				</configuration> 
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>

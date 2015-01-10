@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 
+import edms.webservice.client.FileClient;
 import edms.webservice.client.FolderClient;
 import edms.webservice.client.WorkflowClient;
 import edms.webservice.client.WorkflowHistoryClient;
@@ -27,6 +28,14 @@ public class WebServiceConfiguration {
 	public FolderClient folderClient(Jaxb2Marshaller marshaller) {
 		FolderClient client = new FolderClient();
 		client.setDefaultUri("http://localhost:8080/ws/documentFolder.wsdl");
+		client.setMarshaller(marshaller);
+		client.setUnmarshaller(marshaller);
+		return client;
+	}
+	@Bean
+	public FileClient fileClient(Jaxb2Marshaller marshaller) {
+		FileClient client = new FileClient();
+		client.setDefaultUri("http://localhost:8080/ws/documentFile.wsdl");
 		client.setMarshaller(marshaller);
 		client.setUnmarshaller(marshaller);
 		return client;
