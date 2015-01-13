@@ -119,9 +119,26 @@ String userid=(String)request.getAttribute("userid");
 									<%
 									for (File file : fileList) {
 									%>
-									<li onclick="getDocProperties(this.id)"  class="select_box target" id="<%=file.getFilePath()%>"
-										><img src="images/ms_excel_big.png" />
-										<div class="clear"></div> <span><%=file.getFileName()%> </span></li>
+									<li onclick="getFileProperties(this.id)"  class="select_box target" id="<%=file.getFilePath()%>"
+										>
+										<!-- <img src="images/ms_excel_big.png" />
+										<div class="clear"></div>
+										 --><%if(file.getFileName().contains(".pdf")){ %> 
+										<div class="pdf_icon"></div>
+										<%}else if(file.getFileName().contains(".doc")){ %>
+										<div class="msoffice_icon"></div>
+										
+										<%} %><%else if(file.getFileName().contains(".xls")){ %>
+										<div class="msexcel_icon"></div>
+										
+										<%} %><%else if(file.getFileName().contains(".ppt")){ %>
+										<div class="ppt_icon"></div>
+										
+										<%}else{ %>
+										<div class="pdf_icon"></div>
+										
+										<%} %>
+										<span><%=file.getFileName()%> </span></li>
 									<%
 										}
 									%>

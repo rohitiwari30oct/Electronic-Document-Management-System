@@ -62,6 +62,9 @@ public class DocumentController {
 		this.allowedImageExtensions.add("gif");
 		this.allowedImageExtensions.add("xif");
 		this.allowedImageExtensions.add("txt");
+		this.allowedImageExtensions.add("docx");
+		this.allowedImageExtensions.add("pdf");
+		this.allowedImageExtensions.add("pod");
 		System.out.println("in file upload "+fileupload);
 		List<MultipartFile> multifiles=fileupload.getFiledata();
 		System.out.println("no.of files="+multifiles.size());

@@ -67,6 +67,7 @@ public class FolderController {
 		Folder folderNode=folderByPath.getFolder();
 		List<Folder> folderList = folderResponse.getGetSharedFolders()
 				.getFolderListResult().getFolderList();
+	
 		map.addAttribute("currentFolder",folderNode);
 		map.addAttribute("breadcum",calcPath);
 		map.addAttribute("folderList", folderList);
@@ -112,7 +113,7 @@ public class FolderController {
 		GetFileResponse fileResponse=fileClient.getFileRequest(calcPath, principal.getName()+Config.EDMS_DOMAIN);
 				List<edms.wsdl.File> fileList=fileResponse.getGetFilesByParentFile().getFileListResult().getFileList();
 
-				map.addAttribute("folderList", folderList);
+				map.addAttribute("fileList", fileList);
 		map.addAttribute("currentFolder",folderNode);
 		map.addAttribute("breadcum",calcPath);
 		map.addAttribute("folderList", folderList);
@@ -162,6 +163,10 @@ public class FolderController {
 	Folder folderNode=folderByPath.getFolder();
 	List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
 			.getFolderListResult().getFolderList();
+	GetFileResponse fileResponse=fileClient.getFileRequest(calcPath, principal.getName()+Config.EDMS_DOMAIN);
+	List<edms.wsdl.File> fileList=fileResponse.getGetFilesByParentFile().getFileListResult().getFileList();
+
+	map.addAttribute("fileList", fileList);
 	map.addAttribute("currentFolder",folderNode);
 	map.addAttribute("breadcum",calcPath);
 	map.addAttribute("folderList", folderList);
@@ -199,6 +204,11 @@ public class FolderController {
 	List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
 			.getFolderListResult().getFolderList();
 	map.addAttribute("currentFolder",folderNode);
+	
+	GetFileResponse fileResponse=fileClient.getFileRequest(calcPath, principal.getName()+Config.EDMS_DOMAIN);
+	List<edms.wsdl.File> fileList=fileResponse.getGetFilesByParentFile().getFileListResult().getFileList();
+
+	map.addAttribute("fileList", fileList);
 	map.addAttribute("breadcum",calcPath);
 	map.addAttribute("folderList", folderList);
 	map.addAttribute("userid",principal.getName()+Config.EDMS_DOMAIN);
@@ -247,10 +257,10 @@ public class FolderController {
 		path = path.replace('*', ' ');
 		GetFolderResponse folderResponse = folderClient.getFolderRequest(path,principal.getName()+Config.EDMS_DOMAIN);
 		List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
-				.getFolderListResult().getFolderList();GetFileResponse fileResponse=fileClient.getFileRequest(path, principal.getName()+Config.EDMS_DOMAIN);
-				List<edms.wsdl.File> fileList=fileResponse.getGetFilesByParentFile().getFileListResult().getFileList();
-
-				map.addAttribute("folderList", folderList);
+				.getFolderListResult().getFolderList();
+		GetFileResponse fileResponse=fileClient.getFileRequest(path, principal.getName()+Config.EDMS_DOMAIN);
+		List<edms.wsdl.File> fileList=fileResponse.getGetFilesByParentFile().getFileListResult().getFileList();
+		map.addAttribute("fileList", fileList);
 		map.addAttribute("folderClient", folderClient);
 		map.addAttribute("folderList", folderList);
 		map.addAttribute("principal", principal);
