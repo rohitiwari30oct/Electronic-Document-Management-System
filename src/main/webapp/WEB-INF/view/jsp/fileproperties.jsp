@@ -1,10 +1,11 @@
-       <%@page import="java.util.ArrayList"%>
-<%@page import="edms.wsdl.FolderVersionDetail"%>
-<%@page import="edms.wsdl.Folder"%>
+       <%@page import="edms.wsdl.Folder"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="edms.wsdl.FileVersionDetail"%>
+<%@page import="edms.wsdl.File"%>
 <%@page import="java.util.List"%>
-<%List<Folder> folderList = (List<Folder>) request.getAttribute("folderList"); 
+<%List<File> folderList = (List<File>) request.getAttribute("fileList"); 
 String breadcum=(String)request.getAttribute("breadcum");
-Folder currentFolder=(Folder)request.getAttribute("currentFolder");
+File currentFolder=(File)request.getAttribute("currentFolder");
 String userid=(String)request.getAttribute("userid");
 %>
        
@@ -21,12 +22,12 @@ String userid=(String)request.getAttribute("userid");
                                                       <table>
                                                           <tr>
                                                               <td class="proper_heading">Name </td>
-                                                              <td><%=currentFolder.getFolderName() %></td>
+                                                              <td><%=currentFolder.getFileName() %></td>
                                                           </tr>
                                                           <tr>
                                                                <td class="proper_heading">Parent</td>
                                                                <%
-                                                               String parent=currentFolder.getFolderPath().substring(0,currentFolder.getFolderPath().lastIndexOf("/"));
+                                                               String parent=currentFolder.getFilePath().substring(0,currentFolder.getFilePath().lastIndexOf("/"));
                                                                parent=parent.substring(parent.lastIndexOf("/")+1);
                                                                if(parent.equals("")||parent.equals(userid)){parent="Home";}
                                                                %>
@@ -40,14 +41,14 @@ String userid=(String)request.getAttribute("userid");
                                                                <td class="proper_heading">Owner</td>
                                                                <td> <%=currentFolder.getCreatedBy() %></td>
                                                           </tr>
-                                                           <tr>
+<%--                                                            <tr>
                                                                <td class="proper_heading">Folders</td>
                                                                <td><%=currentFolder.getNoOfFolders() %></td>
                                                           </tr>
                                                           <tr>
                                                                <td class="proper_heading">Documents</td>
                                                                <td><%=currentFolder.getNoOfDocuments() %></td>
-                                                          </tr>
+                                                          </tr> --%>
                                                       </table>
                                                 </div>
                                               <!--   <li class="note right_tab"><a href="#">NOTES</a>
@@ -92,22 +93,22 @@ String userid=(String)request.getAttribute("userid");
                                                                <td>Action</td>
                                                              </tr>
                                                       <%
-                                                      List<FolderVersionDetail> versionDetails=currentFolder.getFolderVersionsHistory();
-                                                      for(FolderVersionDetail versionDetail:versionDetails){
+                                                      List<FileVersionDetail> versionDetails=currentFolder.getFileVersionsHistory();
+                                                      for(FileVersionDetail versionDetail:versionDetails){
                                                       %>
                                                            <tr>
                                                                 <td><%=versionDetail.getVersionName() %></td>
                                                                 <td><%=versionDetail.getCreationDate() %></td>
                                                                 <td><%=versionDetail.getCreatedBy() %></td>
                                                                 <td><%=versionDetail.getDetails() %></td>
-                                                                <td><a href="#" id="<%=currentFolder.getFolderPath() %>,<%=versionDetail.getVersionName() %>" class="" onclick="restoreVersion(this.id)">Restore</a></td>
+                                                                <td><a href="#" id="<%=currentFolder.getFilePath() %>,<%=versionDetail.getVersionName() %>" class="" onclick="restoreVersion(this.id)">Restore</a></td>
                                                              </tr>
                                                              <%} %>
                                                              
                                                               
                                                       </table>
                                                 <script type="text/javascript">
-                                                	/* function restoreVersion(folderPath){
+                                                	function restoreVersion(folderPath){
                                                 		//alert(folderPath);
                                                 		folderPath=folderPath.split(',');
                                                 		
@@ -128,7 +129,7 @@ String userid=(String)request.getAttribute("userid");
                                           				}); 
                                                 	
                                                 	}
-                                                 */
+                                                
                                                 </script>
                                                 </div>
                                                 <li class="prew right_tab"><a href="#">PREVIEW</a>
@@ -223,11 +224,7 @@ String userid=(String)request.getAttribute("userid");
                                             
                                             <!------------------------------/// LEFT ICON ONLY END  ---------------> 
                                             
-           <!--   <script type="text/javascript" >
-			$(document).ready(function(){
-             $('#oldFileName').val(folderPath);	
-			});
-             </script>    -->                         
+                                          
                                           <!----------------/// RIGHT PART END HERE -------------------> 
                                              <script src="js/jquery-1.7.2.min.js" type="application/javascript" ></script>
 <script src="js/left_event.js" type="application/javascript"></script>

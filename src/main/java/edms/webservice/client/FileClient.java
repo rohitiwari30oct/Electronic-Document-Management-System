@@ -1,8 +1,11 @@
 package edms.webservice.client;
 
 import java.text.SimpleDateFormat;
+
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
+
+import scala.annotation.meta.setter;
 import edms.wsdl.AssignSinglePermissionRequest;
 import edms.wsdl.AssignSinglePermissionResponse;
 import edms.wsdl.CreateFileRequest;
@@ -97,13 +100,14 @@ public class FileClient extends WebServiceGatewaySupport {
 	
 
 	public CreateFileResponse createFile(String fileName,
-			String parentFile, String userid, String keywords, String notes) {
+			String parentFile, String userid, String keywords, String notes,String fileContent) {
 		CreateFileRequest request = new CreateFileRequest();
 		request.setFileName(fileName);
 		request.setParentFile(parentFile);
 		request.setUserid(userid);
 		request.setKeywords(keywords);
 		request.setNotes(notes);
+		request.setFileContent(fileContent);
 		System.out.println(fileName + " " + parentFile + " " + userid);
 		CreateFileResponse response = (CreateFileResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(

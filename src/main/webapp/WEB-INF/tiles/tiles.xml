@@ -31,6 +31,10 @@
         <put-attribute name="title" value="Avi-Oil My Document" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/properties.jsp" />
     </definition>
+      <definition name="getFileProperties" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil My Document" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/fileproperties.jsp" />
+    </definition>
     
     <definition name="activitiDiagrams" extends="indexTemplate">
         <put-attribute name="title" value="Avi-Oil Activiti" />

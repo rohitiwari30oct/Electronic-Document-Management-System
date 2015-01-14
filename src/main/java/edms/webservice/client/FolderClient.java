@@ -100,9 +100,6 @@ public class FolderClient extends WebServiceGatewaySupport {
 		HasChildRequest request = new HasChildRequest();
 		request.setFolderPath(path);
 		request.setUserid(userid);
-		System.out.println();
-		System.out.println("Requesting forecast for " + path
-				+ " and user id is : " + userid);
 		HasChildResponse response = (HasChildResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
 						request,
@@ -119,7 +116,6 @@ public class FolderClient extends WebServiceGatewaySupport {
 		request.setUserid(userid);
 		request.setKeywords(keywords);
 		request.setNotes(notes);
-		System.out.println(folderName + " " + parentFolder + " " + userid);
 		CreateFolderResponse response = (CreateFolderResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
 						request,

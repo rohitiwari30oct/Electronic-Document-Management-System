@@ -618,5 +618,43 @@ String userid=(String)request.getAttribute("userid");
 	        });
 	}
 </script>
+
+    <script type="text/javascript">
+	function getFileProperties(folderPath) {
+		/* $('#oldFolderName').val(folderPath);
+		
+		jQuery.post("setCurrentFolder", 
+				 {
+			'path' : folderPath
+		},
+				function( data ) {
+	        }); */
+	//	alert(folderPath);
+	/* 	$.ajax({
+			type : "GET",
+			url : "${pageContext.request.contextPath}/getFileSystem",
+			data : {
+				'path' : folderPath
+			},
+			contentType : "application/json",
+			async : false,
+			success : function(data) {
+				$("#fileSystem").html(data);
+			}
+		}); */
+
+
+		/*  jQuery.get("myDocument", function( data ) {
+			 $( "#variedPagesHere" ).html( data );
+			});  */
+		jQuery.get("getFileProperties", 
+				 {
+			'path' : folderPath
+		},
+				function( data ) {
+	         $( ".right_icon_main" ).html( data );
+	        });
+	}
+</script>
               <!--------------/// RIGHT CLICK JS STRED END HERE ---------------->
 
