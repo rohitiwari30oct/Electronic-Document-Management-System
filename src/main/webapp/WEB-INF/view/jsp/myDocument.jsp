@@ -40,15 +40,15 @@
 					%>
 					<li
 						><div id="listli<%=folder.getFolderPath().replace('/', '_')
-							.replace('.', '_').replaceFirst("@avi","_avi")%>"
+							.replace('.', '_').replaceFirst("@avi","_avi").replace(" ","_spc_spc_")%>"
 						onclick="getSubFolders(this.id)">
 						<div class="subfolder_sign" id="sign<%=folder.getFolderPath().replace('/', '_')
-							.replace('.', '_').replaceFirst("@avi","_avi")%>"></div></div>
+							.replace('.', '_').replaceFirst("@avi","_avi").replace(" ","_spc_spc_")%>"></div></div>
 						<div class="folder"></div> <span id="<%=folder.getFolderPath()%>"
 						onclick="getFileSystem(this.id)"><%=folder.getFolderPath().substring(
 							folder.getFolderPath().lastIndexOf('/') + 1)%></span>
 						<div class="subfolder_onhover mydocument_subfolder listdiv<%=folder.getFolderPath().replace('/', '_')
-							 			.replace('.', '_').replaceFirst("@avi","_avi")%>" >
+							 			.replace('.', '_').replaceFirst("@avi","_avi").replace(" ","_spc_spc_")%>" >
 						</div>
 					</li>
 					<%

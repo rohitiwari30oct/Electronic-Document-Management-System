@@ -19,10 +19,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import edms.chatdwr.ScriptSessList;
 import edms.chatdwr.XmppChatClass;
+import edms.core.Config;
 import edms.model.LoginModel;
+import edms.webservice.client.FileClient;
 import edms.webservice.client.FolderClient;
 import edms.webservice.client.WorkflowClient;
 import edms.wsdl.Folder;
+import edms.wsdl.GetFileResponse;
 import edms.wsdl.GetFolderByPathResponse;
 import edms.wsdl.GetFolderResponse;
 import edms.wsdl.GetRecycledDocsResponse;
@@ -54,9 +57,11 @@ public class IndexController {
 	@Value ("${packetReplyTimeout}") private int packetReplyTimeout; // millis
 	@Value ("${chatImageFolder}") private String chatImageFolder;
 	@Value ("${onlineStatus}") private String onlineStatus;
-	
+
 	@Autowired
 	FolderClient folderClient;
+	@Autowired
+	FileClient fileClient;
 	@Autowired WorkflowClient workflowClient;
 
 	@RequestMapping(value = "/userDashboard", method = RequestMethod.GET)
@@ -89,7 +94,16 @@ public class IndexController {
 		String path="/"+principal.getName()+"@avi-oil.com";
 		GetRecycledDocsResponse folderResponse = folderClient.getRecycledDoc(principal.getName()+"@avi-oil.com", path);
 		List<Folder> folderList = folderResponse.getGetRecycledDocs().getFolderListResult().getFolderList();
+		
+		
 		map.addAttribute("folderList", folderList);
+		
+		
+
+		GetFileResponse fileResponse=fileClient.getFileRequest(path, principal.getName()+Config.EDMS_DOMAIN);
+				List<edms.wsdl.File> fileList=fileResponse.getGetFilesByParentFile().getFileListResult().getFileList();
+
+				map.addAttribute("fileList", fileList);
 		map.addAttribute("userid",principal.getName()+"@avi-oil.com");
 		return "trash";
 	}

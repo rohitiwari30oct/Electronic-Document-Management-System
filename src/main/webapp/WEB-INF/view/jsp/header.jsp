@@ -126,10 +126,12 @@ function getActivitiDiagramsPage(){
 	 	var divContent = $(".listdiv" + divFolder).html();
 		//alert(divContent.length);
 		if (divContent.length > 30) {
+		
 		} else {
-
-			//alert(divContent);
+/* 
+			alert(divContent);
 			var folderId = "#" + folderPath;
+			alert(folderId); */
 			$.ajax({
 				type : "GET",
 				url : "${pageContext.request.contextPath}/getSubFolders",
@@ -140,7 +142,6 @@ function getActivitiDiagramsPage(){
 					//alert(data);
 					//$(".mydocument_subfolder").html(data);
 					divFolder=".listdiv" + divFolder;
-
 					//alert(divFolder);
 					$(divFolder).html(data);
 				}

@@ -1,5 +1,6 @@
                         <!---// RIGHT --->
-                        <%@page import="edms.wsdl.Folder"%>
+                        <%@page import="edms.wsdl.File"%>
+<%@page import="edms.wsdl.Folder"%>
 <%@page import="java.util.List"%>
 <div class="other_pages">
                                   <!-------------/// TRASH PAGES STARED HERE --------->
@@ -22,7 +23,8 @@
                                        <div class="trash_content">
                                        <%
                                        List<Folder> folderList = (List<Folder>) request.getAttribute("folderList"); 
-                         				
+                                       List<File> fileList = (List<File>) request.getAttribute("fileList"); 
+                        				
                                        %>
                                                 <ul>
 	                                        	<%				
@@ -32,6 +34,29 @@
                                                         <li class="select_box target" onclick="setFolderPath(this.id)" id='<%=folder.getFolderPath()%>'>
                                                           <div class="folder_icon"></div>
                                                           <span><%=folder.getFolderName() %></span> </li>
+                                                      
+                                                        <%} %>
+	                                        	<%				
+	      				
+									      				for (File file : fileList) {
+									      					%>
+                                                        <li class="select_box target" onclick="setFolderPath(this.id)" id='<%=file.getFilePath()%>'>
+                                                          <%if(file.getFileName().contains(".pdf")){ %> 
+										<div class="pdf_icon"></div>
+										<%}else if(file.getFileName().contains(".doc")){ %>
+										<div class="msoffice_icon"></div>
+										
+										<%} %><%else if(file.getFileName().contains(".xls")){ %>
+										<div class="msexcel_icon"></div>
+										
+										<%} %><%else if(file.getFileName().contains(".ppt")){ %>
+										<div class="ppt_icon"></div>
+										
+										<%}else{ %>
+										<div class="pdf_icon"></div>
+										
+										<%} %>
+                                                          <span><%=file.getFileName() %></span> </li>
                                                       
                                                         <%} %>
                                                 </ul>

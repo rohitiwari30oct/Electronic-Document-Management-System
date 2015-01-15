@@ -1,6 +1,7 @@
 package edms.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -10,9 +11,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -28,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
 import edms.core.Config;
 import edms.model.UploadedFile;
 import edms.webservice.client.FileClient;
@@ -57,6 +61,7 @@ public class DocumentController {
 	
 
 	@RequestMapping("/uploadDocumentByJcr")
+	@ResponseBody
 	public String uploadDocumentByJcr(@ModelAttribute(value="fileupload")UploadedFile fileupload,BindingResult result,
 			ModelMap map,Principal principal,HttpServletRequest request, HttpServletResponse response){
 		String res="";
@@ -85,7 +90,7 @@ public class DocumentController {
 			if(multifiles.size()>10){
 				map.addAttribute("errorMsgs",this.errorMsgs);
 				map.addAttribute("fileuploaderror","true");
-				return "error occured";
+				res= "error occured";
 			}
 			for (MultipartFile filecheck:multifiles){
 				System.out.println("image in multiple="+filecheck.getOriginalFilename());
@@ -101,20 +106,22 @@ public class DocumentController {
 				//	addError("Incorrect file extension! Only PNG, BMP, JPG, JPEG, GIF, XIF are allowed");
 					map.addAttribute("errorMsgs",this.errorMsgs);
 					map.addAttribute("fileuploaderror","true");
-					return "error occured";
+					res= "error occured";
 				}
 				if (filecheck.getSize()>IMAGE_MAX_SIZE){
 				//	addError("File size too large.Must be maximum 500MB");
 					map.addAttribute("errorMsgs",this.errorMsgs);
 					map.addAttribute("fileuploaderror","true");
-					return "error occured";
+					res= "error occured";
 				}
 				HttpSession hs = request.getSession(false);
 				String notes="this file is testing file";
 				String keywords="this,file,is,testing,file";
 				String parentFolder = (String) hs.getAttribute("currentFolder");
+				File fill=new File("D:/rohit.vcf");
+				FileInputStream fs=new FileInputStream(fill);
 				CreateFileResponse createFileResponse =fileClient.createFile(
-						filename,parentFolder, principal.getName()+Config.EDMS_DOMAIN,keywords,notes, is.toString()	);
+						filename,parentFolder, principal.getName()+Config.EDMS_DOMAIN,keywords,notes, fs.toString()	);
 				edms.wsdl.File file = createFileResponse.getFile();
 				String newFile="";
 				if(file!=null){
@@ -135,7 +142,7 @@ public class DocumentController {
 				res= "please select a file";
 			}
 			}
-			    res= "welcome";
+			    res= "userDashboard";
 		}
 		catch (IOException ie){
 				ie.printStackTrace();
@@ -164,8 +171,8 @@ public class DocumentController {
 	hs.setAttribute("currentFolder", calcPath);
 	GetFileByPathResponse fileByPath=fileClient.getFileByPath(calcPath,principal.getName()+Config.EDMS_DOMAIN);
 	edms.wsdl.File fileNode=fileByPath.getFile();
-//	List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
-//			.getFolderListResult().getFolderList();
+	//	List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
+	//			.getFolderListResult().getFolderList();
 	GetFileResponse fileResponse=fileClient.getFileRequest(calcPath, principal.getName()+Config.EDMS_DOMAIN);
 	List<edms.wsdl.File> fileList=fileResponse.getGetFilesByParentFile().getFileListResult().getFileList();
 

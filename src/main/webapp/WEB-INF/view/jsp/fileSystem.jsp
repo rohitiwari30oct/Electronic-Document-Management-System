@@ -621,14 +621,14 @@ String userid=(String)request.getAttribute("userid");
 
     <script type="text/javascript">
 	function getFileProperties(folderPath) {
-		/* $('#oldFolderName').val(folderPath);
+	$('#oldFolderName').val(folderPath);
 		
-		jQuery.post("setCurrentFolder", 
+		jQuery.post("setCurrentFile", 
 				 {
 			'path' : folderPath
 		},
 				function( data ) {
-	        }); */
+	        });
 	//	alert(folderPath);
 	/* 	$.ajax({
 			type : "GET",

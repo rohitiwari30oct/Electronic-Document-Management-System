@@ -253,8 +253,10 @@ public class FolderController {
 		path = path.substring(6);
 		path=path.replaceFirst("_avi", "@avi");
 		path=path.replaceFirst("_com", ".com");
+		path=path.replaceFirst("_spc_spc_", " ");
 		path = path.replace('_', '/');
 		path = path.replace('*', ' ');
+		System.out.println(path);
 		GetFolderResponse folderResponse = folderClient.getFolderRequest(path,principal.getName()+Config.EDMS_DOMAIN);
 		List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
 				.getFolderListResult().getFolderList();
