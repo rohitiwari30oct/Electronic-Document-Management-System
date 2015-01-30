@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,22 +16,25 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import edms.chatdwr.ScriptSessList;
 import edms.chatdwr.XmppChatClass;
 import edms.core.Config;
 import edms.model.LoginModel;
-import edms.webservice.client.FileClient;
-import edms.webservice.client.FolderClient;
+import edms.webservice.client.DocumentModuleClient;
 import edms.webservice.client.WorkflowClient;
 import edms.wsdl.Folder;
 import edms.wsdl.GetFileResponse;
 import edms.wsdl.GetFolderByPathResponse;
 import edms.wsdl.GetFolderResponse;
 import edms.wsdl.GetRecycledDocsResponse;
+import edms.wsdl.RecentlyModifiedResponse;
+import edms.wsdl.SearchDocByDateResponse;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.Iterator;
 
@@ -58,10 +62,7 @@ public class IndexController {
 	@Value ("${chatImageFolder}") private String chatImageFolder;
 	@Value ("${onlineStatus}") private String onlineStatus;
 
-	@Autowired
-	FolderClient folderClient;
-	@Autowired
-	FileClient fileClient;
+	@Autowired DocumentModuleClient documentModuleClient;
 	@Autowired WorkflowClient workflowClient;
 
 	@RequestMapping(value = "/userDashboard", method = RequestMethod.GET)
@@ -70,10 +71,7 @@ public class IndexController {
 		return "userDashboard";
 	}
 
-	@RequestMapping(value = "/userStatistics", method = RequestMethod.GET)
-	public String getStatistics(ModelMap map) {
-		return "userStatistics";
-	}
+
 
 
 	@RequestMapping(value = "/calender", method = RequestMethod.GET)
@@ -86,25 +84,44 @@ public class IndexController {
 		return "workflow";
 	}
 	@RequestMapping(value = "/recently", method = RequestMethod.GET)
-	public String getRecently(ModelMap map) {
+	public String getRecently(ModelMap map,Principal principal) {
+		String path="/"+principal.getName()+"@avi-oil.com";
+		String userid=principal.getName()+Config.EDMS_DOMAIN;
+		RecentlyModifiedResponse recentlyModifiedResponse = documentModuleClient.getRecentlyModified(path,userid);
+		List<Folder> folderList = recentlyModifiedResponse.getRecentlyModifiedFolders().getFoldersList().getFolderList();
+		map.addAttribute("folderList", folderList);
+		List<edms.wsdl.File> fileList=recentlyModifiedResponse.getRecentlyModifiedFolders().getFilesList().getFileList();
+		map.addAttribute("fileList", fileList);
+		map.addAttribute("userid",principal.getName()+"@avi-oil.com");
 		return "recently";
+	}
+	@RequestMapping(value = "/getLeftDocument", method = RequestMethod.GET)
+	public String getLeftDocument(ModelMap map,Principal principal,HttpServletRequest request) {
+		String path = "/" + principal.getName() + Config.EDMS_DOMAIN;
+		GetFolderResponse folderResponse = documentModuleClient
+				.getFolderRequest(path, principal.getName()
+						+ Config.EDMS_DOMAIN);
+		List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
+				.getFolderListResult().getFolderList();
+		GetFileResponse fileResponse = documentModuleClient.getFileRequest(
+				path, principal.getName() + Config.EDMS_DOMAIN);
+		List<edms.wsdl.File> fileList = fileResponse.getGetFilesByParentFile()
+				.getFileListResult().getFileList();
+		map.addAttribute("fileList", fileList);
+		map.addAttribute("folderClient", documentModuleClient);
+		map.addAttribute("folderList", folderList);
+		map.addAttribute("principal", principal);
+	return "myDocument";
+	
 	}
 	@RequestMapping(value = "/trash", method = RequestMethod.GET)
 	public String getTrash(ModelMap map,Principal principal) {
-		String path="/"+principal.getName()+"@avi-oil.com";
-		GetRecycledDocsResponse folderResponse = folderClient.getRecycledDoc(principal.getName()+"@avi-oil.com", path);
-		List<Folder> folderList = folderResponse.getGetRecycledDocs().getFolderListResult().getFolderList();
-		
-		
+		String path="/"+principal.getName()+Config.EDMS_DOMAIN+"/trash";
+		GetRecycledDocsResponse folderResponse = documentModuleClient.getRecycledDoc(principal.getName()+Config.EDMS_DOMAIN, path);
+		List<Folder> folderList = folderResponse.getGetRecycledDocs().getFoldersList().getFolderList();
 		map.addAttribute("folderList", folderList);
-		
-		
-
-		GetFileResponse fileResponse=fileClient.getFileRequest(path, principal.getName()+Config.EDMS_DOMAIN);
-				List<edms.wsdl.File> fileList=fileResponse.getGetFilesByParentFile().getFileListResult().getFileList();
-
-				map.addAttribute("fileList", fileList);
-		map.addAttribute("userid",principal.getName()+"@avi-oil.com");
+		map.addAttribute("fileList", folderResponse.getGetRecycledDocs().getFilesList().getFileList());
+		map.addAttribute("userid",principal.getName()+Config.EDMS_DOMAIN);
 		return "trash";
 	}
 	
@@ -342,17 +359,18 @@ public class IndexController {
 
 		String path = "/"+principal.getName()+"@avi-oil.com";
 		//String path = "/";
-		GetFolderResponse folderResponse = folderClient.getFolderRequest(path,principal.getName()+"@avi-oil.com");
+		GetFolderByPathResponse folderByPath=documentModuleClient.getFolderByPath(path,principal.getName()+"@avi-oil.com");
+		
+		GetFolderResponse folderResponse = documentModuleClient.getFolderRequest(path,principal.getName()+"@avi-oil.com");
 
 		List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
 				.getFolderListResult().getFolderList();
-		folderClient.printResponse(folderResponse);	
-		GetFolderByPathResponse folderByPath=folderClient.getFolderByPath(path,principal.getName()+"@avi-oil.com");
+		documentModuleClient.printResponse(folderResponse);	
 		Folder folderNode=folderByPath.getFolder();
 		map.addAttribute("principal", principal);
 		map.addAttribute("currentFolder",folderNode);
 		map.addAttribute( "folderList", folderList);
-		map.addAttribute("folderClient",folderClient);
+		map.addAttribute("folderClient",documentModuleClient);
 		map.addAttribute("breadcum","/");
 		// map.addAttribute("nodeIterator", nodeIterator);
 		

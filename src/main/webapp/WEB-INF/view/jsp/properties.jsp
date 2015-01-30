@@ -2,6 +2,7 @@
 <%@page import="edms.wsdl.FolderVersionDetail"%>
 <%@page import="edms.wsdl.Folder"%>
 <%@page import="java.util.List"%>
+<script src="js/left_event.js" type="application/javascript"></script>
 <%List<Folder> folderList = (List<Folder>) request.getAttribute("folderList"); 
 String breadcum=(String)request.getAttribute("breadcum");
 Folder currentFolder=(Folder)request.getAttribute("currentFolder");
@@ -86,28 +87,34 @@ String userid=(String)request.getAttribute("userid");
                                                 <div class="content_right">
                                                       <table> <tr class="history_content">
                                                                <td>Version</td>
-                                                               <td>Date</td>
-                                                               <td>Author</td>
-                                                               <td>Details</td>
+                                                               <!-- <td>Date</td> -->
+                                                              <!--  <td>Author</td> -->
+                                                               <td  style="width: 70px;">Details</td>
                                                                <td>Action</td>
                                                              </tr>
                                                       <%
                                                       List<FolderVersionDetail> versionDetails=currentFolder.getFolderVersionsHistory();
+                                                      
+                                                      int i=0;
+                                                      
                                                       for(FolderVersionDetail versionDetail:versionDetails){
+                                                      
+                                                    	  if(i>0){
                                                       %>
                                                            <tr>
                                                                 <td><%=versionDetail.getVersionName() %></td>
-                                                                <td><%=versionDetail.getCreationDate() %></td>
-                                                                <td><%=versionDetail.getCreatedBy() %></td>
-                                                                <td><%=versionDetail.getDetails() %></td>
+                                                               <%--  <td><%=versionDetail.getCreatedBy() %></td> --%>
+                                                                <td style="width: 70px"><%=versionDetail.getDetails() %> on Date: <%=versionDetail.getCreationDate().substring(0,10) %></td>
                                                                 <td><a href="#" id="<%=currentFolder.getFolderPath() %>,<%=versionDetail.getVersionName() %>" class="" onclick="restoreVersion(this.id)">Restore</a></td>
                                                              </tr>
-                                                             <%} %>
+                                                             <%}
+                                                    	i++;  
+                                                      } %>
                                                              
                                                               
                                                       </table>
                                                 <script type="text/javascript">
-                                                	/* function restoreVersion(folderPath){
+                                                	 function restoreVersion(folderPath){
                                                 		//alert(folderPath);
                                                 		folderPath=folderPath.split(',');
                                                 		
@@ -128,13 +135,19 @@ String userid=(String)request.getAttribute("userid");
                                           				}); 
                                                 	
                                                 	}
-                                                 */
+                                                 
                                                 </script>
                                                 </div>
                                                 <li class="prew right_tab"><a href="#">PREVIEW</a>
-                                                  <div class="icon_right"> </div>
+                                                  <div class="icon_right">
+                                                  
+                                                   </div>
+                                                   
+                                                 
                                                 </li>      
-                                                <div class="content_right"></div>
+                                                <div class="content_right" style="margin: 0px auto;">
+                                              No Preview Available
+                                                </div>
                                                 <li class="prew right_tab permi"><a href="#">PERMISSION</a>
                                                   <div class="icon_right"> </div>
                                                 </li>      
@@ -229,36 +242,4 @@ String userid=(String)request.getAttribute("userid");
 			});
              </script>    -->                         
                                           <!----------------/// RIGHT PART END HERE -------------------> 
-                                             <script src="js/jquery-1.7.2.min.js" type="application/javascript" ></script>
-<script src="js/left_event.js" type="application/javascript"></script>
-<script src="js/jquery_popup.js"></script>
-
-<link href="css/style.css" type="text/css" rel="stylesheet"/>
-<link rel="stylesheet" href="css/jquery_popup.css" />
-                                              <link href="css/page.css" rel="stylesheet" type="text/css" />
-    
-    <link href="css/contextmenu.css" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-    
-    </style>
-   <!--- <script src="src/jquery.js" type="text/javascript"></script>-->
-    <script src="js/jquery.contextmenu.js" type="text/javascript"></script>  
-    
-    <!--code highlighter file import-->
-    <script src="js/shCore.js" type="text/javascript"></script>
-    <script src="js/shBrushJScript.js" type="text/javascript"></script>
-    <script src="js/shBrushCss.js" type="text/javascript"></script>  
-    <link href="css/shCore.css" rel="stylesheet" type="text/css" />
-    <link href="css/shThemeDefault.css" rel="stylesheet" type="text/css" /> 
-    <script type="text/javascript">
-        SyntaxHighlighter.config.clipboardSwf = '../js/clipboard.swf';
-    	  SyntaxHighlighter.all();
-	  </script>
-    <!--end code highlighter-->
-
-      <!---------------/// USER NEW SEND STRAED HERE ------------->
-<script type="text/javascript" src="js/user_send.js"></script>
-<script type="text/javascript" src="js/group_send.js"></script>
-<link href="css/user_send.css" type="text/css" rel="stylesheet"/>
-<link href="css/group_send.css" type="text/css" rel="stylesheet"/>
-<!----------------/// USER NEW SEND END HERE --------------->  
+                                         

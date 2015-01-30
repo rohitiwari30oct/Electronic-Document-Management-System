@@ -17,6 +17,7 @@
     </definition>
     <definition name="chat" extends="indexTemplate">
         <put-attribute name="title" value="Avi-Oil chat" />
+        <put-attribute name="body" value="" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/chat.jsp" />
     </definition>
       <definition name="leftActiviti" extends="indexTemplate">
@@ -26,6 +27,10 @@
       <definition name="myDocument" extends="indexTemplate">
         <put-attribute name="title" value="Avi-Oil My Document" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/myDocument.jsp" />
+    </definition>
+      <definition name="leftDocument" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil My Document" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/leftDocument.jsp" />
     </definition>
       <definition name="getDocProperties" extends="indexTemplate">
         <put-attribute name="title" value="Avi-Oil My Document" />
@@ -61,7 +66,8 @@
         <put-attribute name="title" value="" />
         <put-attribute name="header" value="/WEB-INF/view/jsp/header.jsp" />
         <put-attribute name="left" value="" />
-        <put-attribute name="chat" value="/WEB-INF/view/jsp/chat.jsp" />
+        <put-attribute name="chat" value="" />
+      <put-attribute name="chat" value="/WEB-INF/view/jsp/chat.jsp" />
         <put-attribute name="body" value="" />
     </definition> 
     <definition name="userDashboard" extends="userDashboardTemplate">
@@ -115,5 +121,8 @@
     </definition>
     <definition name="fileSystem" extends="ajaxTemplate">
         <put-attribute name="body" value="/WEB-INF/view/jsp/fileSystem.jsp" />
+    </definition>
+    <definition name="searchResult" extends="ajaxTemplate">
+        <put-attribute name="body" value="/WEB-INF/view/jsp/searchResult.jsp" />
     </definition>
 </tiles-definitions>

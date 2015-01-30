@@ -327,20 +327,9 @@ function bottom_view(){
 				
 				}	
 				
-			function tab_search(){
-				if($('.search_box_details').css('display')=='none')
-				{
-					
-					$('.search_box_details').css('display','block')
-					
-					}
-				else
-				{
-					
-					$('.search_box_details').css('display','none')
-					
-					}
-				}
+
+
+				
 				
 				
 
@@ -350,45 +339,89 @@ function bottom_view(){
 				//for responsiveness of screens
 $(document).ready(function() {
 	
-	 var removeClass = true; 
-     $('.select_box').click(function(){
-		   	//	alert("gy");
-		   		 $('li.new_select_box').removeClass('new_select_box');
-		       $(this).addClass('new_select_box');
-		     
-		        
-		        
-				$('.update').addClass('select_icon');
-				removeClass = false;
-				//$(this).css('background','#ccc');
-		   });
-		  
-		/*$("html").click(function () {
-        if (removeClass) 
-		      {
-             $('.select_box').removeClass('new_select_box');
-			   $('.update').removeClass('select_icon');
-            }
-            removeClass = true;
-            });*/
-
-
-/// SHARED OPTION HERE 
-    // SHARED ICON
-	  $('.share').click(function(){
-			   if($('.share_option').css('display')=='none')
+	   ///SELECT BOX EVENT STARTED HERE
+	       var removeClass = true; 
+	       $('.select_box').click(function(){
 			   
-			   {
-				   $('.share_option').css('display','block');
-				   $('.web_dialog_overlay').css('display','block');
+			        $('li.new_select_box').removeClass('new_select_box');
+			        $(this).addClass('new_select_box');
+					$('.update').addClass('select_icon');
+					var get_cl = $('.select_box').find('new_select_box');
+					  /// TEST STRED HERE 
+				    if($('.select_box').find('new_select_box'))
+					{
+						//alert('Hi');
+						$('.menu_right >ul >li').addClass('act_me');
+						
+						}
 				   
-				   }
+				   /// TEST END HERE 
+					
+					
+					removeClass = false;
+					//$(this).css('background','#ccc');
+
+			   });
 			   
-		  
-		  });    
+			   
+			   /// TEST STRED HERE 
+			   
+			   $('.serach_top').click(function(){
+				removeClass = false;
+				//alert('Hi')
+				  if($('.search_box_details').css('display')=='none')
+				       {
+					
+					        $('.search_box_details').css('display','block')
+					
+					   }
+				     else
+				      {
+					
+					      $('.search_box_details').css('display','none')
+					 
+					  }
+					
+					
+			    });
+			   
+			   
+			   /// TEST STRED END HERE
+			   
+			   
+			   
+			  
+	/*		$("html").click(function () {
+              if (removeClass) 
+			      {
+					  // FOR STELECT BOX
+                   $('.select_box').removeClass('new_select_box');
+				   $('.menu_right >ul >li').removeClass('act_me');
+				     /// FOR SELECT BOX END 
+				   $('.update').removeClass('select_icon');
+				   $('.search_box_details').css('display','none');
+                  }
+                  removeClass = true;
+                  });
+	*/
 	
-	///    Cancel POP Up END HERE 
-	
+	/// SHARED OPTION HERE 
+	      // SHARED ICON
+		  $('.share').click(function(){
+			       
+				   if($('.share_option').css('display')=='none')
+				   
+				   {
+					   $('.share_option').css('display','block');
+					   $('.web_dialog_overlay').css('display','block');
+					   
+					   }
+				   
+			  
+			  });    
+		
+		///    Cancel POP Up END HERE 
+		
 		$('.cancel_popup').click(function(){
 			
 			         if($('.share_option').css('display')=='block')
@@ -444,7 +477,7 @@ $(document).ready(function() {
 	// LEFT PART DOCUMENT ONCLICK
 $('.content_left_block > ul >li').click(function(){
 	
- /*     if($('.subfolder_onhover').css('display')=='none')
+      if($('.subfolder_onhover').css('display')=='none')
 	  {
 		  $('.subfolder_onhover').addClass('subfolder_open');
 		  $('.subfolder_sign').addClass('subfolder_minus');
@@ -455,7 +488,7 @@ $('.content_left_block > ul >li').click(function(){
 		  $('.subfolder_onhover').removeClass('subfolder_open');
 		  $('.subfolder_sign').removeClass('subfolder_minus');
 	  }
-	*/
+	
 	
 	});
 
@@ -663,8 +696,7 @@ $('.content_left_block > ul >li').click(function(){
 		var chat_search_top = $('.chat_box_inner').offset().top + $('.chat_box_inner').height();
 		var chat_search_1 = window.innerHeight + window.scrollY;             		
 		var adjustHeight = chat_search_top - chat_search_1;
-		var heightChatBox = $('.chat_box_inner').height();
-		heightChatBox = $('.chat_box_inner').height() - adjustHeight;
+		$('.chat_box_inner').height() = $('.chat_box_inner').height() - adjustHeight;
 				
     });
 	$('.document_library').click(function() {

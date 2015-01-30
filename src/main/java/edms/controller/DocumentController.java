@@ -2,8 +2,10 @@ package edms.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -31,11 +33,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import edms.core.Config;
 import edms.model.UploadedFile;
-import edms.webservice.client.FileClient;
-import edms.webservice.client.FolderClient;
+import edms.webservice.client.DocumentModuleClient;
 import edms.wsdl.CreateFileRequest;
 import edms.wsdl.CreateFileResponse;
 import edms.wsdl.CreateFolderResponse;
@@ -48,8 +50,7 @@ import edms.wsdl.GetFolderResponse;
 @Controller
 public class DocumentController {
 	public static final String FILE_UPLOAD_STATUS = "file_upload_status";
-	@Autowired private FileClient fileClient;
-	@Autowired private FolderClient folderClient;
+	@Autowired private DocumentModuleClient documentModuleClient;
 	
 	private Integer IMAGE_MAX_SIZE = 1024000;
 	
@@ -62,8 +63,7 @@ public class DocumentController {
 
 	@RequestMapping("/uploadDocumentByJcr")
 	@ResponseBody
-	public String uploadDocumentByJcr(@ModelAttribute(value="fileupload")UploadedFile fileupload,BindingResult result,
-			ModelMap map,Principal principal,HttpServletRequest request, HttpServletResponse response){
+	public String uploadDocumentByJcr(ModelMap map,Principal principal,MultipartHttpServletRequest request, HttpServletResponse response){
 		String res="";
 		this.allowedImageExtensions = new HashSet<String>();
 		this.allowedImageExtensions.add("png");
@@ -77,30 +77,32 @@ public class DocumentController {
 		this.allowedImageExtensions.add("pdf");
 		this.allowedImageExtensions.add("pod");
 		this.allowedImageExtensions.add("vcf");
-		System.out.println("in file upload "+fileupload);
-		List<MultipartFile> multifiles=fileupload.getFiledata();
-		System.out.println("no.of files="+multifiles.size());
-		System.out.println("multiple is"+multifiles.isEmpty());
-		MultipartFile mpf = multifiles.get(0);
-		String fname=mpf.getOriginalFilename();
-		System.out.println("get 0="+fname);
-			
+		File fil =null;
 		String filename=null;
 		try{
-			if(multifiles.size()>10){
-				map.addAttribute("errorMsgs",this.errorMsgs);
-				map.addAttribute("fileuploaderror","true");
-				res= "error occured";
-			}
-			for (MultipartFile filecheck:multifiles){
+			
+			Iterator<String> itr = request.getFileNames();
+			while (itr.hasNext()){
+			MultipartFile filecheck = request.getFile(itr.next());
+		
 				System.out.println("image in multiple="+filecheck.getOriginalFilename());
 			if (filecheck.getSize()>0){
 				filename=filecheck.getOriginalFilename().replace(" ", "-");
 				String extension=FilenameUtils.getExtension(filename);
 				System.out.println("file extenson="+extension);
 				InputStream is=filecheck.getInputStream();
-				byte[] iss=IOUtils.toByteArray(is);
-				System.out.println("stream of file is : "+is);
+				//InputStream is=new FileInputStream(new File("D://1.png"));
+				
+				/*int idx = filename.lastIndexOf('.');
+				String fileExtension = idx > 0 ? filename.substring(idx) : ".tmp";
+				fil = File.createTempFile("okm", fileExtension);
+				filecheck.transferTo(fil);
+				FileInputStream fs=new FileInputStream(fil);*/
+				//String imageBytes = IOUtils.toByteArray(is);
+			/*	org.apache.commons.codec.binary.Base64
+						.encodeBase64URLSafeString(IOUtils.toByteArray(is));*/
+			//	String iss= IOUtils.toString(is);
+				//System.out.println("stream of file is : "+is);
 				if (!this.allowedImageExtensions.contains(extension)){
 					System.out.println("inside file extension check");
 				//	addError("Incorrect file extension! Only PNG, BMP, JPG, JPEG, GIF, XIF are allowed");
@@ -118,35 +120,53 @@ public class DocumentController {
 				String notes="this file is testing file";
 				String keywords="this,file,is,testing,file";
 				String parentFolder = (String) hs.getAttribute("currentFolder");
-				File fill=new File("D:/rohit.vcf");
-				FileInputStream fs=new FileInputStream(fill);
-				CreateFileResponse createFileResponse =fileClient.createFile(
-						filename,parentFolder, principal.getName()+Config.EDMS_DOMAIN,keywords,notes, fs.toString()	);
+				String encodedString=org.apache.commons.codec.binary.Base64
+						.encodeBase64URLSafeString(IOUtils.toByteArray(is));
+				System.out.println(org.apache.commons.codec.binary.Base64
+						.encodeBase64URLSafeString(IOUtils.toByteArray(is)));
+				CreateFileResponse createFileResponse =documentModuleClient.createFile(
+						filename,parentFolder, principal.getName()+Config.EDMS_DOMAIN,keywords,notes,encodedString);
 				edms.wsdl.File file = createFileResponse.getFile();
 				String newFile="";
 				if(file!=null){
-				newFile = "<li   class='select_box target' id='"
-						+file.getFilePath()
-						+ "' ondblclick='getFileSystem(this.id)' >"
-						+ "<div class='file_icon'></div>  <span>"
-						/*+ file.getFilePath().substring(file.getFilePath().lastIndexOf('/') + 1)*/
-						+ "</span>" 
-						+ "</li>";
+					newFile="<li onclick='getFileProperties(this.id)' class='select_box target'"+
+							" id='"+file.getFilePath()+"' ondblclick='getFileContent(this.id)'>";
+							
+								if(file.getFileName().contains(".pdf")){
+									newFile+=	"<div class='pdf_icon'></div> ";
+	 	}else if(file.getFileName().contains(".doc")){
+	 		newFile+=	"	<div class='msoffice_icon'></div> ";
+	 	}else if(file.getFileName().contains(".xls")){
+	 		newFile+=	"	<div class='msexcel_icon'></div>";
+	 	}else if(file.getFileName().contains(".ppt")){
+	 		newFile+=	"	<div class='ppt_icon'></div> ";
+	 	}else{
+	 		newFile+=	"	<div class='pdf_icon'></div> ";
+	 	}
+						 		newFile+=	" <span>"+file.getFileName()+"</span></li>";
+						 		res+= newFile;
 				}else{
-					res= "access denied"; 
+					return ",Error Occured"; 
 				}
-				res= newFile;
+				
 			}
 			else {
 				System.out.println("in else");
 				res= "please select a file";
 			}
+			
 			}
-			    res= "userDashboard";
+			return res+",Successfully Uploaded";
+			    
 		}
 		catch (IOException ie){
+			res=",Error Occured";
 				ie.printStackTrace();
 			}
+		finally{
+			
+			org.apache.commons.io.FileUtils.deleteQuietly(fil);
+		}
 		return res;
 	}
 	public void updateSessionManager(HttpServletRequest request) {
@@ -168,12 +188,14 @@ public class DocumentController {
 	for (int i = 1; i < str.length; i++) {
 		calcPath += "/" + str[i];
 	}
-	hs.setAttribute("currentFolder", calcPath);
-	GetFileByPathResponse fileByPath=fileClient.getFileByPath(calcPath,principal.getName()+Config.EDMS_DOMAIN);
+	hs.setAttribute("currentFile", calcPath);
+	hs.setAttribute("currentFolder", "");
+	GetFileByPathResponse fileByPath=documentModuleClient.getFileByPath(calcPath,principal.getName()+Config.EDMS_DOMAIN);
 	edms.wsdl.File fileNode=fileByPath.getFile();
+	System.out.println(fileNode.getFileContent());
 	//	List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
 	//			.getFolderListResult().getFolderList();
-	GetFileResponse fileResponse=fileClient.getFileRequest(calcPath, principal.getName()+Config.EDMS_DOMAIN);
+	GetFileResponse fileResponse=documentModuleClient.getFileRequest(calcPath, principal.getName()+Config.EDMS_DOMAIN);
 	List<edms.wsdl.File> fileList=fileResponse.getGetFilesByParentFile().getFileListResult().getFileList();
 
 	map.addAttribute("currentFolder",fileNode);
@@ -185,10 +207,76 @@ public class DocumentController {
 	
 	@RequestMapping(value = "/setCurrentFile", method = RequestMethod.POST)
 	@ResponseBody
-	public String setCurrentFolder(ModelMap map, Principal principal,
+	public String setCurrentFile(ModelMap map, Principal principal,
 			HttpServletRequest request, @RequestParam String path) {
 		HttpSession hs = request.getSession(false);
 		hs.setAttribute("currentFile", path);
+		hs.setAttribute("currentFolder", "");
 		return "";
+	}
+
+	@RequestMapping(value = "/getFileContent", method = RequestMethod.GET)
+	public void getFileContent(ModelMap map, Principal principal,
+			HttpServletRequest request,
+			HttpServletResponse response, @RequestParam String folderPath) {
+				try {
+					GetFileByPathResponse fileByPath=documentModuleClient.getFileByPath(folderPath,principal.getName()+Config.EDMS_DOMAIN);
+					edms.wsdl.File fileNode=fileByPath.getFile();
+					
+					byte[] imageBytes = org.apache.commons.codec.binary.Base64.decodeBase64(fileNode.getFileContent());
+					String iss;
+						iss = IOUtils.toString(imageBytes);
+				InputStream inStream =  IOUtils.toInputStream(iss);
+				System.out.println("content of file is : "+fileNode.getFileContent());
+				// forces download
+				String headerKey = "Content-Disposition";
+				String headerValue = String.format("attachment; filename=\"%s\"", fileNode.getFileName());
+				response.setHeader(headerKey, headerValue);
+		
+				// obtains response's output stream
+				OutputStream outStream = response.getOutputStream();
+		
+				byte[] buffer = new byte[4096];
+				int bytesRead = -1;
+		
+				while ((bytesRead = inStream.read(buffer)) != -1) {
+				outStream.write(buffer, 0, bytesRead);
+				}
+				
+				inStream.close();
+				outStream.close();
+					}catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+				
+		
+		
+		
+		/* try {	GetFileByPathResponse fileByPath=documentModuleClient.getFileByPath(folderPath,principal.getName()+Config.EDMS_DOMAIN);
+		edms.wsdl.File fileNode=fileByPath.getFile();
+		  String headerKey = "Content-Disposition";
+          String headerValue = String.format("attachment; filename=\"%s\"",  fileNode.getFileName());
+          response.setHeader(headerKey, headerValue);
+          System.out.println(fileNode.getFileContent()+ " is file");
+          InputStream input =IOUtils.toInputStream(fileNode.getFileContent());
+          String destFilePath = "/" +  fileNode.getFileName();
+          //OutputStream output = response.getOutputStream();
+          FileOutputStream output = new FileOutputStream(destFilePath);
+          byte[] buffer = new byte[4096];
+
+          int byteRead;
+
+          while ((byteRead = input.read(buffer)) != -1) {
+            
+				output.write(buffer, 0, byteRead);
+			
+          output.close();
+             } }catch (IOException e) {
+ 				// TODO Auto-generated catch block
+ 				e.printStackTrace();
+ 			}
+		*/
 	}
 }

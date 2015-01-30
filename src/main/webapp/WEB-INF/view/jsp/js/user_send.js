@@ -30,6 +30,12 @@ $('.go_here')
 					// alert($('.left_user').html());
 
 					var div_value = $('.left_user').html();
+					if( div_value == null)
+					{
+						alert('Please Select The Value !')
+						
+						}
+					else {
 					// alert(div_value);
 					
 					$('.left_part').find('.left_user').addClass('active_go');
@@ -58,8 +64,11 @@ $('.go_here')
 											+ ',us"  id="'
 											+ div_value.replace("@", "")
 													.replace(".", "")
-											+ 'us"/></td></tr>')
+											+ 'us"/></td></tr>');
+											$('div.left_user').removeClass('left_user');
+											
 					open_here.hide(this);
+					}
 
 				});
 
@@ -96,14 +105,19 @@ $('.come_here').click(
 
 			var div_value_right = $('.go_right_to_left').html();
 			alert(div_value_right);
-
+      if(div_value_right == null)
+	  {
+		   alert('Please Select The Value ');
+		  
+		  
+		  }
+	  else {
 			$('.right_part').find('.go_right_to_left').addClass(
 					'active_go_right');
 			$('.right_part').find('.active_go_right').hide(this);
-			$('.left_part').append(
-					'<div class="right_text new_1">' + div_value_right
-							+ '</div>');
-
+			$('.left_part').append('<div class="right_text new_1">' + div_value_right + '</div>');
+		      $('td.go_right_to_left').removeClass('go_right_to_left');					
+	  }
 		});
 
 // / RIGHT PART COME CONTENT

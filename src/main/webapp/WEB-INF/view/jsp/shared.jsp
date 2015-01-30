@@ -1,15 +1,17 @@
                         <!---// RIGHT --->
                         <%@page import="java.util.List"%>
 <%@page import="edms.wsdl.Folder"%>
+
+
 <div class="other_pages">
                                   <!---------------ALL SHARED FOLDER CONTENT ---------->
-                                  <div class="path">
+                                  <div class="path shared_menu">
                                   <%
                                   List<Folder> folderList = (List<Folder>) request.getAttribute("folderList"); 
-                    				String breadcum=(String)request.getAttribute("breadcum");
+                                  List<edms.wsdl.File> fileList = (List<edms.wsdl.File>) request.getAttribute("fileList"); 
+	                  				String breadcum=(String)request.getAttribute("breadcum");
                     				Folder currentFolder=(Folder)request.getAttribute("currentFolder");
                     				String userid=(String)request.getAttribute("userid");
-                    				
                                   %>
 		<span>Path &nbsp; :</span><span> 
 		<%
@@ -53,6 +55,7 @@
 		
 			</span>
 		<!-- <span class="path_color">Main Folder</span> -->
+		 <div class="clear"></div>     
 	</div>
                                   <!-- <div class="shared_menu">
                                      <h1>Shared By Others</h1>  
@@ -113,6 +116,35 @@
             <%} %>
             
             
+<%				
+      				
+      				for (edms.wsdl.File file : fileList) {
+      					%>
+                        <!------------------/// ROW FIRST STARED HERE --------------->
+               					<div class="shared_row_1">
+               					<div ondblclick="getSharedFileSystem(this.id)"  style="cursor: pointer;/* width: 100%; */height: 32px;" id="<%=file.getFilePath()%>" >
+                                <!--------------TITLE ----------------->
+                                <div class="shared_title_1" >
+                                    <!--  <input type="checkbox" class="shared_option"> -->
+                                     <img src="images/folder.png">
+                                     <span><%=file.getFileName() %></span>
+                                </div>
+                                <!-----------------Title----------------->
+                                  <!--------------TITLE ----------------->
+                                <div class="shared_date">
+                                    <div class="shared_person_name">
+                                    <img src="images/missing_avatar.png">
+                                    <%=file.getCreatedBy() %></div>
+                                   <!--  <div class="shared_person_date">Oct 1</div> -->
+                                </div>
+                                <!-----------------Title----------------->
+                                <div class="claer"></div>
+                                </div>
+              </div>
+            <!-------------------/// ROW END HERE ---------------->
+            <%} %>
+            
+            
         
                                              
                                     </div>
@@ -163,6 +195,12 @@
 		</script>
 	</form>
 </div>
+ <script type="text/javascript">
+          var recent_win_he = $(window).height();
+          //alert(recent_win_he);
+          $('.other_pages').css('height',recent_win_he-167);
+			</script>
+            
 <!-----------------/// ADD GROUP POP UP  END HERE ---------->         
     </body>
 </html>

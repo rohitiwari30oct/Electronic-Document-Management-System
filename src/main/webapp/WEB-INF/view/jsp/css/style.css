@@ -878,6 +878,9 @@ width: 132px;
 padding: 7px; border:2px solid #fff;
 margin-bottom: 7px;
 margin-right: 7px;min-height: 62px;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
 }
 .list_view_middle {
 display: none;
@@ -943,7 +946,7 @@ background-position: 19px 1px,left;
 margin-top: 6px;
 }
 .list_view_content ul li {
-float: left;
+	float: left;
     font-size: 13px;
     height: 23px;
     margin-left: 8px;
@@ -1733,17 +1736,21 @@ padding: 0px;
 list-style-type: none;
 }
 .row_content_folder ul li {
+	margin-left: 15px;
 float: left;
 text-align: center;
 width: 132px;
 padding-bottom: 22px;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
 }
 
 .row_content_folder ul li span {
 font-size: 12px;
 }
 .recently_main_div{overflow: auto;
-top: 29px;
+top:0px;
  height: 100%;
 position:relative;
 bottom: 36px;
@@ -2098,16 +2105,20 @@ padding: 0px;
 list-style-type: none;
 }
 .trash_content ul li {
+	margin-left: 15px;
 float: left;
 text-align: center;
 width: 132px;
 padding-bottom: 22px;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
 }
 .trash_content ul li span {
 font-size: 12px;
 }
 .folder_icon {
-width: 65px;
+width: 64px;
 height: 47px;
 background: url(../images/folder_length.png);
 margin: 0 auto;
@@ -2116,26 +2127,26 @@ margin: 0 auto;
 width: 65px;
 height: 51px;
 background: url(../images/folder_length.png);
-margin: 0 auto;background-position: 8px 338px;
+margin: 0 auto;background-position: 1px 338px;
 }
 .ppt_icon {
 width: 65px;
 height:51px;
 background: url(../images/folder_length.png);
-margin: 0 auto;background-position: 10px 156px;
+margin: 0 auto;background-position: 6px 156px;
 }
 .msexcel_icon {
 width: 65px;
 height: 51px;
 background: url(../images/folder_length.png);
 margin: 0 auto;
-background-position: 10px 51px;
+background-position: 3px 51px;
 }
 .msoffice_icon {
 width: 65px;
 height: 51px;
 background: url(../images/folder_length.png);
-margin: 0 auto;background-position: 10px 242px;
+margin: 0 auto;background-position: 0px 242px;
 }
 /*-------------/// TRASH PAGES END HERE ------------------*/
 /*------------------/// USER DASBOARD STARED HERE ----------*/

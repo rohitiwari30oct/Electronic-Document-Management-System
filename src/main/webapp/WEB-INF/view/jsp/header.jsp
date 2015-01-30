@@ -5,19 +5,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title> EDMS DESIGN </title>
+<!--jQuery and jQuery UI with jQuery Chat-->
+<script src="js/jquery-1.7.2.min.js" type="application/javascript" ></script>
 <script type='text/javascript' src='dwr/engine.js'></script>
 <script type='text/javascript' src='dwr/interface/ReverseClass.js'></script>
 <script type='text/javascript' src='dwr/util.js'></script>
 
-<!--jQuery and jQuery UI with jQuery Chat-->
-<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 <link type="text/css" href="css/jquery.ui.chatbox.css" rel="stylesheet" />
+<link type="text/css" href="css/new_icon.css" rel="stylesheet" />
 <script type="text/javascript" src="js/jquery.ui.chatbox.js"></script>
 
-<script src="js/jquery-1.7.2.min.js" type="application/javascript" ></script>
 <script src="js/left_event.js" type="application/javascript"></script>
-<script src="js/jquery_popup.js"></script>
+<script src="js/jquery_popup.js"></script>            <!---------------/// USER NEW SEND STRAED HERE ------------->
+<script type="text/javascript" src="js/user_send.js"></script>
+<script type="text/javascript" src="js/group_send.js"></script>
+<link href="css/user_send.css" type="text/css" rel="stylesheet"/>
+<link href="css/group_send.css" type="text/css" rel="stylesheet"/>
+<!----------------/// USER NEW SEND END HERE --------------->  
 <script type="text/javascript">
 /* <![CDATA[ */
 $(document).ready(function(){
@@ -177,9 +182,19 @@ function getActivitiDiagramsPage(){
 				function( data ) {
 	         $( ".right" ).html( data );
 	        });
+		getLeftDocument();
 	}
 </script>
+<script type="text/javascript">
+function getLeftDocument(){
+	jQuery.get("getLeftDocument", 
+			
+			function( data ) {
+        $( ".content_left_block" ).html( data );
+       });
+}
 
+</script>
 
 
 
@@ -209,7 +224,7 @@ function getActivitiDiagramsPage(){
                                   <div class="search_main">  
                                     <div class="search_main_div">
                                           <div class="search_icon"> <img src="images/search.png"> </div>
-                                          <div class="serach_top" onclick="tab_search()"> </div>
+                                          <div class="serach_top" > </div>
                                           <div class="clear"></div>
                                     </div>
                                     <div class="search_box_details"> 
@@ -226,7 +241,7 @@ function getActivitiDiagramsPage(){
                                       <div id="tab1" class="tab_content" style="display: block;"> 
                                       <!-------------// Tab Content Started Here ----------------->
                                               <ul>
-                                                      <li>GROUP</li>
+                                                     <!--  <li>GROUP</li>
                                                       <li>
                                                         <select>
                                                           <option> Group 1</option>
@@ -237,24 +252,70 @@ function getActivitiDiagramsPage(){
                                                       <li>USER</li>
                                                       <li>
                                                         <input  type="text" />
-                                                      </li>
-                                                      <li>TITLE</li>
+                                                      </li> -->
+                                                      <li>File or Folder Name</li>
                                                       <li>
-                                                        <input  type="text" />
+                                                      <input  type="text" onblur="getDocsByName(this.value)" />
+                                                      <script type="text/javascript">
+                                                      	function getDocsByName(docName){
+                                                      		//alert(docName);
+                                                      		
+                                                      		jQuery.get("searchDocByName", 
+                                                   				 	{
+                                                   					'name' : docName
+                                                   					},
+                                                   				function( data ) {
+                                                   	         		$( ".right" ).html( data );
+                                                   	        		});
+                                                      		
+                                                      	}
+                                                      
+                                                      </script>
                                                       </li>
                                                       <li>KEYWORDS</li>
                                                       <li>
-                                                        <input  type="text" />
+                                                        <input  type="text" onblur="getDocsByKeyWords(this.value)" />
+                                                      <script type="text/javascript">
+                                                      	function getDocsByKeyWords(docName){
+                                                      		//alert(docName);
+                                                      		
+                                                      		jQuery.get("getDocsByKeyWords", 
+                                                   				 	{
+                                                   					'name' : docName
+                                                   					},
+                                                   				function( data ) {
+                                                   	         		$( ".right" ).html( data );
+                                                   	        		});
+                                                      		
+                                                      	}
+                                                      
+                                                      </script>
                                                       </li>
-                                                      <li>DATE</li>
+                                                     <!--  <li>DATE</li> -->
                                                       <li></li>
-                                                      <li>LAST MONTH</li>
+                                                      <li>Show Documents of : </li>
                                                       <li>
-                                                        <select>
-                                                          <option> Group 1</option>
-                                                          <option> Group 2</option>
-                                                          <option> Group 3</option>
+                                                        <select onchange="getDocsByDate(this.value)">
+                                                          <option value="yyyy">Last Year</option>
+                                                          <option value="mm">Last Month</option>
+                                                          <option value="dd">Last Day</option>
+                                                          <option value="hh">Last Hour</option>
                                                         </select>
+                                                        <script type="text/javascript">
+                                                      	function getDocsByDate(timeType){
+                                                      		//alert(docName);
+                                                      		
+                                                      		jQuery.get("getDocsByDate", 
+                                                   				 	{
+                                                   					'name' : timeType
+                                                   					},
+                                                   				function( data ) {
+                                                   	         		$( ".right" ).html( data );
+                                                   	        		});
+                                                      		
+                                                      	}
+                                                      
+                                                      </script>
                                                       </li>
                                                       <li>
                                                         <div class="search_icon_tab"> <img src="images/search.png" /> </div>
@@ -335,7 +396,7 @@ function getActivitiDiagramsPage(){
                                   <!----------/// TOP PROFILE END HERE ------------->
                                   <!---------/// SEARCH PANNEL STARTED HERE ---------->
                                   
-      <!-------------/// HEADER MENU SECTON END HERE -----------------> 
+      								<!-------------/// HEADER MENU SECTON END HERE -----------------> 
                           </div>
                                   <!-----------/// SEARCH PANNEL END HERE ------->
                                   <!--------/// MENU STARTED HERE -------->
@@ -393,23 +454,7 @@ function getActivitiDiagramsPage(){
                         <!---/// HEADER END -->
            
           
-              <!---------------//// ADD GROUP USER POP UP ----------->
-<div id="contactdiv_6">
-
-  <form:form id="contact" class="form" method="post" action="uploadDocumentByJcr" commandName="fileupload" enctype="multipart/form-data">
-		<h3>Add New Documents</h3>
-		<p>
-			File Name: <span>*</span>
-		</p>
-			<input class="custom-file-input attachment_file" type='file' id='file_browse' name="filedata" name="filedata" multiple  />
-        	<%-- <form:hidden path="filename" value="sdff"/>
-   			<form:hidden path="filedetails" value="sdf"/> --%>
-   			
-         	<input type="submit" value="Upload" class="upload" />
-         	<input type="button" value="Cancel" class="cancle" /> 
-        
-  </form:form> 
- </div>
+           
 
 <%-- 	<form class="form" action="#" id="contact">
 		<h3>Add New Documents</h3>
@@ -464,10 +509,14 @@ function getActivitiDiagramsPage(){
           					}
           				}); 
                       });
+                      
+                  
                       });
                   	
        </script>
-                      
-	
+       <script type="text/javascript">
+
+      
+       </script>
 </div>
 <!-----------------/// DELETE POP UP  END HERE ---------->

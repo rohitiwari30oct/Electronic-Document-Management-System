@@ -1,8 +1,20 @@
-       <%@page import="edms.wsdl.Folder"%>
+<%@page import="java.io.IOException"%>
+<%@page import="java.io.ByteArrayOutputStream"%>
+<%@page import="org.apache.commons.io.IOUtils"%>
+<%@page import="javax.imageio.ImageIO"%>
+<%@page import="java.awt.image.BufferedImage"%>
+<%@page import="edms.wsdl.Folder"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="edms.wsdl.FileVersionDetail"%>
 <%@page import="edms.wsdl.File"%>
 <%@page import="java.util.List"%>
+<script src="js/left_event.js" type="application/javascript"></script>
+        <!---------------/// USER NEW SEND STRAED HERE ------------->
+<script type="text/javascript" src="js/user_send.js"></script>
+<script type="text/javascript" src="js/group_send.js"></script>
+<link href="css/user_send.css" type="text/css" rel="stylesheet"/>
+<link href="css/group_send.css" type="text/css" rel="stylesheet"/>
+<!----------------/// USER NEW SEND END HERE ---------------> 
 <%List<File> folderList = (List<File>) request.getAttribute("fileList"); 
 String breadcum=(String)request.getAttribute("breadcum");
 File currentFolder=(File)request.getAttribute("currentFolder");
@@ -88,8 +100,8 @@ String userid=(String)request.getAttribute("userid");
                                                       <table> <tr class="history_content">
                                                                <td>Version</td>
                                                                <td>Date</td>
-                                                               <td>Author</td>
-                                                               <td>Details</td>
+                                                              <!--  <td>Author</td> -->
+                                                               <td style="width: 70px">Details</td>
                                                                <td>Action</td>
                                                              </tr>
                                                       <%
@@ -99,7 +111,7 @@ String userid=(String)request.getAttribute("userid");
                                                            <tr>
                                                                 <td><%=versionDetail.getVersionName() %></td>
                                                                 <td><%=versionDetail.getCreationDate() %></td>
-                                                                <td><%=versionDetail.getCreatedBy() %></td>
+                                                              <%--   <td><%=versionDetail.getCreatedBy() %></td> --%>
                                                                 <td><%=versionDetail.getDetails() %></td>
                                                                 <td><a href="#" id="<%=currentFolder.getFilePath() %>,<%=versionDetail.getVersionName() %>" class="" onclick="restoreVersion(this.id)">Restore</a></td>
                                                              </tr>
@@ -135,7 +147,29 @@ String userid=(String)request.getAttribute("userid");
                                                 <li class="prew right_tab"><a href="#">PREVIEW</a>
                                                   <div class="icon_right"> </div>
                                                 </li>      
-                                                <div class="content_right"></div>
+                                                <div class="content_right">
+                                                
+                                                <%
+                                                BufferedImage buffImg;
+                                                String imageString="";
+                                			/* 	try {
+                                					System.out.println("content of File : "+IOUtils.toInputStream(currentFolder.getFileContent()));
+                                					 buffImg = ImageIO.read(IOUtils.toInputStream(currentFolder.getFileContent()));
+                                					 System.out.println("content of File : "+IOUtils.toInputStream(currentFolder.getFileContent()));
+                                 					ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                                					ImageIO.write(buffImg, "png", bos);
+                                					System.out.println("content of File : "+IOUtils.toInputStream(currentFolder.getFileContent()));
+                                					byte[] imageBytes = bos.toByteArray();
+                                					String encodedImage = org.apache.commons.codec.binary.Base64
+                                							.encodeBase64String(imageBytes);
+                                					imageString = "data:image/png;base64," + encodedImage;
+                                					bos.close(); 
+                                				 } catch (IOException e) {
+                                					e.printStackTrace();
+                                				}  */
+                                                %>
+                                                <img src="imageString" />
+                                                </div>
                                                 <li class="prew right_tab permi"><a href="#">PERMISSION</a>
                                                   <div class="icon_right"> </div>
                                                 </li>      
@@ -226,36 +260,4 @@ String userid=(String)request.getAttribute("userid");
                                             
                                           
                                           <!----------------/// RIGHT PART END HERE -------------------> 
-                                             <script src="js/jquery-1.7.2.min.js" type="application/javascript" ></script>
-<script src="js/left_event.js" type="application/javascript"></script>
-<script src="js/jquery_popup.js"></script>
-
-<link href="css/style.css" type="text/css" rel="stylesheet"/>
-<link rel="stylesheet" href="css/jquery_popup.css" />
-                                              <link href="css/page.css" rel="stylesheet" type="text/css" />
-    
-    <link href="css/contextmenu.css" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-    
-    </style>
-   <!--- <script src="src/jquery.js" type="text/javascript"></script>-->
-    <script src="js/jquery.contextmenu.js" type="text/javascript"></script>  
-    
-    <!--code highlighter file import-->
-    <script src="js/shCore.js" type="text/javascript"></script>
-    <script src="js/shBrushJScript.js" type="text/javascript"></script>
-    <script src="js/shBrushCss.js" type="text/javascript"></script>  
-    <link href="css/shCore.css" rel="stylesheet" type="text/css" />
-    <link href="css/shThemeDefault.css" rel="stylesheet" type="text/css" /> 
-    <script type="text/javascript">
-        SyntaxHighlighter.config.clipboardSwf = '../js/clipboard.swf';
-    	  SyntaxHighlighter.all();
-	  </script>
-    <!--end code highlighter-->
-
-      <!---------------/// USER NEW SEND STRAED HERE ------------->
-<script type="text/javascript" src="js/user_send.js"></script>
-<script type="text/javascript" src="js/group_send.js"></script>
-<link href="css/user_send.css" type="text/css" rel="stylesheet"/>
-<link href="css/group_send.css" type="text/css" rel="stylesheet"/>
-<!----------------/// USER NEW SEND END HERE --------------->  
+                                       

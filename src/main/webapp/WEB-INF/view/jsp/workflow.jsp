@@ -2674,53 +2674,9 @@ $(document).ready(function() {
   
 </div>
 <!-----------------/// Testing Content End Here ------------------> 
-  <!---------------//// ADD GROUP USER POP UP ----------->
-  <div id="contactdiv_6">
-    <form class="form" action="#" id="contact">
-      <img src="images/button_cancel.png" class="img" id="cancel"/>
-      <h3>Add New Documents</h3>
-      <hr/>
-      <br/>
-      <label>File Name: <span>*</span></label>
-      <br/>
-      <input type="file" class="custom-file-input">
-      <br/>
-      <br/>
-       <div class="claer"></div>
-       <input type="checkbox" /><label>Notify to users</label>
-       <br/>
-      <br/>
-      <input type="button" id="send" value="Update"/>
-      <input type="button" id="cancel" value="Cancel"/>
-      <br/>
-    </form>
-  </div>
-  <!-----------------/// ADD GROUP POP UP  END HERE ----------> 
 
 
 
 
-<!-----------------/// TESTING FOOTER STARTED HERE ------------>
-<div id="foot"> 
-  
-  <!-------------------/// Footer Started Here ----------------------->
-  <div class="footer footer_right_space">
-    <ul class="left_footer">
-      <li><a href="#">TERMS AND CONDITIONS</a></li>
-      <li><a href="#">DISCLAIMER</a></li>
-      <li><a href="#">CONTACT US</a></li>
-      <li><a href="#">HELP</a></li>
-    </ul>
-    <div class="right_footer">
-      <ul class="right_footer_1">
-        <li><a href="#"><img src="images/facebook.png" /></a></li>
-        <li><a href="#"><img src="images/twitter.png" /></a></li>
-      </ul>
-    </div>
-  </div>
-  <!-------------------/// Footer End Here ----------------------------> 
-  
-</div>
-<!---------------/// TESTING FOOTER END HERE ----------------->
 </body>
 </html>

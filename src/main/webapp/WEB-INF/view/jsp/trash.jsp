@@ -31,7 +31,7 @@
 	      				
 									      				for (Folder folder : folderList) {
 									      					%>
-                                                        <li class="select_box target" onclick="setFolderPath(this.id)" id='<%=folder.getFolderPath()%>'>
+                                                        <li title=<%=folder.getFolderName() %> class="select_box target" onclick="setFolderPath(this.id)" id='<%=folder.getFolderPath()%>'>
                                                           <div class="folder_icon"></div>
                                                           <span><%=folder.getFolderName() %></span> </li>
                                                       
@@ -40,7 +40,7 @@
 	      				
 									      				for (File file : fileList) {
 									      					%>
-                                                        <li class="select_box target" onclick="setFolderPath(this.id)" id='<%=file.getFilePath()%>'>
+                                                        <li title=<%=file.getFileName() %> class="select_box target" onclick="setFolderPath(this.id)" id='<%=file.getFilePath()%>'>
                                                           <%if(file.getFileName().contains(".pdf")){ %> 
 										<div class="pdf_icon"></div>
 										<%}else if(file.getFileName().contains(".doc")){ %>
@@ -53,7 +53,7 @@
 										<div class="ppt_icon"></div>
 										
 										<%}else{ %>
-										<div class="pdf_icon"></div>
+										<div class="msexcel_icon"></div>
 										
 										<%} %>
                                                           <span><%=file.getFileName() %></span> </li>
@@ -119,4 +119,9 @@
                                   
                         </div>
                         <!----// RIGHT END HERE -->
+              <script type="text/javascript">
+          var recent_win_he = $(window).height();
+          //alert(recent_win_he);
+          $('.other_pages').css('height',recent_win_he-167);
+			</script>
             

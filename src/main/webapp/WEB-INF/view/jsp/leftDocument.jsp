@@ -1,21 +1,11 @@
 <%@page import="java.security.Principal"%>
-<%@page import="edms.webservice.client.FolderClient"%>
+<%@page import="edms.webservice.client.DocumentModuleClient"%>
 <%@page import="edms.wsdl.Folder"%>
 <%@page import="java.util.List"%>
 <%@page import="edms.wsdl.GetFolderResponse"%>
 <%@page import="edms.wsdl.HasChildResponse"%>
 <%@page import="edms.core.Config"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- 
-</head>
-
-<body>
-<!---/// LEFT --->
+<script src="js/left_event.js" type="application/javascript"></script>
                          <div class="left">
                               <div class="left-pane document_page_left_height new_cheat" >
                                 <!---------/// LEFT PART TOP STARTED HERE ---------->
@@ -31,7 +21,3 @@
                                              </ul>
                                   </div>
                                       </div>
-                                 <!------------/// LEFT PART TOP END HERE ------------>       
-                                    
-</body>
-</html>

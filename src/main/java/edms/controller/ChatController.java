@@ -65,9 +65,9 @@ public class ChatController {
 		xmppChatClass.closeConnection();
 		return "successful log out";
     }
-	
+	  
 	@RequestMapping(value = "/reconnectChat", method = RequestMethod.GET)
-    public @ResponseBody String reconnectChat(HttpServletRequest request){  
+    public @ResponseBody String reconnectChat(HttpServletRequest request){
 		System.out.println("in reconnectChat");
 		//System.out.println("userid="+loginUser.getUserid());
 				//System.out.println("password="+loginUser.getPassword());
@@ -80,7 +80,7 @@ public class ChatController {
 				scriptSessList.listenScriptSession();
 				request.getSession().setAttribute("xmppChatClass", xmppChatClass);
 		        return "successfully reconnected";
-    }
+   } 
 	
 	@RequestMapping(value = "/changedPresence", method = RequestMethod.GET)
     public @ResponseBody void changePresenceInfo(@RequestParam(value="presmode")String presmode, HttpServletRequest request){  
