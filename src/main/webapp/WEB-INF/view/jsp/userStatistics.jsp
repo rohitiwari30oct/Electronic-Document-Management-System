@@ -9,6 +9,9 @@ List<Folder> lastMonthCreatedFolderList=	(List<Folder>)request.getAttribute("las
 %>
                         <!---// RIGHT --->
                         <div class="other_pages_statice">
+                         <div class="trash_menu">
+                                     <h1>User Statistics</h1>
+                                   </div>
                                   <!-------------/// STATICE PAGE ALL CONTENT STARED HERE ----------->
                                     <div class="statice_srcoll_content">
                                                    <div class="statice_inner_content">
@@ -157,7 +160,7 @@ List<Folder> lastMonthCreatedFolderList=	(List<Folder>)request.getAttribute("las
           <script type="text/javascript">
           var recent_win_he = $(window).height();
           //alert(recent_win_he);
-          $('.statice_srcoll_content').css('height',recent_win_he-167);
+          $('.statice_srcoll_content').css('height',recent_win_he-129);
           
           
 </script>

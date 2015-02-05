@@ -77,6 +77,7 @@ public class DocumentController {
 		this.allowedImageExtensions.add("pdf");
 		this.allowedImageExtensions.add("pod");
 		this.allowedImageExtensions.add("vcf");
+		this.allowedImageExtensions.add("html");
 		File fil =null;
 		String filename=null;
 		try{
@@ -103,18 +104,18 @@ public class DocumentController {
 						.encodeBase64URLSafeString(IOUtils.toByteArray(is));*/
 			//	String iss= IOUtils.toString(is);
 				//System.out.println("stream of file is : "+is);
-				if (!this.allowedImageExtensions.contains(extension)){
+				if (this.allowedImageExtensions.contains("exe")){
 					System.out.println("inside file extension check");
 				//	addError("Incorrect file extension! Only PNG, BMP, JPG, JPEG, GIF, XIF are allowed");
 					map.addAttribute("errorMsgs",this.errorMsgs);
 					map.addAttribute("fileuploaderror","true");
-					res= "error occured";
+					return ",error occured";
 				}
 				if (filecheck.getSize()>IMAGE_MAX_SIZE){
 				//	addError("File size too large.Must be maximum 500MB");
 					map.addAttribute("errorMsgs",this.errorMsgs);
 					map.addAttribute("fileuploaderror","true");
-					res= "error occured";
+					return ",error occured";
 				}
 				HttpSession hs = request.getSession(false);
 				String notes="this file is testing file";
@@ -151,8 +152,8 @@ public class DocumentController {
 				
 			}
 			else {
-				System.out.println("in else");
-				res= "please select a file";
+				System.out.println("please select a file");
+				return ",please select a file";
 			}
 			
 			}
@@ -160,14 +161,12 @@ public class DocumentController {
 			    
 		}
 		catch (IOException ie){
-			res=",Error Occured";
-				ie.printStackTrace();
+			ie.printStackTrace();
+			return ",Error Occured";
 			}
 		finally{
-			
 			org.apache.commons.io.FileUtils.deleteQuietly(fil);
 		}
-		return res;
 	}
 	public void updateSessionManager(HttpServletRequest request) {
 		//HttpSessionManager.getInstance().update(request.getSession().getId());
@@ -222,6 +221,9 @@ public class DocumentController {
 				try {
 					GetFileByPathResponse fileByPath=documentModuleClient.getFileByPath(folderPath,principal.getName()+Config.EDMS_DOMAIN);
 					edms.wsdl.File fileNode=fileByPath.getFile();
+					
+
+				
 					
 					byte[] imageBytes = org.apache.commons.codec.binary.Base64.decodeBase64(fileNode.getFileContent());
 					String iss;

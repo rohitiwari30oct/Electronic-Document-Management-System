@@ -1,5 +1,11 @@
 <div id="activitiForms">
                         <div class="right other_pages_user">
+                         <div class="trash_menu">
+                         <%
+                        String userid= (String)request.getAttribute("userid");
+                         %>
+                                     <h1>User Dashboard (<%=userid %>)</h1>
+                                   </div>
                                  <!----------// USER DASBOARD STARED HERE --------->
                                  <div class="user_dasboard_scroll">
                                       <!-------/// INNER CONTENT STARTED HERE -------->

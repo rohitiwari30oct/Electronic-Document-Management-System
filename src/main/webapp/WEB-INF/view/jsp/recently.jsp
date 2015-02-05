@@ -60,5 +60,5 @@
           <script type="text/javascript">
           var recent_win_he = $(window).height();
           //alert(recent_win_he);
-          $('.recently_main_div').css('height',recent_win_he-167);
+          $('.recently_main_div').css('height',recent_win_he-129);
 			</script>

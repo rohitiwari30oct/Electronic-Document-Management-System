@@ -23,11 +23,11 @@ $(document).ready(function() {
         $("#contactdiv_5").css("display", "block");
     });
 	
-	$(".folder_icon_1").click(function() {
+	$(".right_upload_folder").click(function() {
         $("#contactdiv_6").css("display", "block");
     });
 
-    $(".add_folder").click(function() {
+    $(".right_create_folder").click(function() {
         $("#contactdiv_66").css("display", "block");
     });
     
@@ -35,7 +35,7 @@ $(document).ready(function() {
         $("#contactdiv_666").css("display", "block");
     });
 	
-	$(".delete_folder").click(function() {
+	$(".more_delete").click(function() {
         $("#contactdiv_77").css("display", "block");
     });
 	

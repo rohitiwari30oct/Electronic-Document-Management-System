@@ -10,10 +10,15 @@
 <%@page import="java.util.List"%>
 <script src="js/left_event.js" type="application/javascript"></script>
         <!---------------/// USER NEW SEND STRAED HERE ------------->
+<script src="js/jquery_popup.js"></script>   
 <script type="text/javascript" src="js/user_send.js"></script>
 <script type="text/javascript" src="js/group_send.js"></script>
 <link href="css/user_send.css" type="text/css" rel="stylesheet"/>
 <link href="css/group_send.css" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" href="css/jquery_popup.css" />
+<link rel="stylesheet" href="css/new_icon.css" />
+<link rel="stylesheet" href="css/new_changes.css" />
+<script src="js/new_chnages.js"></script>
 <!----------------/// USER NEW SEND END HERE ---------------> 
 <%List<File> folderList = (List<File>) request.getAttribute("fileList"); 
 String breadcum=(String)request.getAttribute("breadcum");
@@ -98,10 +103,10 @@ String userid=(String)request.getAttribute("userid");
                                                 </li>
                                                 <div class="content_right">
                                                       <table> <tr class="history_content">
-                                                               <td>Version</td>
-                                                               <td>Date</td>
+                                                            <!--    <td>Version</td> -->
+                                                              
                                                               <!--  <td>Author</td> -->
-                                                               <td style="width: 70px">Details</td>
+                                                               <td>Details</td>
                                                                <td>Action</td>
                                                              </tr>
                                                       <%
@@ -109,8 +114,7 @@ String userid=(String)request.getAttribute("userid");
                                                       for(FileVersionDetail versionDetail:versionDetails){
                                                       %>
                                                            <tr>
-                                                                <td><%=versionDetail.getVersionName() %></td>
-                                                                <td><%=versionDetail.getCreationDate() %></td>
+                                                             <%--    <td><%=versionDetail.getVersionName() %></td> --%>
                                                               <%--   <td><%=versionDetail.getCreatedBy() %></td> --%>
                                                                 <td><%=versionDetail.getDetails() %></td>
                                                                 <td><a href="#" id="<%=currentFolder.getFilePath() %>,<%=versionDetail.getVersionName() %>" class="" onclick="restoreVersion(this.id)">Restore</a></td>

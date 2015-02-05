@@ -3,6 +3,18 @@
 <%@page import="edms.wsdl.Folder"%>
 <%@page import="java.util.List"%>
 <script src="js/left_event.js" type="application/javascript"></script>
+        <!---------------/// USER NEW SEND STRAED HERE ------------->
+<script src="js/jquery_popup.js"></script>   
+<script type="text/javascript" src="js/user_send.js"></script>
+<script type="text/javascript" src="js/group_send.js"></script>
+<link href="css/user_send.css" type="text/css" rel="stylesheet"/>
+<link href="css/group_send.css" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" href="css/jquery_popup.css" />
+<link rel="stylesheet" href="css/new_icon.css" />
+<link rel="stylesheet" href="css/new_changes.css" />
+<script src="js/new_chnages.js"></script>
+<script type="text/javascript" src="js/share_js.js"></script>
+<!----------------/// USER NEW SEND END HERE ---------------> 
 <%List<Folder> folderList = (List<Folder>) request.getAttribute("folderList"); 
 String breadcum=(String)request.getAttribute("breadcum");
 Folder currentFolder=(Folder)request.getAttribute("currentFolder");
@@ -86,10 +98,10 @@ String userid=(String)request.getAttribute("userid");
                                                 </li>
                                                 <div class="content_right">
                                                       <table> <tr class="history_content">
-                                                               <td>Version</td>
+                                                               <!-- <td>Version</td> -->
                                                                <!-- <td>Date</td> -->
                                                               <!--  <td>Author</td> -->
-                                                               <td  style="width: 70px;">Details</td>
+                                                               <td >Details</td>
                                                                <td>Action</td>
                                                              </tr>
                                                       <%
@@ -102,9 +114,9 @@ String userid=(String)request.getAttribute("userid");
                                                     	  if(i>0){
                                                       %>
                                                            <tr>
-                                                                <td><%=versionDetail.getVersionName() %></td>
+                                                              <%--   <td><%=versionDetail.getVersionName() %></td> --%>
                                                                <%--  <td><%=versionDetail.getCreatedBy() %></td> --%>
-                                                                <td style="width: 70px"><%=versionDetail.getDetails() %> on Date: <%=versionDetail.getCreationDate().substring(0,10) %></td>
+                                                                <td ><%=versionDetail.getDetails() %> on Date: <%=versionDetail.getCreationDate().substring(0,10) %></td>
                                                                 <td><a href="#" id="<%=currentFolder.getFolderPath() %>,<%=versionDetail.getVersionName() %>" class="" onclick="restoreVersion(this.id)">Restore</a></td>
                                                              </tr>
                                                              <%}

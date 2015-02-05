@@ -17,7 +17,8 @@
 <script type="text/javascript" src="js/jquery.ui.chatbox.js"></script>
 
 <script src="js/left_event.js" type="application/javascript"></script>
-<script src="js/jquery_popup.js"></script>            <!---------------/// USER NEW SEND STRAED HERE ------------->
+<script src="js/jquery_popup.js"></script>            
+<!---------------/// USER NEW SEND STRAED HERE ------------->
 <script type="text/javascript" src="js/user_send.js"></script>
 <script type="text/javascript" src="js/group_send.js"></script>
 <link href="css/user_send.css" type="text/css" rel="stylesheet"/>
@@ -74,6 +75,11 @@ $(document).ready(function() {
 <link href="css/style.css" type="text/css" rel="stylesheet"/>
 <link rel="stylesheet" href="css/jquery_popup.css" />
 
+<link href="css/style.css" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" href="css/jquery_popup.css" />
+<link rel="stylesheet" href="css/new_icon.css" />
+<link rel="stylesheet" href="css/new_changes.css" />
+<script src="js/new_chnages.js"></script>
 <script type="text/javascript">
 function getActivitiDiagramsPage(){
 	jQuery.get("header_activity", function( data ) {
@@ -222,9 +228,13 @@ function getLeftDocument(){
                                      </div>
                                     <!--------// SEARCH HERE --------->
                                   <div class="search_main">  
-                                    <div class="search_main_div">
+                                      <div class="search_main_div">
                                           <div class="search_icon"> <img src="images/search.png"> </div>
-                                          <div class="serach_top" > </div>
+                                          <div class="serach_top" >
+                                               <input type="text" />
+                                               <span><img src="images/arrow_down.png" /></span>
+                                          
+                                           </div>
                                           <div class="clear"></div>
                                     </div>
                                     <div class="search_box_details"> 
@@ -369,7 +379,7 @@ function getLeftDocument(){
                                   </div>
                                     <!---------/// SEARCH END HERE ---------->
                                     <div class="user_deatils">
-                                          <div class="user_details_left"> Welcome : <strong>Hariom Srivastava</strong>
+                                          <div class="user_details_left"> <!-- Welcome : <strong>Hariom Srivastava</strong> -->
                                           <div class="claer"></div> 
                                     </div>
                                     <div class="user_images"> </div>
@@ -405,7 +415,7 @@ function getLeftDocument(){
                                   <!------------// MENU END HERE ---------->
                          <!-------/// SEARCH BOX PANNEL STARTED HERE ----------->
                         </div>
-                        <div class="menu_right">
+                       <!--  <div class="menu_right">
                                         <ul>
                                                  <li data-tooltip="Home">
                                                     <a href="#" id="fileSystem"  onclick="getPage(this.id)"><div class="home"></div> Home<div class="claer"></div></a> 
@@ -419,9 +429,9 @@ function getLeftDocument(){
                                                  <li class="folder_icon_1" data-tooltip="Upload"> 
                                                     <a href="#"><div class="upload"></div>UPLOAD</a>
                                                  </li>
-                                                <!--  <li > 
+                                                 <li > 
                                                     <a href="#" title="Create"><div class="create_doc"></div>CREATE</a>
-                                                 </li> -->
+                                                 </li>
                                                  <li data-tooltip="Rename" > 
                                                    <a href="#"class="renameFolder"><div class="edit"></div>Rename</a> 
                                                  </li>
@@ -450,7 +460,7 @@ function getLeftDocument(){
                                                    <a href="#" id='trash'onclick="getPage(this.id)"><div class="my_doc"></div>RECYCLE</a>
                                                 </li>
                                       </ul>
-                                   </div>
+                                   </div> -->
                         <!---/// HEADER END -->
            
           
@@ -472,51 +482,64 @@ function getLeftDocument(){
 </div>--%>
 <!-----------------/// ADD GROUP POP UP  END HERE ---------->
 
-
-
-<!---------------//// Delete USER POP UP ----------->
-<div id="contactdiv_77">
-	<form class="form" action="#" id="contact">
-		<h3>Confirmation</h3>
-		<p class="form_bottom_space">Do you really want to delete this
-			folder ?</p>
-		<div class="clear"></div>
-		<input type="button" id="deleteDoc" value="Delete" /> <input type="button"
-			id="cancel" value="Cancel" />
-	</form>
-	    <script type="text/javascript">
-                      $(document).ready(function() {
-                    	  var folderPath="";
-                      $('#deleteDoc').click(function(event) {
-                    	  $.ajax({
-          					type : "GET",
-          					url : "${pageContext.request.contextPath}/recycleDoc",
-          					contentType : "application/json",
-          					async : false,
-          					success : function(data) {
-          						
-          						//$("#folderView>.row_content>ul").append(data);
-          						 folderPath=data;
-          					//alert(folderPath);
-          					$("#contactdiv_77").css("display", "none");
-                        	jQuery.get("getFileSystem", 
-                   				 	{
-                   					'path' : folderPath
-                   					},
-                   				function( data ) {
-                   	         		$( ".right" ).html( data );
-                   	        		});
-          					}
-          				}); 
-                      });
-                      
-                  
-                      });
-                  	
-       </script>
-       <script type="text/javascript">
-
-      
-       </script>
+<!---------// SHARING PAGES STARTED---------->
+<div class="sharing_mange">
+   <h1>Sharing settings - Delegate all 10 contacts in My Contacts <div class="mange_can_top">X</div></h1>
+   <div class="table_append">
+                   <table class="append_tr">
+                       <tr>
+                           <td colspan="2">Link to share (only accessible by collaborators)</td>
+                       </tr>
+                       <tr>
+                           <td colspan="2"><input type="text"  class="link_share"/></td>
+                       </tr>
+                       <tr class="share_bottom">
+                           <td colspan="2">Who has access</td>
+                       </tr>
+                       <tr>
+                           <td>Hari Om Srivastava (you)<span class="email_share">hari@silvereye.co</span></td>
+                           <td class="text_right">Is Owner</td>
+                       </tr>
+                       <tr class="share_bottom">
+                           <td colspan="2">Invite people:</td>
+                       </tr>
+                       <tr>
+                           <td><input type="text"  class="initive_people" /></td>
+                           <td>
+                              <div class="can_edit">
+                                      
+                                      <div class="can_edite">
+                                           <select>
+                                               <option>Can View </option>
+                                               <option>Can Edit </option>
+                                               <option>Can Mange </option>
+                                           </select>
+                                      </div>
+                                      
+                                     
+                              </div>
+                          </td>
+                       </tr>
+                   </table>
+                   <div class="clear"></div>
+   
+        </div>
+          <table>
+            <tr>
+           <td colspan="2"><input type="checkbox" />Notify people via email<a href="#">Add message</a></td>
+          </tr>
+   </table> 
+                 <div>
+                       <div class="your_self"><input type="checkbox"/><a href="#">Send a copy to myself </a></div>
+                       <div class="share_right">
+                               <div class="share_more">Add More</div>
+                               <div class="cancel_share mange_can">Cancel</div>
+                               <div class="send_share">Send</div>
+                       </div>
+            
+                 </div>
+                 
+                 
 </div>
-<!-----------------/// DELETE POP UP  END HERE ---------->
+<!---------// SHARING PAGES END---------->
+

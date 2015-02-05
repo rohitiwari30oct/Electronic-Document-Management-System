@@ -90,6 +90,11 @@
     
     
    
+    <definition name="dashboard" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Shared" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/userDashboard.jsp" />
+    </definition>
+   
     <definition name="shared" extends="indexTemplate">
         <put-attribute name="title" value="Avi-Oil Shared" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/shared.jsp" />

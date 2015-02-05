@@ -8,6 +8,10 @@
 <script type="text/javascript" src="js/group_send.js"></script>
 <link href="css/user_send.css" type="text/css" rel="stylesheet"/>
 <link href="css/group_send.css" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" href="css/jquery_popup.css" />
+<link rel="stylesheet" href="css/new_icon.css" />
+<link rel="stylesheet" href="css/new_changes.css" />
+<script src="js/new_chnages.js"></script>
 <!----------------/// USER NEW SEND END HERE ---------------> 
 
 <%
@@ -22,9 +26,9 @@ String userid=(String)request.getAttribute("userid");
 <!-----------------------/// RIGHT PANNEL ------------------->
 <%@page import="edms.wsdl.Folder"%>
 <div class="strip_details index_heading">
-	<div class="home_heading"></div>
-	<div class="path">
-		<span>Path &nbsp; :</span><span> <%
+	<!-- <div class="home_heading"></div> -->
+	<div class="path" style="padding-left:5px;" >
+		<span> <%
  	if(userid=="admin"){
  %> <span id='/' style='cursor: pointer'
 			onclick='getFileSystem(this.id)'> Home / </span> <%
@@ -55,15 +59,106 @@ String userid=(String)request.getAttribute("userid");
 		</span>
 		<!-- <span class="path_color">Main Folder</span> -->
 	</div>
-	<a href="#" id='userDashboard' onclick="getPage(this.id)">
+	<!-- <a href="#" id='userDashboard' onclick="getPage(this.id)">
 		<div class="dasboard">DASHBOARD</div>
-	</a>
-	<div class="right_icon">
-		<div class="thum_view" onClick="tile_view();" title="Folder View"></div>
-		<div class="list_view" onClick="list_view();" title="List View"></div>
-		<!--   <div class="right_view right_view_color" onClick="left_view();" title="Right View"></div>-->
-		<div class="bottom_view" onClick="bottom_view();" title="Bottom View"></div>
-	</div>
+	</a> -->
+	  <div class="right_icon">
+                                          <div class="thum_view" onClick="tile_view();" title="Folder View"></div>
+                                          <div class="list_view" onClick="list_view();" title="List View"></div>
+                                       <!--   <div class="right_view right_view_color" onClick="left_view();" title="Right View"></div>-->
+                                          <div class="bottom_view" onClick="bottom_view();" title="Bottom View"></div>
+
+                                        </div>
+                                        
+                                          <!-------/// NEW TWO ICON ------->
+                                        <div class="new_folder_icon">
+                                           <div class="right_create_folder"><img src="images/create_folder_icon.png" /></div>
+                                           <div class="right_upload_folder"><img src="images/upload.png" /></div>
+                                         </div>
+                                        <!--------/// NEW TWO ICON ------------>  
+                                        <!-------/// NEW CHANGES FOR FOLDER AND FILE VIEW ********** -->
+                                        
+                                        <!------/// NEW CHANGES FOR FOLDER STRED HERE ------>
+                                        <div class="new_option_folder">
+                                              <ul>
+                                                 <li class="share_link link_share"><img src="images/share_linl.png" /></li>
+                                                 <li class="share_people share_link mange_sharing"><img src="images/48094.png" /></li>
+                                                 <li class="more_delete"  ><img src="images/delete.png"/></li>
+                                                 <li class="new_more_icon_folder"><img src="images/more_icon.png" /></li>
+                                              </ul>
+                                        
+                                                <!------/// MORE NEW OPTION FOR FOLDER -------->
+                                                <div class="new_more_folder">
+                                                       <ul>
+                                                          <li>download</li>
+                                                          <li>create</li>
+                                                          <li>upload</li>
+                                                          <li>create</li>
+                                                          <li>edit</li>
+                                                          <li>share</li>
+                                                          <li>delete</li>
+                                                       
+                                                       </ul>
+                                                </div>
+                                                <!------/// MORE NEW OPTION  FOLDER END HERE ---->
+                                        
+                                        
+                                        </div>
+                                        <!-------// NEW CHANGES FOR FOLDER END HERE ---------->
+                                        
+                                        <!--  <li data-tooltip="Home">
+                                                    <a href="#" id="fileSystem"  onclick="getPage(this.id)"><div class="home"></div> Home<div class="claer"></div></a> 
+                                                 </li>
+                                                 <li data-tooltip="Download"> 
+                                                    <a href="#"><div class="download"></div>Download</a>
+                                                 </li>
+                                                 <li class="add_folder " data-tooltip="Create"> 
+                                                    <a href="#"><div class="create"></div> CREATE</a> 
+                                                 </li>
+                                                 <li class="folder_icon_1" data-tooltip="Upload"> 
+                                                    <a href="#"><div class="upload"></div>UPLOAD</a>
+                                                 </li>
+                                                 <li > 
+                                                    <a href="#" title="Create"><div class="create_doc"></div>CREATE</a>
+                                                 </li>
+                                                 <li data-tooltip="Rename" > 
+                                                   <a href="#"class="renameFolder"><div class="edit"></div>Rename</a> 
+                                                 </li>
+                                                 <li class="share" data-tooltip="Share"> 
+                                                   <a href="#"><div class="update"></div>SHARE</a> 
+                                                 </li>
+                                                <li class="delete_folder"  data-tooltip="Delete"> 
+                                                   <a href="#" title="Delete"><div class="delet"></div>DELETE</a> 
+                                                </li> -->
+                                        
+                                             <!------/// NEW CHANGES FOR file STRED HERE ------>
+                                        <div class="new_option_file">
+                                              <ul>
+                                                 <li class="share_link link_share"><img src="images/share_linl.png" /></li>
+                                                 <li class="share_people share_link"><img src="images/48094.png" /></li>
+                                                 <li class="share_link preview_file"><img src="images/eye-24-256.png"/></li>
+                                                 <li class="more_delete"><img src="images/delete.png"/></li>
+                                                 <li class="new_more_icon_folder"><img src="images/more_icon.png" /></li>
+                                              </ul>
+                                        
+                                                <!------/// MORE NEW OPTION FOR FOLDER -------->
+                                                <div class="new_more_file">
+                                                       <ul>
+                                                          <li>download</li>
+                                                          <li>create</li>
+                                                          <li>upload</li>
+                                                          <li>create</li>
+                                                          <li>edit</li>
+                                                          <li>share</li>
+                                                          <li>delete</li>
+                                                       
+                                                       </ul>
+                                                </div>
+                                                <!------/// MORE NEW OPTION  file END HERE ---->
+                                        </div>
+                                        <!-------// NEW CHANGES FOR FOLDER END HERE ---------->
+                                        
+                                        <!-------/// NEW CHANGES FOR FOLDER AND FILE VIEW ********** -->
 </div>
 
 <div class="user_dasboard_1">
@@ -86,7 +181,7 @@ String userid=(String)request.getAttribute("userid");
 				</div>
 			</div>
 			<div class="claer"></div>
-			<div id="folderThumbView" class="row_content">
+			<div id="folderThumbView" class="row_content folder_only">
 				<ul>
 					<%
 						for (Folder folder : folderList) {
@@ -110,7 +205,7 @@ String userid=(String)request.getAttribute("userid");
 				</div>
 			</div>
 			<div class="claer"></div>
-			<div id="fileThumbView"  class="row_content">
+			<div id="fileThumbView"  class="row_content file_only">
 				<ul>
 					<%
 						for (File file : fileList) {
@@ -813,32 +908,51 @@ String userid=(String)request.getAttribute("userid");
 	$("#contactdiv_6").css("display", "none");
 		}
 
-	/* 	$(document).ready(function() {
-			$(".fileUploadForm").submit(function(event) {
-				//disable the default form submission
-				event.preventDefault();
-				//grab all form data  
-				var formData = $(this).serialize();
-				alert(formData);
-				$.ajax({
-					url : 'uploadDocumentByJcr',
-					type : 'POST',
-					data : formData,
-					async : false,
-					cache : false,
-					contentType : false,
-					processData : false,
-					success : function() {
-						alert('Form Submitted!');
-					},
-					error : function() {
-						alert("error in ajax form submission");
-					}
-				});
-
-				return false;
-			});
-		}); */
 	</script>
 
+
 </div>
+
+<!---------------//// Delete USER POP UP ----------->
+<div id="contactdiv_77">
+	<form class="form" action="#" id="contact">
+		<h3>Confirmation</h3>
+		<p class="form_bottom_space">Do you really want to delete this
+			folder ?</p>
+		<div class="clear"></div>
+		<input type="button" id="deleteDoc" value="Delete" /> <input type="button"
+			id="cancel" value="Cancel" />
+	</form>
+	    <script type="text/javascript">
+                      $(document).ready(function() {
+                    	  var folderPath="";
+                      $('#deleteDoc').click(function(event) {
+                    	  $.ajax({
+          					type : "GET",
+          					url : "${pageContext.request.contextPath}/recycleDoc",
+          					contentType : "application/json",
+          					async : false,
+          					success : function(data) {
+          						
+          						//$("#folderView>.row_content>ul").append(data);
+          						 folderPath=data;
+          					//alert(folderPath);
+          					$("#contactdiv_77").css("display", "none");
+                        	jQuery.get("getFileSystem", 
+                   				 	{
+                   					'path' : folderPath
+                   					},
+                   				function( data ) {
+                   	         		$( ".right" ).html( data );
+                   	        		});
+          					}
+          				}); 
+                      });
+                      
+                  
+                      });
+                  	
+       </script>
+</div>
+<!-----------------/// DELETE POP UP  END HERE ---------->
+

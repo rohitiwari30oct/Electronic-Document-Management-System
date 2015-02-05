@@ -122,6 +122,9 @@
               <script type="text/javascript">
           var recent_win_he = $(window).height();
           //alert(recent_win_he);
-          $('.other_pages').css('height',recent_win_he-167);
+          $('.other_pages').css('height',recent_win_he-129);
+          
+
+          $('.trash_sroll_content').css('height',recent_win_he-129);
 			</script>
             

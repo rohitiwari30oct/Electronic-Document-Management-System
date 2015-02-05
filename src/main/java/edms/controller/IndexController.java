@@ -66,9 +66,34 @@ public class IndexController {
 	@Autowired WorkflowClient workflowClient;
 
 	@RequestMapping(value = "/userDashboard", method = RequestMethod.GET)
-	public String getUserDashboard(ModelMap map) {
-		//workflowClient.getAuthorizeUserRequest("empTanvi");
-		return "userDashboard";
+	public String getUserDashboard(ModelMap map,Principal principal,HttpServletRequest request) {
+		HttpSession hs = request.getSession(false);
+		if (hs.getAttribute("currentFolder") == null) {
+			hs.setAttribute("currentFolder", "/"+principal.getName()+"@avi-oil.com");
+		//	hs.setAttribute("currentFolder", "/");
+			}
+		
+		/*String countryName = "Spain";
+		GetCountryResponse response = folderClient
+				.GetCountryRequest(countryName);
+		folderClient.printResponse(response);*/
+
+		String path = "/"+principal.getName()+"@avi-oil.com";
+		//String path = "/";
+		GetFolderByPathResponse folderByPath=documentModuleClient.getFolderByPath(path,principal.getName()+"@avi-oil.com");
+		
+		GetFolderResponse folderResponse = documentModuleClient.getFolderRequest(path,principal.getName()+"@avi-oil.com");
+
+		List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
+				.getFolderListResult().getFolderList();
+		documentModuleClient.printResponse(folderResponse);	
+		Folder folderNode=folderByPath.getFolder();
+		map.addAttribute("principal", principal);
+		map.addAttribute("currentFolder",folderNode);
+		map.addAttribute( "folderList", folderList);
+		map.addAttribute("folderClient",documentModuleClient);
+		map.addAttribute("userid",principal.getName()+"@avi-oil.com" );
+		return "dashboard";
 	}
 
 
@@ -371,10 +396,10 @@ public class IndexController {
 		map.addAttribute("currentFolder",folderNode);
 		map.addAttribute( "folderList", folderList);
 		map.addAttribute("folderClient",documentModuleClient);
-		map.addAttribute("breadcum","/");
+		map.addAttribute("userid",principal.getName()+"@avi-oil.com" );
 		// map.addAttribute("nodeIterator", nodeIterator);
 		
-		//CHAT CODE BEGINS
+/*		//CHAT CODE BEGINS
 		//System.out.println("userid="+loginUser.getUserid());
 		//System.out.println("password="+loginUser.getPassword());
 		XmppChatClass xmppChatClass=new XmppChatClass();
@@ -385,7 +410,7 @@ public class IndexController {
 		xmppChatClass.performLogin("nirbhay@silvereye.in", "SIS@2009", onlineStatus);
 		scriptSessList.listenScriptSession();
 		request.getSession().setAttribute("xmppChatClass", xmppChatClass);
-		map.addAttribute("imageurl", chatImageFolder);
+		map.addAttribute("imageurl", chatImageFolder);*/
 		return "userDashboard";
 	}
 	/*
