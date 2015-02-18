@@ -2,19 +2,6 @@
 <%@page import="edms.wsdl.FolderVersionDetail"%>
 <%@page import="edms.wsdl.Folder"%>
 <%@page import="java.util.List"%>
-<script src="js/left_event.js" type="application/javascript"></script>
-        <!---------------/// USER NEW SEND STRAED HERE ------------->
-<script src="js/jquery_popup.js"></script>   
-<script type="text/javascript" src="js/user_send.js"></script>
-<script type="text/javascript" src="js/group_send.js"></script>
-<link href="css/user_send.css" type="text/css" rel="stylesheet"/>
-<link href="css/group_send.css" type="text/css" rel="stylesheet"/>
-<link rel="stylesheet" href="css/jquery_popup.css" />
-<link rel="stylesheet" href="css/new_icon.css" />
-<link rel="stylesheet" href="css/new_changes.css" />
-<script src="js/new_chnages.js"></script>
-<script type="text/javascript" src="js/share_js.js"></script>
-<!----------------/// USER NEW SEND END HERE ---------------> 
 <%List<Folder> folderList = (List<Folder>) request.getAttribute("folderList"); 
 String breadcum=(String)request.getAttribute("breadcum");
 Folder currentFolder=(Folder)request.getAttribute("currentFolder");
@@ -90,22 +77,42 @@ String userid=(String)request.getAttribute("userid");
                                                      </table>   
                                                 </div> -->
                                                 <li class="keyword right_tab"><a href="#">KEYWORDS</a>
-                                                  <div class="icon_right"></div>
-                                                </li>
-                                                <div class="content_right"><%=currentFolder.getKeywords() %> </div>
-                                                <li class="history_right right_tab"><a href="#">HISTORY</a>
-                                                  <div class="icon_right"></div>
+                                                      <!---// ADD ICON HERE --->
+                                                      <div class="add_note keyword_add">
+                                                           <img src="images/create_folder_icon.png" />
+                                                      </div>
+                                                      <!-----// ADD ICON END HERE ---->
+                                                  <div class="icon_right"> </div>
                                                 </li>
                                                 <div class="content_right">
-                                                      <table> <tr class="history_content">
-                                                               <!-- <td>Version</td> -->
-                                                               <!-- <td>Date</td> -->
-                                                              <!--  <td>Author</td> -->
-                                                               <td >Details</td>
-                                                               <td>Action</td>
-                                                             </tr>
+                                                        <!------/// INNER KEYWORD ------>
+                                                        <div class="inner_keyword">
+                                                           <ul>
+                                                             <%
+                                                             List<String> keywords=currentFolder.getKeywords();
+                                                             for(String str:keywords){
+                                                            	 String[] key=str.split(",");
+                                                            	 for(int i=0;i<key.length;i++){
+                                                            		 if(key[i]!=""&&(!key[i].equals(""))){
+                                                             %>
+                                                             <li><span><%=key[i] %></span><img src="images/delete_icon_file.png" id="<%=key[i] %>">
+                                                             <div class="clear"></div><div class="clear"></div></li>
+                                                           <%} }}%>
+                                                             </ul>
+                                                        
+                                                        </div>
+                                                        <!-----/// INNER KEYWORD -------->
+                                                
+                                                
+                                                
+                                                </div>
+                                                <li class="history_right right_tab"><a href="#">VERSIONING</a>
+                                                  <div class="icon_right"></div>
+                                                </li>
+                                               <div class="content_right">
+                                                      
                                                       <%
-                                                      List<FolderVersionDetail> versionDetails=currentFolder.getFolderVersionsHistory();
+ List<FolderVersionDetail> versionDetails=currentFolder.getFolderVersionsHistory();
                                                       
                                                       int i=0;
                                                       
@@ -113,20 +120,21 @@ String userid=(String)request.getAttribute("userid");
                                                       
                                                     	  if(i>0){
                                                       %>
-                                                           <tr>
-                                                              <%--   <td><%=versionDetail.getVersionName() %></td> --%>
-                                                               <%--  <td><%=versionDetail.getCreatedBy() %></td> --%>
-                                                                <td ><%=versionDetail.getDetails() %> on Date: <%=versionDetail.getCreationDate().substring(0,10) %></td>
-                                                                <td><a href="#" id="<%=currentFolder.getFolderPath() %>,<%=versionDetail.getVersionName() %>" class="" onclick="restoreVersion(this.id)">Restore</a></td>
-                                                             </tr>
-                                                             <%}
-                                                    	i++;  
-                                                      } %>
+                                                             <%--    <td><%=versionDetail.getVersionName() %></td> --%>
+                                                              <%--   <td><%=versionDetail.getCreatedBy() %></td> --%>
+                                                                <!------------/// Row_STARTED HERE ----------->
+                                                                <div style="margin-left: 20px;" class="row_recent">
+           <!--  <div class="recnt_pdf_doc"> </div> -->
+            <%=versionDetail.getDetails() %> by<a href="#" class="second"><%=versionDetail.getCreatedBy() %></a> on <a href="#" class="second"><%=versionDetail.getCreationDate() %></a> </div>
+                                                           <!-------------// ROW STARTED HERE --------------> 
+                                                                
+                                                                
+                                                               <%--  <a href="#" id="<%=currentFolder.getFolderPath() %>,<%=versionDetail.getVersionName() %>" class="" onclick="restoreVersion(this.id)">Restore</a> --%>
+                                                             <%}i++;} %>
                                                              
                                                               
-                                                      </table>
                                                 <script type="text/javascript">
-                                                	 function restoreVersion(folderPath){
+                                                	function restoreVersion(folderPath){
                                                 		//alert(folderPath);
                                                 		folderPath=folderPath.split(',');
                                                 		
@@ -147,7 +155,7 @@ String userid=(String)request.getAttribute("userid");
                                           				}); 
                                                 	
                                                 	}
-                                                 
+                                                
                                                 </script>
                                                 </div>
                                                 <li class="prew right_tab"><a href="#">PREVIEW</a>
@@ -160,7 +168,7 @@ String userid=(String)request.getAttribute("userid");
                                                 <div class="content_right" style="margin: 0px auto;">
                                               No Preview Available
                                                 </div>
-                                                <li class="prew right_tab permi"><a href="#">PERMISSION</a>
+                                                <li class="prew right_tab permi"><a href="#">SHARING AND SECURITY</a>
                                                   <div class="icon_right"> </div>
                                                 </li>      
                                                 <div class="content_right">
@@ -168,13 +176,7 @@ String userid=(String)request.getAttribute("userid");
                                                            
                                                            <div class="group_shared permission_content">
                                                               <table>
-                                                                     <tr class="permission_heading">
-                                                                             <td align="top">User</td>
-                                                                             <td align="top">Read</td>
-                                                                             <td>Write</td>
-                                                                             <td>Delete</td>
-                                                                             <td>Security Access</td>
-                                                                     </tr>
+                                                                     
                                                                                <%
                                                        List<String> users=currentFolder.getUserRead();
                                                        String[] user=users.toString().split(",");
@@ -183,14 +185,19 @@ String userid=(String)request.getAttribute("userid");
                                                     	   str=str.replace("[", "");
                                                     	   System.out.println(str+(str.equals(",")||str.equals("")||str.equals(" ")||str.equals("]")||str.equals("[")));
                                                     	   if((str.equals(",")||str.equals("")||str.equals(" ")||str.equals("]")||str.equals("["))){}else{
+                                                    		   String flag="Can View";
+                                                    		   if(currentFolder.getUserWrite().toString().contains(str)){
+                                                    			   flag="Can Edit";
+                                                    		   }
+                                                    		   if(currentFolder.getUserSecurity().toString().contains(str)){
+																	flag="Can Manage"  ;                                                  			   
+                                                    		   }
                                                     	   %>
                                                     <tr class="right_text"> 
                                                     <td class="go_text"><%=str %> </td>
-													<td><input type="checkbox" onclick="assignPermissions(this.value)" name="userpermission" value="<%=str%>,ur" id="<%=str.replace("@", "")
-														.replace(".", "")%>ur" checked="checked"/>
-														
+													<td> : <%=flag %>
 													</td>
-													<td>
+													<%-- <td>
 													<%if(currentFolder.getUserWrite().toString().contains(str)){ %>
 														<input type="checkbox" onclick="assignPermissions(this.value)"  name="userpermission" value="<%=str%>,uw" id="<%=str.replace("@", "")
 														.replace(".", "")%>uw" checked="checked"/>
@@ -219,7 +226,7 @@ String userid=(String)request.getAttribute("userid");
 														.replace(".", "")%>us"/>
 														<%} %>
 
-													</td></tr>
+													</td> --%></tr>
                                                        <%}} %>
                                                        </table>
                                                            </div>
@@ -254,4 +261,31 @@ String userid=(String)request.getAttribute("userid");
 			});
              </script>    -->                         
                                           <!----------------/// RIGHT PART END HERE -------------------> 
+                                         
+                                         
+                                         
+                                         <script >
+                                         $(document).on("click",".inner_keyword >ul >li >img",function(){
+                                        	 $.ajax({
+                                 				type : "GET",
+                                 				url : "${pageContext.request.contextPath}/removeKeyword",
+                                 				data : {
+                                 					'keyword' : this.id
+                                 				},
+                                 				contentType : "application/json",
+                                 				async : false,
+                                 				success : function(data) {
+                                 					//$("#folderThumbView>ul").append(data);
+                                 					// alert(data);
+                                 				}
+
+                                 			});
+                                        	 
+                                        	 
+                                        	 
+                                        	 
+                                 			$(this).parent().remove();
+                                 			
+                                 			});
+                                         </script>
                                          

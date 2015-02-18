@@ -5,17 +5,7 @@
 <%@page import="edms.wsdl.GetFolderResponse"%>
 <%@page import="edms.wsdl.HasChildResponse"%>
 <%@page import="edms.core.Config"%>
-<script src="js/left_event.js" type="application/javascript"></script>
-        <!---------------/// USER NEW SEND STRAED HERE ------------->
-<script src="js/jquery_popup.js"></script>   
-<script type="text/javascript" src="js/user_send.js"></script>
-<script type="text/javascript" src="js/group_send.js"></script>
-<link href="css/user_send.css" type="text/css" rel="stylesheet"/>
-<link href="css/group_send.css" type="text/css" rel="stylesheet"/>
-<link rel="stylesheet" href="css/jquery_popup.css" />
-<link rel="stylesheet" href="css/new_icon.css" />
-<link rel="stylesheet" href="css/new_changes.css" />
-<!----------------/// USER NEW SEND END HERE ---------------> 
+ 
 
 <!-- 	<li class="file_system tab_header" onClick="tab_left()"><a
 				href="index_testing.htm">MY DOCUMENT</a>

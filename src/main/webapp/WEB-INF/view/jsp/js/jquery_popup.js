@@ -5,47 +5,50 @@ $(document).ready(function() {
         $("#logindiv").css("display", "block");
     }
 
-    $("#login #cancel").click(function() {
+	$(document).on("click","#login #cancel",function(){
         $(this).parent().parent().hide();
     });
 
-    $(".onclick").click(function() {
+	$(document).on("click",".onclick",function(){
         $("#contactdiv").css("display", "block");
     });
-	$(".onclick_3").click(function() {
+	$(document).on("click",".onclick_3",function(){
         $("#contactdiv_3").css("display", "block");
     });
-    $(".onclick_4").click(function() {
+
+	$(document).on("click",".onclick_4",function(){
         $("#contactdiv_4").css("display", "block");
     });
-	
-	$(".onclick_5").click(function() {
+
+	$(document).on("click",".onclick_5",function(){
         $("#contactdiv_5").css("display", "block");
     });
-	
-	$(".right_upload_folder").click(function() {
+
+	$(document).on("click",".right_upload_folder",function(){
         $("#contactdiv_6").css("display", "block");
     });
 
-    $(".right_create_folder").click(function() {
+	$(document).on("click",".right_create_folder",function(){
         $("#contactdiv_66").css("display", "block");
     });
-    
-    $(".renameFolder").click(function() {
+
+	$(document).on("click",".renameFolder",function(){
         $("#contactdiv_666").css("display", "block");
     });
-	
-	$(".more_delete").click(function() {
+
+	$(document).on("click",".more_delete",function(){
         $("#contactdiv_77").css("display", "block");
     });
-	
-    $("#contact #cancel").click(function() {
+
+	$(document).on("click","#contact #cancel",function(){
         $(this).parent().parent().hide();
     });
 
 
 //contact form popup send-button click event
-    $("#send").click(function() {
+
+	$(document).on("click","#send",function(){
+	
         var name = $("#name").val();
         var email = $("#email").val();
         var contact = $("#contactno").val();
@@ -77,7 +80,8 @@ $(document).ready(function() {
 
 
 //login form popup login-button click event
-    $("#loginbtn").click(function() {
+
+		$(document).on("click","#loginbtn",function(){
         var name = $("#username").val();
         var password = $("#password").val();
         if (username == "" || password == "")

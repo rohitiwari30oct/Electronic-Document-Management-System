@@ -156,11 +156,10 @@ top: 200px !important;
 padding-bottom: 13px;
 	width: 700px;
 margin-bottom: 27px;
-position: absolute;
+position: relative;
 z-index: 6;
 display: none;
 background: #FFF;
-left: 29%;
 /* margin-top: 194px; */
 border: 1px solid #ccc;
 border-radius: 3px;

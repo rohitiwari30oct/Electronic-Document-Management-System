@@ -52,7 +52,7 @@ public class DocumentController {
 	public static final String FILE_UPLOAD_STATUS = "file_upload_status";
 	@Autowired private DocumentModuleClient documentModuleClient;
 	
-	private Integer IMAGE_MAX_SIZE = 1024000;
+	private Integer IMAGE_MAX_SIZE = 50024000;
 	
 	// list of allowed file extensions
 	private Set<String> allowedImageExtensions;
@@ -81,8 +81,10 @@ public class DocumentController {
 		File fil =null;
 		String filename=null;
 		try{
-			
 			Iterator<String> itr = request.getFileNames();
+			if(!itr.hasNext()){
+				return ",please select a file";
+			}
 			while (itr.hasNext()){
 			MultipartFile filecheck = request.getFile(itr.next());
 		
@@ -134,15 +136,15 @@ public class DocumentController {
 							" id='"+file.getFilePath()+"' ondblclick='getFileContent(this.id)'>";
 							
 								if(file.getFileName().contains(".pdf")){
-									newFile+=	"<div class='pdf_icon'></div> ";
+									newFile+=	"<div class='new_pdf'></div> ";
 	 	}else if(file.getFileName().contains(".doc")){
-	 		newFile+=	"	<div class='msoffice_icon'></div> ";
+	 		newFile+=	"	<div class='new_doc'></div> ";
 	 	}else if(file.getFileName().contains(".xls")){
-	 		newFile+=	"	<div class='msexcel_icon'></div>";
+	 		newFile+=	"	<div class='new_msexcel'></div>";
 	 	}else if(file.getFileName().contains(".ppt")){
-	 		newFile+=	"	<div class='ppt_icon'></div> ";
+	 		newFile+=	"	<div class='new_ppt'></div> ";
 	 	}else{
-	 		newFile+=	"	<div class='pdf_icon'></div> ";
+	 		newFile+=	"	<div class='blank_image'></div> ";
 	 	}
 						 		newFile+=	" <span>"+file.getFileName()+"</span></li>";
 						 		res+= newFile;
@@ -229,7 +231,7 @@ public class DocumentController {
 					String iss;
 						iss = IOUtils.toString(imageBytes);
 				InputStream inStream =  IOUtils.toInputStream(iss);
-				System.out.println("content of file is : "+fileNode.getFileContent());
+				//System.out.println("content of file is : "+fileNode.getFileContent());
 				// forces download
 				String headerKey = "Content-Disposition";
 				String headerValue = String.format("attachment; filename=\"%s\"", fileNode.getFileName());

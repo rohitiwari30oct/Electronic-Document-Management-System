@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import static org.springframework.ldap.query.LdapQueryBuilder.query;
 import edms.core.Config;
 import edms.webservice.client.DocumentModuleClient;
+import edms.wsdl.AddKeywordResponse;
 import edms.wsdl.AssignSinglePermissionResponse;
 import edms.wsdl.CreateFolderResponse;
 import edms.wsdl.DeleteFolderResponse;
@@ -39,6 +40,7 @@ import edms.wsdl.GetSharedFilesResponse;
 import edms.wsdl.GetSharedFoldersByPathResponse;
 import edms.wsdl.GetSharedFoldersResponse;
 import edms.wsdl.RecycleFolderResponse;
+import edms.wsdl.RemoveKeywordResponse;
 import edms.wsdl.RenameFolderRes;
 import edms.wsdl.RenameFolderResponse;
 import edms.wsdl.RestoreFolderResponse;
@@ -69,16 +71,18 @@ public class FolderController {
 				.getFolderByPath(calcPath, principal.getName()
 						+ Config.EDMS_DOMAIN);
 		Folder folderNode = folderByPath.getFolder();
+
+		if(folderResponse.getGetSharedFolders().getFolderListResult()!=null){
 		List<Folder> folderList = folderResponse.getGetSharedFolders()
 				.getFolderListResult().getFolderList();
+		map.addAttribute("folderList", folderList);}
 		GetSharedFilesResponse fileResponse = documentModuleClient
 				.getSharedFilesRequest(principal.getName() + Config.EDMS_DOMAIN);
-		List<edms.wsdl.File> fileList = fileResponse.getGetSharedFiles()
-				.getFileListResult().getFileList();
-		map.addAttribute("fileList", fileList);
+		if(fileResponse.getGetSharedFiles().getFileListResult()!=null){
+		List<edms.wsdl.File> fileList = fileResponse.getGetSharedFiles().getFileListResult().getFileList();
+		map.addAttribute("fileList", fileList);}
 		map.addAttribute("currentFolder", folderNode);
 		map.addAttribute("breadcum", calcPath);
-		map.addAttribute("folderList", folderList);
 		map.addAttribute("userid", principal.getName() + Config.EDMS_DOMAIN);
 		return "shared";
 	}
@@ -107,15 +111,13 @@ public class FolderController {
 		GetFolderByPathResponse folderByPath = documentModuleClient
 				.getFolderByPath(path, principal.getName() + Config.EDMS_DOMAIN);
 		Folder folderNode = folderByPath.getFolder();
-		List<Folder> folderList = folderResponse.getGetSharedFoldersByPath()
-				.getFolderListResult().getFolderList();
-		List<edms.wsdl.File> fileList = fileResponse.getGetSharedFilesByPath()
-				.getFileListResult().getFileList();
-		map.addAttribute("currentFolder", folderNode);
-		map.addAttribute("breadcum", path);
-		map.addAttribute("folderList", folderList);
-		map.addAttribute("fileList", fileList);
-		map.addAttribute("userid", principal.getName() + Config.EDMS_DOMAIN);
+		if(folderResponse.getGetSharedFoldersByPath().getFolderListResult()!=null){
+			List<Folder> folderList = folderResponse.getGetSharedFoldersByPath()
+					.getFolderListResult().getFolderList();
+			map.addAttribute("folderList", folderList);}
+			map.addAttribute("currentFolder", folderNode);
+			map.addAttribute("breadcum", calcPath);
+			map.addAttribute("userid", principal.getName() + Config.EDMS_DOMAIN);
 		return "shared";
 	}
 
@@ -356,6 +358,41 @@ public class FolderController {
 			return "access denied";
 		}
 		return newFolder;
+	}
+	@RequestMapping(value = "/addKeyword", method = RequestMethod.GET)
+	@ResponseBody
+	public String addKeyword(ModelMap map, Principal principal,
+			HttpServletRequest request, @RequestParam String keyword) {
+		HttpSession hs = request.getSession(false);
+		String folderName = (String) hs.getAttribute("currentFolder");
+		if(folderName!=""){
+			
+		}else{
+			folderName=(String) hs.getAttribute("currentFile");
+		}
+		AddKeywordResponse addKeywordResponse = documentModuleClient
+				.addKeyword(folderName,  principal.getName()+ Config.EDMS_DOMAIN, keyword);
+		
+	
+		return "";
+	}
+
+	@RequestMapping(value = "/removeKeyword", method = RequestMethod.GET)
+	@ResponseBody
+	public String removeKeyword(ModelMap map, Principal principal,
+			HttpServletRequest request, @RequestParam String keyword) {
+		HttpSession hs = request.getSession(false);
+		String folderName = (String) hs.getAttribute("currentFolder");
+		if(folderName!=""){
+			
+		}else{
+			folderName=(String) hs.getAttribute("currentFile");
+		}
+		RemoveKeywordResponse removeKeywordResponse = documentModuleClient
+				.removeKeyword(folderName,  principal.getName()+ Config.EDMS_DOMAIN, keyword);
+		
+	
+		return "";
 	}
 
 	@RequestMapping("/createSharedFolder")

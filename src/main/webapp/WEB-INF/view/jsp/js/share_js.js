@@ -1,10 +1,10 @@
 jQuery(document).ready(function() {
 	
+	
 		/// MANGE SHARING 
-				
-				$('.mange_sharing').click(function(){
+	$(document).on("click",".mange_sharing",function(){
 					
-					   //  alert('Hi');
+					    // alert('Hi');
 						 $('.con_more').hide();
 						 $('.calender_option').hide();
 						 $('div.more_active').removeClass('more_active');
@@ -35,7 +35,7 @@ jQuery(document).ready(function() {
 			  // ADD MORE SHRE 
 			  $(document.body).on('click', '.share_more' ,function(){
 				  //alert('hi');
-				  $('.sharing_mange >.table_append >table.append_tr >tbody').append('<tr><td><input type="text"  class="initive_people" /></td><td><div class="can_edit"><div class="can_edite">    <select><option>Can View </option><option>Can Edit </option><option>Can Mange </option></select></div><div class="delete_shre"><img src="images/delete.png"></div></div></td></tr>');
+				  $('.sharing_mange >.table_append >table.append_tr >tbody').append('<tr><td><input type="text"  class="initive_people" /></td><td><div class="can_edit"><div  style="float: left;">    <select  style="width: 100px;height: 28px;"><option>Can View </option><option>Can Edit </option><option>Can Manage </option></select></div><div class="delete_shre"><img src="images/delete.png"></div></div></td></tr>');
 				  });
 		
 		/// IMPORT FILE STRED HERE 

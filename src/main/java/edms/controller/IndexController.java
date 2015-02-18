@@ -24,12 +24,14 @@ import edms.chatdwr.XmppChatClass;
 import edms.core.Config;
 import edms.model.LoginModel;
 import edms.webservice.client.DocumentModuleClient;
+import edms.webservice.client.UserClient;
 import edms.webservice.client.WorkflowClient;
 import edms.wsdl.Folder;
 import edms.wsdl.GetFileResponse;
 import edms.wsdl.GetFolderByPathResponse;
 import edms.wsdl.GetFolderResponse;
 import edms.wsdl.GetRecycledDocsResponse;
+import edms.wsdl.LoginResponse;
 import edms.wsdl.RecentlyModifiedResponse;
 import edms.wsdl.SearchDocByDateResponse;
 
@@ -63,6 +65,7 @@ public class IndexController {
 	@Value ("${onlineStatus}") private String onlineStatus;
 
 	@Autowired DocumentModuleClient documentModuleClient;
+	@Autowired UserClient userClient;
 	@Autowired WorkflowClient workflowClient;
 
 	@RequestMapping(value = "/userDashboard", method = RequestMethod.GET)
@@ -383,11 +386,13 @@ public class IndexController {
 		folderClient.printResponse(response);*/
 
 		String path = "/"+principal.getName()+"@avi-oil.com";
-		//String path = "/";
+	//	LoginResponse loginResponse=userClient.loginRequest(principal.getName()+"@avi-oil.com", Config.JCR_PASSWORD);
+		
 		GetFolderByPathResponse folderByPath=documentModuleClient.getFolderByPath(path,principal.getName()+"@avi-oil.com");
 		
 		GetFolderResponse folderResponse = documentModuleClient.getFolderRequest(path,principal.getName()+"@avi-oil.com");
 
+		
 		List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
 				.getFolderListResult().getFolderList();
 		documentModuleClient.printResponse(folderResponse);	

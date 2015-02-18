@@ -2,10 +2,10 @@
 <%@page import="edms.wsdl.File"%>
 <%@page import="java.util.List"%>
 <%
-List<File> lastMonthModifiedFileList=		(List<File>)request.getAttribute("lastMonthModifiedFileList");
-List<Folder> lastMonthModifiedFolderList=	(List<Folder>)request.getAttribute("lastMonthModifiedFolderList");
-List<File> lastMonthCreatedFileList=		(List<File>)request.getAttribute("lastMonthCreatedFileList");
-List<Folder> lastMonthCreatedFolderList=	(List<Folder>)request.getAttribute("lastMonthCreatedFolderList");
+List<File> lastMonthModifiedFileList		=	(List<File>)request.getAttribute("lastMonthModifiedFileList");
+List<Folder> lastMonthModifiedFolderList	=	(List<Folder>)request.getAttribute("lastMonthModifiedFolderList");
+List<File> lastMonthCreatedFileList			=	(List<File>)request.getAttribute("lastMonthCreatedFileList");
+List<Folder> lastMonthCreatedFolderList		=	(List<Folder>)request.getAttribute("lastMonthCreatedFolderList");
 %>
                         <!---// RIGHT --->
                         <div class="other_pages_statice">
@@ -84,7 +84,7 @@ List<Folder> lastMonthCreatedFolderList=	(List<Folder>)request.getAttribute("las
                   </a> </div>
                                          <!------------/// BOX END HERE -------->
                                            <!------------/// BOX STARTED HERE -------->
-                  <div class="statical_graph">
+                <!--   <div class="statical_graph">
                   <div class="static_heading">Top 20 recently downloaded documents</div>
                   <div class="statistics_inner_content">
                   <div class="row_recent">
@@ -110,10 +110,10 @@ List<Folder> lastMonthCreatedFolderList=	(List<Folder>)request.getAttribute("las
                   </div>
                   <a href="#" class="bottom_link">
                   <div class="botom_view_more"> View All </div>
-                  </a> </div>
+                  </a> </div> -->
                                          <!------------// BOX END HERE ------------>
                                 <!-----------/// BOX STARED HERE ----------->
-                                                                                <div class="statical_graph">
+                                                                               <!--  <div class="statical_graph">
                   <div class="static_heading">Locked documents</div>
                   <div class="statistics_inner_content">
                   <div class="row_recent">
@@ -144,7 +144,7 @@ List<Folder> lastMonthCreatedFolderList=	(List<Folder>)request.getAttribute("las
                   <div class="claer"></div>
                   <a href="#" class="bottom_link">
                   <div class="botom_view_more"> View All </div>
-                  </a> </div>
+                  </a> </div> -->
                                          <!-------------/// BOX END HERE ------------>
                                                    </div>
                                                 <div class="clear"></div>

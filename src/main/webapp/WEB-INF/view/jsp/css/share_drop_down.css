@@ -1,0 +1,60 @@
+@charset "utf-8";
+/* CSS Document */
+
+.share_option_dropdown{
+float: left;width: 123px;
+clear: both;
+padding: 5px;
+border: 1px solid #ccc;
+background: #ECECEC;
+font-family: arial;
+font-size: 13px;}
+.share_menu_dropdown{clear: both;
+width: 135px;
+float: left;}
+.share_menu_dropdown >ul{margin: 0px;
+padding: 0px;
+border: 1px solid #ccc;border-top: none !important;}
+.share_menu_dropdown >ul >li{padding: 4px;
+font-family: arial;
+font-size: 13px;list-style-type: none;
+background: #fff; cursor:pointer;
+/* border: 1px solid #ccc; */}
+.for_share_icon >img{width: 17px;
+float: left;
+clear: both;}
+.clear{ clear:both;}
+.for_share_icon{float: left;
+width: 27px;height: 11px;}
+.comment_icon,.edite_icon,.view_icon{ opacity:0.7; display:none;}
+.edite_icon{ display:block;}
+.can_edit >span{display: block;
+float: left;
+width: 16px;}
+.can_comment >span{ display:none;display: block; visibility:hidden;
+float: left;
+width: 16px;}
+.can_view >span{ display:none;display: block;visibility:hidden;
+float: left;
+width: 16px;}
+.comment_text{display:none;}
+.view_text{display:none;}
+.can_text{ }
+.share_menu_dropdown{ display:none;}
+.down_arrow_share{float: right;margin-top: 5px;}
+
+.share_menu_dropdown {
+position: absolute;
+top: 94px;
+background: #fff;
+z-index: 2;
+}
+
+.down_arrow_share {
+margin-left: 11px;
+}
+.share_option_dropdown {
+
+width: auto !important;
+
+}

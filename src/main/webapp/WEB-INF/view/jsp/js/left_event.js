@@ -341,7 +341,8 @@ $(document).ready(function() {
 	
 	   ///SELECT BOX EVENT STARTED HERE
 	       var removeClass = true; 
-	       $('.select_box').click(function(){
+
+	   	$(document).on("click",".select_box",function(){
 			   
 			        $('li.new_select_box').removeClass('new_select_box');
 			        $(this).addClass('new_select_box');
@@ -366,10 +367,10 @@ $(document).ready(function() {
 			   
 			   
 			   /// TEST STRED HERE 
-			   
-			   $('.serach_top >span').click(function(){
-				removeClass = false;
-				//alert('Hi')
+
+	   /*	$(document).on("click",".serach_top >span",function(){
+				//removeClass = false;
+				alert('Hi')
 				  if($('.search_box_details').css('display')=='none')
 				       {
 					
@@ -384,7 +385,7 @@ $(document).ready(function() {
 					  }
 					
 					
-			    });
+			    });*/
 			   
 			
 			   
@@ -409,7 +410,7 @@ $(document).ready(function() {
 	
 	/// SHARED OPTION HERE 
 	      // SHARED ICON
-		  $('.share').click(function(){
+	   	$(document).on("click",".share",function(){
 			       
 				   if($('.share_option').css('display')=='none')
 				   
@@ -423,8 +424,8 @@ $(document).ready(function() {
 			  });    
 		
 		///    Cancel POP Up END HERE 
-		
-		$('.cancel_popup').click(function(){
+
+	   	$(document).on("click",".cancel_popup",function(){
 			
 			         if($('.share_option').css('display')=='block')
 				   
@@ -440,7 +441,7 @@ $(document).ready(function() {
 	    
 	
 	    // USER SHERED 
-           $('.user_option').click(function(){
+	   	$(document).on("click",".user_option",function(){
 			        
 					if($('.user_inner').css('display')=='none')
 					{
@@ -457,8 +458,8 @@ $(document).ready(function() {
 			   });
 			   
 		/// Group Shared Option
-		
-		   $('.user_group').click(function(){
+
+	   	$(document).on("click",".user_group",function(){
 
 			     if($('.group_inner').css('display')=='none')
 				 {
@@ -477,7 +478,7 @@ $(document).ready(function() {
 	
 	
 	// LEFT PART DOCUMENT ONCLICK
-$('.content_left_block > ul >li').click(function(){
+	   	$(document).on("click",".content_left_block > ul >li",function(){
 	
       if($('.subfolder_onhover').css('display')=='none')
 	  {
@@ -560,8 +561,8 @@ $('.content_left_block > ul >li').click(function(){
 	
 	
 	//Top
-	$('.right_tab').click( function(){
-	
+	   	$(document).on("click",".right_tab",function(){
+	//alert("hi");
 		var opend=false;
 		if($(this).find('.icon_right').attr('class').indexOf('icon_right_minus')>-1)
 		{
@@ -588,8 +589,7 @@ $('.content_left_block > ul >li').click(function(){
 	);
 	
 	//Middle
-	$('.middle_tab').click(
-            function() {
+	   	$(document).on("click",".middle_tab",function(){
 
                 var opend = true;
                 if ($(this).find('.icon_folder').attr('class').indexOf('folderminus') > -1)
@@ -620,7 +620,7 @@ $('.content_left_block > ul >li').click(function(){
 	
 	
 	///SHARED FOLDER ONLY
-	$('.shared_event').click(function(){
+	   	$(document).on("click",".shared_event",function(){
 		
 	       if($('.shared_tab').css('display')=='none')
 		   {
@@ -633,7 +633,7 @@ $('.content_left_block > ul >li').click(function(){
 		
 		
 			///TRASH PAGES ONLY
-					$('.trash').click(function(){
+	   	$(document).on("click",".trash",function(){
 						
 						   if($('.trash_tab').css('display')=='none')
 						   {
@@ -647,7 +647,7 @@ $('.content_left_block > ul >li').click(function(){
 						
 						
 		/// FROM TAB STARED HERE 
-		$('.table_menu').click(function(){
+	   	$(document).on("click",".table_menu",function(){
 			     if($('.shared_trash').css('display')=='block')
 				 {
 					 
@@ -704,13 +704,13 @@ $('.content_left_block > ul >li').click(function(){
 		$('.chat_box_inner').height(hhtt);
 				
     });*/
-	$('.document_library').click(function() {
+   	$(document).on("click",".document_library",function(){
 			$('#test').toggleClass('cheat_height_small');
 			$('#test').toggleClass('cheat_height_big');			
 	});
 	
 	// Folder View,List View,Left View,Bottom View
-	$('.user_images').click(function(){
+   	$(document).on("click",".user_images",function(){
 		
 		if($('.uparrowdiv').css('display')=='none')
 		{
@@ -728,8 +728,8 @@ $('.content_left_block > ul >li').click(function(){
 		
 		
 		///Appoment Tab Started Here 
-		
-			$('.tab_menu_1').click(function() {
+
+   	$(document).on("click",".tab_menu_1",function(){
 			if($('.appoment_tab_1').css('display')=='none')
 			{
 				$('.appoment_tab_2').css('display','none');
@@ -739,8 +739,8 @@ $('.content_left_block > ul >li').click(function(){
 				
 				}		
 	});
-	
-			$('.tab_menu_2').click(function() {
+
+   	$(document).on("click",".tab_menu_2",function(){
 			if($('.appoment_tab_2').css('display')=='none')
 			{
 				$('.appoment_tab_2').css('display','block');
@@ -755,8 +755,8 @@ $('.content_left_block > ul >li').click(function(){
 	
 	
 	/// Add New User 
-	
-	  $('.add_user_js').click(function(){
+
+   	$(document).on("click",".add_user_js",function(){
 		     
 				   if($('.add_user_content').css('display')=='block')
 				   {
@@ -806,8 +806,8 @@ $('.content_left_block > ul >li').click(function(){
 	//Loged User Tab Stared Here 
 	   //Loged User 
 	   
-			   
-            $('.logged_user_js').click(function(){
+
+   	$(document).on("click",".logged_user_js",function(){
 		       	
 				   if($('.loged_user_content').css('display')=='none')
 				   { 
@@ -833,8 +833,7 @@ $('.content_left_block > ul >li').click(function(){
 			  
 			  
 			  //// MORE OPTION STARED HERE 
-			  $('.more_click').click(function()
-			  {
+   	$(document).on("click",".more_click",function(){
 				  if($('.more_option_event').css('display')=='none')
 				  {
 					  $('.header_menu').css('display','block');
@@ -850,9 +849,8 @@ $('.content_left_block > ul >li').click(function(){
 				  });
 				  
 				  
-				  
-				  $('.remove_menu').click(function()
-				  {
+
+   	$(document).on("click",".remove_menu",function(){
 					  
 					  if($('.more_option_event').css('display')=='block')
 					  {
@@ -865,7 +863,7 @@ $('.content_left_block > ul >li').click(function(){
 				  
 				  
 				  /// Tab Calender 
-				  $('.calender_box').click( function(){
+   	$(document).on("click",".calender_box",function(){
 					  
 					  $('.calender_div').addClass('calender_images')
 					  
@@ -873,9 +871,8 @@ $('.content_left_block > ul >li').click(function(){
 					  
 					  });
 				  
-				  
-				    $('.remove_menu').click(function()
-				  {
+
+   	$(document).on("click",".remove_menu",function(){
 				  
 				  	if($('.more_option_event').css('display')=='none')
 					 {
@@ -887,8 +884,8 @@ $('.content_left_block > ul >li').click(function(){
 				  );
 	    
 	   //User List
-	   
-	   	   	$('.User_List_js').click(function(){
+
+   	$(document).on("click",".User_List_js",function(){
 		
 		       if($('.User_List_content').css('display')=='none')
 			   {
@@ -922,8 +919,8 @@ $('.content_left_block > ul >li').click(function(){
 		
 		
 			   //Group List
-	   
-	   	   	$('.group_List_js').click(function(){
+
+   	$(document).on("click",".group_List_js",function(){
 
 		       if($('.group_List_content').css('display')=='none')
 			   {
@@ -937,7 +934,7 @@ $('.content_left_block > ul >li').click(function(){
 						   $('.edite_user_profile').css('display','none');
 						   $('.user_profile_content').css('display','none');
 						   $('.loged_user_content').css('display','none');
-						     $('.new_edit_pages').css('display','none');
+						   $('.new_edit_pages').css('display','none');
 						   $('.logged_user_js').removeClass('log_user_bg');
 				   }
 
@@ -946,8 +943,8 @@ $('.content_left_block > ul >li').click(function(){
 	   
 	   
 	   //User Profile
-	          
-			     	   	$('.user_profile_js').click(function(){
+
+   	$(document).on("click",".user_profile_js",function(){
 		
 		       if($('.user_profile_content').css('display')=='none')
 			   {
@@ -972,8 +969,8 @@ $('.content_left_block > ul >li').click(function(){
 	    
 	   // Mini Type 
 	
-	         
-			   $('.mini_type_js').click(function(){
+
+   	$(document).on("click",".mini_type_js",function(){
 		
 		       if($('.mini_type_content').css('display')=='none')
 			   {
@@ -995,8 +992,8 @@ $('.content_left_block > ul >li').click(function(){
 			   
 		// Mini Type 
 	
-	         
-			   $('.large_name').click(function(){
+
+   	$(document).on("click",".large_name",function(){
 		       if($('.user_profile_content').css('display')=='none')
 			   {
 				   $('.user_profile_content').css('display','block');
@@ -1022,8 +1019,7 @@ $('.content_left_block > ul >li').click(function(){
 			   
 			   
 			   /// EDIT USER PAGES PROFILE (ADMIN PORTION)
-			   $('.edit_user').click(function()
-			   {
+   	$(document).on("click",".edit_user",function(){
 			
 				   if($('.new_edit_pages').css('display')=='none'){
 							 $('.new_edit_pages').css('display','block');
@@ -1035,8 +1031,8 @@ $('.content_left_block > ul >li').click(function(){
 				   }});
 		          
 			/// Delete Pages EDITE PAGE ONLY 
-			
-			     $('.delete_new_user').click( function(){
+
+   	$(document).on("click",".delete_new_user",function(){
 					 					confirm('Are You Sure !')
 						  $('.new_edit_pages').css('display','none');
 						 
@@ -1067,10 +1063,8 @@ $('.content_left_block > ul >li').click(function(){
 			   
 			   
 			   /// DELETE USER PROFILE PAGE EDITE (ADMIN)
-			   
-                $('.delete_user').click(function()
-				
-				{
+
+   	$(document).on("click",".delete_user",function(){
 					
 					confirm('Are You Sure !')
 					
@@ -1085,7 +1079,7 @@ $('.content_left_block > ul >li').click(function(){
 						}});	
 						
 						/// NEW EDIT PAGES 
-					  $('.new_edit').click(function(){
+   	$(document).on("click",".new_edit",function(){
 					
 						  if($('.new_edit_pages').css('display')=='none')
 						  {
@@ -1100,7 +1094,7 @@ $('.content_left_block > ul >li').click(function(){
 						  
 						  
 						  		/// NEW EDIT PAGES  WHEN PROFILE PAGES VISIT
-					  $('.edit_user').click(function(){
+   	$(document).on("click",".edit_user",function(){
 					
 						  if($('.new_edit_pages').css('display')=='none')
 						  {
@@ -1112,10 +1106,8 @@ $('.content_left_block > ul >li').click(function(){
 						
 						
 						  /// DELETE USER PROFILE PAGE (ADMIN)
-			   
-                $('.delete_user_1').click(function()
-				
-				{
+
+   	$(document).on("click",".delete_user_1",function(){
 					
 					confirm('Are You Sure !')
 					
@@ -1130,9 +1122,7 @@ $('.content_left_block > ul >li').click(function(){
 						}});	
 
 				/// CANCEL THE USER PROFILE EDITE (ADMIN)
-				$('.cancel_user_profile').click(function()
-				
-				{
+   	$(document).on("click",".cancel_user_profile",function(){
 					   if($('.user_profile_content').css('display')=='none')
 					   {
 						   
@@ -1145,7 +1135,7 @@ $('.content_left_block > ul >li').click(function(){
 						   }});
 						 
 				/// PROFILE PAGES TO EDITE PAGES
-				$('.edit_user').click(function(){
+   	$(document).on("click",".edit_user",function(){
 					
 					if($('.edit_user').css('display')=='none')
 					{
@@ -1159,7 +1149,7 @@ $('.content_left_block > ul >li').click(function(){
 						
 						
 				/// SHARED FOLDER STARTED HERE 
-				$('.shared_option').click(function(){
+   	$(document).on("click",".shared_option",function(){
 					
 					if($('.hindden_tab_22').css('display')=='none'){
 						
@@ -1264,7 +1254,7 @@ $(document).ready(function() {
 	$(".tab_content_1").hide();
 	$(".tab_content_1:first").show(); 
 
-	$("ul.tabs li").click(function() {
+   	$(document).on("click","ul.tabs li",function(){
 		$("ul.tabs li").removeClass("active");
 		$(this).addClass("active");
 		$(".tab_content_1").hide();

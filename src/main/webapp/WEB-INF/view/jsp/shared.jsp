@@ -13,7 +13,7 @@
                     				Folder currentFolder=(Folder)request.getAttribute("currentFolder");
                     				String userid=(String)request.getAttribute("userid");
                                   %>
-		<span>Path &nbsp; :</span><span> 
+	<span> 
 		<%
 		if(userid=="admin"){
 		%>
@@ -88,7 +88,7 @@
                                     <div class="shared_content shared_content_scroll" id="sharedviewdata">
       
       				<%				
-      				
+      				if(folderList!=null){
       				for (Folder folder : folderList) {
       					%>
                         <!------------------/// ROW FIRST STARED HERE --------------->
@@ -113,11 +113,11 @@
                                 </div>
               </div>
             <!-------------------/// ROW END HERE ---------------->
-            <%} %>
+            <%} }%>
             
             
 <%				
-      				
+      				if(fileList!=null){
       				for (edms.wsdl.File file : fileList) {
       					%>
                         <!------------------/// ROW FIRST STARED HERE --------------->
@@ -142,7 +142,7 @@
                                 </div>
               </div>
             <!-------------------/// ROW END HERE ---------------->
-            <%} %>
+            <%}} %>
             
             
         

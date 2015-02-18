@@ -2,7 +2,7 @@
 
 
 $(document).ready(function() {
-	 $('.serach_top >span').click(function(){
+	$(document).on("click",".serach_top >span",function(){
 					//alert('Hi')
 					  if($('.search_box_details').css('display')=='none')
 					       {
@@ -21,8 +21,8 @@ $(document).ready(function() {
 				    });
 	
 	/// ACTIVE LEFT PART STRED HERE 
-	
-	$('.left_bottom_part >ul >li').click(function(){
+
+	$(document).on("click",".left_bottom_part >ul >li",function(){
 		
 		//alert('Hi');
 		$('li.active_left').removeClass('active_left')
@@ -33,7 +33,7 @@ $(document).ready(function() {
 		
 		
 	/// FOR FOLDER VIEW ONLY 
-	$('.folder_only >ul >li').click(function(){
+	$(document).on("click",".folder_only >ul >li",function(){
 		
 		//alert('THIS IS FOLDER VIEW ')
 		
@@ -49,7 +49,8 @@ $(document).ready(function() {
 	
 	/// FOR FOLDER VIEW END HERE 
 		/// FOR File VIEW ONLY 
-	$('.file_only >ul >li').click(function(){
+
+	$(document).on("click",".file_only >ul >li",function(){
 		
 		//alert('This Is File View ');
 		if($('.new_option_file').css('display')=='none')
@@ -65,16 +66,16 @@ $(document).ready(function() {
 	/// FOR File VIEW END HERE 
 	
 	/// NEW MORE OPTION STRED HERE 
-	
-	    $('.new_more_icon_folder').click(function(){
+
+	$(document).on("click",".new_more_icon_folder",function(){
 			
-			  alert('Hi');
+			//  alert('Hi');
 			 var more_top =  $(this).offset().top;
 			 var more_left =  $(this).offset().left;
 			// alert(more_top);
 			// alert(more_left);
-			 $('.new_more_folder').css('top',more_top-41);
-			 $('.new_more_folder').css('left',more_left-395);
+			 $('.new_more_folder').css('top',more_top-37);
+			 $('.new_more_folder').css('left',more_left-235);
 			 
 			 if($('.new_more_folder').css('display')=='none')
 			 {
@@ -94,16 +95,15 @@ $(document).ready(function() {
 	
 	
 		/// NEW MORE OPTION STRED HERE 
-	
-	    $('.new_more_icon_file').click(function(){
+		$(document).on("click",".new_more_icon_file",function(){
 			
-			 //  alert('Hi');
+			//   alert('Hi');
 			 var more_top =  $(this).offset().top;
 			 var more_left =  $(this).offset().left;
 			// alert(more_top);
 			// alert(more_left);
-			 $('.new_more_file').css('top',more_top-41);
-			 $('.new_more_file').css('left',more_left-395);
+			 $('.new_more_file').css('top',more_top-37);
+			 $('.new_more_file').css('left',more_left-235);
 			 
 			 if($('.new_more_file').css('display')=='none')
 			 {
@@ -133,7 +133,7 @@ $(document).ready(function() {
 	
 	
 	/// THUM VIEW STRED HERE 
-	$('.thum_view').click(function(){
+		$(document).on("click",".thum_view",function(){
 		
 		//  alert('Thum View ');
 		  $('.list_view').show();
@@ -144,7 +144,7 @@ $(document).ready(function() {
 	/// THUM VIEW END HERE 
 	
 	/// LIST VIEW STRED HERE 
-	$('.list_view').click(function(){
+		$(document).on("click",".list_view",function(){
 		
 		
 		//alert('LIST VIEW ');

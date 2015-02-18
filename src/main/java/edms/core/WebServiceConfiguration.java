@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 
 import edms.webservice.client.DocumentModuleClient;
+import edms.webservice.client.UserClient;
 import edms.webservice.client.WorkflowClient;
 import edms.webservice.client.WorkflowHistoryClient;
 
@@ -41,11 +42,19 @@ public class WebServiceConfiguration {
 		client.setUnmarshaller(marshaller);
 		return client;
 	}
-	
+
 	@Bean
 	public WorkflowHistoryClient workflowHistoryClient(Jaxb2Marshaller marshaller) {
 		WorkflowHistoryClient client = new WorkflowHistoryClient();
 		client.setDefaultUri("http://localhost:8080/ws/workflowHistory.wsdl");
+		client.setMarshaller(marshaller);
+		client.setUnmarshaller(marshaller);
+		return client;
+	}
+	@Bean
+	public UserClient userClient(Jaxb2Marshaller marshaller) {
+		UserClient client = new UserClient();
+		client.setDefaultUri("http://localhost:8080/ws/user.wsdl");
 		client.setMarshaller(marshaller);
 		client.setUnmarshaller(marshaller);
 		return client;

@@ -1785,6 +1785,10 @@ margin-right: 10px;
 }
 /*-----------------// SHARED WITH OTHER STARED HERE ---------------*/
 .shared_menu{padding-bottom: 4px;
+position: absolute;
+right: 0px;
+left: 0px;
+border-bottom: 1px solid #ccc;
 /* right: 19px; */
 /* left: 294px; */
 /* margin-top: -4px; */
@@ -3490,10 +3494,10 @@ width: 100%;
 margin: 0;
 padding: 0;
 background: #000000;
-opacity: .15;
-filter: alpha(opacity=15);
--moz-opacity: .15;
+
 display: none;
+opacity: inherit !important;
+background: rgba(247, 247, 247, 0.7) !important;
 }
 .group_shared >table >tbody >tr>td.tab_per {
 width: 281px;
@@ -3741,3 +3745,40 @@ color: #fff;
 content: attr(data-tooltip);
 font-size: 12px;
 line-height: 1.2;}
+
+.add_tag_main{ float:left;}
+.add_tag_main >textarea{ outline:0px;}
+.add_tag{width: 58px;margin: 0 auto;text-align: center;background: #E7E7E7;border: 1px solid #ccc;margin-top: 10px;font-size: 12px;cursor: pointer;
+font-family: arial;padding: 4px;}
+.add_tag >img { width:11px;}
+
+li.link_share >img {
+margin-top: 6px !important;
+display: block;
+margin: 0 auto;
+}
+
+li.share_people >img {
+margin-top: 4px !important;
+display: block;
+margin: 0 auto;
+}
+
+.share_link >img {
+cursor: pointer;
+display: block;
+margin: 0 auto;
+}
+
+li.more_delete >img {
+margin-top: 3px !important;
+display: block;
+margin: 0 auto;
+}
+
+li.new_more_icon_folder >img {
+margin-top: 9px !important;
+display: block;
+margin: 0 auto;
+}
+

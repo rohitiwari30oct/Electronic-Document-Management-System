@@ -1,0 +1,111 @@
+@charset "utf-8";
+/* CSS Document */
+.inner_keyword { overflow: auto;
+overflow-x: hidden;}
+.inner_keyword >ul{margin: 0px;
+padding: 0px;
+}
+.inner_keyword >ul >li:first-child{padding-bottom: 4px !important;}
+.inner_keyword >ul >li{text-align: left !important;font-size: 13px;}
+.inner_keyword >ul >li:last-child{ border-bottom:none;}
+.keyword_add{ float: left;
+margin-top: 0px !important;
+padding: 2px !important;
+font-size: 12px;
+width: auto !important;
+padding-left: 5px !important;
+padding-right: 5px !important;
+margin-left: 10px !important;
+margin-top: -2px !important;}
+.right-pane ul li a {
+float: left;
+}
+
+.keyword_add >img {
+width:16px !important;
+}
+
+.inner_keyword >ul >li >.keyword_row >img{width: 11px;
+float: right;
+opacity: 0.7;
+cursor: pointer;position: relative;
+right: 23px;}
+.inner_keyword >ul >li >img{width: 11px;
+float: right;
+opacity: 0.7;
+cursor: pointer;position: relative;
+right: 23px;}
+.key_word_box{
+z-index: 11;
+background: #EDEDED;
+position: relative;
+margin: 0 auto;
+border: 1px solid #ccc;
+left: auto;
+margin-top: 14%;
+width: 387px;}
+.key_word_box >h1{margin: 0px;
+margin: 0px;
+padding: 0px;
+font-size: 13px;
+padding-top: 10px;
+padding-left: 12px;
+padding-bottom: 10px;
+background: url(../images/left_heading.jpg);
+border-bottom: 1px solid #ccc;}
+.keyword_box{padding: 31px;}
+.keyword_box >ul{ list-style-type:none; margin:0px; padding:0px;}
+.keyword_box >ul >li{ float: left;
+font-size: 13px;
+line-height: 23px;}
+.keyword_text{ float:right;}
+.add_keyword,.cancel_keyword,.add_keyword_exit{
+float: left;
+font-size: 12px;
+/* padding: 10px; */
+border: 1px solid #ccc;
+background: #E2E2E2;
+/* width: 51px; */
+padding: 5px 4px;
+text-align: center;
+margin-left: 10px;
+margin-top: 16px;
+cursor: pointer;
+text-transform: capitalize;
+padding-left: 13px;
+padding-right: 15px;}
+.keyword_box >ul >li >input{padding: 5px;
+outline: 0px;
+margin-left: 24px;}
+.web_dialog_overlay {
+position: fixed;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+height: 100%;
+width: 100%;
+margin: 0;
+padding: 0;
+background: #000000;
+opacity: .15;
+filter: alpha(opacity=15);
+-moz-opacity: .15;
+display: none;
+z-index: 3;
+}
+.inner_keyword >ul >li >.keyword_row >span{float: left;
+width: 350px;
+overflow: hidden;text-overflow: ellipsis;
+white-space: nowrap; text-transform:capitalize;
+height: 17px;}
+.keyword_row{
+float: left;
+overflow: hidden;
+height: 16px;
+}
+ 
+.key_word_box{ display:none;}
+.right-pane ul li:first-child >img {
+right: 0px !important;
+}

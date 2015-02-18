@@ -445,6 +445,9 @@
 						<schema>
 							<url>http://localhost:8080/ws/workflowHistory.wsdl</url>
 						</schema>
+						<schema>
+							<url>http://localhost:8080/ws/user.wsdl</url>
+						</schema>
 					</schemas>
 				</configuration> 
 			</plugin>

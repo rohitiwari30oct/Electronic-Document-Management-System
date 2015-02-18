@@ -9,6 +9,8 @@ import org.mockito.internal.creation.jmock.SearchingClassLoader;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 
+import edms.wsdl.AddKeywordRequest;
+import edms.wsdl.AddKeywordResponse;
 import edms.wsdl.AssignSinglePermissionRequest;
 import edms.wsdl.AssignSinglePermissionResponse;
 import edms.wsdl.CreateFileRequest;
@@ -47,6 +49,8 @@ import edms.wsdl.RecycleFileRequest;
 import edms.wsdl.RecycleFileResponse;
 import edms.wsdl.RecycleFolderRequest;
 import edms.wsdl.RecycleFolderResponse;
+import edms.wsdl.RemoveKeywordRequest;
+import edms.wsdl.RemoveKeywordResponse;
 import edms.wsdl.RenameFileRequest;
 import edms.wsdl.RenameFileResponse;
 import edms.wsdl.RenameFolderRequest;
@@ -501,6 +505,35 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 								"http://localhost:8080/ws/CreateFileRequest"));
 		return response;
 	
+	}
+
+	public AddKeywordResponse addKeyword(String parentFolder, String userid,
+			String keyword) {
+		AddKeywordRequest request=new AddKeywordRequest();
+		request.setFolderPath(parentFolder);
+		request.setKeyword(keyword);
+		request.setUserid(userid);
+		AddKeywordResponse response = (AddKeywordResponse) getWebServiceTemplate()
+				.marshalSendAndReceive(
+						request,
+						new SoapActionCallback(
+								"http://localhost:8080/ws/addKeywordRequest"));
+		
+		return response;
+	}
+	public RemoveKeywordResponse removeKeyword(String parentFolder, String userid,
+			String keyword) {
+		RemoveKeywordRequest request=new RemoveKeywordRequest();
+		request.setFolderPath(parentFolder);
+		request.setKeyword(keyword);
+		request.setUserid(userid);
+		RemoveKeywordResponse response = (RemoveKeywordResponse) getWebServiceTemplate()
+				.marshalSendAndReceive(
+						request,
+						new SoapActionCallback(
+								"http://localhost:8080/ws/removeKeywordRequest"));
+		
+		return response;
 	}
 
 	

@@ -18,12 +18,7 @@
 
 <script src="js/left_event.js" type="application/javascript"></script>
 <script src="js/jquery_popup.js"></script>            
-<!---------------/// USER NEW SEND STRAED HERE ------------->
-<script type="text/javascript" src="js/user_send.js"></script>
-<script type="text/javascript" src="js/group_send.js"></script>
-<link href="css/user_send.css" type="text/css" rel="stylesheet"/>
-<link href="css/group_send.css" type="text/css" rel="stylesheet"/>
-<!----------------/// USER NEW SEND END HERE --------------->  
+
 <script type="text/javascript">
 /* <![CDATA[ */
 $(document).ready(function(){
@@ -80,6 +75,12 @@ $(document).ready(function() {
 <link rel="stylesheet" href="css/new_icon.css" />
 <link rel="stylesheet" href="css/new_changes.css" />
 <script src="js/new_chnages.js"></script>
+<link rel="stylesheet" href="css/keyword.css" />
+<script src="js/keyword.js"></script>
+<link rel="stylesheet" href="css/right_click.css" />
+<script src="js/right_click.js"></script>
+<link rel="stylesheet" href="css/share_drop_down.css" />
+<script src="js/share_drop_down.js"></script>
 <script type="text/javascript">
 function getActivitiDiagramsPage(){
 	jQuery.get("header_activity", function( data ) {
@@ -215,13 +216,15 @@ function getLeftDocument(){
 	        });
 	}
 </script>
+
+<script  src="js/share_js.js"></script>
 </head>
       <body>
               <div class="main_div">
                         <!----// HEADER --->
                         <div class="main_header">
                                   <div class="header">
-                                     <div class="logo_space">
+                                     <div onclick="getPage('fileSystem')" style="cursor: pointer;" class="logo_space">
                                           <!---/// LOGO --->
                                            <img src="images/logo.png" />
                                             <!---//LOGO END -->
@@ -243,8 +246,8 @@ function getLeftDocument(){
                                 <div id="tabs_container">
                                         <ul id="tabs">
                                               <li class="active"><a href="#tab1">BASIC</a></li>
-                                              <li><a class="icon_accept" href="#tab2">ADVANCED</a></li>
-                                              <li><a href="#tab3">RECENT SEARCH</a></li>
+                                             <!--  <li><a class="icon_accept" href="#tab2">ADVANCED</a></li> -->
+                                             <!--  <li><a href="#tab3">RECENT SEARCH</a></li> -->
                                         </ul>
                                </div>
                          <div id="tabs_content_container">
@@ -270,13 +273,14 @@ function getLeftDocument(){
                                                       	function getDocsByName(docName){
                                                       		//alert(docName);
                                                       		
-                                                      		jQuery.get("searchDocByName", 
+                                                      		$('.search_icon_tab').attr('id','searchDocByName,'+docName);
+                                                      		/* jQuery.get("searchDocByName", 
                                                    				 	{
                                                    					'name' : docName
                                                    					},
                                                    				function( data ) {
                                                    	         		$( ".right" ).html( data );
-                                                   	        		});
+                                                   	        		}); */
                                                       		
                                                       	}
                                                       
@@ -288,14 +292,15 @@ function getLeftDocument(){
                                                       <script type="text/javascript">
                                                       	function getDocsByKeyWords(docName){
                                                       		//alert(docName);
-                                                      		
-                                                      		jQuery.get("getDocsByKeyWords", 
+                                                      		$('.search_icon_tab').attr('id','getDocsByKeyWords,'+docName);
+                                                      	
+                                                      		/* jQuery.get("getDocsByKeyWords", 
                                                    				 	{
                                                    					'name' : docName
                                                    					},
                                                    				function( data ) {
                                                    	         		$( ".right" ).html( data );
-                                                   	        		});
+                                                   	        		}); */
                                                       		
                                                       	}
                                                       
@@ -314,21 +319,36 @@ function getLeftDocument(){
                                                         <script type="text/javascript">
                                                       	function getDocsByDate(timeType){
                                                       		//alert(docName);
-                                                      		
-                                                      		jQuery.get("getDocsByDate", 
+                                                      		$('.search_icon_tab').attr('id','getDocsByDate,'+docName);
+                                                      		/* jQuery.get("getDocsByDate", 
                                                    				 	{
                                                    					'name' : timeType
                                                    					},
                                                    				function( data ) {
                                                    	         		$( ".right" ).html( data );
-                                                   	        		});
+                                                   	        		}); */
                                                       		
                                                       	}
                                                       
                                                       </script>
                                                       </li>
                                                       <li>
-                                                        <div class="search_icon_tab"> <img src="images/search.png" /> </div>
+                                                        <div onclick="finalSearch(this.id)" class="search_icon_tab"> <img src="images/search.png" /> </div>
+                                                    <script type="text/javascript">
+                                                    function finalSearch(urltext){
+                                                    	urltext=urltext.split(',');
+                                                    	alert(urltext[1]);
+                                                    	jQuery.get(urltext[0], 
+                                               				 	{
+                                               					'name' : urltext[1]
+                                               					},
+                                               				function( data ) {
+                                               	         		$( ".right" ).html( data );
+                                               	        		});
+                                                    	$('.search_box_details').css('display','none');
+                                                    }
+                                                    
+                                                    </script>
                                                       </li>
                                               </ul>
                                       <!--------------/// Tab End Here ---------------------------> 
@@ -484,62 +504,514 @@ function getLeftDocument(){
 
 <!---------// SHARING PAGES STARTED---------->
 <div class="sharing_mange">
-   <h1>Sharing settings - Delegate all 10 contacts in My Contacts <div class="mange_can_top">X</div></h1>
+   <h1>Sharing and Security <div class="mange_can_top">X</div></h1>
    <div class="table_append">
                    <table class="append_tr">
-                       <tr>
+                      <!--  <tr>
                            <td colspan="2">Link to share (only accessible by collaborators)</td>
                        </tr>
                        <tr>
                            <td colspan="2"><input type="text"  class="link_share"/></td>
-                       </tr>
+                       </tr> 
                        <tr class="share_bottom">
                            <td colspan="2">Who has access</td>
                        </tr>
                        <tr>
                            <td>Hari Om Srivastava (you)<span class="email_share">hari@silvereye.co</span></td>
                            <td class="text_right">Is Owner</td>
-                       </tr>
+                       </tr>-->
                        <tr class="share_bottom">
                            <td colspan="2">Invite people:</td>
                        </tr>
                        <tr>
-                           <td><input type="text"  class="initive_people" /></td>
+                           <td><input type="text"  class="initive_people" id="userforshare"  /></td>
+                           
+                           
                            <td>
-                              <div class="can_edit">
+                                      <!--// SHARE OPTION --->
+<!-- <div class="share_option_dropdown">
+<div class="for_share_icon">
+-// ADD NEW -
+<img src="images/eye-24-256.png" class="view_icon" />
+<img src="images/edite.png" class="edite_icon" />
+<img src="images/comment.png" class="comment_icon" />
+-// ADD NEW ICON END -
+<div class="clear"></div>
+</div>
+<span class="view_text">Can View</span>
+<span class="can_text">Can Edit</span>
+<span class="comment_text">Can Manage</span><div class="down_arrow_share"><img src="images/cal-open.png" /></div></div>
+
+                                              <div class="share_menu_dropdown">
+<ul>
+<li class="can_view"> <span>&#x2714;</span> <div>Can View</div></li>
+<li class="can_edit"> <span>&#x2714;</span> <div>Can Edit</div></li>
+<li class="can_comment"> <span>&#x2714;</span> <div>Can Manage</div></li>
+</ul>
+</div>
+             -->                          
                                       
-                                      <div class="can_edite">
-                                           <select>
-                                               <option>Can View </option>
-                                               <option>Can Edit </option>
-                                               <option>Can Mange </option>
+                                      <div style="float: left;">
+                                           <select style="width: 100px;height: 28px;" id="permissionsforshare">
+                                               <option value="ur">Can View </option>
+                                               <option value="uw">Can Edit </option>
+                                               <option value="us">Can Manage </option>
                                            </select>
                                       </div>
                                       
                                      
-                              </div>
                           </td>
                        </tr>
                    </table>
+                  
+                    <script type="text/javascript">
+$(function() {
+var availableTags = [
+"ActionScript",
+"AppleScript",
+"Asp",
+"BASIC",
+"C",
+"C++",
+"Clojure",
+"COBOL",
+"ColdFusion",
+"Erlang",
+"Fortran",
+"Groovy",
+"Haskell",
+"Java",
+"JavaScript",
+"Lisp",
+"Perl",
+"PHP",
+"Python",
+"Ruby",
+"Scala",
+"Scheme"
+];
+$( "#userforshare" ).autocomplete({
+source: availableTags
+});
+});
+</script>
                    <div class="clear"></div>
    
         </div>
-          <table>
+        <!--   <table>
             <tr>
            <td colspan="2"><input type="checkbox" />Notify people via email<a href="#">Add message</a></td>
           </tr>
-   </table> 
+   </table>  -->
                  <div>
-                       <div class="your_self"><input type="checkbox"/><a href="#">Send a copy to myself </a></div>
-                       <div class="share_right">
+                     <!--   <div class="your_self"><input type="checkbox"/><a href="#">Send a copy to myself </a></div>
+                     -->   <div class="share_right">
                                <div class="share_more">Add More</div>
                                <div class="cancel_share mange_can">Cancel</div>
-                               <div class="send_share">Send</div>
+                               <div class="send_share" onclick="assignSinglePermissions()" >Send</div>
                        </div>
             
                  </div>
-                 
+          
+             <div class="clear"></div>    
                  
 </div>
+<div class="web_dialog_overlay" ></div>
 <!---------// SHARING PAGES END---------->
 
+<!-- All Popups of header starts here -->
+
+
+<script type="text/javascript">
+	/*    $(document).ready(function() {
+	   $('input[name="userpermission"]').click(function(event) { */
+	function assignPermissions(values) {
+		var vale = values;
+		var valu = vale.split(",");
+		var user = "";
+		vale = valu[1];
+		var checking = values.replace("@", "").replace(".", "")
+				.replace(",", "");
+		// alert(checking);
+		//alert(document.getElementById(checking).checked);
+		if (document.getElementById(checking).checked) {
+			user = valu[0];
+			value = valu[1];
+		} else {
+			user = valu[0];
+			value = "n" + valu[1];
+		}
+		if (value == "nur") {
+			checking = checking.substring('0', checking.length - 2) + "uw";
+			//alert(checking);
+			document.getElementById(checking).checked = false;
+			checking = checking.substring('0', checking.length - 2) + "ud";
+			document.getElementById(checking).checked = false;
+			checking = checking.substring('0', checking.length - 2) + "us";
+			document.getElementById(checking).checked = false;
+		}
+
+		$.ajax({
+			type : "GET",
+			url : "${pageContext.request.contextPath}/assignSinglePermission",
+			data : {
+				'user' : user,
+				'value' : value,
+			},
+			contentType : "application/json",
+			async : false,
+			success : function(data) {
+				//$("#folderView>.row_content>ul").append(data);
+				alert(data);
+			}
+
+		});
+
+	}
+	//  });
+</script>
+<!-- assiging permissions using new view -->
+
+<script type="text/javascript">
+	/*    $(document).ready(function() {
+	   $('input[name="userpermission"]').click(function(event) { */
+	function assignSinglePermissions() {
+	   	alert('');
+	   	var values=$('#userforshare').val()+','+ $('#permissionsforshare').val();
+	   	alert(values);
+		var vale = values;
+		var valu = vale.split(",");
+		var user = "";
+		vale = valu[1];
+		// alert(checking);
+		//alert(document.getElementById(checking).checked);
+			user = valu[0];
+			value = valu[1];
+	
+		$.ajax({
+			type : "GET",
+			url : "${pageContext.request.contextPath}/assignSinglePermission",
+			data : {
+				'user' : user,
+				'value' : value,
+			},
+			contentType : "application/json",
+			async : false,
+			success : function(data) {
+				//$("#folderView>.row_content>ul").append(data);
+				alert(data);
+			}
+
+		});
+
+	}
+	//  });
+</script>
+
+<script type="text/javascript">
+	function getDocProperties(folderPath) {
+		$('#oldFolderName').val(folderPath);
+
+		jQuery.post("setCurrentFolder", {
+			'path' : folderPath
+		}, function(data) {
+		});
+		//	alert(folderPath);
+		/* 	$.ajax({
+				type : "GET",
+				url : "${pageContext.request.contextPath}/getFileSystem",
+				data : {
+					'path' : folderPath
+				},
+				contentType : "application/json",
+				async : false,
+				success : function(data) {
+					$("#fileSystem").html(data);
+				}
+			}); */
+
+		/*  jQuery.get("myDocument", function( data ) {
+			 $( "#variedPagesHere" ).html( data );
+			});  */
+		jQuery.get("getDocProperties", {
+			'path' : folderPath
+		}, function(data) {
+			$(".right_icon_main").html(data);
+		});
+	}
+</script>
+
+<script type="text/javascript">
+	function getFileProperties(folderPath) {
+		
+	
+		$('#oldFolderName').val(folderPath);
+
+		jQuery.post("setCurrentFile", {
+			'path' : folderPath
+		}, function(data) {
+		});
+		//	alert(folderPath);
+		/* 	$.ajax({
+				type : "GET",
+				url : "${pageContext.request.contextPath}/getFileSystem",
+				data : {
+					'path' : folderPath
+				},
+				contentType : "application/json",
+				async : false,
+				success : function(data) {
+					$("#fileSystem").html(data);
+				}
+			}); */
+
+		/*  jQuery.get("myDocument", function( data ) {
+			 $( "#variedPagesHere" ).html( data );
+			});  */
+		jQuery.get("getFileProperties", {
+			'path' : folderPath
+		}, function(data) {
+			$(".right_icon_main").html(data);
+		});
+
+			$(".downloadFolder").attr('id',folderPath);
+			$(".download_right").attr('id',folderPath);
+		
+	}
+</script>
+<div id="contactdiv_6">
+
+	<form:form id="contact" class="form" method="post"
+		action="uploadDocumentByJcr" commandName="fileupload"
+		enctype="multipart/form-data">
+		<h3>Add New Documents</h3>
+		<p>
+			File Name: <span>*</span>
+		</p>
+		<input class="custom-file-input attachment_file cc_clear"  name="file2" id="file2" multiple type="file"
+			 />
+		<%-- <form:hidden path="filename" value="sdff"/>
+<form:hidden path="filedetails" value="sdf"/> --%>
+		<input type="button" value="Upload" onclick="uploadFormData()"/>
+		<input type="button" value="Cancel" class="cancle" onclick="hideUpload()" />
+	</form:form>
+
+
+	<script type="text/javascript">
+		function uploadFormData() {
+			var oMyForm = new FormData();
+			for (var i = 0; i < file2.files.length; i++) {
+				oMyForm.append("file" + i, file2.files[i]);
+			}
+			$.ajax({
+				url : '${pageContext.request.contextPath}/uploadDocumentByJcr',
+				data : oMyForm,
+				dataType : 'text',
+				processData : false,
+				contentType : false,
+				type : 'POST',
+				success : function(data) {
+					var alt=data.substring(data.lastIndexOf(",")+1);
+					data=data.substring(0,data.lastIndexOf(","));
+					$("#fileThumbView>ul").append(data);
+					alert(alt);
+				}
+			});
+			$('.cc_clear').val('');
+	$("#contactdiv_6").css("display", "none");
+		}
+function hideUpload(){
+	$("#contactdiv_6").css("display", "none");
+}
+	</script>
+
+
+</div>
+
+<!---------------//// Delete USER POP UP ----------->
+<div id="contactdiv_77">
+	<form class="form" action="#" id="contact">
+		<h3>Confirmation</h3>
+		<p class="form_bottom_space">Do you really want to delete this
+			folder ?</p>
+		<div class="clear"></div>
+		<input type="button" id="deleteDoc" value="Delete" /> <input type="button"
+			id="cancel" value="Cancel" />
+	</form>
+	    <script type="text/javascript">
+                      $(document).ready(function() {
+                    	  var folderPath="";
+                      $('#deleteDoc').click(function(event) {
+                    	  $.ajax({
+          					type : "GET",
+          					url : "${pageContext.request.contextPath}/recycleDoc",
+          					contentType : "application/json",
+          					async : false,
+          					success : function(data) {
+          						
+          						//$("#folderView>.row_content>ul").append(data);
+          						 folderPath=data;
+          					//alert(folderPath);
+          					$("#contactdiv_77").css("display", "none");
+                        	jQuery.get("getFileSystem", 
+                   				 	{
+                   					'path' : folderPath
+                   					},
+                   				function( data ) {
+                   	         		$( ".right" ).html( data );
+                   	        		});
+          					}
+          				}); 
+                      });
+                      
+                  
+                      });
+                  	
+       </script>
+</div>
+<!-----------------/// DELETE POP UP  END HERE ---------->
+
+
+
+<!---------------//// ADD GROUP USER POP UP ----------->
+<div id="contactdiv_66">
+	<form class="form" action="#" id="contact">
+		<h3>Create Folder</h3>
+		<p>
+			Please enter a new Folder name <span>*</span>
+		</p>
+		<input type="text" id="folderName" /> <%-- <input type="hidden"
+			id="parentfolderName" value='<%=currentFolder.getFolderPath()%>' /> --%>
+		<br />
+		<div class="clear"></div>
+		<input type="button" value="Create" onclick="createFolder()" /> <input
+			type="button" id="cancel" value="Cancel" /> <br />
+		<script type="text/javascript">
+			function createFolder() {
+				var folder = $('#folderName').val();
+				//alert(folder);
+				$.ajax({
+					type : "GET",
+					url : "${pageContext.request.contextPath}/createFolder",
+					data : {
+						'folderName' : folder
+					},
+					contentType : "application/json",
+					async : false,
+					success : function(data) {
+						$("#folderThumbView>ul").append(data);
+						// alert(data);
+					}
+
+				});
+				$('#folderName').val("");
+				$("#contactdiv_66").css("display", "none");
+				getDocProperties($('#parentfolderName').val());
+			}
+		</script>
+	</form>
+</div>
+
+
+  
+              <!-----------/// ADD KEYWORD STRED HERE ---------->
+              <div class="key_word_box">
+                <h1>Add Keyword</h1>
+                  <!--// ADD BOX -------->
+                     <div class="keyword_box">
+                               <ul>
+                     <li>Keyword </li>
+                     <li><input type="text" class="keyword_name" id="add_keywordid" maxlength="35" /></li>
+                 
+                  </ul>
+                                <div class="keyword_text">
+                       <!---// ADD --->
+                       <div class="add_keyword" >Save</div>
+                       <!----/// ADD -->
+                       <!---// ADD --->
+                       <div class="add_keyword_exit" >save and cancel</div>
+                       <!----/// ADD -->
+                       
+                       <!--// CANCEL --->
+                        <div class="cancel_keyword">cancel</div>
+                       <!--// CANCEL =--->
+                   
+                   </div>
+                     
+                    <div class="clear"></div>
+                     </div>
+                  <!------// ADD BOX ---->
+                  <div class="clear"></div>
+              </div>
+              <div class="web_dialog_overlay" ></div>
+              <!-----------/// ADD KEYWORD END HERE ------------------>
+              <script type="text/javascript">
+          	// ADD KEY WORD 
+          	$(document).on("click",".add_keyword",function(){
+          		 ///var keyword = $('#add_keywordid').val();
+          		//	alert($('.keyword_name').val());
+          			$.ajax({
+          				type : "GET",
+          				url : "${pageContext.request.contextPath}/addKeyword",
+          				data : {
+          					'keyword' : $('.keyword_name').val()
+          				},
+          				contentType : "application/json",
+          				async : false,
+          				success : function(data) {
+          					//$("#folderThumbView>ul").append(data);
+          					// alert(data);
+          				}
+
+          			});
+          			var keywordname = $('.keyword_name').val()
+          			if($('.keyword_name').val()=='')
+          			{
+          				alert('PLease Enter The Value !')
+          				
+          			} else {
+          			$('.inner_keyword >ul').append('<li><span>'+ keywordname +'</span><img src="images/delete_icon_file.png"><div class="clear"></div><div class="clear"></div></li>');
+          		        }
+          			$('.keyword_name').val('');
+          			
+          			
+          			});
+          		
+          		// ADD KEY WORD 
+          		
+          		/// SAVE AND CALCEL STRED HERE 
+	$(document).on("click",".add_keyword_exit",function(){
+		//alert($('.keyword_name').val());
+		$.ajax({
+				type : "GET",
+				url : "${pageContext.request.contextPath}/addKeyword",
+				data : {
+					'keyword' : $('.keyword_name').val()
+				},
+				contentType : "application/json",
+				async : false,
+				success : function(data) {
+					//$("#folderThumbView>ul").append(data);
+					// alert(data);
+				}
+
+			});
+			var keywordname = $('.keyword_name').val()
+			if($('.keyword_name').val()=='')
+			{
+				alert('PLease Enter The Value !')
+				
+			} else {
+			$('.inner_keyword >ul').append('<li><span>'+ keywordname +'</span><img src="images/delete_icon_file.png"><div class="clear"></div><div class="clear"></div></li>');
+		        }
+			$('.keyword_name').val('');
+			$('.key_word_box').hide();
+			$('.web_dialog_overlay').hide();
+			
+			
+			});
+		
+		/// SAVE AND CANCEL END HERE 
+	
+	
+              </script>
