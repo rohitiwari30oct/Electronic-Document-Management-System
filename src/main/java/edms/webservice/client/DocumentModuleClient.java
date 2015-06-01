@@ -11,8 +11,12 @@ import org.springframework.ws.soap.client.core.SoapActionCallback;
 
 import edms.wsdl.AddKeywordRequest;
 import edms.wsdl.AddKeywordResponse;
+import edms.wsdl.AddNotesRequest;
+import edms.wsdl.AddNotesResponse;
 import edms.wsdl.AssignSinglePermissionRequest;
 import edms.wsdl.AssignSinglePermissionResponse;
+import edms.wsdl.CopyDocRequest;
+import edms.wsdl.CopyDocResponse;
 import edms.wsdl.CreateFileRequest;
 import edms.wsdl.CreateFileResponse;
 import edms.wsdl.CreateFolderRequest;
@@ -21,12 +25,18 @@ import edms.wsdl.DeleteFileRequest;
 import edms.wsdl.DeleteFileResponse;
 import edms.wsdl.DeleteFolderRequest;
 import edms.wsdl.DeleteFolderResponse;
+import edms.wsdl.EditKeywordRequest;
+import edms.wsdl.EditKeywordResponse;
 import edms.wsdl.FileListReturn;
 import edms.wsdl.FolderListReturn;
 import edms.wsdl.GetFileByPathRequest;
 import edms.wsdl.GetFileByPathResponse;
+import edms.wsdl.GetFileByPathWithOutStreamRequest;
+import edms.wsdl.GetFileByPathWithOutStreamResponse;
 import edms.wsdl.GetFileRequest;
 import edms.wsdl.GetFileResponse;
+import edms.wsdl.GetFileWithOutStreamRequest;
+import edms.wsdl.GetFileWithOutStreamResponse;
 import edms.wsdl.GetFolderByPathRequest;
 import edms.wsdl.GetFolderByPathResponse;
 import edms.wsdl.GetFolderRequest;
@@ -35,14 +45,20 @@ import edms.wsdl.GetRecycledDocsRequest;
 import edms.wsdl.GetRecycledDocsResponse;
 import edms.wsdl.GetSharedFilesByPathRequest;
 import edms.wsdl.GetSharedFilesByPathResponse;
+import edms.wsdl.GetSharedFilesByPathWithOutStreamRequest;
+import edms.wsdl.GetSharedFilesByPathWithOutStreamResponse;
 import edms.wsdl.GetSharedFilesRequest;
 import edms.wsdl.GetSharedFilesResponse;
+import edms.wsdl.GetSharedFilesWithOutStreamRequest;
+import edms.wsdl.GetSharedFilesWithOutStreamResponse;
 import edms.wsdl.GetSharedFoldersByPathRequest;
 import edms.wsdl.GetSharedFoldersByPathResponse;
 import edms.wsdl.GetSharedFoldersRequest;
 import edms.wsdl.GetSharedFoldersResponse;
 import edms.wsdl.HasChildRequest;
 import edms.wsdl.HasChildResponse;
+import edms.wsdl.MoveDocRequest;
+import edms.wsdl.MoveDocResponse;
 import edms.wsdl.RecentlyModifiedRequest;
 import edms.wsdl.RecentlyModifiedResponse;
 import edms.wsdl.RecycleFileRequest;
@@ -298,6 +314,20 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 		return response;
 	}
 
+	// onfile processing
+	public GetFileWithOutStreamResponse getFileWithOutStreamRequest(String path, String userid) {
+		GetFileWithOutStreamRequest request = new GetFileWithOutStreamRequest();
+		request.setFilePath(path);
+		request.setUserid(userid);
+		GetFileWithOutStreamResponse response = (GetFileWithOutStreamResponse) getWebServiceTemplate()
+				.marshalSendAndReceive(
+						request,
+						new SoapActionCallback(
+								"http://localhost:8080/ws/GetFileWithOutStreamRequest"));
+
+		return response;
+	}
+
 	public GetSharedFilesResponse getSharedFilesRequest(String userid) {
 		GetSharedFilesRequest request = new GetSharedFilesRequest();
 		request.setUserid(userid);
@@ -309,7 +339,7 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 
 		return response;
 	}
-
+	
 	public GetSharedFilesByPathResponse getSharedFilesByPathRequest(
 			String userid, String path) {
 		GetSharedFilesByPathRequest request = new GetSharedFilesByPathRequest();
@@ -320,6 +350,31 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 						request,
 						new SoapActionCallback(
 								"http://localhost:8080/ws/GetSharedFilesByPathRequest"));
+
+		return response;
+	}
+	public GetSharedFilesWithOutStreamResponse getSharedFilesWithOutStreamRequest(String userid) {
+		GetSharedFilesWithOutStreamRequest request = new GetSharedFilesWithOutStreamRequest();
+		request.setUserid(userid);
+		GetSharedFilesWithOutStreamResponse response = (GetSharedFilesWithOutStreamResponse) getWebServiceTemplate()
+				.marshalSendAndReceive(
+						request,
+						new SoapActionCallback(
+								"http://localhost:8080/ws/GetSharedFilesWithOutStreamRequest"));
+
+		return response;
+	}
+	
+	public GetSharedFilesByPathWithOutStreamResponse getSharedFilesByPathWithOutStreamRequest(
+			String userid, String path) {
+		GetSharedFilesByPathWithOutStreamRequest request = new GetSharedFilesByPathWithOutStreamRequest();
+		request.setUserid(userid);
+		request.setPath(path);
+		GetSharedFilesByPathWithOutStreamResponse response = (GetSharedFilesByPathWithOutStreamResponse) getWebServiceTemplate()
+				.marshalSendAndReceive(
+						request,
+						new SoapActionCallback(
+								"http://localhost:8080/ws/GetSharedFilesByPathWithOutStreamRequest"));
 
 		return response;
 	}
@@ -359,7 +414,20 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 
 		return response;
 	}
+	public GetFileByPathWithOutStreamResponse getFileByPathWithOutStream(String filePath, String userid) {
+		GetFileByPathWithOutStreamRequest request = new GetFileByPathWithOutStreamRequest();
+		request.setFilePath(filePath);
+		request.setUserid(userid);
 
+		GetFileByPathWithOutStreamResponse response = (GetFileByPathWithOutStreamResponse) getWebServiceTemplate()
+				.marshalSendAndReceive(
+						request,
+						new SoapActionCallback(
+								"http://localhost:8080/ws/GetFileByPathWithOutStreamRequest"));
+
+		return response;
+	}
+	
 	public ShareFileByPathResponse shareFileByPath(String filePath,
 			String userid, String users, String groups, String userpermissions,
 			String grouppermissions) {
@@ -487,15 +555,16 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 
 
 	public CreateFileResponse createFile(String filename, String parentFolder,
-			String userid, String keywords, String notes, String fileContent) {
+			String userid, String keywords, String notes, byte[] fileContent,long filesize) {
 
 		CreateFileRequest request = new CreateFileRequest();
 		request.setFileName(filename);
 		request.setParentFile(parentFolder);
 		request.setUserid(userid);
 		request.setKeywords(keywords);
+		request.setFileSize(filesize);
 //		String fileContent=IOUtils.toString(is);
-		System.out.println(fileContent);
+		//System.out.println(fileContent);
 		request.setNotes(notes);
 		request.setFileContent(fileContent);
 		CreateFileResponse response = (CreateFileResponse) getWebServiceTemplate()
@@ -518,7 +587,6 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 						request,
 						new SoapActionCallback(
 								"http://localhost:8080/ws/addKeywordRequest"));
-		
 		return response;
 	}
 	public RemoveKeywordResponse removeKeyword(String parentFolder, String userid,
@@ -532,7 +600,63 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 						request,
 						new SoapActionCallback(
 								"http://localhost:8080/ws/removeKeywordRequest"));
-		
+		return response;
+	}
+	public EditKeywordResponse editKeyword(String parentFolder, String userid,
+			String keyword,String editedKeyword) {
+		EditKeywordRequest request=new EditKeywordRequest();
+		request.setFolderPath(parentFolder);
+		request.setKeyword(keyword);
+		request.setUserid(userid);
+		request.setEditedKeyword(editedKeyword);
+		EditKeywordResponse response = (EditKeywordResponse) getWebServiceTemplate()
+				.marshalSendAndReceive(
+						request,
+						new SoapActionCallback(
+								"http://localhost:8080/ws/editKeywordRequest"));
+		return response;
+	}
+
+	public MoveDocResponse moveDoc(String sourcePath, String destPath,
+			String userid) {
+		MoveDocRequest request=new MoveDocRequest();
+		request.setSrcDocPath(sourcePath);
+		request.setDestDocPath(destPath);
+		request.setUserid(userid);
+		MoveDocResponse response = (MoveDocResponse) getWebServiceTemplate()
+				.marshalSendAndReceive(
+						request,
+						new SoapActionCallback(
+								"http://localhost:8080/ws/moveDocRequest"));
+		return response;
+	}
+
+	public CopyDocResponse copyDoc(String sourcePath, String destPath,
+			String userid) {
+		CopyDocRequest request=new CopyDocRequest();
+		request.setSrcDocPath(sourcePath);
+		request.setDestDocPath(destPath);
+		request.setUserid(userid);
+		System.out.println(destPath);
+		CopyDocResponse response = (CopyDocResponse) getWebServiceTemplate()
+				.marshalSendAndReceive(
+						request,
+						new SoapActionCallback(
+								"http://localhost:8080/ws/copyDocRequest"));
+		return response;
+	}
+
+	public AddNotesResponse addNotes(String folderName, String userid,
+			String note) {
+		AddNotesRequest request=new AddNotesRequest();
+		request.setFolderPath(folderName);
+		request.setNote(note);
+		request.setUserid(userid);
+		AddNotesResponse response = (AddNotesResponse) getWebServiceTemplate()
+				.marshalSendAndReceive(
+						request,
+						new SoapActionCallback(
+								"http://localhost:8080/ws/addNotesRequest"));
 		return response;
 	}
 

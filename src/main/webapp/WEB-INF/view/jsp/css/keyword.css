@@ -53,11 +53,14 @@ padding-left: 12px;
 padding-bottom: 10px;
 background: url(../images/left_heading.jpg);
 border-bottom: 1px solid #ccc;}
-.keyword_box{padding: 31px;}
+.keyword_box{padding: 30px;}
 .keyword_box >ul{ list-style-type:none; margin:0px; padding:0px;}
-.keyword_box >ul >li{ float: left;
-font-size: 13px;
-line-height: 23px;}
+.keyword_box >ul >li {
+ float: left;
+ font-size: 13px;
+ line-height: 23px;
+ width: 100%;
+} 
 .keyword_text{ float:right;}
 .add_keyword,.cancel_keyword,.add_keyword_exit{
 float: left;
@@ -74,9 +77,12 @@ cursor: pointer;
 text-transform: capitalize;
 padding-left: 13px;
 padding-right: 15px;}
-.keyword_box >ul >li >input{padding: 5px;
-outline: 0px;
-margin-left: 24px;}
+.keyword_box >ul >li >input {
+ padding: 5px;
+ outline: 0px;
+ /* margin-left: 7px; */
+ float: left;
+ }
 .web_dialog_overlay {
 position: fixed;
 top: 0;

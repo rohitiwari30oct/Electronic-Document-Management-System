@@ -9,6 +9,7 @@
 	HttpSession hs = request.getSession(false);
 	if (hs.getAttribute("currentFolder") == null) {
 		hs.setAttribute("currentFolder", "/");
+		hs.setAttribute("currentDoc", "/");
 	}
 	//System.out.println("path is : "+request.getParameter("path"));
 	List<Folder> folderList = (List<Folder>) request.getAttribute("folderList");

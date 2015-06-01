@@ -117,53 +117,53 @@ $(document).ready(function() {
               </a> 
               
               </li>
-            <li> <a href="#" title="Directory">
+            <li> <a href="javascript:void(0);" title="Directory">
               <div class="digtory"></div>
               DIRECTORY</a> </li>
-            <!--<li> <a href="#" title="Find">
+            <!--<li> <a href="javascript:void(0);" title="Find">
               <div class="find"></div>
               Find</a> 
               </li>-->
-            <li> <a href="#" title="Download">
+            <li> <a href="javascript:void(0);" title="Download">
               <div class="download"></div>
               Download</a> </li>
-           <!-- <li> <a href="#" title="Print">
+           <!-- <li> <a href="javascript:void(0);" title="Print">
               <div class="printer"></div>
               PRINT</a> </li>-->
-            <li> <a href="#" title="Lock">
+            <li> <a href="javascript:void(0);" title="Lock">
               <div class="lock"></div>
               LOCK</a> </li>
-            <li> <a href="#" title="Unlock">
+            <li> <a href="javascript:void(0);" title="Unlock">
               <div class="unlock"></div>
               UNLOCK</a> </li>
-            <li > <a href="#" title="Create">
+            <li > <a href="javascript:void(0);" title="Create">
               <div class="create"></div>
               CREATE</a> </li>
-            <li> <a href="#" title="Upload">
+            <li> <a href="javascript:void(0);" title="Upload">
               <div class="upload"></div>
               UPLOAD</a> </li>
-            <li class="onclick_4"> <a href="#" title="Create">
+            <li class="onclick_4"> <a href="javascript:void(0);" title="Create">
               <div class="create_doc"></div>
               CREATE</a> </li>
-            <li> <a href="#" title="Edit">
+            <li> <a href="javascript:void(0);" title="Edit">
               <div class="edit"></div>
               Edit</a> </li>
-            <li> <a href="#" title="Update">
+            <li> <a href="javascript:void(0);" title="Update">
               <div class="update"></div>
               UPDATE</a> </li>
-            <!--<li> <a href="#" title="Cancel Edit">
+            <!--<li> <a href="javascript:void(0);" title="Cancel Edit">
               <div class="cancel_edit"></div>
               CANCEL EDIT</a> </li>--->
-            <li> <a href="#" title="Delete">
+            <li> <a href="javascript:void(0);" title="Delete">
               <div class="delet"></div>
               DELETE</a> </li>
-            <!--<li class="onclick"> <a href="#" title=" Add Group">
+            <!--<li class="onclick"> <a href="javascript:void(0);" title=" Add Group">
               <div class="add_in"></div>
               ADD GROUP</a> </li>-->
-           <!--- <li class="onclick_3"> <a href="#" title="Remove Group">
+           <!--- <li class="onclick_3"> <a href="javascript:void(0);" title="Remove Group">
               <div class="remove_group"></div>
               REMOVE GROUP</a> </li>-->
-            <!--<li> <a href="#" title="History">
+            <!--<li> <a href="javascript:void(0);" title="History">
               <div class="history"></div>
               HISTORY</a> </li>-->
               <li rel="tab22">
@@ -689,7 +689,7 @@ $(document).ready(function() {
         <li rel="tab9">
           <div class="prew_1"></div>
           PREVIEW</li>
-        <a href="#">
+        <a href="javascript:void(0);">
         <div class="arrow_tab" onclick="tab_arrow();"></div>
         </a>
       </ul>

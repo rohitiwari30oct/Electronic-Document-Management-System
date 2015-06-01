@@ -1,5 +1,6 @@
 package edms.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -30,8 +31,9 @@ public class ToDoTasksController {
 	@Autowired private StringOperationsService stringOperationsService;
 	
 	@RequestMapping(value="/toDoTasks_getCommonWorkflowForm", method=RequestMethod.GET)
-	public String getCommonWorkflowForm(@RequestParam Map<String, String> requestParams, ModelMap map)throws Exception{
-		System.out.println(" in toDoTasks_getCompleteTaskForm");
+	public String getCommonWorkflowForm(Principal principal,@RequestParam Map<String, String> requestParams, ModelMap map)throws Exception{
+
+		if(principal!=null){System.out.println(" in toDoTasks_getCompleteTaskForm");
 		String taskId=requestParams.get("tid");
 		GetTaskFormDataResponse respTaskFormData = workflowClient.getTaskFormDataRequest(taskId);
 		TaskFormData taskFormData = respTaskFormData.getTaskFormData();
@@ -52,15 +54,22 @@ public class ToDoTasksController {
 		map.addAttribute("xmlForm", compressedForm);
 		map.addAttribute("stringOperationsService", stringOperationsService);
 		map.addAttribute("htmlWorkflowPage", completeTaskPage);
-		return "workflowForms";
+		return "workflowForms";}else{
+			return "ajaxTrue";
+		}
 	}
 	
 	@RequestMapping(value="/toDoTasks_claimTask", method=RequestMethod.POST)
-	public String claimTask(@RequestParam Map<String, String> requestParams){
-		System.out.println("in toDoTasks_claimTask ******************************");
+	public String claimTask(@RequestParam Map<String, String> requestParams,Principal principal){
+
+		if(principal!=null){
+			System.out.println("in toDoTasks_claimTask ******************************");
+		
 		String taskId=requestParams.get("tid");
 		String userId=requestParams.get("uid");
 		workflowClient.getClaimTaskRequest(taskId, userId);
-		return "redirect:/leftActiviti_toDoTasks";
+		return "redirect:/leftActiviti_toDoTasks";}else{
+			return "ajaxTrue";
+		}
 	}
 }

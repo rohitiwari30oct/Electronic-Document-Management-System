@@ -1,10 +1,12 @@
 package edms.controller;
 
 import java.io.StringWriter;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,6 +17,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
 import edms.service.StringOperationsService;
 import edms.webservice.client.WorkflowClient;
 import edms.webservice.client.WorkflowHistoryClient;
@@ -45,7 +49,8 @@ public class StartLeaveApplicationForm {
 	private StringOperationsService stringOperationService;
 
 	@RequestMapping(value = "/startLeaveApplicationForm_submitLeave", method = RequestMethod.POST, headers = "Accept=text/json")
-	public @ResponseBody String submitLeaveForm(HttpServletRequest request) {
+	public @ResponseBody String submitLeaveForm(HttpServletRequest request,Principal principal) {
+		if(principal!=null){
 		System.out.println("in submit form");
 		String json = request.getParameter("json");
 		System.out.println(" json = " + json);
@@ -165,7 +170,10 @@ public class StartLeaveApplicationForm {
 		} catch (TransformerException tfe) {
 			tfe.printStackTrace();
 		}
-		return "redirect:/leftActiviti_toDoTasks";
+		return "redirect:/leftActiviti_toDoTasks";}
+		else{
+			return "true";
+		}
 	}
 
 }

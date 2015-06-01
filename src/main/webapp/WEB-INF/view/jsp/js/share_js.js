@@ -35,8 +35,12 @@ jQuery(document).ready(function() {
 			  // ADD MORE SHRE 
 			  $(document.body).on('click', '.share_more' ,function(){
 				  //alert('hi');
-				  $('.sharing_mange >.table_append >table.append_tr >tbody').append('<tr><td><input type="text"  class="initive_people" /></td><td><div class="can_edit"><div  style="float: left;">    <select  style="width: 100px;height: 28px;"><option>Can View </option><option>Can Edit </option><option>Can Manage </option></select></div><div class="delete_shre"><img src="images/delete.png"></div></div></td></tr>');
-				  });
+				  $('.sharing_mange >.table_append >table.append_tr >tbody').append('<tr><td><input type="text"    class="initive_people userforshare  ui-autocomplete-input"  autocomplete="off" /></td><td><div class="can_edit"><div  style="float: left;">    <select  style="width: 100px;height: 28px;" class="permissionsforshare"><option value="ur">Can View </option><option value="uw">Can Edit </option><option value="us">Can Manage </option></select></div><div class="delete_shre"><img src="images/delete.png"></div></div></td></tr>');
+				  $( ".userforshare" ).autocomplete({
+					  source: availableTags
+					  });
+			  
+			  });
 		
 		/// IMPORT FILE STRED HERE 
 		

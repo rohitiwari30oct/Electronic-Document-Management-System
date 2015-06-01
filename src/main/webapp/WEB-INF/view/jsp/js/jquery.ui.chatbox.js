@@ -139,7 +139,7 @@
                 .html("<div id='"+title.split("@")[0]+"avlblimg' style='float: left;margin-top: 7px;width: 15px;'>" +
                 		"<img src='images/"+imagenm+"' style='margin-left: 2px;margin-right: 4px;' /></div>"+"<div class='title_name'>"+title+"</div>")
                 .appendTo(uiChatboxTitlebar),
-            uiChatboxTitlebarClose = (self.uiChatboxTitlebarClose = $('<a href="#"></a>'))
+            uiChatboxTitlebarClose = (self.uiChatboxTitlebarClose = $('<a href="javascript:void(0);"></a>'))
                 .addClass('ui-corner-all ' +
                           'ui-chatbox-icon '
                          )
@@ -157,7 +157,7 @@
                           'ui-icon-closethick')
                 .text('x')// TEST chnages text close
                 .appendTo(uiChatboxTitlebarClose),
-            uiChatboxTitlebarMinimize = (self.uiChatboxTitlebarMinimize = $('<a href="#"></a>'))
+            uiChatboxTitlebarMinimize = (self.uiChatboxTitlebarMinimize = $('<a href="javascript:void(0);"></a>'))
                 .addClass('ui-corner-all ' +
                           'ui-chatbox-icon'
                          )

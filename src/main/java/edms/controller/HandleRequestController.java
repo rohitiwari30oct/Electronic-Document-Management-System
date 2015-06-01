@@ -1,6 +1,7 @@
 package edms.controller;
 
 import java.io.StringWriter;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -46,7 +47,8 @@ public class HandleRequestController {
 	private StringOperationsService stringOperationService;
 
 	@RequestMapping(value = "/handleRequest_formDecision", method = RequestMethod.POST)
-	public @ResponseBody String requestResponseNo(HttpServletRequest request) {
+	public @ResponseBody String requestResponseNo(HttpServletRequest request,Principal principal) {
+		if(principal!=null){
 		String taskid = request.getParameter("taskid");
 		String json = request.getParameter("json");
 		String formType = request.getParameter("formType");
@@ -167,7 +169,9 @@ public class HandleRequestController {
 			tfe.printStackTrace();
 		}
 
-		return "successfully submitted!";
+		return "successfully submitted!";}else{
+		return "true";
 	}
-
+	}
+	
 }

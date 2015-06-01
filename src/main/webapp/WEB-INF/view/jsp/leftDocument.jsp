@@ -12,7 +12,7 @@
                                       <div class="left_top_part" id="variedPagesHere">
                                       <div class="left_sub_menu">
                                                <ul>
-                                                        <li class="file_system tab_header"  id="fileSystem"  onclick="getPage(this.id)"> <a href="#" >MY DOCUMENT</a>
+                                                        <li class="file_system tab_header"  id="fileSystem"  onclick="getPage(this.id)"> <a href="javascript:void(0);" >MY DOCUMENT</a>
                                                         </li>
                                                         <div class="content_left content_left_block">
                                             <jsp:include page="myDocument.jsp" />

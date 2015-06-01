@@ -1,5 +1,7 @@
 package edms.controller;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +24,19 @@ public class ActivitiDiagramsController {
 	@Autowired private WorkflowClient workflowClient;
 	
 	@RequestMapping(value="/activitiDiagram_getStartWorkflowPage", method=RequestMethod.POST)
-	public @ResponseBody String getStartWorkflowPage(ModelMap map, HttpServletRequest request){
+	public @ResponseBody String getStartWorkflowPage(ModelMap map, HttpServletRequest request,Principal principal){
+		if(principal!=null){
 		String startFormData = request.getParameter("sfk");
 		//DemoUserService demoUserService = new DemoUserServiceImpl();
 		//map.addAttribute("demoUserService", demoUserService);
-		return startFormData;
+		return startFormData;	}else{
+			return "true";
+		}
 	}
 	
 	@RequestMapping(value="/activitiDiagram_getActivitiDiagram", method=RequestMethod.POST)
-	public @ResponseBody String changeConfiguration(HttpServletRequest request){
+	public @ResponseBody String changeConfiguration(HttpServletRequest request,Principal principal){
+		if(principal!=null){
 		System.out.println("in activityDiagram_getActivit");
 		String value = request.getParameter("tv");
 		String [] values = value.split(":");
@@ -47,7 +53,9 @@ public class ActivitiDiagramsController {
 		String diagData = "<div class='form_scolling_project'><div class='from_main_leave'><table><tbody><tr>"
 				+ "<img alt='' src='"+processImage+"' /></tr><tr>"
 						+ "<a href='#' onclick=\"getStartWorkflowForm('"+passArg+"')\">Begin Process</a></tr></tbody></table>";
-		return diagData;
+		return diagData;	}else{
+			return "true";
+		}
 	}
 	
 	

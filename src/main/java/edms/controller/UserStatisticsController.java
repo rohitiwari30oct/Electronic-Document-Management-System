@@ -83,6 +83,7 @@ public class UserStatisticsController {
 */
 	@RequestMapping(value = "/userStatistics", method = RequestMethod.GET)
 	public String getStatistics(Principal principal,ModelMap map,HttpServletRequest request) {
+		if(principal!=null){
 		String name="";
 		HttpSession hs=request.getSession(false);
 		String folderPath="";
@@ -92,6 +93,7 @@ public class UserStatisticsController {
 		String userid=principal.getName()+Config.EDMS_DOMAIN;
 		if(folderPath.equals("")){
 			hs.setAttribute("currentFolder","/"+userid);
+			hs.setAttribute("currentDoc", "/"+userid);
 			folderPath="/"+userid;
 		}
 		folderPath="/"+userid;
@@ -153,7 +155,9 @@ public class UserStatisticsController {
 		map.addAttribute("lastMonthDownloadedFileList", fileList);
 		map.addAttribute("userid",principal.getName()+"@avi-oil.com");*/
 	
-		return "userStatistics";
+		return "userStatistics";}else{
+			return "ajaxTrue";
+		}
 	}
 	
 }

@@ -66,9 +66,15 @@ $(document).ready(function() {
 <script type="text/javascript">
 function getActivitiDiagramsPage(){
 	jQuery.get("header_activity", function( data ) {
+			if(data=="true"){
+					location.href="index";
+				}
 		 $( "#variedPagesHere" ).html( data );
 		});
 	jQuery.get("header_activitydiagrams", function( data ) {
+			if(data=="true"){
+					location.href="index";
+				}
 		 $( "#activitiForms" ).html( data );
 		});
 }
@@ -96,6 +102,9 @@ function getActivitiDiagramsPage(){
 			'path' : folderPath
 		}, */
 			function( data ) {
+				if(data=="true"){
+						location.href="index";
+					}
 	         $( ".right" ).html( data );
 	        });
 	}
@@ -133,6 +142,9 @@ function getActivitiDiagramsPage(){
 					'path' : folderPath
 				},
 				success : function(data) {
+ 					if(data=="true"){
+							location.href="index";
+						}
 					//alert(data);
 					//$(".mydocument_subfolder").html(data);
 					divFolder=".listdiv" + divFolder;
@@ -169,6 +181,9 @@ function getActivitiDiagramsPage(){
 			'path' : folderPath
 		},
 				function( data ) {
+				if(data=="true"){
+						location.href="index";
+					}
 	         $( ".right" ).html( data );
 	        });
 	}
@@ -184,6 +199,9 @@ function getActivitiDiagramsPage(){
 			'path' : folderPath
 		},
 				function( data ) {
+				if(data=="true"){
+						location.href="index";
+					}
 	         $( ".right" ).html( data );
 	        });
 	}

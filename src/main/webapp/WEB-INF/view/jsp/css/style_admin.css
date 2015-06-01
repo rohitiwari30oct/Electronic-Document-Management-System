@@ -1025,7 +1025,14 @@ margin-bottom: 7px;margin-left: 44px;}
 .active >.admin_menu >.from_user_color{background: url(../images/user_das_icon.png);width: 15px;height: 17px;margin-top: 6px;
 background-position: 122px -176px;margin-bottom: 7px;}
 .contact_user{background: url(../images/user_das_icon.png);width: 15px;height: 17px;margin-top: 6px;background-position: 120px 54px;margin-bottom: 7px;margin-left: 45px;}
-.row_recent a{text-decoration: none;color: #075D82;margin-right: 4px;}
+.row_recent a {
+ text-decoration: none;
+ color: #075D82;
+ margin-right: 4px;
+ float: left;
+ width: 84%;
+ overflow: hidden;
+}
 .row_recent a.second{margin-left: 5px;}
 .appoment_tab_1{ width:100%; height: 210px;}
 .appoment_tab_2{ width:100%;  height: 210px; display:none; }
@@ -3557,8 +3564,8 @@ float: left;
 margin-left: -28px;
 
 }
-.content_left ul li:hover .subfolder_sign{background-position: 17px 10px;margin-top: 18px;background-position: 15px 0px;width: 15px;
-height: 4px;} 
+/* .content_left ul li:hover .subfolder_sign{background-position: 17px 10px;margin-top: 18px;background-position: 15px 0px;width: 15px;
+height: 4px;}  */
 /*--
 width: 15px;
 height: 4px;

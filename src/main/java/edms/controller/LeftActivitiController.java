@@ -1,5 +1,7 @@
 package edms.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,11 +26,14 @@ public class LeftActivitiController {
 	private StringOperationsService stringOperationsService;
 
 	@RequestMapping(value = "/leftActiviti_toDoTasks", method = RequestMethod.GET)
-	public String getActivitiForms(ModelMap map) throws Exception {
+	public String getActivitiForms(ModelMap map,Principal principal) throws Exception {
+		if(principal!=null){
 		System.out.println("in leftActiviti_toDoTasks..........");
 		map.addAttribute("workflow", workflowClient);
 		DemoUserService demoUserService = new DemoUser1ServiceImpl();
 		map.addAttribute("demoUserService", demoUserService);
-		return "toDoTasks";
+		return "toDoTasks";}else{
+			return "ajaxTrue";
+		}
 	}
 }

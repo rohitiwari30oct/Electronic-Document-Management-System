@@ -11,12 +11,10 @@ String userid=(String)request.getAttribute("userid");
 <!-----------------------/// RIGHT PANNEL ------------------->
 	<%@page import="edms.wsdl.Folder"%>
 	<div class="strip_details index_heading">
-	<div class="home_heading"></div>
+	<!-- <div class="home_heading"></div> -->
 	<div class="path"><span>Search Result</span>
 	</div>
-					<a href="#" id='userDashboard'  onclick="getPage(this.id)">
-						<div class="dasboard">DASHBOARD</div>
-					</a>
+					
 					<div class="right_icon">
 						<div class="thum_view" onClick="tile_view();" title="Folder View"></div>
 						<div class="list_view" onClick="list_view();" title="List View"></div>
@@ -78,21 +76,45 @@ String userid=(String)request.getAttribute("userid");
 										>
 										<!-- <img src="images/ms_excel_big.png" />
 										<div class="clear"></div>
-										 --><%if(file.getFileName().contains(".pdf")){ %> 
-										<div class="pdf_icon"></div>
-										<%}else if(file.getFileName().contains(".doc")){ %>
-										<div class="msoffice_icon"></div>
-										
-										<%} %><%else if(file.getFileName().contains(".xls")){ %>
-										<div class="msexcel_icon"></div>
-										
-										<%} %><%else if(file.getFileName().contains(".ppt")){ %>
-										<div class="ppt_icon"></div>
-										
-										<%}else{ %>
-										<div class="pdf_icon"></div>
-										
-										<%} %>
+										 -->	<%
+							if(file.getFileName().contains(".pdf")){
+						%>
+						<div class="new_pdf"></div> <%
+ 	}else if(file.getFileName().contains(".doc")){
+ %>
+						<div class="new_word"></div> <%
+ 	}else if(file.getFileName().contains(".xls")||file.getFileName().contains(".csv")){
+						%>
+						<div class="new_msexcel"></div> <%
+ 	}else if(file.getFileName().contains(".ppt")){
+		%>
+		<div class="new_ppt"></div> <%
+}else if(file.getFileName().contains(".jpg")){
+	%>
+	<div class="new_jpg"></div> <%
+}else if(file.getFileName().contains(".png")){
+	%>
+	<div class="new_png"></div> <%
+}else if(file.getFileName().contains(".gif")){
+	%>
+	<div class="new_gif"></div> <%
+}else if(file.getFileName().contains(".xml")||file.getFileName().contains(".vcf")||file.getFileName().contains(".pod")||file.getFileName().contains(".ics")){
+	%>
+	<div class="new_txt"></div> <%
+}else if(file.getFileName().contains(".txt")){
+	%>
+	<div class="new_txt"></div> <%
+}else if(file.getFileName().contains(".bmp")){
+	%>
+	<div class="new_bmp"></div> <%
+}else if(file.getFileName().contains(".ico")){
+	%>
+	<div class="new_ico"></div> <%
+}else{
+ %>
+						<div class="blank_image"></div> <%
+ 	}
+				 %>
 										<span><%=file.getFileName()%> </span></li>
 									<%
 										}
@@ -357,6 +379,9 @@ String userid=(String)request.getAttribute("userid");
 					contentType : "application/json",
 					async : false,
 					success : function(data) {
+     					if(data=="true"){
+  							location.href="index";
+  						}
 						$("#folderThumbView>ul").append(data);
 						// alert(data);
 					}
@@ -389,7 +414,7 @@ String userid=(String)request.getAttribute("userid");
 				//alert(folder);
 				$.ajax({
 					type : "GET",
-					url : "${pageContext.request.contextPath}/renameDoc",
+					url : "${pageContext.request.contextPath}/renameFolder",
 					data : {
 						'oldFolderName' : oldfolder,
 						'newFolderName' : newfolder
@@ -402,6 +427,9 @@ String userid=(String)request.getAttribute("userid");
                					'path' : data
                					},
                				function( data ) {
+                 					if(data=="true"){
+              							location.href="index";
+              						}
                	         		$( ".right" ).html( data );
                	        		});
 						// alert(data);
@@ -453,6 +481,9 @@ String userid=(String)request.getAttribute("userid");
             					contentType : "application/json",
             					async : false,
             					success : function(data) {
+                 					if(data=="true"){
+              							location.href="index";
+              						}
             						//$("#folderView>.row_content>ul").append(data);
             						 alert(data);
             					}
@@ -569,6 +600,9 @@ String userid=(String)request.getAttribute("userid");
 			'path' : folderPath
 		},
 				function( data ) {
+				if(data=="true"){
+						location.href="index";
+					}
 	         $( ".right_icon_main" ).html( data );
 	        });
 	}
@@ -607,6 +641,9 @@ String userid=(String)request.getAttribute("userid");
 			'path' : folderPath
 		},
 				function( data ) {
+				if(data=="true"){
+						location.href="index";
+					}
 	         $( ".right_icon_main" ).html( data );
 	        });
 	}

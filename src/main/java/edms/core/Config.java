@@ -21,7 +21,17 @@
 
 package edms.core;
 
-
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Iterator;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Config {
 	
@@ -29,7 +39,7 @@ public class Config {
 	public static String JCR_PASSWORD="admin";
 	public static String JCR_SYSTEM="jcr:system";
 	public static String EDMS_DOMAIN="@avi-oil.com";
-
+	public static String EDMS_KEYWORDKEY="Date,UID,Year,Party Name,Party Code OR ID,Remarks OR Note,Item,Description,Quantity,Rate,Amount";
 	public static final String EDMS_FOLDER = "edms:folder";
 	public static final String EDMS_NAME = "edms:name";
 	public static final String EDMS_TITLE = "edms:title";
@@ -56,4 +66,193 @@ public class Config {
 	public static final String EDMS_NO_OF_DOCUMENTS = "edms:no_of_documents";
 	public static final String EDMS_RECYCLE_DOC = "edms:recycle";
 	public static final String EDMS_RESTORATION_PATH = "edms:restorationPath";
+	
+	public static String escapeChars(String lineIn) {
+		StringBuilder sb = new StringBuilder();
+		int lineLength = lineIn.length();
+		for (int i = 0; i < lineLength; i++) {
+			char c = lineIn.charAt(i);
+			switch (c) {
+				case '"': 
+					sb.append("&quot;");
+					break;
+				case '&':
+					sb.append("&amp;");
+					break;
+				case '\'':
+					sb.append("&apos;");
+					break;
+				case '<':
+					sb.append("&lt;");
+					break;
+				case '>':
+					sb.append("&gt;");
+					break;
+				default: sb.append(c);
+			}
+		}
+		return sb.toString();
+	}
+ 
+	public static String tableHeader(String ps, String[] columns) {
+		ps=("<tr>");
+		for (int i = 0; i < columns.length; i++) {
+			ps+=("<th>");
+			ps+=(columns[i]);
+			ps+=("</th>");
+		}
+		ps+=("</tr>");
+		return ps;
+	}
+ 
+	public static String tableRow(String ps, String[] columns) {
+		ps=("<tr>");
+		for (int i = 0; i < columns.length; i++) {
+			ps+=("<td>");
+			ps+=(columns[i]);
+			ps+=("</td>");
+		}
+		ps+=("</tr>");
+		return ps;
+	}
+	public static void convertToXlsx(InputStream inStream, java.io.File outputFile) 
+	{
+	        // For storing data into CSV files
+	StringBuffer cellValue = new StringBuffer();
+	try 
+	{
+	        FileOutputStream fos = new FileOutputStream(outputFile);
+
+	        // Get the workbook instance for XLSX file
+	        XSSFWorkbook wb = new XSSFWorkbook(inStream);
+
+	        // Get first sheet from the workbook
+	        XSSFSheet sheet = wb.getSheetAt(0);
+
+	        Row row;
+	        Cell cell;
+
+	        // Iterate through each rows from first sheet
+	        Iterator<Row> rowIterator = sheet.iterator();
+
+	        while (rowIterator.hasNext()) 
+	        {
+	        row = rowIterator.next();
+
+	        // For each row, iterate through each columns
+	        Iterator<Cell> cellIterator = row.cellIterator();
+	        while (cellIterator.hasNext()) 
+	        {
+	                cell = cellIterator.next();
+
+	                switch (cell.getCellType()) 
+	                {
+	                
+	                case Cell.CELL_TYPE_BOOLEAN:
+	                        cellValue.append(cell.getBooleanCellValue() + ",");
+	                        break;
+	                
+	                case Cell.CELL_TYPE_NUMERIC:
+	                        cellValue.append(cell.getNumericCellValue() + ",");
+	                        break;
+	                
+	                case Cell.CELL_TYPE_STRING:
+	                        cellValue.append(cell.getStringCellValue() + ",");
+	                        break;
+
+	                case Cell.CELL_TYPE_BLANK:
+	                        cellValue.append("" + ",");
+	                        break;
+	                        
+	                default:
+	                        cellValue.append(cell + ",");
+
+	                }
+	        }
+	        }
+
+	fos.write(cellValue.toString().getBytes());
+
+	fos.close();
+
+	} 
+	catch (Exception e) 
+	{
+	        System.err.println("Exception :" + e.getMessage());
+	}
+	
+	}
+
+	public static void convertToXls(InputStream inStream, java.io.File outputFile) 
+	{
+	// For storing data into CSV files
+	StringBuffer cellDData = new StringBuffer();
+	try 
+	{
+	        FileOutputStream fos = new FileOutputStream(outputFile);
+
+	        // Get the workbook instance for XLS file
+	        HSSFWorkbook workbook = new HSSFWorkbook(inStream);
+	        // Get first sheet from the workbook
+	        HSSFSheet sheet = workbook.getSheetAt(0);
+	        Cell cell;
+	        Row row;
+
+	        // Iterate through each rows from first sheet
+	        Iterator<Row> rowIterator = sheet.iterator();
+	        while (rowIterator.hasNext()) 
+	        {
+	        row = rowIterator.next();
+
+	        // For each row, iterate through each columns
+	        Iterator<Cell> cellIterator = row.cellIterator();
+	        while (cellIterator.hasNext()) 
+	        {
+	        cell = cellIterator.next();
+
+	        switch (cell.getCellType()) 
+	        {
+	        
+	        case Cell.CELL_TYPE_BOOLEAN:
+	                cellDData.append(cell.getBooleanCellValue() + ",");
+	                break;
+	        
+	        case Cell.CELL_TYPE_NUMERIC:
+	                cellDData.append(cell.getNumericCellValue() + ",");
+	                break;
+	        
+	        case Cell.CELL_TYPE_STRING:
+	                cellDData.append(cell.getStringCellValue() + ",");
+	                break;
+
+	        case Cell.CELL_TYPE_BLANK:
+	                cellDData.append("" + ",");
+	                break;
+	                
+	        default:
+	                cellDData.append(cell + ",");
+	        }
+	        }
+	        }
+
+	fos.write(cellDData.toString().getBytes());
+	fos.close();
+
+	}
+	catch (FileNotFoundException e) 
+	{
+	    System.err.println("Exception" + e.getMessage());
+	} 
+	catch (IOException e) 
+	{
+	        System.err.println("Exception" + e.getMessage());
+	}
+	
+	}
+
+	
+
+	 
+	
+
 }

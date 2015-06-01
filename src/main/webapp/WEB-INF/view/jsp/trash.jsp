@@ -7,13 +7,13 @@
                                   
                                        <!--------/// TRASH MENU STARTED HERE --------->
                                            <div class="trash_menu">
-                                               <h1>Trash</h1>
+                                               <h1>Recycle Bin</h1>
                                                <div class="trash_right">
                                                    <ul>
-                                                       <li class="trash_1" ><a href="#"></a></li>
-                                                       <li class="trash_2"><a href="#"></a></li>
-                                                       <li class="trash_3" title="restore" onclick="restoreFolder()"><a href="#"></a></li>
-                                                       <li class="trash_4" title="delete forever"onclick="deleteFolder()"><a href="#"></a></li>
+                                                      <!--  <li class="trash_1" ><a href="javascript:void(0);"></a></li>
+                                                       <li class="trash_2"><a href="javascript:void(0);"></a></li> -->
+                                                       <li class="trash_3" title="Restore" onclick="restoreFolder()"><a href="javascript:void(0);"></a></li>
+                                                       <li class="trash_4" title="Delete forever"onclick="deleteFolder()"><a href="javascript:void(0);"></a></li>
                                                    </ul>
                                                </div>
                                            </div>
@@ -41,21 +41,44 @@
 									      				for (File file : fileList) {
 									      					%>
                                                         <li title=<%=file.getFileName() %> class="select_box target" onclick="setFolderPath(this.id)" id='<%=file.getFilePath()%>'>
-                                                          <%if(file.getFileName().contains(".pdf")){ %> 
-										<div class="pdf_icon"></div>
-										<%}else if(file.getFileName().contains(".doc")){ %>
-										<div class="msoffice_icon"></div>
-										
-										<%} %><%else if(file.getFileName().contains(".xls")){ %>
-										<div class="msexcel_icon"></div>
-										
-										<%} %><%else if(file.getFileName().contains(".ppt")){ %>
-										<div class="ppt_icon"></div>
-										
-										<%}else{ %>
-										<div class="msexcel_icon"></div>
-										
-										<%} %>
+                                                         <%
+							if(file.getFileName().contains(".pdf")){
+						%>
+						<div class="new_pdf"></div> <%
+ 	}else if(file.getFileName().contains(".doc")){
+ %>
+						<div class="new_word"></div> <%
+ 	}else if(file.getFileName().contains(".xls")||file.getFileName().contains(".csv")){
+						%>
+						<div class="new_msexcel"></div> <%
+ 	}else if(file.getFileName().contains(".ppt")){
+		%>
+		<div class="new_ppt"></div> <%
+}else if(file.getFileName().contains(".jpg")){
+	%>
+	<div class="new_jpg"></div> <%
+}else if(file.getFileName().contains(".png")){
+	%>
+	<div class="new_png"></div> <%
+}else if(file.getFileName().contains(".gif")){
+	%>
+	<div class="new_gif"></div> <%
+}else if(file.getFileName().contains(".xml")||file.getFileName().contains(".vcf")||file.getFileName().contains(".pod")||file.getFileName().contains(".ics")){
+	%>
+	<div class="new_txt"></div> <%
+}else if(file.getFileName().contains(".txt")){
+	%>
+	<div class="new_txt"></div> <%
+}else if(file.getFileName().contains(".bmp")){
+	%>
+	<div class="blank_image"></div> <%
+}else if(file.getFileName().contains(".ico")){
+	%>
+	<div class="new_ico"></div> <%
+}else{
+ %>
+						<div class="blank_image"></div> <%
+ 	} %>
                                                           <span><%=file.getFileName() %></span> </li>
                                                       
                                                         <%} %>
@@ -70,9 +93,12 @@
                                                 </script>
                                                 <script type="text/javascript">
                                                 function deleteFolder(){
-                                                	
+                                                	if(confirm('Do you really want to permanently delete this item ?')){
                                                 	var folderPath=$('#clickedFolder').val();
-                                                	alert(folderPath);
+                                                	//alert(folderPath);
+                                                	
+                                                	
+													var myVar=setTimeout(myFunctionl,500);
                                                 	$.ajax({
                                         					type : "GET",
                                         					url : "${pageContext.request.contextPath}/deleteDoc",
@@ -82,18 +108,27 @@
                                         					contentType : "application/json",
                                         					async : false,
                                         					success : function(data) {
-                                        						alert(data);
+                                             					if(data=="true"){
+                                          							location.href="index";
+                                          						}
+                                        						//alert(data);
+                                        						
                                         						getPage('trash');
+
+                                        						myStopFunction(myVar);
                                         					}
-                                        				}); 
+                                        				}); }
                                                 }
                                                 
                                                 </script>
                                                 <script type="text/javascript">
                                                 function restoreFolder(){
-                                                	
+
+                                                	if(confirm('Do you really want to restore this item ?')){
                                                 	var folderPath=$('#clickedFolder').val();
                                                 	alert(folderPath);
+                                                
+													var myVar=setTimeout(myFunctionl,500);
                                                 	$.ajax({
                                         					type : "GET",
                                         					url : "${pageContext.request.contextPath}/restoreDoc",
@@ -103,10 +138,14 @@
                                         					contentType : "application/json",
                                         					async : false,
                                         					success : function(data) {
-                                        						alert(data);
+                                             					if(data=="true"){
+                                          							location.href="index";
+                                          						}
+                                        						//alert(data);
                                         						getPage('trash');
+                                        						myStopFunction(myVar);
                                         					}
-                                        				}); 
+                                        				}); }
                                                 }
                                                 
                                                 </script>

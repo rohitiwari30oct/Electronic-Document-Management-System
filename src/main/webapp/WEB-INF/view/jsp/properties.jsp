@@ -11,10 +11,10 @@ String userid=(String)request.getAttribute("userid");
         <!----------------/// RIGHT PART STARTED HERE ------------------->
                                             <div class="right-pane">
                                               <ul class="icon_left_descri">
-                                                <li class="padding_less"> <a href="#" onClick="left_icon()">
+                                                <li class="padding_less"> <a href="javascript:void(0);" onClick="left_icon()">
                                                   <div class="left_icon"></div>
                                                   </a> </li>
-                                                <li class="peroperty right_tab" > <a href="#">PROPERTIES</a>
+                                                <li class="peroperty right_tab" > <a href="javascript:void(0);">PROPERTIES</a>
                                                   <div class="icon_right icon_right_minus"></div>
                                                 </li>
                                                 <div class="content_right" style="display: block;">
@@ -37,7 +37,7 @@ String userid=(String)request.getAttribute("userid");
                                                                <td><%=currentFolder.getCreationDate() %></td>
                                                           </tr>
                                                           <tr>
-                                                               <td class="proper_heading">Owner</td>
+                                                               <td class="proper_heading">Created By</td>
                                                                <td> <%=currentFolder.getCreatedBy() %></td>
                                                           </tr>
                                                            <tr>
@@ -50,35 +50,36 @@ String userid=(String)request.getAttribute("userid");
                                                           </tr>
                                                       </table>
                                                 </div>
-                                              <!--   <li class="note right_tab"><a href="#">NOTES</a>
+                                                <li class="note right_tab"><a href="javascript:void(0);">NOTES</a>
                                                   <div class="icon_right"></div>
                                                 </li>
                                                 <div class="content_right">
                                                      <table>
-                                                        <tr>
-                                                           <td class="note_heading">user 0 <img src="images/cancel.png" /></td>
-                                                        </tr>
-                                                        <tr>
-                                                           <td>vxmsa</td>
-                                                        </tr>
+                                                       
+                                                       
                                                         <tr>
                                                            <td>
                                                                <div class="note_book">
-                                                                     <span>Add Note</span>
+                                                                   
                                                                      <div class="clear"></div>
-                                                                  <textarea>
-                                                                  </textarea>
+                                                                     <%String nottes= "";
+                                                           if((currentFolder.getNotes()!=null)&&(currentFolder.getNotes()!="")){
+                                                        	   nottes=currentFolder.getNotes();
+                                                           } %>
+                                                                     
+<textarea id="notesnote"><%=nottes %></textarea>
+                                                                  
                                                                      <div class="add_note">
-                                                                           <img src="images/add.png" /> Add
+                                                                           <img src="images/add.png" /> Save
                                                                      </div>
                                                                </div>
                                                            </td>
                                                         </tr>
                                                      </table>   
-                                                </div> -->
-                                                <li class="keyword right_tab"><a href="#">KEYWORDS</a>
+                                                </div>
+                                                <li class="keyword right_tab"><a href="javascript:void(0);">KEYWORDS</a>
                                                       <!---// ADD ICON HERE --->
-                                                      <div class="add_note keyword_add">
+                                                      <div class="keyword_add">
                                                            <img src="images/create_folder_icon.png" />
                                                       </div>
                                                       <!-----// ADD ICON END HERE ---->
@@ -95,18 +96,53 @@ String userid=(String)request.getAttribute("userid");
                                                             	 for(int i=0;i<key.length;i++){
                                                             		 if(key[i]!=""&&(!key[i].equals(""))){
                                                              %>
-                                                             <li><span><%=key[i] %></span><img src="images/delete_icon_file.png" id="<%=key[i] %>">
+                                                             <li><span><%=key[i] %></span><img class="keyword_del" src="images/delete_icon_file.png" id="<%=key[i] %>">
+                                                             <img  class="keyword_edit" onclick="editKeyword(this.id)"  id="edit<%=key[i] %>" src="images/edit-icon.png" id="<%=key[i] %>">
                                                              <div class="clear"></div><div class="clear"></div></li>
                                                            <%} }}%>
                                                              </ul>
                                                         
                                                         </div>
                                                         <!-----/// INNER KEYWORD -------->
-                                                
+                                                 <script type="text/javascript">
+                                                function editKeyword(keyword){
+                                                	
+                                                	
+                                                	var key=keyword.substring(4);
+                                                	var keyVal=key.split(":");
+                                                	 if(keyVal[0]!="Date"){
+                                                		 
+                                                		 $('.datepicker').attr("id","");
+                                                		 $('.Datepicker_33').attr("id","add_keywordid");
+                                                		 $('.datepicker').css("display","none");
+                                                		 $('.Datepicker_33').css("display","block");
+                                                		 
+                                                		 
+                                                	 }else{
+
+                                                		 $('.datepicker').attr("id","add_keywordid");
+                                                		 $('.Datepicker_33').attr("id","");
+                                                		 $('.datepicker').css("display","block");
+                                                		 $('.Datepicker_33').css("display","none");
+                                                	 }
+                                                	
+                                                	//alert(keyVal[0]);
+                                                	$("#add_keywordkey").val(keyVal[0]);
+                                                	$("#add_keywordid").val(keyVal[1]);
+                                                	$(".add_keyword").attr('class','edit_keyword');
+                                                	$(".add_keyword_exit").attr('class','edit_keyword_exit');
+                                                	$(".add_keyword").attr('class','edit_keyword');
+                                                	//$(".edit_keyword").addClass('edit_keyword');
+                                                	
+                                                	$("#edit_keywordid").val(key);
+                                                	
+                                                	
+                                                }
+                                                </script>
                                                 
                                                 
                                                 </div>
-                                                <li class="history_right right_tab"><a href="#">VERSIONING</a>
+                                                <%-- <li class="history_right right_tab"><a href="javascript:void(0);">VERSIONING</a>
                                                   <div class="icon_right"></div>
                                                 </li>
                                                <div class="content_right">
@@ -120,16 +156,16 @@ String userid=(String)request.getAttribute("userid");
                                                       
                                                     	  if(i>0){
                                                       %>
-                                                             <%--    <td><%=versionDetail.getVersionName() %></td> --%>
-                                                              <%--   <td><%=versionDetail.getCreatedBy() %></td> --%>
+                                                                <td><%=versionDetail.getVersionName() %></td>
+                                                                <td><%=versionDetail.getCreatedBy() %></td>
                                                                 <!------------/// Row_STARTED HERE ----------->
                                                                 <div style="margin-left: 20px;" class="row_recent">
            <!--  <div class="recnt_pdf_doc"> </div> -->
-            <%=versionDetail.getDetails() %> by<a href="#" class="second"><%=versionDetail.getCreatedBy() %></a> on <a href="#" class="second"><%=versionDetail.getCreationDate() %></a> </div>
+            <%=versionDetail.getDetails() %> by<a href="javascript:void(0);" class="second"><%=versionDetail.getCreatedBy() %></a> on <a href="javascript:void(0);" class="second"><%=versionDetail.getCreationDate() %></a> </div>
                                                            <!-------------// ROW STARTED HERE --------------> 
                                                                 
                                                                 
-                                                               <%--  <a href="#" id="<%=currentFolder.getFolderPath() %>,<%=versionDetail.getVersionName() %>" class="" onclick="restoreVersion(this.id)">Restore</a> --%>
+                                                                <a href="javascript:void(0);" id="<%=currentFolder.getFolderPath() %>,<%=versionDetail.getVersionName() %>" class="" onclick="restoreVersion(this.id)">Restore</a>
                                                              <%}i++;} %>
                                                              
                                                               
@@ -157,8 +193,8 @@ String userid=(String)request.getAttribute("userid");
                                                 	}
                                                 
                                                 </script>
-                                                </div>
-                                                <li class="prew right_tab"><a href="#">PREVIEW</a>
+                                                </div> --%>
+                                             <!--    <li class="prew right_tab"><a href="javascript:void(0);">PREVIEW</a>
                                                   <div class="icon_right">
                                                   
                                                    </div>
@@ -167,8 +203,8 @@ String userid=(String)request.getAttribute("userid");
                                                 </li>      
                                                 <div class="content_right" style="margin: 0px auto;">
                                               No Preview Available
-                                                </div>
-                                                <li class="prew right_tab permi"><a href="#">SHARING AND SECURITY</a>
+                                                </div> -->
+                                                <li class="prew right_tab permi"><a href="javascript:void(0);">SHARING AND SECURITY</a>
                                                   <div class="icon_right"> </div>
                                                 </li>      
                                                 <div class="content_right">
@@ -181,9 +217,11 @@ String userid=(String)request.getAttribute("userid");
                                                        List<String> users=currentFolder.getUserRead();
                                                        String[] user=users.toString().split(",");
                                                        for(String str:user){
+                                                    	   if(str!="admin"){
                                                     	   str=str.replace("]", "");
                                                     	   str=str.replace("[", "");
                                                     	   System.out.println(str+(str.equals(",")||str.equals("")||str.equals(" ")||str.equals("]")||str.equals("[")));
+                                                    	   
                                                     	   if((str.equals(",")||str.equals("")||str.equals(" ")||str.equals("]")||str.equals("["))){}else{
                                                     		   String flag="Can View";
                                                     		   if(currentFolder.getUserWrite().toString().contains(str)){
@@ -227,7 +265,7 @@ String userid=(String)request.getAttribute("userid");
 														<%} %>
 
 													</td> --%></tr>
-                                                       <%}} %>
+                                                       <%}}} %>
                                                        </table>
                                                            </div>
                                                       </div>
@@ -238,7 +276,7 @@ String userid=(String)request.getAttribute("userid");
                                             
                                             <!------------------------------/// LEFT ICON ONLY --------------->
                                             <div class="left_icon_only">
-                                              <div class="only_left_icon"> <a href="#" onClick="left_icon()">
+                                              <div class="only_left_icon"> <a href="javascript:void(0);" onClick="left_icon()">
                                                 <div class="left_icon back_pos"></div>
                                                 </a>
                                                 <div class="claer"></div>
@@ -264,28 +302,5 @@ String userid=(String)request.getAttribute("userid");
                                          
                                          
                                          
-                                         <script >
-                                         $(document).on("click",".inner_keyword >ul >li >img",function(){
-                                        	 $.ajax({
-                                 				type : "GET",
-                                 				url : "${pageContext.request.contextPath}/removeKeyword",
-                                 				data : {
-                                 					'keyword' : this.id
-                                 				},
-                                 				contentType : "application/json",
-                                 				async : false,
-                                 				success : function(data) {
-                                 					//$("#folderThumbView>ul").append(data);
-                                 					// alert(data);
-                                 				}
-
-                                 			});
-                                        	 
-                                        	 
-                                        	 
-                                        	 
-                                 			$(this).parent().remove();
-                                 			
-                                 			});
-                                         </script>
+                                
                                          

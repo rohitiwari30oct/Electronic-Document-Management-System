@@ -74,6 +74,9 @@
 			tid : taskId,
 			uid : userid,
 		}, function(data) {
+				if(data=="true"){
+						location.href="index";
+					}
 			$("#activitiForms").html(data);
 		});
 	}
@@ -83,6 +86,9 @@
 		jQuery.get("toDoTasks_getCommonWorkflowForm", {
 			tid : taskId,
 		}, function(data) {
+				if(data=="true"){
+						location.href="index";
+					}
 			//alert(data);
 			$("#activitiForms").html(data);
 		});
@@ -158,7 +164,7 @@
 									<input type="hidden" value="<%=ut.getFormKey()%>"
 										id="indFormKey<%=ut.getId()%>"
 										name="indFormKey<%=ut.getId()%>">
-									<td><a href="#"
+									<td><a href="javascript:void(0);"
 										onclick="getCommonWorkflowForm('<%=ut.getId()%>')">Complete
 											Task</a></td>
 									<%
@@ -209,7 +215,7 @@
 									<td><%=gt.getDescription()%></td>
 									<input type="hidden" value="<%=gt.getFormKey()%>"
 										id="formKey<%=gt.getId()%>" name="formKey<%=gt.getId()%>">
-									<td><a href="#"
+									<td><a href="javascript:void(0);"
 										onclick="getClaimTaskForm('<%=gt.getId()%>')">Claim Task</a></td>
 									<%
 										}
@@ -274,7 +280,7 @@ Process ID: <%=ut.getProcessInstanceId() %> <br>
 Task ID: <%=ut.getId() %> <br>
 Description= <%=ut.getDescription() %><br>
 <input type="hidden" value="<%=ut.getFormKey()%>" id="indFormKey<%=ut.getId() %>" name="indFormKey<%=ut.getId() %>">
-<a href="#" onclick="getCommonWorkflowForm('<%=ut.getId()%>')">Complete Task</a>
+<a href="javascript:void(0);" onclick="getCommonWorkflowForm('<%=ut.getId()%>')">Complete Task</a>
 <%} }	%> <br><br>
 <b>Available Group Tasks:</b><br>
 <% if(groupTasks.isEmpty()){ %>
@@ -288,7 +294,7 @@ Task ID: <%=gt.getId() %> <br>
 Description= <%=gt.getDescription() %><br>
 <%System.out.println("after rendering form"); %>
 <input type="hidden" value="<%=gt.getFormKey()%>" id="formKey<%=gt.getId() %>" name="formKey<%=gt.getId() %>">
-<a href="#" onclick="getClaimTaskForm('<%=gt.getId()%>')">Claim Task</a>
+<a href="javascript:void(0);" onclick="getClaimTaskForm('<%=gt.getId()%>')">Claim Task</a>
 <br><br>
 <%} }	%>
 <br><br><br>

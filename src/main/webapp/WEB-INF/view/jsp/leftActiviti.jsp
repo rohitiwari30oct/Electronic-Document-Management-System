@@ -33,7 +33,7 @@ function getHistoryPage(){
  <!---------/// LEFT PART TOP STARTED HERE ---------->
                                             <div class="left_sub_menu">
                                                <ul>
-                                                        <li class="file_system tab_header" onClick="tab_left()"> <a href="#" >ACTIVITY</a>
+                                                        <li class="file_system tab_header" onClick="tab_left()"> <a href="javascript:void(0);" >ACTIVITY</a>
                                                         </li>
                                                         <div class="content_left content_left_block">
                                                                 <ul>
@@ -71,11 +71,11 @@ function getHistoryPage(){
 
    <!-- <ul>
       <li>
-         <a href="#" title="Tasks" onclick="getTasksPage()" >To Do Tasks</a> 
+         <a href="javascript:void(0);" title="Tasks" onclick="getTasksPage()" >To Do Tasks</a> 
       
-         <a href="#" title="Workflows" onclick="getWorkflowsPage()">Workflows</a>
+         <a href="javascript:void(0);" title="Workflows" onclick="getWorkflowsPage()">Workflows</a>
       
-         <a href="#" title="Task History" onclick="getHistoryPage()">Task History</a> 
+         <a href="javascript:void(0);" title="Task History" onclick="getHistoryPage()">Task History</a> 
       </li>
    </ul> -->
 </body>

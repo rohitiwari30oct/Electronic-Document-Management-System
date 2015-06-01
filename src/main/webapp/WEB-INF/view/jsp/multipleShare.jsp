@@ -78,7 +78,7 @@
                              </tr>
                              <tr>
                                <td align="top" class="space_td"><img   style=" padding-top: 1px;
-    width: 13px;"   src="images/single_user.png" /> Read & Write</td>
+    width: 13px;"   src="images/single_user.png" /> Read &amp; Write</td>
                                <td><input type="checkbox"  name='userpermission' value='2'/></td>
                                <td><input type="checkbox" name='denyuserpermission' value='-2'/></td>
                              </tr>
@@ -118,7 +118,7 @@
                                <td><input type="checkbox" name='denygrouppermission' value='-1'/></td>
                              </tr>
                              <tr>
-                               <td align="top" class="space_td"><img  style="width: 16px;"  src="images/group.png" /> Read & Write</td>
+                               <td align="top" class="space_td"><img  style="width: 16px;"  src="images/group.png" /> Read &amp; Write</td>
                                <td><input type="checkbox"  name='grouppermission' value='2'/></td>
                                <td><input type="checkbox" name='denygrouppermission' value='-2'/></td>
                              </tr>
@@ -285,6 +285,9 @@
       					contentType : "application/json",
       					async : false,
       					success : function(data) {
+         					if(data=="true"){
+      							location.href="index";
+      						}
       						//$("#folderView>.row_content>ul").append(data);
       						 alert(data);
       					}
@@ -353,7 +356,7 @@
                              <tr style="background-color: #e1e1e1;">
                                <td   align="top" class="space_td">Users</td>
                                <td >Read </td>
-                               <td >Read & Write </td>
+                               <td >Read &amp; Write </td>
                                <td >Delete </td>
                                <td >Modify Access Control </td>
                              </tr>
@@ -414,7 +417,7 @@
                                 <tr style="background-color: #e1e1e1;">
                                <td   align="top" class="space_td">Groups</td>
                                <td >Read </td>
-                               <td >Read & Write </td>
+                               <td >Read &amp; Write </td>
                                <td >Delete </td>
                                <td >Modify Access Control </td>
                              </tr>
@@ -448,7 +451,7 @@
                                <td><input type="checkbox" name='denygrouppermission' value='-1'/></td>
                              </tr>
                              <tr>
-                               <td align="top" class="space_td"><img  style="width: 16px;"  src="images/group.png" /> Read & Write</td>
+                               <td align="top" class="space_td"><img  style="width: 16px;"  src="images/group.png" /> Read &amp; Write</td>
                                <td><input type="checkbox"  name='grouppermission' value='2'/></td>
                                <td><input type="checkbox" name='denygrouppermission' value='-2'/></td>
                              </tr>
@@ -496,6 +499,9 @@
             					contentType : "application/json",
             					async : false,
             					success : function(data) {
+                 					if(data=="true"){
+              							location.href="index";
+              						}
             						//$("#folderView>.row_content>ul").append(data);
             						 alert(data);
             					}

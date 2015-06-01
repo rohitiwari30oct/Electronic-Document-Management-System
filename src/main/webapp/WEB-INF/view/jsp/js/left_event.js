@@ -342,9 +342,10 @@ $(document).ready(function() {
 	   ///SELECT BOX EVENT STARTED HERE
 	       var removeClass = true; 
 
-	   	$(document).on("click",".select_box",function(){
-			   
+	   	$(document).on("click",".select_box",function(event){
+	   		event.stopPropagation();
 			        $('li.new_select_box').removeClass('new_select_box');
+			        $('ul.new_select_box').removeClass('new_select_box');
 			        $(this).addClass('new_select_box');
 					$('.update').addClass('select_icon');
 					var get_cl = $('.select_box').find('new_select_box');
@@ -478,7 +479,19 @@ $(document).ready(function() {
 	
 	
 	// LEFT PART DOCUMENT ONCLICK
-	   	$(document).on("click",".content_left_block > ul >li",function(){
+	   	
+		// LEFT PART DOCUMENT ONCLICK
+	   	$('.subfolder_sign').click(function(){
+	   	//alert('Hi-Hi');
+	   	$('div.Hi').removeClass('Hi');
+	   	$(this).addClass('Hi')
+	   	$(this).parent().children('.subfolder_onhover').slideToggle();
+	   	$(this).toggleClass('open_file');
+//	   		$(this).parent().children('.subfolder_onhover').toggleClass('open_file');
+
+	   	});
+	   	
+/* 	$(document).on("click",".content_left_block > ul >li",function(){
 	
       if($('.subfolder_onhover').css('display')=='none')
 	  {
@@ -493,24 +506,25 @@ $(document).ready(function() {
 	  }
 	
 	
-	});
+	});*/
 
 /// WINDOW HEIGHT AND WIDTH 
   		z=$(window).width();
 		x= z-231;
-		y= $(window).height()-69;
+		y= $(window).height();
 		r= $(window).height()-169;
-		$('.content_left').css('height',y/2+202 -92);
+		$('.content_left').css('height',y-322);
+		//$('.left_bottom_part').css('top',y-292);
 		w=y/2;
 		$('.main_div').css('width',z);
 		$('.right').css('width',x);
 		$('.head').css('width',x);
 		$('.menu_right').css('width',x);
-		$('.left').css('height',y);	
+		$('.left').css('height',y-66);	
 		$('.header').css('width',z)
 		//$('.left_bottom_part').css('height',w)
 		//$('.left_bottom_part').css('top',w);
-		$('.form_scolling_project').css('height',r)
+		$('.form_scolling_project').css('height-66',r)
 		//$('.right').css('height',y);
 /*$(window).resize( function(){
 	    z=$(window).width();

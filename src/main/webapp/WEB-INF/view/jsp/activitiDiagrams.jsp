@@ -21,6 +21,10 @@ function getStartWorkflowForm(diagData) {
 	    	},
 	    	success: function(respData){
 	    		jQuery.get(respData, function(data) {
+
+ 					if(data=="true"){
+							location.href="index";
+						}
 	    			 $(divid).html(data);
 	    			});
 	        }
@@ -38,6 +42,9 @@ function getWorkflowDiagram(tabvalue){
 	    		tv:tabvalue,
 	    	},
 	    	success: function(data){
+					if(data=="true"){
+							location.href="index";
+						}
 	    		$(divid).html(data);
 	        }
 	    });
@@ -89,8 +96,14 @@ function getWorkflowDiagram(tabvalue){
 		    	},
 		    	dataType: 'json',
 		    	success: function(data){
+ 					if(data=="true"){
+							location.href="index";
+						}
 		    	},
 		    	error: function(err){
+ 					if(err){
+							location.href="index";
+						}
 		    		alert("Succesfully Submitted!");
 		    		jQuery.get("header_activitydiagrams", function(data) {
 		    			 $( "#activitiForms" ).html(data);
@@ -102,6 +115,9 @@ function getWorkflowDiagram(tabvalue){
 <script type="text/javascript">
 function cancelForm(){
 	jQuery.get("header_activitydiagrams", function(data) {
+			if(data=="true"){
+					location.href="index";
+				}
 		 $( "#activitiForms" ).html(data);
 		});
 }
@@ -1166,8 +1182,7 @@ DemoUserService demouser = (DemoUserService) request.getAttribute("demoUserServi
                              <!----------/// TAB FOURTH END HERE --------------->
                              <!----------/// TAB FIVE STARED HERE ----------->
                              <div id="tab35" class="user_static_8 tab_content_1"></div>
-                                   </div>
-                            </div>
+                           
                              <!----------/// TAB FIVE END HERE -------------->
                              <!-----------/// SIX TAB STARED HERE -------------->
                              <div id="tab36" class="user_static_13 tab_content_1" style="display: block;">

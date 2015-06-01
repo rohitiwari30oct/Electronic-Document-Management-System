@@ -6788,13 +6788,13 @@ $.extend( $.ui.autocomplete, {
 // a full solution for string manipulation and internationalization.
 $.widget( "ui.autocomplete", $.ui.autocomplete, {
 	options: {
-		messages: {
+		messages: {/*
 			noResults: "No search results.",
 			results: function( amount ) {
 				return amount + ( amount > 1 ? " results are" : " result is" ) +
 					" available, use up and down arrow keys to navigate.";
 			}
-		}
+		*/}
 	},
 
 	__response: function( content ) {
@@ -6803,12 +6803,12 @@ $.widget( "ui.autocomplete", $.ui.autocomplete, {
 		if ( this.options.disabled || this.cancelSearch ) {
 			return;
 		}
-		if ( content && content.length ) {
+	/*	if ( content && content.length ) {
 			message = this.options.messages.results( content.length );
 		} else {
 			message = this.options.messages.noResults;
 		}
-		this.liveRegion.text( message );
+		this.liveRegion.text( message );*/
 	}
 });
 
@@ -8797,7 +8797,7 @@ $.extend(Datepicker.prototype, {
 							(printDate.getTime() == today.getTime() ? ' ui-state-highlight' : '') +
 							(printDate.getTime() == currentDate.getTime() ? ' ui-state-active' : '') + // highlight selected day
 							(otherMonth ? ' ui-priority-secondary' : '') + // distinguish dates from other months
-							'" href="#">' + printDate.getDate() + '</a>')) + '</td>'; // display selectable date
+							'" href="javascript:void(0);">' + printDate.getDate() + '</a>')) + '</td>'; // display selectable date
 						printDate.setDate(printDate.getDate() + 1);
 						printDate = this._daylightSavingAdjust(printDate);
 					}

@@ -16,8 +16,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import edms.chatdwr.ScriptSessList;
 import edms.chatdwr.XmppChatClass;
@@ -28,9 +26,11 @@ import edms.webservice.client.UserClient;
 import edms.webservice.client.WorkflowClient;
 import edms.wsdl.Folder;
 import edms.wsdl.GetFileResponse;
+import edms.wsdl.GetFileWithOutStreamResponse;
 import edms.wsdl.GetFolderByPathResponse;
 import edms.wsdl.GetFolderResponse;
 import edms.wsdl.GetRecycledDocsResponse;
+import edms.wsdl.GetUsersListResponse;
 import edms.wsdl.LoginResponse;
 import edms.wsdl.RecentlyModifiedResponse;
 import edms.wsdl.SearchDocByDateResponse;
@@ -71,21 +71,45 @@ public class IndexController {
 	@RequestMapping(value = "/userDashboard", method = RequestMethod.GET)
 	public String getUserDashboard(ModelMap map,Principal principal,HttpServletRequest request) {
 		HttpSession hs = request.getSession(false);
+		if(principal==null){
+			return "login";
+		}
+		
+		
 		if (hs.getAttribute("currentFolder") == null) {
-			hs.setAttribute("currentFolder", "/"+principal.getName()+"@avi-oil.com");
-		//	hs.setAttribute("currentFolder", "/");
+			if(principal.getName().contains("@")){
+			hs.setAttribute("currentFolder", "/"+principal.getName());
+			hs.setAttribute("currentDoc", "/"+principal.getName());
+			}else{
+			hs.setAttribute("currentFolder", "/"+principal.getName()+Config.EDMS_DOMAIN);
+			hs.setAttribute("currentDoc", "/"+principal.getName()+Config.EDMS_DOMAIN);
+			}
+			//	hs.setAttribute("currentFolder", "/");
 			}
 		
 		/*String countryName = "Spain";
 		GetCountryResponse response = folderClient
 				.GetCountryRequest(countryName);
 		folderClient.printResponse(response);*/
-
-		String path = "/"+principal.getName()+"@avi-oil.com";
-		//String path = "/";
-		GetFolderByPathResponse folderByPath=documentModuleClient.getFolderByPath(path,principal.getName()+"@avi-oil.com");
+		String path="";
 		
-		GetFolderResponse folderResponse = documentModuleClient.getFolderRequest(path,principal.getName()+"@avi-oil.com");
+		if(principal.getName().contains("@")){
+			path = "/"+principal.getName();	
+		}else{
+		path = "/"+principal.getName()+Config.EDMS_DOMAIN;
+		}
+		//String path = "/";
+		
+		String userid="";
+		if(principal.getName().contains("@")){
+			userid=principal.getName();
+			}else{
+				userid=principal.getName()+Config.EDMS_DOMAIN;
+			}
+		
+		GetFolderByPathResponse folderByPath=documentModuleClient.getFolderByPath(path,userid);
+		
+		GetFolderResponse folderResponse = documentModuleClient.getFolderRequest(path,userid);
 
 		List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
 				.getFolderListResult().getFolderList();
@@ -95,7 +119,7 @@ public class IndexController {
 		map.addAttribute("currentFolder",folderNode);
 		map.addAttribute( "folderList", folderList);
 		map.addAttribute("folderClient",documentModuleClient);
-		map.addAttribute("userid",principal.getName()+"@avi-oil.com" );
+		map.addAttribute("userid",userid );
 		return "dashboard";
 	}
 
@@ -103,61 +127,141 @@ public class IndexController {
 
 
 	@RequestMapping(value = "/calender", method = RequestMethod.GET)
-	public String getCalender(ModelMap map) {
+	public String getCalender(ModelMap map,Principal principal) {
+
+		if(principal!=null){
 		return "calender";
+		}else{
+			return "ajaxTrue";
+		}
 	}
 
 	@RequestMapping(value = "/workflow", method = RequestMethod.GET)
-	public String getWorkflow(ModelMap map) {
+	public String getWorkflow(ModelMap map,Principal principal) {
+
+		if(principal!=null){
 		return "workflow";
+		}else{
+			return "ajaxTrue";
+		}
 	}
 	@RequestMapping(value = "/recently", method = RequestMethod.GET)
 	public String getRecently(ModelMap map,Principal principal) {
-		String path="/"+principal.getName()+"@avi-oil.com";
-		String userid=principal.getName()+Config.EDMS_DOMAIN;
+		if(principal!=null){
+		String path="";
+		if(principal.getName().contains("@")){
+			path = "/"+principal.getName();	
+		}else{
+		path = "/"+principal.getName()+Config.EDMS_DOMAIN;
+		}
+		String userid="";
+		if(principal.getName().contains("@")){
+			userid=principal.getName();
+			}else{
+				userid=principal.getName()+Config.EDMS_DOMAIN;
+			}
 		RecentlyModifiedResponse recentlyModifiedResponse = documentModuleClient.getRecentlyModified(path,userid);
 		List<Folder> folderList = recentlyModifiedResponse.getRecentlyModifiedFolders().getFoldersList().getFolderList();
 		map.addAttribute("folderList", folderList);
 		List<edms.wsdl.File> fileList=recentlyModifiedResponse.getRecentlyModifiedFolders().getFilesList().getFileList();
 		map.addAttribute("fileList", fileList);
-		map.addAttribute("userid",principal.getName()+"@avi-oil.com");
-		return "recently";
+		map.addAttribute("userid",userid);
+		GetFolderByPathResponse folderByPath=documentModuleClient.getFolderByPath(path,userid);
+		Folder folderNode=folderByPath.getFolder();
+		map.addAttribute("principal", principal);
+		map.addAttribute("currentFolder",folderNode);
+		return "fileSystem";
+		}else{
+			return "ajaxTrue";
+		}
 	}
 	@RequestMapping(value = "/getLeftDocument", method = RequestMethod.GET)
 	public String getLeftDocument(ModelMap map,Principal principal,HttpServletRequest request) {
-		String path = "/" + principal.getName() + Config.EDMS_DOMAIN;
+		if(principal!=null){
+		String path="";
+		if(principal.getName().contains("@")){
+			path = "/"+principal.getName();	
+		}else{
+		path = "/"+principal.getName()+Config.EDMS_DOMAIN;
+		}
+		String userid="";
+		if(principal.getName().contains("@")){
+			userid=principal.getName();
+			}else{
+				userid=principal.getName()+Config.EDMS_DOMAIN;
+			}
 		GetFolderResponse folderResponse = documentModuleClient
-				.getFolderRequest(path, principal.getName()
-						+ Config.EDMS_DOMAIN);
+				.getFolderRequest(path, userid);
 		List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
 				.getFolderListResult().getFolderList();
-		GetFileResponse fileResponse = documentModuleClient.getFileRequest(
-				path, principal.getName() + Config.EDMS_DOMAIN);
+		GetFileWithOutStreamResponse fileResponse = documentModuleClient.getFileWithOutStreamRequest(
+				path, userid);
 		List<edms.wsdl.File> fileList = fileResponse.getGetFilesByParentFile()
 				.getFileListResult().getFileList();
 		map.addAttribute("fileList", fileList);
 		map.addAttribute("folderClient", documentModuleClient);
 		map.addAttribute("folderList", folderList);
 		map.addAttribute("principal", principal);
-	return "myDocument";
+	return "myDocument";	}else{
+		return "ajaxTrue";
+	}
 	
+	}
+	@RequestMapping(value = "/setting", method = RequestMethod.GET)
+	public String getSetting(ModelMap map,Principal principal) {
+		if(principal!=null){
+			String userid="";
+			if(principal.getName().contains("@")){
+				userid=principal.getName();
+				}else{
+					userid=principal.getName()+Config.EDMS_DOMAIN;
+				}
+			map.addAttribute("userid",userid);
+		return "setting";	
+		}else{
+			return "ajaxTrue";
+		}
+	}
+	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	public String dashboard(ModelMap map,Principal principal) {
+		if(principal!=null){
+			String userid="";
+			if(principal.getName().contains("@")){
+				userid=principal.getName();
+				}else{
+					userid=principal.getName()+Config.EDMS_DOMAIN;
+				}
+			map.addAttribute("userid",userid);
+		return "dashboard";	
+		}else{
+			return "ajaxTrue";
+		}
 	}
 	@RequestMapping(value = "/trash", method = RequestMethod.GET)
 	public String getTrash(ModelMap map,Principal principal) {
-		String path="/"+principal.getName()+Config.EDMS_DOMAIN+"/trash";
-		GetRecycledDocsResponse folderResponse = documentModuleClient.getRecycledDoc(principal.getName()+Config.EDMS_DOMAIN, path);
+		if(principal!=null){
+		String userid="";
+		if(principal.getName().contains("@")){
+			userid=principal.getName();
+			}else{
+				userid=principal.getName()+Config.EDMS_DOMAIN;
+			}
+		String path="/"+userid+"/trash";
+		GetRecycledDocsResponse folderResponse = documentModuleClient.getRecycledDoc(userid, path);
 		List<Folder> folderList = folderResponse.getGetRecycledDocs().getFoldersList().getFolderList();
 		map.addAttribute("folderList", folderList);
 		map.addAttribute("fileList", folderResponse.getGetRecycledDocs().getFilesList().getFileList());
-		map.addAttribute("userid",principal.getName()+Config.EDMS_DOMAIN);
-		return "trash";
+		map.addAttribute("userid",userid);
+		return "trash";	}else{
+			return "ajaxTrue";
+		}
 	}
 	
 	/*@RequestMapping(value = "/chat", method = RequestMethod.GET)
-	public void getchat(ModelMap map) {
-		System.out.println("in get chat )))))))))))))))))))))))");
-	}
-*/
+		public void getchat(ModelMap map) {
+			System.out.println("in get chat )))))))))))))))))))))))");
+		}
+	 */
 
 	/*
 	 * @Autowired private PersonRepo personRepo;
@@ -165,8 +269,12 @@ public class IndexController {
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
 	public String getIndex(ModelMap map, Principal principal, HttpServletRequest request) throws  IOException {
+		if(principal==null){
+			return "login";
+		}
+		
 		/*public String getIndex(ModelMap map, Principal principal, HttpServletRequest request) throws  IOException {	*/
-	System.out.println("in welcome &&&&&&&&&&&&&&&&&&&&&&&&&&& ");
+		// System.out.println("in welcome &&&&&&");
 		// Session session=jcrService.getJcrSession();
 		// System.out.println('session in controller : '+session);
 		// map.addAttribute('jcrSession',session);
@@ -214,30 +322,7 @@ public class IndexController {
 		 * fileOut.close();
 		 */
 
-		try {
-			/*
-			 * PDFConverter converter = new PDFConverter(); PDFDocument doc; //
-			 * load PDF document PDFDocument document = new PDFDocument();
-			 * document.load(new File("d:/rail.pdf")); // create renderer
-			 * SimpleRenderer renderer = new SimpleRenderer(); // set resolution
-			 * (in DPI) renderer.setResolution(100); // render long before =
-			 * System.currentTimeMillis();
-			 * 
-			 * System.out.println(document.getType()); List<Image> images =
-			 * renderer.render(document); long after =
-			 * System.currentTimeMillis(); System.out.println("render " + (after
-			 * - before) / 1000); // write images to files to disk as PNG try {
-			 * before = System.currentTimeMillis();
-			 * ImageIO.write((RenderedImage) images.get(1), "png", new File(
-			 * "d:/dd" + ".png")); after = System.currentTimeMillis();
-			 * System.out.println("write " + (after - before) / 1000); } catch
-			 * (IOException e) { System.out.println("ERROR: " + e.getMessage());
-			 * }
-			 */
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("ERROR: " + e.getMessage());
-		}
+		
 		/*
 		 * try{ int thumbWidth=50; int thumbHeight=50; // load image from
 		 * filename Image image = Toolkit.getDefaultToolkit().getImage('d:/dd' +
@@ -358,7 +443,7 @@ public class IndexController {
 		 * 'http://jackrabbit.apache.org/ocm1'); System.out.println('workspace
 		 * is : '+workspace.getName()); System.out.println('');
 		 */
-	/*	Tika tika = new Tika();
+		/*	Tika tika = new Tika();
 		// FileOutputStream out = null;
 		try {
 			// out = new FileOutputStream(new File('D:/edms
@@ -370,28 +455,48 @@ public class IndexController {
 			System.err.println(e);
 		}*/
 		// map.addAttribute("loginUser", new LoginModel());
+		  
+		  
 		HttpSession hs = request.getSession(false);
 		if (hs.getAttribute("currentFolder") == null) {
-			hs.setAttribute("currentFolder", "/"+principal.getName()+"@avi-oil.com");
+			if(principal.getName().contains("@")){
+				hs.setAttribute("currentFolder", "/"+principal.getName());
+				hs.setAttribute("currentDoc", "/"+principal.getName());
+				}else{
+				hs.setAttribute("currentFolder", "/"+principal.getName()+Config.EDMS_DOMAIN);
+				hs.setAttribute("currentDoc", "/"+principal.getName()+Config.EDMS_DOMAIN);
+				}
 		//	hs.setAttribute("currentFolder", "/");
 			}
-		
-		
-		
-		
-		
 		/*String countryName = "Spain";
 		GetCountryResponse response = folderClient
 				.GetCountryRequest(countryName);
 		folderClient.printResponse(response);*/
 
-		String path = "/"+principal.getName()+"@avi-oil.com";
+		String path="";
+		if(principal.getName().contains("@")){
+			path = "/"+principal.getName();	
+		}else{
+		path = "/"+principal.getName()+Config.EDMS_DOMAIN;
+		}
 	//	LoginResponse loginResponse=userClient.loginRequest(principal.getName()+"@avi-oil.com", Config.JCR_PASSWORD);
+		String userid="";
+		if(principal.getName().contains("@")){
+			userid=principal.getName();
+			}else{
+				userid=principal.getName()+Config.EDMS_DOMAIN;
+			}
+		GetFolderByPathResponse folderByPath=documentModuleClient.getFolderByPath(path,userid);
 		
-		GetFolderByPathResponse folderByPath=documentModuleClient.getFolderByPath(path,principal.getName()+"@avi-oil.com");
-		
-		GetFolderResponse folderResponse = documentModuleClient.getFolderRequest(path,principal.getName()+"@avi-oil.com");
+		GetFolderResponse folderResponse = documentModuleClient.getFolderRequest(path,userid);
+	
+	
+		GetFileWithOutStreamResponse fileResponse = documentModuleClient.getFileWithOutStreamRequest(
+				path, userid);
+		List<edms.wsdl.File> fileList = fileResponse.getGetFilesByParentFile()
+				.getFileListResult().getFileList();
 
+		map.addAttribute("fileList", fileList);
 		
 		List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
 				.getFolderListResult().getFolderList();
@@ -401,10 +506,11 @@ public class IndexController {
 		map.addAttribute("currentFolder",folderNode);
 		map.addAttribute( "folderList", folderList);
 		map.addAttribute("folderClient",documentModuleClient);
-		map.addAttribute("userid",principal.getName()+"@avi-oil.com" );
+		map.addAttribute("userid",userid );
 		// map.addAttribute("nodeIterator", nodeIterator);
-		
-/*		//CHAT CODE BEGINS
+		/*	GetUsersListResponse response=userClient.getUsersListRequest(userid);
+		map.addAttribute("userlist",response.getUsersList());*/
+		/*	//CHAT CODE BEGINS
 		//System.out.println("userid="+loginUser.getUserid());
 		//System.out.println("password="+loginUser.getPassword());
 		XmppChatClass xmppChatClass=new XmppChatClass();
@@ -418,6 +524,9 @@ public class IndexController {
 		map.addAttribute("imageurl", chatImageFolder);*/
 		return "userDashboard";
 	}
+	
+	
+	
 	/*
 	 * @RequestMapping("/index") public String index(Model model) {
 	 * System.out.println("****************************in getusers"); long begin

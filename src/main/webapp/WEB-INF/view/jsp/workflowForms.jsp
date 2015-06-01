@@ -19,6 +19,9 @@ $( document ).ready(function() {
 	var pageHtml = document.getElementById("htmlPage").value;
 	//var pageHtml = "static/"+htmlHid+".html";
 	jQuery.get(pageHtml, function(data) {
+			if(data=="true"){
+					location.href="index";
+				}
 		 $("#insertWorkflowFormHere").html(data);
 		 
 		 <%String compressedForm = (String) request.getAttribute("xmlForm");

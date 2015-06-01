@@ -11,6 +11,9 @@
     <definition name="ajaxTemplate" template="/WEB-INF/tilestemplate/jsp/ajaxTemplate.jsp">
         <put-attribute name="body" value="" />
     </definition> 
+    
+    
+    
     <definition name="login" extends="indexTemplate">
         <put-attribute name="title" value="Avi-Oil Login" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/login.jsp" />
@@ -31,6 +34,10 @@
       <definition name="leftDocument" extends="indexTemplate">
         <put-attribute name="title" value="Avi-Oil My Document" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/leftDocument.jsp" />
+    </definition>
+      <definition name="getPreview" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil My Document" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/documentPreview.jsp" />
     </definition>
       <definition name="getDocProperties" extends="indexTemplate">
         <put-attribute name="title" value="Avi-Oil My Document" />
@@ -127,6 +134,18 @@
     <definition name="fileSystem" extends="ajaxTemplate">
         <put-attribute name="body" value="/WEB-INF/view/jsp/fileSystem.jsp" />
     </definition>
+    <definition name="dashboard" extends="ajaxTemplate">
+        <put-attribute name="body" value="/WEB-INF/view/jsp/dashboard.jsp" />
+    </definition>
+    <definition name="ajaxTrue" extends="ajaxTemplate">
+        <put-attribute name="body" value="/WEB-INF/view/jsp/ajaxTrue.jsp" />
+    </definition>
+    <definition name="setting" extends="ajaxTemplate">
+        <put-attribute name="body" value="/WEB-INF/view/jsp/setting.jsp" />
+    </definition>
+    
+    
+    
     <definition name="searchResult" extends="ajaxTemplate">
         <put-attribute name="body" value="/WEB-INF/view/jsp/searchResult.jsp" />
     </definition>
