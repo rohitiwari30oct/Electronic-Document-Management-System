@@ -4,19 +4,18 @@
 $(document).ready(function() {
 
 	$(document).on("click",".thum_view_middle",function(event){
-		
-	    $('.select_box  ').removeClass('new_select_box');
+		//alert("dd");
+	    $('.select_box').removeClass('new_select_box');
 	           });
-
-	
 	
 	$(document).on("click",".serach_top >span",function(){
 					//alert('Hi')
 					  if($('.search_box_details').css('display')=='none')
 					       {
 						
-						        $('.search_box_details').css('display','block');
-						
+						  $('.search_box_details').css('display','block');
+						  $('#tab1').css('display','block');
+					        
 						   }
 					     else
 					      {
@@ -40,9 +39,8 @@ $(document).ready(function() {
    /// ACTIVE LEFT MENU		
 		
 	/// FOR FOLDER VIEW ONLY 
-	$(document).on("click",".folderContextMenuClass",function(){
+	/*$(document).on("click",".folderContextMenuClass",function(){
 		
-		//alert('THIS IS FOLDER VIEW ')
 		
 		if($('.new_option_folder').css('display')=='none')
 		{
@@ -52,14 +50,13 @@ $(document).ready(function() {
 			}
 		
 		
-		});
+		});*/
 	
 	/// FOR FOLDER VIEW END HERE 
 		/// FOR File VIEW ONLY 
 
-	$(document).on("click",".fileContextMenuClass",function(){
+		/*$(document).on("click",".fileContextMenuClass",function(){
 		
-		//alert('This Is File View ');
 		if($('.new_option_file').css('display')=='none')
 		{
 			$('.new_option_file').show();
@@ -68,19 +65,16 @@ $(document).ready(function() {
 			}
 		
 		
-		});
+		});*/
 	
 	/// FOR File VIEW END HERE 
 	
 	/// NEW MORE OPTION STRED HERE 
 
-	$(document).on("click",".new_more_icon_folder",function(){
+	/*$(document).on("click",".new_more_icon_folder",function(){
 			
-			//  alert('Hi');
 			 var more_top =  $(this).offset().top;
 			 var more_left =  $(this).offset().left;
-			// alert(more_top);
-			// alert(more_left);
 			 $('.new_more_folder').css('top',more_top-37);
 			 $('.new_more_folder').css('left',more_left-235);
 			 
@@ -94,7 +88,7 @@ $(document).ready(function() {
 					 }
 			
 			
-			});
+			});*/
 	
 	
 	/// NEW MORE OPTION END HERE 
@@ -102,13 +96,10 @@ $(document).ready(function() {
 	
 	
 		/// NEW MORE OPTION STRED HERE 
-		$(document).on("click",".new_more_icon_file",function(event){
+	/*	$(document).on("click",".new_more_icon_file",function(event){
 			event.stopPropagation();
-			//   alert('Hi');
 			 var more_top =  $(this).offset().top;
 			 var more_left =  $(this).offset().left;
-			// alert(more_top);
-			// alert(more_left);
 			 $('.new_more_file').css('top',more_top-37);
 			 $('.new_more_file').css('left',more_left-235);
 			 
@@ -123,7 +114,7 @@ $(document).ready(function() {
 			
 			
 			});
-	
+	*/
 	
 	/// NEW MORE OPTION END HERE 
 	
@@ -234,6 +225,17 @@ $(document).ready(function() {
 			 $('.uploadForm1 >.uploadMultiple >ul>li').remove("li");
 			$('#contactdiv_6').hide();
 			 $('.web_dialog_overlay').hide();
+			 
+
+       	  $('#upload').attr("action", "uploadDocumentByJcr");
+       	  $('#checkAttactmentPopup').val('tt');
+			/* $('.uploadMultiple').html('');*/
+			 
+			});
+		$(document).on("click",".textClose2 span",function(){
+			 $('.uploadForm1 >.uploadMultiple >ul>li').remove("li");
+			$('#contactdiv_616').hide();
+			 $('.web_dialog_overlay').hide();
 			/* $('.uploadMultiple').html('');*/
 			 
 			});
@@ -244,6 +246,19 @@ $(document).ready(function() {
 			 $('.uploadForm1 >.uploadMultiple >ul>li').remove("li");
 			
 			$('#contactdiv_6').hide();
+			 $('.web_dialog_overlay').hide();
+			 
+
+	       	  $('#upload').attr("action", "uploadDocumentByJcr");
+	       	  $('#checkAttactmentPopup').val('tt');
+			/* $('.uploadMultiple').html('');*/
+			 
+			});
+		$(document).on("click",".finishUpload2",function(){
+
+			 $('.uploadForm1 >.uploadMultiple >ul>li').remove("li");
+			
+			$('#contactdiv_616').hide();
 			 $('.web_dialog_overlay').hide();
 			/* $('.uploadMultiple').html('');*/
 			 
@@ -284,42 +299,64 @@ $(document).ready(function() {
 		$('.preview_images').css('height',prev_height-40);
 		$('.preview_images').css('width',(prev_width*60)/100);
 		$('.inner_prev_page').css('height',prev_height -90);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 
 		$(document).on("click",".space",function(event){
 			    if (event.ctrlKey) {
-			    	
 		    	//alert("The CTRL key was pressed!");
 				$(this).addClass('active_11');
 				if($('#multiPath').val()==""){
 					$('#multiPath').val(this.id);
 				}else{
-				$('#multiPath').val($('#multiPath').val()+","+this.id);
+					var multiPath=$('#multiPath').val();
+					if(!(multiPath.indexOf(this.id) != -1 )){
+						//alert("dhi");
+				$('#multiPath').val(multiPath+","+this.id);
+				}else{
+					//$('#multiPath').val(this.id);
+				}
 				}
 		        } 
 				else {
-					//  alert("The CTRL key was NOT pressed!");
-				$('li.active_11').removeClass('active_11');
+				// alert("The CTRL key was NOT pressed!");
+					
+					if($('#multiPath').val()==""){
+						//$('#multiPath').val(this.id);
+					$(this).addClass('active_11');
 				$('#multiPath').val(this.id);
-			//	$('div.control').remove;
+				}else{
+					
+					var multiPath=$('#multiPath').val();
+					if(!(multiPath.indexOf(this.id) != -1 )){
+					//	alert(1);
+						$('li.active_11').removeClass('active_11');
+						$('#multiPath').val(this.id);
+						$(this).addClass('active_11');
+							}else{
+
+								$('li.active_11').removeClass('active_11');
+								$('#multiPath').val(this.id);
+								$(this).addClass('active_11');
+							}
+				}
+				//	$('div.control').remove;
 		        }
+				 event.stopPropagation();
+			});
+
+		$(document).on("contextmenu",".space",function(event){
+			   
+					var multiPath=$('#multiPath').val();
+					if(!(multiPath.indexOf(this.id) != -1 )){
+
+						$('#multiPath').val(this.id);
+						$('li.active_11').removeClass('active_11');
+						$(this).addClass('active_11');
+					}else{
+					
+
+						$(this).addClass('active_11');
+					}
+		     
 				 event.stopPropagation();
 			});
 
@@ -331,8 +368,10 @@ $(document).ready(function() {
 				else {
 					//alert('By')
 					// alert("The CTRL key was NOT pressed!");
+
+				$('.select_box').removeClass('new_select_box');
 				$('li.active_11').removeClass('active_11');
-				$('#multiPath').val(this.id);
+				$('#multiPath').val('');
 		        }
 				 event.stopPropagation();
 			});	
@@ -345,9 +384,8 @@ $(document).ready(function() {
 		   });*/
 		
 		
-		
-		
-			
+		 	
+		 
 	});
 
 

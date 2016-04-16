@@ -34,12 +34,14 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Config {
-	
+
+	public static final String EDMS_GUEST = "guestforpubliclink";
 	public static String JCR_USERNAME="admin";
 	public static String JCR_PASSWORD="admin";
 	public static String JCR_SYSTEM="jcr:system";
-	public static String EDMS_DOMAIN="@avi-oil.com";
-	public static String EDMS_KEYWORDKEY="Date,UID,Year,Party Name,Party Code OR ID,Remarks OR Note,Item,Description,Quantity,Rate,Amount";
+	public static String EDMS_DOMAIN="@silvereye.in";
+	//public static String EDMS_DOMAIN="@avi-oil.com";
+	public static String EDMS_KEYWORDKEY="Date,UID,Party Name,Party Code OR ID,Remarks OR Note,Item,Description,Quantity,Rate,Amount,Payment Reference,Batch No,Manufacturing Advise No,Equipment ID";
 	public static final String EDMS_FOLDER = "edms:folder";
 	public static final String EDMS_NAME = "edms:name";
 	public static final String EDMS_TITLE = "edms:title";
@@ -66,7 +68,23 @@ public class Config {
 	public static final String EDMS_NO_OF_DOCUMENTS = "edms:no_of_documents";
 	public static final String EDMS_RECYCLE_DOC = "edms:recycle";
 	public static final String EDMS_RESTORATION_PATH = "edms:restorationPath";
-	
+	public static final String EDMS_GUEST_USER = "guest";
+	public static final String EDMS_GUEST_PASSWORD = "google@2009";
+	public static String LDAP_URL="ldap://mail.silvereye.in:389";
+	public static String LDAP_DN="dc=silvereye,dc=in";
+	public static String LDAP_RDN="ou=Users,domainName=silvereye.in,o=domains,dc=silvereye,dc=in";
+	public static String LDAP_BASE="mail";
+/*
+	public static String LDAP_URL="ldap://127.0.0.1:389";
+	public static String LDAP_DN="dc=avi-oil,dc=com";
+	public static String LDAP_RDN="ou=Users,domainName=avi-oil.com,o=domains,dc=avi-oil,dc=com";
+	public static String LDAP_BASE="mail";*/
+/*
+	public static String LDAP_URL="ldap://127.0.0.1:389";
+	public static String LDAP_DN="dc=avi-oil,dc=com";
+	public static String LDAP_RDN="ou=Users,dc=avi-oil,dc=com";
+	public static String LDAP_BASE="uid";
+*/	
 	public static String escapeChars(String lineIn) {
 		StringBuilder sb = new StringBuilder();
 		int lineLength = lineIn.length();

@@ -1,7 +1,7 @@
 package edms.controller;
 
 
-import java.security.Principal;
+import edms.core.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

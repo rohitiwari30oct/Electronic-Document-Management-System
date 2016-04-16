@@ -186,7 +186,9 @@ font-size: 14px;}
 .can_edit{}
 .sharing_mange >.table_append >table{width: 642px;
 display: block;
-margin: 0 auto;}
+margin: 0 auto;
+margin-bottom:20px;
+}
 .sharing_mange >.table_append >table >tbody >tr{ display:block;}
 .sharing_mange >.table_append >table >tbody >tr >td{font-size: 15px;
 padding: 5px;width: 50%;}

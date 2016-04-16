@@ -1,4 +1,4 @@
-<%@page import="org.jivesoftware.smack.packet.RosterPacket"%>
+ <%@page import="org.jivesoftware.smack.packet.RosterPacket"%>
 <%@page import="org.jivesoftware.smack.XMPPException.XMPPErrorException"%>
 <%@page
 	import="org.jivesoftware.smack.SmackException.NotConnectedException"%>
@@ -42,13 +42,14 @@
 	<!------------/// LEFT PART BOTTOM BEGINS HERE ------->
                                  <div class="left_bottom_part">
                                       <!----------/// STATISTICS STRED HERE ---->
-                                      <ul><li id='dashboard' onclick="getPage(this.id)"> <div class="calender_user_1"></div><span> DASHBOARD</span></li>
+                                      <ul><!--  <li id='dashboard' onclick="getPage(this.id)"> <div class="calender_user_1"></div><span> DASHBOARD</span></li>
                                          
                                           <li id='userStatistics' onclick="getPage(this.id)"> <div class="graph_user_1"></div><span>STATISTICS</span></li>
-                                           <li onclick="getActivitiDiagramsPage()"> <div class="contact_user_1"></div><span>ACTIVITI</span></li>
-                                          <li id='<%="/"+userid %>' onclick="getSharedFileSystem(this.id)"> <div class="create_view"></div><span>SHARED WITH ME</span></li>
-                                          <li id='recently' onclick="getPage(this.id)"> <div class="recent_open"></div><span>RECENTLY MODIFIED</span></li>
-                                          <li id='trash'onclick="getPage(this.id)"> <div class="my_doc"></div><span>RECYCLE BIN</span></li>
+                                          --> 
+                                            <li onclick="getActivitiDiagramsPage()"> <div class="contact_user_1"></div><span>ACTIVITY</span></li> 
+                                           <li id='<%="/"+userid %>' onclick="getSharedFileSystem(this.id)"> <div class="create_view"></div><span>SHARED WITH ME</span></li>
+                                         <!--  <li id='recently' onclick="getPage(this.id)"> <div class="recent_open"></div><span>RECENTLY MODIFIED</span></li>
+                                         -->  <li id='trash'onclick="getPage(this.id)"> <div class="my_doc"></div><span>RECYCLE BIN</span></li>
                                       </ul>
                                       
                                  
@@ -61,4 +62,4 @@ function getIndex(){
 }
 </script>
 </body>
-</html>
+</html> 

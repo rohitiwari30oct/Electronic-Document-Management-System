@@ -513,7 +513,10 @@ $(document).ready(function() {
 		x= z-231;
 		y= $(window).height();
 		r= $(window).height()-169;
-		$('.content_left').css('height',y-322);
+		$('.content_left').css('height',y-205);
+		$('.content_right').css('height',y-10);
+		
+		
 		//$('.left_bottom_part').css('top',y-292);
 		w=y/2;
 		$('.main_div').css('width',z);
@@ -573,35 +576,7 @@ $(document).ready(function() {
    //   });
 	
 	
-	
-	//Top
-	   	$(document).on("click",".right_tab",function(){
-	//alert("hi");
-		var opend=false;
-		if($(this).find('.icon_right').attr('class').indexOf('icon_right_minus')>-1)
-		{
-		opend=true;
-		}
-			  $('.content_right').css('display','none');
-			  $('.icon_right').removeClass('icon_right_minus');
-			  $('.icon_right').removeClass('icon_right_plus');
-			  if(!opend)
-			  {
-				  $(this).find('.icon_right').addClass('icon_right_minus');
-				  $(this).next('.content_right').css('display','block');
-				  
-				  }
-			  else {
-				  
-				  $(this).find('.icon_right').addClass('icon_right_plus');
-				  $(this).next('.content_right').css('display','none')
-				  
-				  }
-			  
-		  
-	}
-	);
-	
+
 	//Middle
 	   	$(document).on("click",".middle_tab",function(){
 

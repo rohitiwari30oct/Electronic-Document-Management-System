@@ -57,10 +57,12 @@ public class StringOperationsServiceImpl implements StringOperationsService {
 	}
 	
 	public String getCharacterDataFromElement(Element e) {
+		if(e!=null){
 	    Node child = e.getFirstChild();
 	    if (child instanceof CharacterData) {
 	      CharacterData cd = (CharacterData) child;
 	      return cd.getData();
+	    }
 	    }
 	    return "";
 	  }

@@ -1,6 +1,5 @@
 package edms.controller;
 
-import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,8 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import edms.service.DemoUserService;
-import edms.service.DemoUserServiceImpl;
+import edms.core.Principal;
 import edms.webservice.client.WorkflowClient;
 import edms.wsdl.GetGenerateProcessImageResponse;
 import edms.wsdl.GetStartFormDataResponse;
@@ -25,18 +23,18 @@ public class ActivitiDiagramsController {
 	
 	@RequestMapping(value="/activitiDiagram_getStartWorkflowPage", method=RequestMethod.POST)
 	public @ResponseBody String getStartWorkflowPage(ModelMap map, HttpServletRequest request,Principal principal){
-		if(principal!=null){
+		if(principal!=null&&principal.getName()!=null){
 		String startFormData = request.getParameter("sfk");
 		//DemoUserService demoUserService = new DemoUserServiceImpl();
 		//map.addAttribute("demoUserService", demoUserService);
 		return startFormData;	}else{
-			return "true";
+			return "ajaxTrue";
 		}
 	}
 	
 	@RequestMapping(value="/activitiDiagram_getActivitiDiagram", method=RequestMethod.POST)
 	public @ResponseBody String changeConfiguration(HttpServletRequest request,Principal principal){
-		if(principal!=null){
+		if(principal!=null&&principal.getName()!=null){
 		System.out.println("in activityDiagram_getActivit");
 		String value = request.getParameter("tv");
 		String [] values = value.split(":");
@@ -51,10 +49,12 @@ public class ActivitiDiagramsController {
 		//String startFormKey = startFormData.getFormKey();
 		String passArg = startFormKey+":"+divid;
 		String diagData = "<div class='form_scolling_project'><div class='from_main_leave'><table><tbody><tr>"
+						+ "<a href='javascript:void(0)' onclick=\"getStartWorkflowForm('"+passArg+"')\">Begin Process</a></tr></tbody></table>";
+		/*String diagData = "<div class='form_scolling_project'><div class='from_main_leave'><table><tbody><tr>"
 				+ "<img alt='' src='"+processImage+"' /></tr><tr>"
-						+ "<a href='#' onclick=\"getStartWorkflowForm('"+passArg+"')\">Begin Process</a></tr></tbody></table>";
+						+ "<a href='#' onclick=\"getStartWorkflowForm('"+passArg+"')\">Begin Process</a></tr></tbody></table>";*/
 		return diagData;	}else{
-			return "true";
+			return "ajaxTrue";
 		}
 	}
 	

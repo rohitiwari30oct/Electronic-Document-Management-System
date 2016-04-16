@@ -7,7 +7,7 @@ $(document).ready(function() {
 	///  FOLDER RIGHT CLICK STRED HERE *************************
 	
    $(document).on("contextmenu", ".folderContextMenuClass", function(e){
-           //  alert('Context Menu event has fired!');
+            // alert('Context Menu event has fired!');
 			 var right_menu_top = $(this).offset().top;
 			 var right_menu_left = $(this).offset().left;
 			// alert(right_menu_top);
@@ -104,6 +104,7 @@ $(document).ready(function() {
            });
 
   $('.right_click_menu_blank').click(function(event){
+	 
             event.stopPropagation();
            });
 		   

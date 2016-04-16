@@ -12,25 +12,27 @@
 		<apache.tiles>3.0.3</apache.tiles>
 		<spring.security.version>3.2.3.RELEASE</spring.security.version>
 	</properties>
-<!-- <repositories>
-    <repository>
+<!-- 	<repositories>
+    	<repository>
         <id>java large file uploader repository</id>
         <url>http://java-large-file-uploader.googlecode.com/svn/mvnrepo</url>
-</repository>
- </repositories> -->
+		</repository>
+ 		</repositories> -->
 	<dependencies>
-	
 <!-- 	<dependency>
         <groupId>com.am</groupId>
         <artifactId>java-large-file-uploader-war</artifactId>
         <version>1.1.8</version>
         <type>war</type>
-</dependency>
+		</dependency>
 <dependency>
         <groupId>com.am</groupId>
         <artifactId>java-large-file-uploader-jar</artifactId>
         <version>1.1.8</version>
 </dependency> -->
+
+ 
+
 	<dependency>
 <groupId>com.sun.mail</groupId>
 <artifactId>javax.mail</artifactId>
@@ -39,7 +41,7 @@
 	<dependency>
 	<groupId>org.apache.pdfbox</groupId>
 	<artifactId>pdfbox</artifactId>
-	<version>1.8.8</version>
+	<version>1.8.10</version>
 </dependency>
 <dependency>
 	<groupId>org.apache.poi</groupId>
@@ -56,7 +58,6 @@
 	<artifactId>poi-ooxml</artifactId>
 	<version>3.9</version>
 </dependency>
-
 <dependency>
   <groupId>fr.opensagres.xdocreport</groupId>
   <artifactId>org.apache.poi.xwpf.converter.xhtml</artifactId>
@@ -72,37 +73,31 @@
 	<artifactId>tika-core</artifactId>
 	<version>1.7</version>
 </dependency>
-
 <dependency>
 	<groupId>org.apache.tika</groupId>
 	<artifactId>tika-parsers</artifactId>
 	<version>1.7</version>
 </dependency>
-
-
 	<dependency>
-  <groupId>fr.opensagres.xdocreport</groupId>
-  <artifactId>org.apache.poi.xwpf.converter.pdf</artifactId>
-  <version>1.0.0</version>
-</dependency>
-<dependency>
-	<groupId>org.apache.poi</groupId>
-	<artifactId>poi-examples</artifactId>
-	<version>3.11</version>
-</dependency>
-
-	 
+  		<groupId>fr.opensagres.xdocreport</groupId>
+  		<artifactId>org.apache.poi.xwpf.converter.pdf</artifactId>
+  		<version>1.0.0</version>
+	</dependency>
 	<dependency>
-			<groupId>wsdl4j</groupId>
-			<artifactId>wsdl4j</artifactId>
-			<version>1.6.3</version>
-		</dependency>
-
-		<dependency> 
-			<groupId>com.googlecode.json-simple</groupId>
-			<artifactId>json-simple</artifactId>
-			<version>1.1</version>
-		</dependency>
+		<groupId>org.apache.poi</groupId>
+		<artifactId>poi-examples</artifactId>
+		<version>3.11</version>
+	</dependency>
+	<dependency>
+		<groupId>wsdl4j</groupId>
+		<artifactId>wsdl4j</artifactId>
+		<version>1.6.3</version>
+	</dependency>
+	<dependency> 
+		<groupId>com.googlecode.json-simple</groupId>
+		<artifactId>json-simple</artifactId>
+		<version>1.1</version>
+	</dependency>
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
@@ -217,10 +212,15 @@
 			<version>${apache.tiles}</version>
 		</dependency>
 		<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+		<version>1.2.12</version>
+	</dependency>
+		<!--  <dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.6</version>
-		</dependency>
+		</dependency> --> 
 		<!-- Core utilities used by other modules. Define this if you use Spring 
 			Utility APIs (org.springframework.core.*/org.springframework.util.*) -->
 		<dependency>
@@ -355,14 +355,14 @@
 		</dependency>
 
 		<!-- Direct Webremoting dependencies begin -->
-		<dependency>
+	<!-- 	<dependency>
 			<groupId>org.directwebremoting</groupId>
 			<artifactId>dwr</artifactId>
 			<version>3.0</version>
 			<scope>system</scope>
 			<systemPath>${basedir}\src\lib\dwr-3.0.jar</systemPath>
 		</dependency>
-
+ -->
 		<!-- Direct Webremoting dependencies end -->
 
 
@@ -457,9 +457,13 @@
 			<artifactId>smack-extensions</artifactId>
 			<version>4.0.4</version>
 		</dependency>
+	<!--  <dependency>
+      <groupId>com.artofsolving</groupId>
+      <artifactId>jodconverter</artifactId>
+      <version>2.2.1</version>
+    </dependency>  -->
 
-
-		<dependency>
+		<!-- <dependency>
 			<groupId>jivesoftware</groupId>
 			<artifactId>smackx</artifactId>
 			<version>3.2.2</version>
@@ -475,6 +479,22 @@
 		</dependency>
 
 
+    
+ 	<dependency>
+			<groupId>com.artofsolving</groupId>
+			<artifactId>jodconverter-cli</artifactId>
+			<version>2.2.2</version>
+			<scope>system</scope>
+			<systemPath>${basedir}\src\lib\jodconverter-cli-2.2.2.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.artofsolving</groupId>
+			<artifactId>jodconverter</artifactId>
+			<version>2.2.2</version>
+			<scope>system</scope>
+			<systemPath>${basedir}\src\lib\jodconverter-2.2.2.jar</systemPath>
+		</dependency> -->
 		<!-- Smack Chat dependencies end -->
 
 
@@ -497,11 +517,6 @@
 			<groupId>net.wimpi</groupId>
 			<artifactId>telnetd-x</artifactId>
 			<version>2.1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-integration</artifactId>
-			<version>1.1.4.RELEASE</version>
 		</dependency>
 	</dependencies>
 	<build>

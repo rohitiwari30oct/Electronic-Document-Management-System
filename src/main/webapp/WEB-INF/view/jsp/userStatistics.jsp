@@ -75,15 +75,15 @@ List<Folder> lastMonthCreatedFolderList		=	(List<Folder>)request.getAttribute("l
                                        <!----------// FIRST BOX END HERE -------->
                                                        <!---------//  BOX STARTED HERE --------->
    					<div class="statical_graph">
-                  <div class="static_heading">Last month modified folder</div>
+                  	<div class="static_heading">Last month modified folder</div>
                     <div class="statistics_inner_content">
-                 <%for(Folder folder:lastMonthModifiedFolderList){ %>  
-                 
-	                  <div class="row_recent">
-    	                <div class="width_32_folder"></div>
-        	            <a href="javascript:void(0);"  id="<%=folder.getFolderPath() %>" onclick="getFileSystem(this.id)" ><%=folder.getFolderName() %></a> <span> Created by : <%=folder.getCreatedBy() %></span> </div>
-                 
-                 <%} %>
+		                 <%for(Folder folder:lastMonthModifiedFolderList){ %>  
+		                 
+			                  <div class="row_recent">
+		    	                <div class="width_32_folder"></div>
+		        	            <a href="javascript:void(0);"  id="<%=folder.getFolderPath() %>" onclick="getFileSystem(this.id)" ><%=folder.getFolderName() %></a> <span> Created by : <%=folder.getCreatedBy() %></span> </div>
+		                 
+		                 <%} %>
                  <div class="claer"></div>
                   </div>
                   <a href="javascript:void(0);" class="bottom_link">
@@ -158,9 +158,9 @@ List<Folder> lastMonthCreatedFolderList		=	(List<Folder>)request.getAttribute("l
                   <a href="javascript:void(0);" class="bottom_link">
                   <div class="botom_view_more"> View All </div>
                   </a> </div>
-                                         <!------------/// BOX END HERE -------->
-                                           <!------------/// BOX STARTED HERE -------->
-                <!--   <div class="statical_graph">
+                 <!------------/// BOX END HERE -------->
+                 <!------------/// BOX STARTED HERE -------->
+                	<!--   <div class="statical_graph">
                   <div class="static_heading">Top 20 recently downloaded documents</div>
                   <div class="statistics_inner_content">
                   <div class="row_recent">

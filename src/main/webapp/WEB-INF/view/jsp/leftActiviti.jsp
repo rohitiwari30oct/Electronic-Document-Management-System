@@ -10,6 +10,7 @@
 <script type="text/javascript">
 function getTasksPage(){
 	jQuery.get("leftActiviti_toDoTasks", function( data ) {
+		//alert(data);
 		 $( "#activitiForms" ).html( data );
 		});
 }
@@ -39,11 +40,11 @@ function getHistoryPage(){
                                                                 <ul>
                                                                           <li>
                                                                             <div class="folder"></div>
-                                                                            <span onclick="getTasksPage()">To Do</span>
+                                                                            <span onclick="getWorkflowsPage()">Workflows</span>
                                                                           </li>
                                                                           <li>
                                                                             <div class="folder"></div>
-                                                                            <span onclick="getWorkflowsPage()">Workflows</span>
+                                                                            <span onclick="getTasksPage()">To Do</span>
                                                                           </li>
                                                                           <li>
                                                                             <div class="folder"></div>

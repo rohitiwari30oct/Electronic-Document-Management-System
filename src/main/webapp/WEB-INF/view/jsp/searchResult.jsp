@@ -422,9 +422,16 @@ String userid=(String)request.getAttribute("userid");
 					contentType : "application/json",
 					async : false,
 					success : function(data) {
-						jQuery.get("getFileSystem", 
-               				 	{
-               					'path' : data
+						
+						var breadcumPath=$('#breadcumPathHome').val();
+						//alert(typeof(breadcumPath) == "undefined");
+						if(typeof(breadcumPath) == "undefined")
+						{	
+							breadcumPath="";
+						}
+						jQuery.post("getFileSystem", {
+							'path' : data,
+							'breadcumPath':breadcumPath
                					},
                				function( data ) {
                  					if(data=="true"){

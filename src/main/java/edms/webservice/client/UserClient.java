@@ -12,7 +12,7 @@ import edms.wsdl.LoginResponse;
 public class UserClient extends WebServiceGatewaySupport {
 
 
-	public LoginResponse loginRequest(String userId,String password) {
+	/*public LoginResponse loginRequest(String userId,String password) {
 		LoginRequest request = new LoginRequest();
 		request.setUserid(userId);
 		request.setPassword(password);
@@ -21,16 +21,17 @@ public class UserClient extends WebServiceGatewaySupport {
 				new SoapActionCallback(
 						"http://localhost:8080/ws/loginRequest"));
 		return response;
-	}
+	}*/
 
-/*	public GetUsersListResponse getUsersListRequest(String userId) {
+	public GetUsersListResponse getUsersListRequest(String userId,String password) {
 		GetUsersListRequest request = new GetUsersListRequest();
 		request.setUserid(userId);
+		request.setPassword(password);
 		GetUsersListResponse response = (GetUsersListResponse) 	getWebServiceTemplate().marshalSendAndReceive(
 				request,
 				new SoapActionCallback(
 						"http://localhost:8080/ws/getUsersListRequest"));
 		return response;
-	}*/
+	}
 
 }

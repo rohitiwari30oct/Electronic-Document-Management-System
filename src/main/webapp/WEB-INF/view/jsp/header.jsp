@@ -1,7 +1,8 @@
 
+<%@page import="edms.wsdl.Folder"%>
 <%@page import="edms.core.Config"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.security.Principal"%>
+<%@page import="edms.core.Principal"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 	<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
@@ -10,21 +11,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title> EDMS DESIGN </title>
-
-<!--jQuery and jQuery UI with jQuery Chat-->
-<script src="js/jquery-1.7.2.min.js" type="application/javascript" ></script>
 <!-- <script type='text/javascript' src='dwr/engine.js'></script>
 <script type='text/javascript' src='dwr/interface/ReverseClass.js'></script>
 <script type='text/javascript' src='dwr/util.js'></script> -->
+<!--jQuery and jQuery UI with jQuery Chat-->
+<script src="js/jquery-1.7.2.min.js" type="application/javascript" ></script>
+
 
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 <link type="text/css" href="css/jquery.ui.chatbox.css" rel="stylesheet" />
 <link type="text/css" href="css/new_icon.css" rel="stylesheet" />
+<link type="text/css" href="css/buttons.css" rel="stylesheet" />
 <script type="text/javascript" src="js/jquery.ui.chatbox.js"></script>
 <script type="text/javascript" src="js/javalargefileuploader.js"></script>
 
-<script src="js/left_event.js" type="application/javascript"></script>
-<script src="js/jquery_popup.js"></script>            
+<script src="js/left_event.js" type="text/javascript"></script>
+<script src="js/jquery_popup.js"></script>        
+<script src="js/pdf.js"></script>        
+<script src="js/pdf.worker.js"></script>            
 <style type="text/css">
 .my_notification {
 margin: -6px 0;
@@ -34,11 +38,43 @@ border-color: #f0c36d;
 border-radius: 2px;
 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 padding: 6px 10px;
-top: 4%;
+top: 35px;
 position: absolute;
-z-index: 99999;
+z-index: 999;
 }
 </style>
+
+<script >
+
+//Top
+   	$(document).on("click",".right_tab",function(){
+//alert("hi");
+	var opend=false;
+	if($(this).find('.icon_right').attr('class').indexOf('icon_right_minus')>-1)
+	{
+	opend=true;
+	}
+		  $('.content_right').css('display','none');
+		  $('.icon_right').removeClass('icon_right_minus');
+		  $('.icon_right').removeClass('icon_right_plus');
+		  if(!opend)
+		  {
+			  $(this).find('.icon_right').addClass('icon_right_minus');
+			  $(this).next('.content_right').css('display','block');
+			  }
+		  else {
+			  
+			  $(this).find('.icon_right').addClass('icon_right_plus');
+			  $(this).next('.content_right').css('display','none');
+			  }
+		  return false;
+	  
+}
+);
+
+   	
+</script>
+
 <script type="text/javascript">
 /* <![CDATA[ */
 $(document).ready(function(){
@@ -61,9 +97,87 @@ $(document).ready(function(){
 		//	At the end, we add return false so that the click on the link is not executed
 		return false;
 	});
+	
+	
+	function generate(type) {
+       
+      
+        return n;
+    }
+	
+	
+   
 });
 /* ]]> */
 </script>
+<!-- <script>
+$( "#formTo" )
+  .change(function () {
+    var str = "";
+    $( "#formTo option:selected" ).each(function() {
+      str += $( this ).text();
+    });
+    $( "#formTo" ).attr( 'value',str );
+  })
+  .change();
+</script> -->
+
+
+
+
+
+
+<script type="text/javascript">
+function authselectChange(valll){
+	//$("#authorizationStep option[value='"+valll+"']").attr("selected","selected");	
+	$("#authorizationStep").attr('value',valll);	
+
+}
+function appselectChange(valll){
+	$("#approvalStep").attr('value',valll);	
+
+}
+function verselectChange(valll){
+	$("#verificationStep").attr('value',valll);	
+
+	}
+function accselectChange(valll){
+	$("#accountStep").attr('value',valll);	
+
+	}
+
+</script>
+
+<script type="text/javascript">
+function deleteAttachment(val){
+	//alert(val.id);
+	var des='#ae'+val.id;
+//	alert(des);
+	var vall=$(des);
+//	alert(vall);
+	 $.ajax({
+			type : "GET",
+			url : "deleteAttachment",
+			data : {
+				'path' : val.id,
+			},
+			contentType : "application/json",
+			async : true,
+			success : function(data1) {
+				val.remove();
+				vall.remove();
+			}
+			});
+	 
+
+		$('#attachmentID').attr("value", $('#attachmentID').val().replace(val.id+",", ''));
+	 
+}
+
+</script>
+
+
+
 <script type="text/javascript">
 
 
@@ -89,7 +203,6 @@ $(document).ready(function() {
 
 <link href="css/style.css" type="text/css" rel="stylesheet"/>
 <link rel="stylesheet" href="css/jquery_popup.css" />
-
 <link rel="stylesheet" href="css/jquery_popup.css" />
 <link rel="stylesheet" href="css/new_icon.css" />
 <link rel="stylesheet" href="css/new_changes.css" />
@@ -101,123 +214,64 @@ $(document).ready(function() {
 <link rel="stylesheet" href="css/share_drop_down.css" />
 <link rel="stylesheet" href="css/jquery-ui.css" />
 <script src="js/share_drop_down.js"></script>
+<script src="js/jquery.noty.packaged.js"></script>
 
 <!-- JavaScript Includes -->
-	<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>	 -->
-		<script src="js/jquery.knob.js"></script>
-
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>	 -->
+		
 		<!-- jQuery File Upload Dependencies -->
+		<script src="js/jquery.knob.js"></script>
 		<script src="js/jquery.ui.widget.js"></script>
 		<script src="js/jquery.iframe-transport.js"></script>
 		<script src="js/jquery.fileupload.js"></script>
-		
 		<!-- Our main JS file -->
 		<script src="js/script.js"></script>
+		
 <script>
 var count = 0;
 var str = "";
 $(document).ready(function() {
-	 
-	
     $('.select-toggle > .space').on('click', function(event) {
-	
-
-    
 		window.select_value = $(this).children('.inner_val').text();
-		
-		//var find_val = $(this).find('.active').length;
-		//alert(find_val);
-		
-	   
-
-	
-		//  alert(count_click);
         if (event.ctrlKey) {
             str = str + $(this).text() + ",";
-			
-			
-				 
 				 $(this).addClass('active');
 				var count_length = $(this).append('<span class="hide_this">Hi</span>');
 				window.find_value = $(this).find('span').length;
-				
-			
-				//find_value
 				var find_get_val = $(this).children('.inner_val').html();
-				//alert(find_get_val);
-				
 					$('.get_all_select').append('<div class='+ find_get_val+'>'+select_value+'</div>')
-				
 				if( find_value >=2 )
-				
 				{
 					$(this).removeClass('active');
 					$(this).parent().children('.get_all_select').children('.'+ select_value).addClass('new_tset');
-					//alert($(this).parent().children('.get_all_select'));
-					//alert('.'+select_value)
 					$(this).children('span').remove();
-					//alert(select_value);
-					//alert(find_get_val);
-					
-					//alert('.'+select_value)
-					//$(this).children('span').remove();
 					select_value=select_value.trim();
 					find_get_val=find_get_val.trim();
-					//alert(select_value);
-					//alert(find_get_val);
 					if(select_value ==  find_get_val)
 					{
-					//	alert('Enter Test')
 						$('.'+select_value).addClass('By');
-					//	alert($('.Hello1'));
-						//$('.get_all_select >.'+find_get_val).remove();
-						
 						}
-					
 					}
-				
-				 
-				 
-			
-			// $(this).find('.active').prop('selected', isSelect)
-
-                   
-			
         }
-		
         else {
             str = $(this).text();
-           // alert(str);
 		   $('div.active').removeClass('active');
 		   $(this).addClass('active');
 		   $('.get_all_select').children().remove();
 		     $('.get_all_select').append('<div class='+ find_get_val+'>'+select_value+'</div>')
-           // str = '';
         }
-		//alert(find_value);
 		event.stopPropagation();
     });
 	
 	
 	$('.submit').click(function(){
-		
-			  // alert(find_get_val);
-	
-      //  str = ''; // after alert reset the str
 	  $('.get_all_select').show();
 	  event.stopPropagation();
-		
-		
 		});
 		
 	$("html").click(function () {
-         
 		         $('.space').removeClass('active');
-		 
                 });
-
-	
-	
 });
 </script>
 
@@ -228,14 +282,14 @@ $(document).ready(function() {
 //$('.web_dialog_overlay').hide();
 
 function myFunctionl() {
-    $('.web_dialog_overlay').show();
+   // $('.web_dialog_overlay').show();
   $('.mid_loading').css( "zIndex", 10 );
 	$('.mid_loading').show();
 	
 }
 
 function myStopFunction(myVar) {
-    $('.web_dialog_overlay').hide();
+   // $('.web_dialog_overlay').hide();
   
    $('.mid_loading').css( "zIndex", 0 );
 	$('.mid_loading').hide();
@@ -302,6 +356,7 @@ String userid=(String)request.getAttribute("userid");
  <script type="text/javascript">
 	function getSubFolders(folderPath) {
 		//alert(folderPath);
+		
 		var divFolder = folderPath.substr(6);
 	     if($("#listdiv" + divFolder).css('display')=='none')
 		  {
@@ -318,9 +373,7 @@ String userid=(String)request.getAttribute("userid");
 		//alert(folderPath);
 		//alert(divFolder);
 		if(document.getElementById("listdiv" + divFolder)!=null){
-		
 	 	var divContent = document.getElementById("listdiv" + divFolder).innerHTML;
-	 	
 		//alert(divContent);
 		if(divContent){
 		if (divContent.length > 30) {
@@ -370,10 +423,10 @@ String userid=(String)request.getAttribute("userid");
 		   divFolder=paths;
 		   divFolder=divFolder.replace('_', 'pahlesetha');
 		   divFolder=replaceAllSlash(divFolder);
-		   divFolder=divFolder.replace('@','_');
+		   divFolder=divFolder.replace('@','_avi');
 		   divFolder=divFolder.replace('.','_');
 		   divFolder=replaceAllSpace(divFolder);
-		   
+		  
 		 //  alert(divFolder);
 	     if($("#listdiv" + divFolder).css('display')=='none')
 		  {
@@ -420,34 +473,35 @@ String userid=(String)request.getAttribute("userid");
 					//myStopFunction(myVar);
 				}}
 			});
-			
-		}
-		//myStopFunction(myVar);
 		}
 		//myStopFunction(myVar);
 		}}
 		//myStopFunction(myVar);
-		
+		}
+		//myStopFunction(myVar);
 		}
 </script>
 <script type="text/javascript">
 	function getFileSystem(folderPath) {
-	//	alert('dsf');
-		var myVar=setTimeout(myFunctionl,500);
+	var breadcumPath=$('#breadcumPathHome').val();
+	//alert(typeof(breadcumPath) == "undefined");
+	if(typeof(breadcumPath) == "undefined")
+	{	
+		breadcumPath="";
+	}
+	var myVar=setTimeout(myFunctionl,500);
 	jQuery.post("getFileSystem", 
 				 {
-			'path' : folderPath
+			'path' : folderPath,
+			'breadcumPath':breadcumPath
 		},
-				function( data ) {
+	function( data ) {
 			if(data=="true"){location.href="ajaxTrue";}else{
 	         $( ".right" ).html( data );
 	         myStopFunction(myVar);	
 	        }});
-	
 	getSubFoldersFromDoc("listli"+folderPath);
 	}
-	
-
 	function replaceAllSpace(filename){
 		while(filename.indexOf(' ')>=0){
 			filename=filename.replace(' ','_spc_spc_');
@@ -478,17 +532,28 @@ function getLeftDocument(){
 
 
 
+
 <script type="text/javascript">
 	function getSharedFileSystem(folderPath) {
+		var breadcumPath=$('#breadcumPath').val();
+		//alert(typeof(breadcumPath) == "undefined");
+		if(typeof(breadcumPath) == "undefined")
+		{	
+			breadcumPath="";
+		}
 			var myVar=setTimeout(myFunctionl,500);
 		jQuery.get("getSharedFileSystem", 
 				 {
-			'path' : folderPath
+			'path' : folderPath,
+			'breadcumPath':breadcumPath
 		},
 				function( data ) {
 			if(data=="true"){location.href="ajaxTrue";}else{
 	         $( ".right" ).html( data );
 				myStopFunction(myVar);
+				
+
+				//getSubFoldersFromDoc("listli"+folderPath);
 			}
 	        });
 		
@@ -496,234 +561,45 @@ function getLeftDocument(){
 </script>
 <script type="text/javascript">
 					function getFileContent(folderPath) {
+						folderPath=$('#multiPath').val();
 						var myVar=setTimeout(myFunctionl,500);
 						location.href = "${pageContext.request.contextPath}/getFileContent?folderPath="
 								+ folderPath;
 						myStopFunction(myVar);
 					}
 				</script>
+<script type="text/javascript">
+					function getAttachment(folderPath) {
+					//	folderPath=$('#attachmentID').val();
+					//	alert(folderPath);
+						var myVar=setTimeout(myFunctionl,500);
+
+
+						window.open(
+								"${pageContext.request.contextPath}/getAttachment?attachmentID="
+								+ folderPath,
+						  '_blank' // <- This is what makes it open in a new window.
+						);
+
+
+						
+						myStopFunction(myVar);
+					}
+				</script>
+<script type="text/javascript">
+					function getLinkUrl(folderPath) {
+						var myVar=setTimeout(myFunctionl,500);
+						location.href = "${pageContext.request.contextPath}/getPublicDoc?filePath="
+								+ folderPath;
+						myStopFunction(myVar);
+					}
+				</script>
+				
+				
+				
+				
 <script  src="js/share_js.js"></script>
- <!-- 
-  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
-       
-        <script src="js/javalargefileuploader.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function () {
-
-                //construct object
-                jlfu = new JavaLargeFileUploader();
-
-                //call the initializing function
-                jlfu.initialize(function (pendingFiles) {
-
-                    //iterate over all the pending files
-                    for (key in pendingFiles) {
-                        var pendingFile = pendingFiles[key];
-
-                        //create a control element for each of them
-                        appendUploadControls(pendingFile.id);
-
-                        //if the file is complete
-                        if (pendingFile.fileComplete) {
-                            //specify it in the em element
-                            document.getElementById(pendingFile.id).children[0].textContent = "The file '" + pendingFile.originalFileName + "' has been fully uploaded (" + pendingFile.fileCompletion + "/" + pendingFile.originalFileSize + ").";
-                            deleteElementsButEmAndCancel(pendingFile.id);
-                        }
-                        //else if incomplete and pending 
-                        else if (pendingFile.fileCompletion) {
-
-                            //describe the file so that the user can select it again
-                            document.getElementById(pendingFile.id).children[0].textContent = "The file '" + pendingFile.originalFileName + "' has been partially uploaded (" + pendingFile.fileCompletion + "/" + pendingFile.originalFileSize + "). Reselect it to continue uploading it or cancel it.";
-
-                            //set progress in progress bar
-                            $("#" + pendingFile.id).children(".progressbar").progressbar({
-                                value: Math.floor(pendingFile.percentageCompleted)
-                            });
-
-                            //set if there is a rate configured
-                            if (pendingFile.rateInKiloBytes) {
-                                document.getElementById(pendingFile.id).children[2].value = pendingFile.rateInKiloBytes;
-                            }
-
-                        }
-
-                    }
-
-                }, function (message) {
-                    alert(message);
-                });
-
-                //specify some configuration
-                jlfu.setMaxNumberOfConcurrentUploads(3);
-                jlfu.getErrorMessages()[9] = "More than 3 pending upload, file is queued.";
-
-                //add a file upload element
-                appendFileInputElement();
-
-            });
-
-            function getFileId(element) {
-                return element.parentElement.id;
-            }
-
-            function appendFileInputElement() {
-
-                //get handle to main container
-                var mainContainer = document.getElementById('fileContainer');
-
-                //hide the last children
-                if (mainContainer.children.length > 0) {
-                    mainContainer.children[mainContainer.children.length - 1].hidden = true;
-                }
-
-                //generate a new file input control
-                var fileInput = document.createElement("input");
-                fileInput.type = "file";
-                fileInput.setAttribute('multiple', 'multiple');
-                mainContainer.appendChild(fileInput);
-
-                //add a listener
-                fileInput.addEventListener("change", function (e) {
-
-                    //hide the fileupload and append a new one
-                    appendFileInputElement();
-
-                    //process the file upload
-                    jlfu.fileUploadProcess(e.target,
-
-                    //define a start callback to create the UI that will interact with the file upload
-                    function (pendingFile, origin) {
-                        appendUploadControls(pendingFile.id);
-                    },
-
-                    //define a progressCallback to show the progress in the em elements 
-                    function (pendingFile, percentageCompleted, uploadRate, estimatedRemainingTime, origin) {
-                        document.getElementById(pendingFile.id).children[0].textContent = "Uploading " + pendingFile.firstChunkCrc + " ... (" + percentageCompleted + "% complete) at " + uploadRate + " per second. " + estimatedRemainingTime + " remaining.";
-                        $("#" + pendingFile.id).children(".progressbar").progressbar({
-                            value: Math.floor(percentageCompleted)
-                        });
-                    },
-
-                    //define a finishCallback showing the completion in the em element 
-                    function (pendingFile, origin) {
-                        document.getElementById(pendingFile.id).children[0].textContent = "Upload of " + pendingFile.originalFileName + " (" + pendingFile.originalFileSize + ") completed.";
-                        deleteElementsButEmAndCancel(pendingFile.id);
-                    },
-
-                    //define an exception callback
-                    function (message, origin, pendingFile /* pending file object that can be null! if null, it is a general error */ ) {
-                        if (pendingFile) {
-                            document.getElementById(pendingFile.id).children[0].textContent = message;
-                        } else {
-                            document.getElementById("error").textContent = message;
-                        }
-                    });
-
-                }, false);
-
-            }
-
-            function deleteElementsButEmAndCancel(fileId) {
-                var div = $('#' + fileId);
-                var em = div.children(":first").detach();
-                var cancel = div.children(".cancel").detach();
-                div.empty();
-                div.append(em);
-                div.append(cancel);
-                div.append(document.createElement('hr'));
-            }
-
-            function appendUploadControls(fileId) {
-
-                //get the ui container
-                var uiContainer = document.getElementById('uiContainer');
-
-                //append a div
-                var div = document.createElement("div");
-                div.setAttribute('id', fileId);
-                uiContainer.appendChild(div);
-
-                ////
-                //create the controls
-
-                //progress bar
-                var progressBar = document.createElement("div");
-                progressBar.setAttribute("class", "progressbar");
-                progressBar.setAttribute("style", "height:20px;");
-
-                // rate input
-                var rateInput = document.createElement("input");
-                rateInput.type = "text";
-
-                // rate button
-                var rateButton = document.createElement("button");
-                rateButton.addEventListener("click", function (e) {
-                    jlfu.setRateInKiloBytes(getFileId(this), this.parentElement.children[2].value);
-                });
-                rateButton.appendChild(document.createTextNode('Apply'));
-
-                // cancel link
-                var cancel = document.createElement("A");
-                cancel.setAttribute("href", "javascript:void(0);");
-                cancel.setAttribute("class", "cancel");
-                cancel.addEventListener("click", function (e) {
-                    div.children[0].textContent = "Cancelling...";
-                    jlfu.cancelFileUpload(getFileId(this), function (pendingFileId) {
-                        var div = document.getElementById(pendingFileId);
-                        div.parentElement.removeChild(div);
-                    });
-                });
-                cancel.appendChild(document.createTextNode('Cancel'));
-
-                // pause link
-                var pause = document.createElement("A");
-                pause.setAttribute("href", "javascript:void(0);");
-                pause.addEventListener("click", function (e) {
-                    div.children[0].textContent = "Pausing...";
-                    jlfu.pauseFileUpload(getFileId(this), function (pendingFile) {
-                        div.children[0].textContent = pendingFile.originalFileName + " is paused.";
-                    });
-                });
-                pause.appendChild(document.createTextNode('Pause'));
-
-                // resume link
-                var resume = document.createElement("A");
-                resume.setAttribute("href", "javascript:void(0);");
-                resume.addEventListener("click", function (e) {
-                    div.children[0].textContent = "Asking for resume...";
-                    jlfu.resumeFileUpload(getFileId(this), function (pendingFile) {
-                        div.children[0].textContent = "Resuming " + pendingFile.originalFileName + " ...";
-                    });
-                });
-                resume.appendChild(document.createTextNode('Resume'));
-
-
-                ////
-                //append the controls to the div
-                div.appendChild(document.createElement("em"));
-                div.appendChild(progressBar);
-                div.appendChild(document.createTextNode('Limit the upload rate to '));
-                div.appendChild(rateInput);
-                div.appendChild(document.createTextNode(' KB '));
-                div.appendChild(rateButton);
-                div.appendChild(document.createTextNode(' | '));
-                div.appendChild(pause);
-                div.appendChild(document.createTextNode(' | '));
-                div.appendChild(resume);
-                div.appendChild(document.createTextNode(' | '));
-                div.appendChild(cancel);
-                div.appendChild(document.createElement('hr'));
-
-
-            }
-        </script>
  
- 
- 
- 
- 
- 
-  -->
      <style>
   #progressbar {
     margin-top: 20px;
@@ -747,16 +623,24 @@ function getLeftDocument(){
 </head>
       <body>
 
-<div id="action_gif" class="my_notification" style="display: none;left: 46%;">
+<div id="action_gif" class="my_notification" style="display: none;left: 45%;">
 Processing Please wait...
 </div>
+         
+         <div id="workflow_alert" class="my_notification"
+		style="display: none; left: 43%;">Successfully Submitted!</div>
+		
               <div class="main_div">
                         <!----// HEADER --->
                         <div class="main_header">
                                   <div class="header">
                                      <div onclick="getPage('fileSystem')" style="cursor: pointer;" class="logo_space">
                                           <!---/// LOGO --->
-                                           <img src="images/logo.png" />
+                                          <!-- style=" height: 65px;width: 150px;" -->
+                                          <img src="images/logo.png"  />
+                                          
+                                          
+                                           <!--  <img src="images/Digital Vault2.png" style="width:164px;" />  -->
                                             <!---//LOGO END -->
                                      </div>
                                     <!--------// SEARCH HERE --------->
@@ -765,10 +649,10 @@ Processing Please wait...
                                           <div class="search_icon" onclick="searchFromTop()"> 
                                           <img src="images/search.png"> </div>
                                           <div class="serach_top" >
-                                               <input type="text" id="searchFromTop"  onkeypress="return runScript(event)" />
+                                               <input type="text" id="searchFromTop"  onkeypress="return runScript11(event)" />
                                                <span><img src="images/arrow_down.png" /></span>
                                              <script type="text/javascript">
-                                             function runScript(e) {
+                                             function runScript11(e) {
                                             	    if (e.keyCode == 13) {
                                             	    	 searchFromTop();
                                             	        return false;
@@ -777,19 +661,19 @@ Processing Please wait...
                                              
                                              
                                                     function searchFromTop(){
+                                                    	
                                                     	$('.search_box_details').css('display','none');
                                             		 var myVar=setTimeout(myFunctionl,500);
                                                     	var urltext=$('#searchFromTop').val();
-                                                    	//alert(urltext[1]);
+                                                    	//alert(urltext);
                                                     	jQuery.get('searchDocByName', 
                                                				 	{
                                                					'name' : urltext
                                                					},
                                                				function( data ) {
-                                               						if(data=="true"){location.href="ajaxTrue";}else{
+                                               						if(data=="ajaxTrue"){location.href="index";}else{
                                                	         		$( ".right" ).html( data );
                                                	             myStopFunction(myVar);
-                                               	            // alert('gfgf');
                                                						}
                                                	        		});
                                                    	
@@ -803,13 +687,13 @@ Processing Please wait...
                                     <div class="search_box_details"> 
                           <!-------Tab Content Here -------------->
                          	<div id="tabs_wrapper">
-                                <div id="tabs_container">
-                                     <!--    <ul id="tabs">
+                               <!--  <div id="tabs_container">
+                                        <ul id="tabs">
                                               <li class="active"><a href="#tab1">BASIC</a></li>
                                               <li><a class="icon_accept" href="#tab2">ADVANCED</a></li>
                                               <li><a href="#tab3">RECENT SEARCH</a></li>
-                                        </ul> -->
-                               	</div>
+                                        </ul>
+                               	</div> -->
                          		<div id="tabs_content_container">
                                       <div id="tab1" class="tab_content" style="display: block;"> 
                                       <!-------------// Tab Content Started Here ----------------->
@@ -886,6 +770,7 @@ Processing Please wait...
                                                       <li>Show Documents of : </li>
                                                       <li>
                                                         <select onchange="getDocsByDate(this.value)"  onkeypress="return runScript3(event,this.value)" >
+                                                          <option value="0">Please Select</option> 
                                                           <option value="yyyy">This Year</option>
                                                           <option value="mm">This Month</option>
                                                           <option value="dd">Today</option>
@@ -926,11 +811,11 @@ Processing Please wait...
                                                					'name' : urltext[1]
                                                					},
                                                				function( data ) {
-                                               						if(data=="true"){location.href="ajaxTrue";}else{
-                                               							//alert('kkk');
-                                               						   myStopFunction(myVar);
+                                               						if(data=="ajaxTrue"){location.href="index";}else{
                                                							$( ".right" ).html( data );}
-                                               	        		});
+
+                                            						   myStopFunction(myVar);
+                                               					});
                                                    
                                                     }
                                                     
@@ -1077,53 +962,23 @@ Processing Please wait...
 
 <!---------// SHARING PAGES STARTED---------->
 <div class="sharing_mange">
+<jsp:include page="sharingPopup.jsp" />
+</div>   
+                 
+</div>
+
+
+
+<%-- <div class="sharing_mange">
    <h1>Sharing and Security <div class="mange_can_top">X</div></h1>
    <div class="table_append">
                    <table class="append_tr">
-                      <!--  <tr>
-                           <td colspan="2">Link to share (only accessible by collaborators)</td>
-                       </tr>
-                       <tr>
-                           <td colspan="2"><input type="text"  class="link_share"/></td>
-                       </tr> 
-                       <tr class="share_bottom">
-                           <td colspan="2">Who has access</td>
-                       </tr>
-                       <tr>
-                           <td>Hari Om Srivastava (you)<span class="email_share">hari@silvereye.co</span></td>
-                           <td class="text_right">Is Owner</td>
-                       </tr>-->
                        <tr class="share_bottom">
                            <td colspan="2">Invite people:</td>
                        </tr>
                        <tr>
                            <td><input type="text"  class="initive_people userforshare"  /></td>
-                           
-                           
                            <td>
-                                      <!--// SHARE OPTION --->
-<!-- <div class="share_option_dropdown">
-<div class="for_share_icon">
--// ADD NEW -
-<img src="images/eye-24-256.png" class="view_icon" />
-<img src="images/edite.png" class="edite_icon" />
-<img src="images/comment.png" class="comment_icon" />
--// ADD NEW ICON END -
-<div class="clear"></div>
-</div>
-<span class="view_text">Can View</span>
-<span class="can_text">Can Edit</span>
-<span class="comment_text">Can Manage</span><div class="down_arrow_share"><img src="images/cal-open.png" /></div></div>
-
-                                              <div class="share_menu_dropdown">
-<ul>
-<li class="can_view"> <span>&#x2714;</span> <div>Can View</div></li>
-<li class="can_edit"> <span>&#x2714;</span> <div>Can Edit</div></li>
-<li class="can_comment"> <span>&#x2714;</span> <div>Can Manage</div></li>
-</ul>
-</div>
-             -->                          
-                                      
                                       <div style="float: left;">
                                            <select style="width: 100px;height: 28px;" class="permissionsforshare">
                                                <option value="ur">Can View </option>
@@ -1136,8 +991,7 @@ Processing Please wait...
                           </td>
                        </tr>
                    </table>
-                 
-<%-- <script type="text/javascript">
+ <script type="text/javascript">
 $(function() {
  window.availableTags = [ <%
                   String userslist="";
@@ -1152,22 +1006,10 @@ $( ".userforshare" ).autocomplete({
 source: availableTags
 });
 });
-</script>  --%>
+</script>  
                    <div class="clear"></div>
-   
         </div>
-        <!--    <table>
-           		<tr>
-           		<td colspan="2"><input type="checkbox" />Notify people via email<a href="javascript:void(0);">Add message</a></td>
-          		</tr>
-   				</table> 
-   		-->
                  <div>
-                     <!--   
-                     <div class="your_self">
-                     <input type="checkbox"/>
-                     <a href="javascript:void(0);">Send a copy to myself </a></div>
-                     -->   
                      <div class="share_right">
                                <div class="share_more">Add More</div>
                                <div class="cancel_share mange_can">Cancel</div>
@@ -1175,19 +1017,25 @@ source: availableTags
                      </div>
                  </div>
              <div class="clear"></div>    
-</div>
+</div> --%>
 <div class="web_dialog_overlay" ></div>
-<div class="mid_loading" > <img src="images/loading2.gif" />
-<h1>Loading....</h1>
+<div class="mid_loading" > <!-- <img src="images/loading2.gif" /> -->
+<span style="color:#f00;">Loading Please wait...</span>
 </div>
 <!---------// SHARING PAGES END---------->
 <!-- assiging permissions using new view -->
 <script type="text/javascript">
 	function assignSinglePermissions(doctype) {
+		
 		$('.sharing_mange').hide();
 	    $('.web_dialog_overlay').hide();
 		var count=0;
+		
+		
 		var myVar=setTimeout(myFunctionl,500);
+		var userss="";
+		var valuess="";
+		
 		$(".userforshare").each(function() {
 			count++;
 			var counter=0;
@@ -1202,8 +1050,89 @@ source: availableTags
 				var user = "";
 				vale = valu[1];
 				user = valu[0];
+				
+				var sourcePaths=$('#multiPath').val();
+				docPath1=sourcePaths;
+				
+				//alert(docPath1);
 				value = valu[1];
 			//	alert("user = "+user+"  value = "+value);
+			if(user!=""){
+				userss+=user+",";
+				valuess+=value+",";
+				}
+			}
+			});
+		});
+		//alert(userss);
+		$.ajax({
+			type : "GET",
+			url : "${pageContext.request.contextPath}/assignSinglePermission",
+			data : {
+				'user' : userss,
+				'value' : valuess,
+				'doctype' : doctype,
+				'multipath':docPath1,
+			},
+			contentType : "application/json",
+			async : true,
+			success : function(data) {
+				if(data=="true"){location.href="ajaxTrue";}else{
+					showMsg("success","Shared Successfully");
+
+					myStopFunction(myVar);
+					
+				}
+			}
+		}); 
+
+	}
+	
+	function showMsg(type,msg){
+		 var n = noty({
+	            text        : msg,
+	            type        : type,
+	            dismissQueue: false,
+	            layout      : 'topCenter',
+	            theme       : 'defaultTheme'
+	        });
+		
+		
+		     	var success = n;
+		     //	$.noty.setText(success.options.id, ''); // same as alert.setText('Text Override')
+		     	setTimeout(function () {
+		     	           $.noty.close(success.options.id);
+		     	       }, 6000);   
+	}
+	
+	function showMsgWF(msg){
+		$("#workflow_alert").html(msg);
+		$("#workflow_alert").show();
+		     //	$.noty.setText(success.options.id, ''); // same as alert.setText('Text Override')
+		     	setTimeout(function () {
+		     		$("#workflow_alert").hide();
+		     	       }, 3000);   
+	}
+</script>
+
+
+
+<!-- 
+<script type="text/javascript">
+function getDocProperties(folderPath) {
+	
+	
+	
+	
+		$('.sharing_mange').hide();
+	    $('.web_dialog_overlay').hide();
+		var count=0;
+		var myVar=setTimeout(myFunctionl,500);
+		
+		
+		
+		
+		
 				$.ajax({
 					type : "GET",
 					url : "${pageContext.request.contextPath}/assignSinglePermission",
@@ -1211,23 +1140,24 @@ source: availableTags
 						'user' : user,
 						'value' : value,
 						'doctype' : doctype,
+						'folderPath':docPath1,
 					},
 					contentType : "application/json",
 					async : true,
 					success : function(data) {
-						if(data=="true"){location.href="ajaxTrue";}else{
+						if(data=="true"){
+							location.href="ajaxTrue";
+							}else{
 							myStopFunction(myVar);
 							alert("Shared Successfully");
 						}
 					}
 				}); 
-				}
-			});
-		});
 	}
-</script>
+</script> -->
 <script type="text/javascript">
 	function getDocProperties(folderPath) {
+		$('#rerename').attr('onclick','renameFolder()');
 			var myVar=setTimeout(myFunctionl,500);
 		$('#oldFolderName').val(folderPath);
 		$('#newFolderName').val(folderPath.substring(folderPath.lastIndexOf("/")+1));
@@ -1249,9 +1179,11 @@ source: availableTags
 </script>
 <script type="text/javascript">
 	function getFileProperties(folderPath) {
+		$('#rerename').attr('onclick','renameFile()');
 		$('#oldFolderName').val(folderPath);
 		//alert(folderPath.lastIndexOf('/'));
-		$('#newFolderName').val(folderPath.substring(folderPath.lastIndexOf("/")+1));
+	//	alert("sdf");
+		$('#newFolderName').attr('value',folderPath.substring(folderPath.lastIndexOf("/")+1,folderPath.lastIndexOf(".")));
 		$('#shareButtonId').attr('onclick','assignSinglePermissions("currentFile")');
 		//alert($('#newFolderName').val());
 			var myVar=setTimeout(myFunctionl,500);
@@ -1282,10 +1214,10 @@ source: availableTags
 		}, function(data) {
 			if(data=="true"){location.href="ajaxTrue";}else{}
 			$(".right_icon_main").html(data);
-			myStopFunction(myVar);
 		});
 			$(".downloadFolder").attr('id',folderPath);
 			$(".download_right").attr('id',folderPath);
+			myStopFunction(myVar);
 	}
 </script>
 <div id="contactdiv_6">
@@ -1294,81 +1226,64 @@ source: availableTags
  enctype="multipart/form-data">
 			<div id="drop">
 			<span>	Drop Here </span>
-<div class="textClose" ><span >X</span></div>
-				<a>Browse</a>
-				<input type="file" name="upl" multiple />
+			<div class="textClose" >
+			<%-- <%
+			Folder pthh=(Folder) request.getAttribute("currentFolder");
+			if(pthh!=null){
+			%>
+			<span  onclick="getFileSystem('<%=pthh.getFolderPath() %>')" >X</span>
+			<%}else{ %> --%>
+			
+			<span >X</span>
+			<%-- <%} %> --%>
+			</div>
+			<a>Browse</a>
+			<input type="file" name="upl" multiple />
 			</div>
 </form:form>
-<form:form class="uploadForm1" id="upload" method="post" action="uploadDocumentByJcr"
- commandName="fileupload"
+<form:form class="uploadForm1" id="upload" method="post" action="uploadDocumentByJcr" commandName="fileupload"
  enctype="multipart/form-data">
 <div class="uploadMultiple"> 
 			<ul>
 			</ul>
 			<div class="clear"></div>    
 </div>
-<input type="button" class="finishUpload" value="Finish" />
+<%-- <%
+Folder pthh1=(Folder) request.getAttribute("currentFolder");
+if(pthh1!=null){
+%>
+<input type="button" class="finishUpload" value="Finish" onclick="getFileSystem('<%=pthh1.getFolderPath() %>')" />
+<%}else{ %> --%>
+<input type="button" class="finishUpload" value="Finish"  />
+<%-- <%} %> --%>
 <div class="clear"></div> 
 </form:form>
-<%-- 	<form:form id="contact" class="form uploadHide1" method="post"
-		action="uploadDocumentByJcr" commandName="fileupload"
-		enctype="multipart/form-data">
-		<h3>Add New Documents</h3>
-		<p>
-			File Name: <span>*</span>
-		</p>
-		<input class="custom-file-input attachment_file cc_clear"  name="file2" id="file2" multiple type="file"
-			 />
-		<input type="button" value="Upload" onclick="uploadFormData()"/>
-		<input type="button" value="Cancel" class="cancle" onclick="hideUpload()" />
-	</form:form> --%>
-
-
-	<script type="text/javascript">
-		function uploadFormData() {
-			$("#contactdiv_6").css("display", "none");
-         	
-			var oMyForm = new FormData();
-			for (var i = 0; i < file2.files.length; i++) {
-				oMyForm.append("file" + i, file2.files[i]);
-			}
-			 $(".uploadHide").hide();
-			// document.getElementById('action_gif').style.display= 'block';
-			var myVar=setTimeout(myFunctionl,500);
-	       	 // $(".gifLoader").show();
-			$.ajax({
-				url : '${pageContext.request.contextPath}/uploadDocumentByJcr',
-				data : oMyForm,
-				dataType : 'text',
-				processData : false,
-				contentType : false,
-				type : 'POST',
-				success : function(data) {
-					if(data=="true"){location.href="ajaxTrue";}else{
-					// $(".uploadHide").hide();
-			       	//  $(".gifLoader").hide();
-			       	//alert(data);
-					var alt=data.substring(data.lastIndexOf(",")+1);
-					data=data.substring(0,data.lastIndexOf(","));
-					$("#fileThumbView>ul").append(data);
-					//alert(alt);
-					//document.getElementById('action_gif').style.display= 'none';
-					myStopFunction(myVar);
-					
-					}
-				}
-			});
-			$('.cc_clear').val('');
-
-		}
-function hideUpload(){
-	$("#contactdiv_6").css("display", "none");
-}
-	</script>
-
- <!-- <div class="gifLoader"><img src="images/loader.gif" alt="Uploading, Please wait..." /></div> -->
 </div>
-
+	<input type="hidden" id="checkAttactmentPopup" value="tt" />
+			
+					
+<div id="contactdiv_616">
+<form:form class="uploadForm" id="upload" method="post" action="uploadAttachment"
+ commandName="fileupload"
+ enctype="multipart/form-data">
+			<div id="drop">
+			<span>	Drop Here </span>
+<div class="textClose2" ><span >X</span></div>
+				<a>Browse</a>
+				<input type="file" name="upl" multiple />
+			</div>
+</form:form>
+<form:form class="uploadForm1" id="upload" method="post" action="uploadAttachment" commandName="fileupload"
+ enctype="multipart/form-data">
+<div class="uploadMultiple"> 
+			<ul>
+			</ul>
+			<div class="clear"></div>    
+</div>
+<input type="button" class="finishUpload2" value="Finish" />
+<div class="clear"></div> 
+</form:form>
+</div>
 <!---------------//// Delete USER POP UP ----------->
 <div id="contactdiv_77">
 	<form class="form"  action="#" id="contact">
@@ -1383,11 +1298,12 @@ function hideUpload(){
                       $(document).ready(function() {
                     	  var folderPath="";
                       $('#deleteDoc').click(function(event) {
+                    	  //alert("sdfs");
         					$("#contactdiv_77").css("display", "none");
         					var myVar=setTimeout(myFunctionl,500);
                     	  //	var docPath=document.getElementById("oldFolderName").value;
                     	  	var docPath=document.getElementById("multiPath").value;
-                    	 	// alert(docPath);
+                    	 	//alert(docPath);
                     	  $.ajax({
           					type : "GET",
           					url : "${pageContext.request.contextPath}/recycleDoc",
@@ -1397,25 +1313,41 @@ function hideUpload(){
           					},
           					async : true,
           					success : function(data) {
-          						if(data=="true"){location.href="ajaxTrue";}else{
-
+          						if(data=="true"){
+          							location.href="ajaxTrue";
+          						}else if(data=="false"){myStopFunction(myVar);
+          						showMsg("success","removed successfully");
+          						}	else{
+          						
                	         			myStopFunction(myVar);
-          						//$("#folderView>.row_content>ul").append(data);
-          						 folderPath=data;
-          					//alert(folderPath);
-                        	jQuery.post("getFileSystem", 
-                   				 	{
-                   					'path' : folderPath
+               	         			//alert(data);
+               	         			
+	                             //   showMsg("success",data);
+               	         			var alertt=data;
+	                                folderPath=$('#currentDirectory').val();
+	                              //  alert(folderPath);
+                        		 	var breadcumPath=$('#breadcumPathHome').val();
+									//alert(typeof(breadcumPath) == "undefined");
+									if(typeof(breadcumPath) == "undefined")
+									{	
+										breadcumPath="";
+									}
+									jQuery.post("getFileSystem", {
+										'path' : folderPath,
+										'breadcumPath':breadcumPath
                    					},
                    				function( data ) {
                    						if(data=="true"){
                    							location.href="ajaxTrue";
                    							}else{
 	                   	         			$( ".right" ).html( data );
+	                                    //	showMsg("success","Moved to trash.");
+	                                     showMsg("success",alertt);
 	                   	         			myStopFunction(myVar);
                    						}
-                   	        		});
-          					}}
+                   	        		}); 
+          							}
+          						}
           				}); 
                       });
                       });
@@ -1426,62 +1358,7 @@ function hideUpload(){
 
 
 <!---------------//// ADD GROUP USER POP UP ----------->
-<div id="contactdiv_66">
-	<form class="form" action="#" id="contact">
-		<h3>Create Folder</h3>
-		<p>
-			Please enter a new Folder name <span>*</span>
-		</p>
-		<input type="text" id="folderName" /> <%-- <input type="hidden"
-			id="parentfolderName" value='<%=currentFolder.getFolderPath()%>' /> --%>
-		<br />
-		<div class="clear"></div>
-		<input type="button" value="Create" onclick="createFolder()" /> <input
-			type="button" id="cancel" value="Cancel" /> <br />
-		<script type="text/javascript">
-			function createFolder() {
-				var myVar=setTimeout(myFunctionl,500);
-				var folder = $('#folderName').val();
-				if(folder.indexOf('.')>=0||folder.indexOf('.')>=0
-						||folder.indexOf('@')>=0||folder.indexOf(',')>=0
-						||folder.indexOf('*')>=0||folder.indexOf('>')>=0
-						||folder.indexOf('<')>=0||folder.indexOf(')')>=0
-						||folder.indexOf('(')>=0){
-					alert('Please do not use characters like ./,@<>()*');
-				}else{
-					$("#contactdiv_66").css("display", "none");
-				//alert(folder);
-				$.ajax({
-					type : "GET",
-					url : "${pageContext.request.contextPath}/createFolder",
-					data : {
-						'folderName' : folder
-					},
-					contentType : "application/json",
-					async : true,
-					success : function(data) {
-						if(data=="true"){location.href="ajaxTrue";}else{
-						
-							jQuery.post("getFileSystem", {
-								'path' : data
-							}, function(data) {
-								if (data == "true") {
-									location.href = "index";
-								}
-								$(".right").html(data);
-							});
-						}
-						//$("#folderThumbView>ul").append(data);}
-						// alert(data);
-					}
-				});}
-				$('#folderName').val("");
-				getDocProperties($('#parentfolderName').val());
-				myStopFunction(myVar);
-			}
-		</script>
-	</form>
-</div>
+
               <!-----------/// ADD KEYWORD STRED HERE ---------->
               <div class="key_word_box">
                 <h1>Add Keyword</h1>
@@ -1490,7 +1367,7 @@ function hideUpload(){
                                <ul>
                      <li>Keyword </li>
                      <li>
-                     <select style="height: 29px;" id="add_keywordkey" onchange="keywordKeyChange(this.value)">
+                     <select style="height: 29px;width: 50%" id="add_keywordkey" onchange="keywordKeyChange(this.value)">
                      <%
                      String keywordkeys=Config.EDMS_KEYWORDKEY;
                      String[] keywordkey=keywordkeys.split(",");
@@ -1501,8 +1378,8 @@ function hideUpload(){
                      <%} %>
                        <option value="">Other</option>
                      </select>
-                     <input type="text" class="keyword_name Datepicker_33"  style="display: none;" maxlength="75" /> 
-                     <input type="text" class="keyword_name datepicker" id="add_keywordid" maxlength="75" />
+                     <input type="text" class="keyword_name Datepicker_33"  style="display: none;;width: 40%" maxlength="75" /> 
+                     <input type="text" class="keyword_name datepicker" style=";width: 40%" id="add_keywordid" maxlength="75" />
                       <input type="hidden"  id="edit_keywordid" maxlength="75" />
                       <script type="text/javascript">
                      function keywordKeyChange(keykey){
@@ -1563,7 +1440,11 @@ function hideUpload(){
           				contentType : "application/json",
           				async : true,
           				success : function(data) {
-          					if(data=="true"){location.href="ajaxTrue";}else{}
+          					if(data=="true"){location.href="ajaxTrue";}else{
+          						
+
+          						showMsg("success","Saved successfully");
+          					}
           					//$("#folderThumbView>ul").append(data);
           					// alert(data);
           				}
@@ -1572,7 +1453,7 @@ function hideUpload(){
           			var keywordname = $('#add_keywordid').val()
           			if($('#add_keywordid').val()=='')
           			{
-          				alert('PLease Enter the keyword !');
+          				showMsg("success",'PLease Enter the keyword !');
           				
           			} else {
           			$('.inner_keyword >ul').append('<li><span>'+ keyword +'</span><img src="images/delete_icon_file.png"><div class="clear"></div><div class="clear"></div></li>');
@@ -1600,7 +1481,10 @@ function hideUpload(){
           				contentType : "application/json",
           				async : true,
           				success : function(data) {
-          					if(data=="true"){location.href="ajaxTrue";}else{}
+          					if(data=="true"){location.href="ajaxTrue";}else{
+          						showMsg("success","Saved successfully");
+          						
+          					}
           					//$("#folderThumbView>ul").append(data);
           					// alert(data);
           				}
@@ -1609,7 +1493,7 @@ function hideUpload(){
           			var keywordname = $('#add_keywordid').val()
           			if($('#add_keywordid').val()=='')
           			{
-          				alert('PLease Enter The Value !')
+          				showMsg("success",'PLease Enter The Value !')
           				
           			} else {
           			$('.inner_keyword >ul').append('<li><span>'+ keyword +'</span><img src="images/delete_icon_file.png"><div class="clear"></div><div class="clear"></div></li>');
@@ -1649,6 +1533,7 @@ function hideUpload(){
 				async : true,
 				success : function(data) {
 					if(data=="true"){location.href="ajaxTrue";}else{
+  						showMsg("success","Saved successfully");
 						 $('.web_dialog_overlay').hide();
 						myStopFunction(myVar);
 						
@@ -1661,7 +1546,7 @@ function hideUpload(){
 			var keywordname = $('#add_keywordid').val()
 			if($('#add_keywordid').val()=='')
 			{
-				alert('PLease Enter The Value !')
+				showMsg('error','PLease Enter The Value !')
 				
 			} else {
 			$('.inner_keyword >ul').append('<li><span>'+ keyword +'</span><img src="images/delete_icon_file.png"><div class="clear"></div><div class="clear"></div></li>');
@@ -1694,6 +1579,7 @@ function hideUpload(){
 			async : true,
 			success : function(data) {
 				if(data=="true"){location.href="ajaxTrue";}else{
+						showMsg("success","Saved successfully");
 					 $('.web_dialog_overlay').hide();
 					myStopFunction(myVar);
 					
@@ -1706,7 +1592,7 @@ function hideUpload(){
 		var keywordname = $('#add_keywordid').val()
 		if($('#add_keywordid').val()=='')
 		{
-			alert('PLease Enter The Value !')
+			showMsg("success",'PLease Enter The Value !')
 			
 		} else {
 		$('.inner_keyword >ul').append('<li><span>'+ keyword +'</span><img src="images/delete_icon_file.png"><div class="clear"></div><div class="clear"></div></li>');
@@ -1732,8 +1618,12 @@ function hideUpload(){
                                  				async : true,
                                  				success : function(data) {
                                  					if(data=="true"){
-                              							location.href="index";
+                              							location.href="ajaxTrue";
                               						}
+                                 					else{
+
+                                  						showMsg("success","Deleted successfully");
+                                 					}
                                  					//$("#folderThumbView>ul").append(data);
                                  					// alert(data);
                                  				}
@@ -1758,7 +1648,7 @@ $(document).on("click",".add_note",function(){
 			if(data=="true"){location.href="ajaxTrue";}else{
 			//	$('.notesRows').html(note +' <img src="images/cancel.png" />');
 			//	$('#notesnote').val('');
-			alert(data);	
+          						showMsg("success","Saved successfully");
 			myStopFunction(myVar);
 			}
 			//$("#folderThumbView>ul").append(data);
@@ -1785,8 +1675,7 @@ $(document).on("click",".add_note",function(){
     </div>
    <!-----// KEET THE INNER CONTENT ------>
   </div>
-  
-<input type="hidden" id="cutCopyDocPath"  />
+   <input type="hidden" id="cutCopyDocPath"  />
 
 <script type="text/javascript">
 $(document).on("click",".cutDocMenu",function(){
@@ -1806,6 +1695,7 @@ function pasteDocMenu(){
 	
 	
 	var sourcePaths=$('#cutCopyDocPath').val();
+  //  alert(sourcePaths);
 	var sourcePath=sourcePaths.split(',');
 	var sourcePathMulti=sourcePaths.substring(0,sourcePaths.lastIndexOf(','));
 	//alert(sourcePathMulti);
@@ -1813,34 +1703,38 @@ function pasteDocMenu(){
 	//var pathtohide=sourcePath[0];
 	//alert($('#multiPath').val());
 	if(sourcePath[0]==destPath){
-		alert("source and destination can not be same");
+		showMsg("success","source and destination can not be same");
 		}else{
 			//alert(sourcePath);
 			if(sourcePath[(sourcePath.length-1)]=="cut"){
-				//var myVar=setTimeout(myFunctionl,500);
+				var myVar=setTimeout(myFunctionl,500);
 				jQuery.get("moveDoc", {
 					//'sourcePath' : sourcePath[0],
 					'sourcePath' : sourcePathMulti,
 					'destPath': destPath,
 				}, function(data) {
 					if (data == "true") {
-						location.href = "index";
+						location.href = "ajaxTrue";
 					}
 					else{
+					var dddl=data.split(',delma,');
+					
 						$('#cutCopyDocPath').val('');
-						jQuery.post("getFileSystem", {
-							'path' : data
+
+  						showMsg("success",dddl[1]);
+					/* 	jQuery.post("getFileSystem", {
+							'path' : dddl[0]
 						}, function(data) {
 							if (data == "true") {
-								location.href = "index";
+								location.href = "ajaxTrue";
 							}
 							$(".right").html(data);
-						});
+      						showMsg("success",dddl[1]);
+						}); */
 					}
 					//$("#"+pathtohide).remove();
 					//$("#"+pathtohide)
-					//myStopFunction(myVar);
-					//alert("Moved Successfully");
+					myStopFunction(myVar);
 				});
 			}
 			if(sourcePath[(sourcePath.length-1)]=="copy"){
@@ -1854,16 +1748,17 @@ function pasteDocMenu(){
 					if (data == "true") {
 						location.href = "index";
 					}else{
-					 	jQuery.post("getFileSystem", {
+  						showMsg("success","Copied successfully");
+					 	/* jQuery.post("getFileSystem", {
 							'path' : data
 						}, function(data) {
 							if (data == "true") {
 								location.href = "index";
 							}
+      						showMsg("success","Copied successfully");
 							$(".right").html(data);
-						}); 
-					//	myStopFunction(myVar);
-					  //  alert("Copied Successfully");
+						});  */
+						myStopFunction(myVar);
 					}
 					});
 				//alert($('#cutCopyDocPath').val()+" to "+$('#oldFolderName').val());
@@ -1873,7 +1768,6 @@ function pasteDocMenu(){
 </script>
        <script type="text/javascript">
                          	function restoreVersion(folderPath){
-                         		//alert(folderPath);
                          		folderPath=folderPath.split(',');
                          		alert(folderPath[0]);
                          		  $.ajax({
@@ -1889,8 +1783,8 @@ function pasteDocMenu(){
                    						if(data=="true"){
                    							location.href="index";
                    						}
+                   						showMsg("success","restored successfully");
                    						//$("#folderView>.row_content>ul").append(data);
-                   						 alert(data);
                    					}
 
                    				}); 
@@ -1898,11 +1792,229 @@ function pasteDocMenu(){
                          	}
                          
                          </script>
-                         
-                                                
-                                                
-                                                <div id="dialog" title="File Download">
+<!-- <div id="dialog" title="File Download">
   <div class="progress-label">Starting download...</div>
   <div id="progressbar"></div>
-</div>
+</div> -->
+
+<script type="text/javascript">
+function getPrevious(){
+	window.open('getPreview', '_blank');
+}
+
+</script>
 <!-- <button id="downloadButton">Start Download</button> -->
+
+
+
+<script type="text/javascript">
+	function printDiv() {
+		$(".popupDatepicker").each(function() {
+			$(this).attr("value", $(this).val());
+			});
+		
+		var divToPrint = document.getElementById('myformPurPlant');
+		var newWin = window.open('', 'Print-Window',
+				'width=600,height=700,top=5,left=5,right5');
+		newWin.document.open();
+		var bname=navigator.userAgent;
+		if(bname.indexOf("Chrome")>=0||bname.indexOf(".Net")>=0){
+		newWin.document
+		.write('<html><head><link rel="stylesheet" href="css/style.css" /><style>#in {display:none} body{overflow: auto;}</style><body onload="window.print()">'
+				+ divToPrint.innerHTML + '</body></html>');
+		}else{
+		
+		newWin.document
+				.write('<html><head><link rel="stylesheet" href="css/style.css" /><style>#in {display:none;} .from_main_leave {width: 900px;margin:0px !important; margin-top: 21px;}  </style></head><body style="overflow-x: visible ;overflow-y: visible !important;" onload="window.print()">'
+						+ divToPrint.innerHTML + '</body></html>');
+		}
+		newWin.document.close();
+		//setTimeout(function(){newWin.close();},10);
+	}
+</script>
+
+
+<script type="text/javascript">
+	function printDivPurPlant() {
+
+		try{
+			$(".popupDatepicker").each(function() {
+				$(this).attr("value", $(this).val());
+				});
+		}catch(er){}
+		var divToPrint = document.getElementById('myformPurPlant');
+		var newWin = window.open('', 'Print-Window',
+				'width=600,height=700,top=5,left=1,right=1');
+		newWin.document.open();
+		var bname=navigator.userAgent;
+		if(bname.indexOf("Chrome")>=0||bname.indexOf(".Net")>=0){
+			newWin.document
+			.write('<html><head><link rel="stylesheet" href="css/style.css" /><style>#in {display:none} body{overflow: auto;}</style><body onload="window.print()">'
+					+ divToPrint.innerHTML + '</body></html>');
+			}else{
+			
+			newWin.document
+					.write('<html><head><link rel="stylesheet" href="css/style.css" /><style>#in {display:none;} .from_main_leave {width: 900px;margin:0px !important; margin-top: 21px;}  </style></head><body style="overflow-x: visible ;overflow-y: visible !important;" onload="window.print()">'
+							+ divToPrint.innerHTML + '</body></html>');
+			}
+		newWin.document.close();
+		//setTimeout(function(){newWin.close();},10);
+	}
+	
+	
+</script>
+
+<script type="text/javascript">
+
+function printDivLeave()
+{
+
+	try{
+		$(".popupDatepicker").each(function() {
+			$(this).attr("value", $(this).val());
+			});
+	}catch(er){}
+var divToPrint=document.getElementById('myformLeave');
+var newWin=window.open('','Print-Window','width=600,height=700,top=5,left=5,right5');
+newWin.document.open();
+var bname=navigator.userAgent;
+
+if(bname.indexOf("Chrome")>=0||bname.indexOf(".Net")>=0){
+newWin.document
+.write('<html><head><link rel="stylesheet" href="css/style.css" /><style>#in {display:none} body{overflow: auto;}</style><body onload="window.print()">'
+		+ divToPrint.innerHTML + '</body></html>');
+}else{
+
+newWin.document
+		.write('<html><head><link rel="stylesheet" href="css/style.css" /><style>#in {display:none;} .from_main_leave {width: 900px;margin:0px !important; margin-top: 21px;}  </style></head><body style="overflow-x: visible ;overflow-y: visible !important;" onload="window.print()">'
+				+ divToPrint.innerHTML + '</body></html>');
+}
+newWin.document.close();
+//setTimeout(function(){newWin.close();},10);
+}
+</script>
+
+
+<script type="text/javascript">
+
+function printDivLeave()
+{
+
+
+	try{
+		$(".popupDatepicker").each(function() {
+			$(this).attr("value", $(this).val());
+			});
+	}catch(er){}
+
+var divToPrint=document.getElementById('myformLeave');
+var newWin=window.open('','Print-Window','width=600,height=700,top=5,left=5,right5');
+newWin.document.open();
+
+
+var bname=navigator.userAgent;
+if(bname.indexOf("Chrome")>=0||bname.indexOf(".Net")>=0){
+newWin.document
+.write('<html><head><link rel="stylesheet" href="css/style.css" /><style>#in {display:none} body{overflow: auto;}</style><body onload="window.print()">'
+		+ divToPrint.innerHTML + '</body></html>');
+}else{
+
+newWin.document
+		.write('<html><head><link rel="stylesheet" href="css/style.css" /><style>#in {display:none;} .from_main_leave {width: 900px;margin:0px !important; margin-top: 21px;}  </style></head><body style="overflow-x: visible ;overflow-y: visible !important;" onload="window.print()">'
+				+ divToPrint.innerHTML + '</body></html>');
+}
+newWin.document.close();
+}
+
+
+function printDivCPV()
+{	
+try{
+	$(".popupDatepicker").each(function() {
+		$(this).attr("value", $(this).val());
+		});
+	
+	
+}catch(er){}
+	var divToPrint=document.getElementById('myformCPV');
+var newWin=window.open('','Print-Window','width=600,height=700,top=5,left=5,right5');
+newWin.document.open();
+
+var bname=navigator.userAgent;
+
+if(bname.indexOf("Chrome")>=0||bname.indexOf(".Net")>=0){
+newWin.document
+.write('<html><head><link rel="stylesheet" href="css/style.css" /><style>#in {display:none} body{overflow: auto;}</style><body onload="window.print()">'
+		+ divToPrint.innerHTML + '</body></html>');
+}else{
+
+newWin.document
+		.write('<html><head><link rel="stylesheet" href="css/style.css" /><style>#in {display:none;} .from_main_leave {width: 900px;margin:0px !important; margin-top: 21px;}  </style></head><body style="overflow-x: visible ;overflow-y: visible !important;" onload="window.print()">'
+				+ divToPrint.innerHTML + '</body></html>');
+}
+newWin.document.close();
+}
+</script>
+
+
+
+<script type="text/javascript">
+
+function printDivMedi()
+{
+
+	try{
+		$(".popupDatepicker").each(function() {
+			$(this).attr("value", $(this).val());
+			});
+	}catch(er){}
+var divToPrint=document.getElementById('myformMedi');
+var newWin=window.open('','Print-Window','width=600,height=700,top=5,left=5,right5');
+newWin.document.open();
+
+var bname=navigator.userAgent;
+
+if(bname.indexOf("Chrome")>=0||bname.indexOf(".Net")>=0){
+newWin.document
+.write('<html><head><link rel="stylesheet" href="css/style.css" /><style>#in {display:none} body{overflow: auto;}</style><body onload="window.print()">'
+		+ divToPrint.innerHTML + '</body></html>');
+}else{
+
+newWin.document
+		.write('<html><head><link rel="stylesheet" href="css/style.css" /><style>#in {display:none;} .from_main_leave {width: 900px;margin:0px !important; margin-top: 21px;}  </style></head><body style="overflow-x: visible ;overflow-y: visible !important;" onload="window.print()">'
+				+ divToPrint.innerHTML + '</body></html>');
+}
+newWin.document.close();
+}
+</script>
+
+
+<script type="text/javascript">
+$(document).on("click",".set_link_give_link",function(){
+
+	var myVar=setTimeout(myFunctionl,500);
+ 	var note=$('#notesnote').val();
+	$.ajax({
+		type : "GET",
+		url : "${pageContext.request.contextPath}/setPublicLinkRequest",
+		contentType : "application/json",
+		async : true,
+		success : function(data) {
+			if(data=="true"){location.href="ajaxTrue";}else{
+          					//	showMsg("success",data);
+          						$("#publicLink").val(data);
+          						//$(document).on("click",".set_link_give_link",function(){
+          					        $("#contactdiv_getLink").css("display", "block");
+          					   // });
+          						
+			myStopFunction(myVar);
+			}
+		
+		}
+	});
+	
+	
+	});
+
+
+</script>

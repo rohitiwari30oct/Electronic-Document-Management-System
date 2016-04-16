@@ -1,8 +1,9 @@
 <div id="activitiForms">
-                        <div class="right other_pages_user">
-                         
-                         
-                         <!--------/// MID CONTENT STARTED HERE ---------->
+<%
+System.out.println("user dashboard !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+%>
+<div class="right other_pages_user">
+   	<!--------/// MID CONTENT STARTED HERE ---------->
 	<div id="head">
 		<!----------------/// Header End Here ---------->
 		<!------------// Testing CONTENT STARTED HERE ------------------>
@@ -16,7 +17,6 @@
 			<div class="clear"></div>
 		</div>
 	</div>
-                         
                          <%-- 
                          <div class="trash_menu">
                          <%

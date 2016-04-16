@@ -5,11 +5,15 @@ import java.util.List;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 
+import edms.wsdl.GetAttachmentRequest;
+import edms.wsdl.GetAttachmentResponse;
 import edms.wsdl.GetAuthorizeUserRequest;
 import edms.wsdl.GetClaimTaskRequest;
 import edms.wsdl.GetContinueTaskRequest;
 import edms.wsdl.GetFetchGroupTaskRequest;
 import edms.wsdl.GetFetchGroupTaskResponse;
+import edms.wsdl.GetFetchUserTaskFromHistoryRequest;
+import edms.wsdl.GetFetchUserTaskFromHistoryResponse;
 import edms.wsdl.GetFetchUserTaskRequest;
 import edms.wsdl.GetFetchUserTaskResponse;
 import edms.wsdl.GetGenerateProcessImageRequest;
@@ -17,9 +21,15 @@ import edms.wsdl.GetGenerateProcessImageResponse;
 import edms.wsdl.GetStartFormDataRequest;
 import edms.wsdl.GetStartFormDataResponse;
 import edms.wsdl.GetStartWorkflowRequest;
+import edms.wsdl.GetTaskFormDataFromHistoryRequest;
+import edms.wsdl.GetTaskFormDataFromHistoryResponse;
 import edms.wsdl.GetTaskFormDataRequest;
 import edms.wsdl.GetTaskFormDataResponse;
+import edms.wsdl.GetWorkFlowSnRequest;
+import edms.wsdl.GetWorkFlowSnResponse;
 import edms.wsdl.HashMap;
+import edms.wsdl.UploadAttachmentRequest;
+import edms.wsdl.UploadAttachmentResponse;
 
 public class WorkflowClient extends WebServiceGatewaySupport {
 
@@ -31,6 +41,40 @@ public class WorkflowClient extends WebServiceGatewaySupport {
 				new SoapActionCallback(
 						"http://localhost:8080/ws/GetAuthorizeUserRequest"));
 	}
+	public GetWorkFlowSnResponse getWorkFlowSnRequest(String formName) {
+		GetWorkFlowSnRequest request = new GetWorkFlowSnRequest();
+		request.setWorkFlowFormName(formName);
+		GetWorkFlowSnResponse response = (GetWorkFlowSnResponse) getWebServiceTemplate()
+				.marshalSendAndReceive(
+						request,
+						new SoapActionCallback(
+								"http://localhost:8080/ws/GetWorkFlowSnRequest"));
+		return response;
+	}
+
+	public UploadAttachmentResponse uploadAttachmentRequest(String userId,String processInstId,String fileName, byte[] value) {
+		UploadAttachmentRequest request = new UploadAttachmentRequest();
+		request.setUserId(userId);
+		request.setFileContent(value);
+		request.setProcessInstId(processInstId);
+		request.setFileName(fileName);
+		UploadAttachmentResponse response = (UploadAttachmentResponse) getWebServiceTemplate().marshalSendAndReceive(
+				request,
+				new SoapActionCallback(
+						"http://localhost:8080/ws/UploadAttachmentRequest"));
+		return response;
+	}
+	public GetAttachmentResponse getAttachmentRequest(String userId,String attachmentID) {
+		GetAttachmentRequest request = new GetAttachmentRequest();
+		request.setUserId(userId);
+		request.setAttachmentID(attachmentID);
+		GetAttachmentResponse response = (GetAttachmentResponse) getWebServiceTemplate().marshalSendAndReceive(
+				request,
+				new SoapActionCallback(
+						"http://localhost:8080/ws/GetAttachmentRequest"));
+		return response;
+	}
+	
 
 	public void getStartWorkflowRequest(List<HashMap> hashMap, String processKey,
 			String processName){
@@ -55,6 +99,17 @@ public class WorkflowClient extends WebServiceGatewaySupport {
 						request,
 						new SoapActionCallback(
 								"http://localhost:8080/ws/GetGenerateProcessImageRequest"));
+		return response;
+	}
+	
+	public GetFetchUserTaskFromHistoryResponse getFetchUserTaskFromHistoryRequest(String empid) {
+		GetFetchUserTaskFromHistoryRequest request = new GetFetchUserTaskFromHistoryRequest();
+		request.setEmployeeId(empid);
+		GetFetchUserTaskFromHistoryResponse response = (GetFetchUserTaskFromHistoryResponse) getWebServiceTemplate()
+				.marshalSendAndReceive(
+						request,
+						new SoapActionCallback(
+								"http://localhost:8080/ws/GetFetchUserTaskFromHistoryRequest"));
 		return response;
 	}
 
@@ -93,6 +148,16 @@ public class WorkflowClient extends WebServiceGatewaySupport {
 						"http://localhost:8080/ws/GetContinueTaskRequest"));
 	}
 
+	public GetTaskFormDataFromHistoryResponse getTaskFormDataFromHistoryRequest(String taskId) {
+		GetTaskFormDataFromHistoryRequest request = new GetTaskFormDataFromHistoryRequest();
+		request.setTaskId(taskId);
+		GetTaskFormDataFromHistoryResponse response = (GetTaskFormDataFromHistoryResponse) getWebServiceTemplate()
+				.marshalSendAndReceive(
+						request,
+						new SoapActionCallback(
+								"http://localhost:8080/ws/GetTaskFormDataFromHistoryRequest"));
+		return response;
+	}
 	public GetTaskFormDataResponse getTaskFormDataRequest(String taskId) {
 		GetTaskFormDataRequest request = new GetTaskFormDataRequest();
 		request.setTaskId(taskId);

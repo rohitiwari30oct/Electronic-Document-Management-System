@@ -37,9 +37,23 @@ $(document).ready(function() {
        
         }*/
     });
+	$(document).on("click",".right_upload_folder2",function(){
+        $("#contactdiv_616").css("display", "block");
+        /*if($('.uploadHide').css('display'=='none'))
+        {
+                 $('.uploadHide').show();
+
+        }
+        else 
+        {
+             $('.uploadHide').hide()
+       
+        }*/
+    });
 
 	
-	
+
+
 	$(document).on("click",".right_create_folder",function(){
         $("#contactdiv_66").css("display", "block");
     });

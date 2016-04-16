@@ -1,5 +1,6 @@
 html {
-background:url(../images/Wallpaper2.jpg) no-repeat center center fixed;
+/* background:url(../images/Wallpaper2.jpg) no-repeat center center fixed; */
+background-color:#f9f9f9;
 -webkit-background-size: cover;
 -moz-background-size: cover;
 -o-background-size: cover;
@@ -2296,7 +2297,7 @@ margin-top:22px;
 width: 300px;
 margin: 0 auto;
 height:100%;
-background:url('../../images/login-bg.jpg') #fff scroll center center no-repeat;
+/* background:url('../../images/login-bg.jpg') #fff scroll center center no-repeat; */
 position:relative;
 }
 
@@ -2313,7 +2314,7 @@ position:absolute;
 
 @media (min-width:400px){
 
-	.login-wrap{width:372px;height:380px;margin-top:100px;}
+	.login-wrap{width:372px;height:380px;margin-top:124px;}
 	.cpadding50{padding:50px;}
 	.chpadding50{padding:0 50px;}
 	img.login-img{margin-left:5px; margin-bottom:5px; width:147px!important;}
@@ -2353,7 +2354,7 @@ box-shadow: 0 0 2px rgba(0, 0, 0, 0.1)
 .login-c3{
 width:94%;
 height:54px;
-background:#006699 url(../../images/login-blue.png) repeat-y left;
+ background:#006699;
 z-index:10;
 margin-top:221px;
 margin-left:3%;

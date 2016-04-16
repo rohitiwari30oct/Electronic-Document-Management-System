@@ -5,6 +5,22 @@ body{ margin:0 auto;font-family: sans-serif; overflow-x: hidden;
 overflow-y: hidden !important;}
 .main_div{ width:100%;  /*position:absolute; left:50px; right:50px; bottom:0px; top:0px;min-width: 1180px;width: 980px; margin:0 auto;*/}
 /* ============== HEADER STARTED HERE  =============== */
+.emple_np
+{
+width: 200px !important;
+}
+.emple_no
+{
+width: 70px !important;
+}
+.emple_date
+{
+width: 90px !important;
+}
+.emple_table
+{
+width: 100% !important;
+}
 .info_1{margin-top: 10px;}
 .bottom_info{margin-top: 5px;}
 .main_header{}
@@ -135,7 +151,7 @@ margin: 0 auto;}
 /*-----------------// TOP SEARCH BOX STAT HERE -------------*/
 #tabs_wrapper {
 width: 520px;
-margin-top: 16px;
+/* margin-top: 16px; */
 }
 #tabs_container {
 padding-bottom: 16PX;
@@ -1063,7 +1079,7 @@ background-position: 18px 13px, center;
 }
 .content_right {
 width: 100%;
-height: 300px;
+height: 400px;
 background: #fff;
 border-bottom: 1px solid #ccc;
 display: none;
@@ -1223,6 +1239,17 @@ display: none;
 /*z-index: 99999;*/
 z-index: 2;
 }
+#contactdiv_616 {
+position: absolute;
+top: 0px;
+left: 0px;
+height: 100%;
+width: 100%;
+background: rgba(0, 0, 0, 0.25);
+display: none;
+/*z-index: 99999;*/
+z-index: 2;
+}
 #contact {
 left: 50%;
 top: 50%;
@@ -1260,6 +1287,10 @@ font-weight: normal !important;
 border: 1px solid #ccc;
 padding: 7px;
 }
+#contactdiv_616 input[type=file] {
+border: 1px solid #ccc;
+padding: 7px;
+}
 .attachment_file {
 width: 333px !important;
 }
@@ -1289,6 +1320,29 @@ margin: 0 16px 0 0;
 min-width: 72px;
 outline: 0;
 padding: 0 8px;
+}
+#contactdiv_616 input[type=button] {
+cursor: default;
+font-size: 11px;
+font-weight: bold;
+height: 29px;
+line-height: 27px;
+margin: 0 16px 0 0;
+min-width: 72px;
+outline: 0;
+padding: 0 8px;
+}
+
+#contactdiv_getLink {
+position: absolute;
+top: 0px;
+left: 0px;
+height: 100%;
+width: 100%;
+background: rgba(0, 0, 0, 0.25);
+display: none;
+/*z-index: 99999;*/
+z-index: 2;
 }
 
 #contactdiv_66 {
@@ -1341,6 +1395,15 @@ min-width: 72px;
 outline: 0;
 padding: 0 8px;
 }
+#contactdiv_getLink input[type=text] {
+width: 100%;
+height: 16px;
+margin-top: 5px;
+border: 1px solid #999;
+border-radius: 3px;
+padding: 5px;
+margin-bottom: 14px;
+}
 #contactdiv_66 input[type=text] {
 width: 100%;
 height: 16px;
@@ -1349,6 +1412,17 @@ border: 1px solid #999;
 border-radius: 3px;
 padding: 5px;
 margin-bottom: 14px;
+}
+#contactdiv_getLink input[type=button] {
+cursor: default;
+font-size: 11px;
+font-weight: bold;
+height: 29px;
+line-height: 27px;
+margin: 0 16px 0 0;
+min-width: 72px;
+outline: 0;
+padding: 0 8px;
 }
 #contactdiv_66 input[type=button] {
 cursor: default;
@@ -2176,7 +2250,7 @@ list-style-type: none;
 margin-left: 15px;
 float: left;
 text-align: center;
-width: 132px;
+width: 98px;
 padding-bottom: 9px;
 overflow: hidden;
 text-overflow: ellipsis;
@@ -2647,6 +2721,8 @@ border: 1px solid #ccc; position:relative;}
 position: absolute;
 overflow: auto;
 width: 100%;
+top: 48px;
+bottom: 0px;    /* z-index: 100; */
 }
 .form_tab {
 background: #EEEEEE;
@@ -3305,7 +3381,7 @@ margin-left: 10px;
 width: 254px !important;
 }
 .Logged_User_tab_color {
-width: 101px;
+width: 107px;
 padding-bottom: 10px;
 padding-top: 10px;
 /* background: url(../images/tab_user_bg.jpg); */
@@ -3469,13 +3545,14 @@ margin-left: 14px;
 margin-right: 10px;}
 .group_shared{
 overflow: auto;
-height: 104px;
+/* height: 104px; */
+height: 100%;
 overflow: auto;
 position: relative;
 top: 25px;}
 table.group_shared >tbody >tr >td{}
 .group_shared_size{ height: 111px; overflow:auto;width: 90%; border: 1px solid #ccc;margin: 0 auto;}
-.group_shared_bottom{ height: 129px;width: 90%; border: 1px solid #ccc;margin: 0 auto;}
+.group_shared_bottom{ height: 100%;width: 90%; border: 1px solid #ccc;margin: 0 auto;}
 .shared_heading{font-weight: bold;
 font-size: 11px;
 text-align: c;
@@ -3709,12 +3786,16 @@ background: rgba(226, 72, 72, 0.84);
 border-bottom: 1px solid #ccc;
 color: #fff;
 }
-.tab_contain_todo{border: 1px solid #ccc;
-    left: 20px;
-    padding: 10px;
-    position: absolute;
-    right: 28px;
-    top: 97px;}
+.tab_contain_todo {
+   border: 1px solid #ccc;
+   left: 20px;
+   padding: 10px;
+   position: absolute;
+   right: 28px;
+   top: 97px;
+   overflow: auto;
+   height: 80%;
+}
 .todo_content{}
 .tab_contain_todo >div>table{table-layout: fixed;}
 .tab_contain_todo >div>table{ border-bottom:1px solid #ccc;}
@@ -3843,3 +3924,17 @@ display: block;
 margin: 0 auto;
 }
 
+
+.giveWidth {
+	width: 82px !important;
+	height: 23px;
+}
+
+.giveWidthToDrop {
+	width: 85px !important;
+	height: 29px;
+}
+
+.giveBorderBottom {
+	border: 1px solid #ccc;
+}

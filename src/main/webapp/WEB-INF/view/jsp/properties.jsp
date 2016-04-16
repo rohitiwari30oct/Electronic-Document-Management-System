@@ -2,7 +2,8 @@
 <%@page import="edms.wsdl.FolderVersionDetail"%>
 <%@page import="edms.wsdl.Folder"%>
 <%@page import="java.util.List"%>
-<%List<Folder> folderList = (List<Folder>) request.getAttribute("folderList"); 
+<%
+/*List<Folder> folderList = (List<Folder>) request.getAttribute("folderList"); */
 String breadcum=(String)request.getAttribute("breadcum");
 Folder currentFolder=(Folder)request.getAttribute("currentFolder");
 String userid=(String)request.getAttribute("userid");
@@ -67,7 +68,7 @@ String userid=(String)request.getAttribute("userid");
                                                         	   nottes=currentFolder.getNotes();
                                                            } %>
                                                                      
-<textarea id="notesnote"><%=nottes %></textarea>
+																	<textarea id="notesnote"><%=nottes %></textarea>
                                                                   
                                                                      <div class="add_note">
                                                                            <img src="images/add.png" /> Save
@@ -79,9 +80,11 @@ String userid=(String)request.getAttribute("userid");
                                                 </div>
                                                 <li class="keyword right_tab"><a href="javascript:void(0);">KEYWORDS</a>
                                                       <!---// ADD ICON HERE --->
+                                                      <%if(currentFolder.getUserRead().toString().indexOf(userid)>=0&&currentFolder.getUserWrite().toString().indexOf(userid)<0&&currentFolder.getUserSecurity().toString().indexOf(userid)<0){}else{ %>
                                                       <div class="keyword_add">
                                                            <img src="images/create_folder_icon.png" />
                                                       </div>
+                                                      <%} %>
                                                       <!-----// ADD ICON END HERE ---->
                                                   <div class="icon_right"> </div>
                                                 </li>
@@ -92,12 +95,17 @@ String userid=(String)request.getAttribute("userid");
                                                              <%
                                                              List<String> keywords=currentFolder.getKeywords();
                                                              for(String str:keywords){
+                                                            	 System.out.println(str);
                                                             	 String[] key=str.split(",");
                                                             	 for(int i=0;i<key.length;i++){
                                                             		 if(key[i]!=""&&(!key[i].equals(""))){
                                                              %>
-                                                             <li><span><%=key[i] %></span><img class="keyword_del" src="images/delete_icon_file.png" id="<%=key[i] %>">
+                                                             <li><span><%=key[i] %></span>
+                                                              <%if(currentFolder.getUserRead().toString().indexOf(userid)>=0&&currentFolder.getUserWrite().toString().indexOf(userid)<0&&currentFolder.getUserSecurity().toString().indexOf(userid)<0){}else{ %>
+                                                     
+                                                             <img class="keyword_del" src="images/delete_icon_file.png" id="<%=key[i] %>">
                                                              <img  class="keyword_edit" onclick="editKeyword(this.id)"  id="edit<%=key[i] %>" src="images/edit-icon.png" id="<%=key[i] %>">
+                                                            <%} %>
                                                              <div class="clear"></div><div class="clear"></div></li>
                                                            <%} }}%>
                                                              </ul>
@@ -142,13 +150,13 @@ String userid=(String)request.getAttribute("userid");
                                                 
                                                 
                                                 </div>
-                                                <%-- <li class="history_right right_tab"><a href="javascript:void(0);">VERSIONING</a>
+                                               <%--  <li class="history_right right_tab"><a href="javascript:void(0);">VERSIONING</a>
                                                   <div class="icon_right"></div>
                                                 </li>
                                                <div class="content_right">
-                                                      
+                                                      <table>
                                                       <%
- List<FolderVersionDetail> versionDetails=currentFolder.getFolderVersionsHistory();
+													 List<FolderVersionDetail> versionDetails=currentFolder.getFolderVersionsHistory();
                                                       
                                                       int i=0;
                                                       
@@ -156,18 +164,23 @@ String userid=(String)request.getAttribute("userid");
                                                       
                                                     	  if(i>0){
                                                       %>
+                                                      <tr>
                                                                 <td><%=versionDetail.getVersionName() %></td>
                                                                 <td><%=versionDetail.getCreatedBy() %></td>
                                                                 <!------------/// Row_STARTED HERE ----------->
-                                                                <div style="margin-left: 20px;" class="row_recent">
+                                                             <td>   <div style="margin-left: 20px;" class="row_recent">
            <!--  <div class="recnt_pdf_doc"> </div> -->
-            <%=versionDetail.getDetails() %> by<a href="javascript:void(0);" class="second"><%=versionDetail.getCreatedBy() %></a> on <a href="javascript:void(0);" class="second"><%=versionDetail.getCreationDate() %></a> </div>
+            <%=versionDetail.getDetails() %> by<a href="javascript:void(0);" class="second"><%=versionDetail.getCreatedBy() %></a> on <a href="javascript:void(0);" class="second"><%=versionDetail.getCreationDate() %></a> 
+            </div></td>
                                                            <!-------------// ROW STARTED HERE --------------> 
                                                                 
                                                                 
-                                                                <a href="javascript:void(0);" id="<%=currentFolder.getFolderPath() %>,<%=versionDetail.getVersionName() %>" class="" onclick="restoreVersion(this.id)">Restore</a>
-                                                             <%}i++;} %>
-                                                             
+                                                           <td>     <a href="javascript:void(0);" id="<%=currentFolder.getFolderPath() %>,<%=versionDetail.getVersionName() %>" class="" onclick="restoreVersion(this.id)">Restore</a>
+                                                           </td></tr>  <%}i++;
+                                                           
+                                                      } %>
+                                                          
+                                                             </table>
                                                               
                                                 <script type="text/javascript">
                                                 	function restoreVersion(folderPath){
@@ -193,7 +206,7 @@ String userid=(String)request.getAttribute("userid");
                                                 	}
                                                 
                                                 </script>
-                                                </div> --%>
+                                                </div>  --%>
                                              <!--    <li class="prew right_tab"><a href="javascript:void(0);">PREVIEW</a>
                                                   <div class="icon_right">
                                                   
@@ -212,11 +225,12 @@ String userid=(String)request.getAttribute("userid");
                                                            
                                                            <div class="group_shared permission_content">
                                                               <table>
-                                                                     
-                                                                               <%
+                                                     <%
                                                        List<String> users=currentFolder.getUserRead();
                                                        String[] user=users.toString().split(",");
+                                                       int ii=1;
                                                        for(String str:user){
+                                                    	   if(ii>1){
                                                     	   if(str!="admin"){
                                                     	   str=str.replace("]", "");
                                                     	   str=str.replace("[", "");
@@ -232,7 +246,7 @@ String userid=(String)request.getAttribute("userid");
                                                     		   }
                                                     	   %>
                                                     <tr class="right_text"> 
-                                                    <td class="go_text"><%=str %> </td>
+                                                    <td style="text-transform: none;" class="go_text"><%=str.toLowerCase() %> </td>
 													<td> : <%=flag %>
 													</td>
 													<%-- <td>
@@ -265,7 +279,7 @@ String userid=(String)request.getAttribute("userid");
 														<%} %>
 
 													</td> --%></tr>
-                                                       <%}}} %>
+                                                       <%}}}ii=2;} %>
                                                        </table>
                                                            </div>
                                                       </div>

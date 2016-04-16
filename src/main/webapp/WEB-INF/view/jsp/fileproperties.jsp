@@ -25,16 +25,9 @@ if(currentFolder.getFileSize()/1024>1024){
 }else{
 	size=currentFolder.getFileSize()+" Byte";
 }
-
-
-
-
-
-
-
 %>
        
-        <!----------------/// RIGHT PART STARTED HERE ------------------->
+       										<!----------------/// RIGHT PART STARTED HERE ------------------->
                                             <div class="right-pane">
                                               <ul class="icon_left_descri">
                                                 <li class="padding_less"> <a href="javascript:void(0);" onClick="left_icon()">
@@ -74,7 +67,7 @@ if(currentFolder.getFileSize()/1024>1024){
                                                                <td class="proper_heading">Size</td>
                                                                <td> <%=currentFolder.getFileSize() %></td>
                                                           </tr> --%>
-<%--                                                            <tr>
+														  <%-- <tr>
                                                                <td class="proper_heading">Folders</td>
                                                                <td><%=currentFolder.getNoOfFolders() %></td>
                                                           </tr>
@@ -100,7 +93,7 @@ if(currentFolder.getFileSize()/1024>1024){
                                                         	   nottes=currentFolder.getNotes();
                                                            } %>
                                                                      
-<textarea id="notesnote"><%=nottes %></textarea>
+																<textarea id="notesnote"><%=nottes %></textarea>
                                                                   
                                                                      <div class="add_note">
                                                                            <img src="images/add.png" /> Save
@@ -114,9 +107,12 @@ if(currentFolder.getFileSize()/1024>1024){
                                                 </div>
                                                <li class="keyword right_tab"><a href="javascript:void(0);">KEYWORDS</a>
                                                       <!---// ADD ICON HERE --->
+                                                      
+                                                      <%if(currentFolder.getUserRead().toString().indexOf(userid)>=0&&currentFolder.getUserWrite().toString().indexOf(userid)<0&&currentFolder.getUserSecurity().toString().indexOf(userid)<0){}else{ %>
                                                       <div class="keyword_add">
                                                            <img src="images/create_folder_icon.png" />
                                                       </div>
+                                                      <%} %>
                                                       <!-----// ADD ICON END HERE ---->
                                                   <div class="icon_right"> </div>
                                                 </li>
@@ -129,10 +125,15 @@ if(currentFolder.getFileSize()/1024>1024){
                                                              for(String str:keywords){
                                                             	 String[] key=str.split(",");
                                                             	 for(int i=0;i<key.length;i++){
-                                                            		 if(key[i]!=""&&(!key[i].equals(""))){
+                                                            	 if(key[i]!=""&&(!key[i].equals(""))){
                                                              %>
-                                                             <li><span><%=key[i] %></span><img class="keyword_del" src="images/delete_icon_file.png" id="<%=key[i] %>">
+                                                             <li><span><%=key[i] %></span>
+                                                               <%if(currentFolder.getUserRead().toString().indexOf(userid)>=0&&currentFolder.getUserWrite().toString().indexOf(userid)<0&&currentFolder.getUserSecurity().toString().indexOf(userid)<0){}else{ %>
+                                                    
+                                                             <img class="keyword_del" src="images/delete_icon_file.png" id="<%=key[i] %>">
                                                              <img  class="keyword_edit" onclick="editKeyword(this.id)"  id="edit<%=key[i] %>" src="images/edit-icon.png" id="<%=key[i] %>">
+                                                             <%} %>
+                                                             
                                                               <div class="clear"></div><div class="clear"></div></li>
                                                            <%} }}%>
                                                              </ul>
@@ -141,70 +142,52 @@ if(currentFolder.getFileSize()/1024>1024){
                                                         <!-----/// INNER KEYWORD -------->
                                                 <script type="text/javascript">
                                                 function editKeyword(keyword){
-                                                	
-                                                	
                                                 	var key=keyword.substring(4);
                                                 	var keyVal=key.split(":");
                                                 	 if(keyVal[0]!="Date"){
-                                                		 
                                                 		 $('.datepicker').attr("id","");
                                                 		 $('.Datepicker_33').attr("id","add_keywordid");
                                                 		 $('.datepicker').css("display","none");
                                                 		 $('.Datepicker_33').css("display","block");
-                                                		 
-                                                		 
                                                 	 }else{
-
                                                 		 $('.datepicker').attr("id","add_keywordid");
                                                 		 $('.Datepicker_33').attr("id","");
                                                 		 $('.datepicker').css("display","block");
                                                 		 $('.Datepicker_33').css("display","none");
                                                 	 }
-                                                	
-                                                	
                                                 	//alert(keyVal[0]);
                                                 	$("#add_keywordkey").val(keyVal[0]);
                                                 	$("#add_keywordid").val(keyVal[1]);
-                                                	
                                                 	$(".add_keyword").attr('class','edit_keyword');
                                                 	$(".add_keyword_exit").attr('class','edit_keyword_exit');
                                                 	$(".add_keyword").attr('class','edit_keyword');
                                                 	//$(".edit_keyword").addClass('edit_keyword');
-                                                	
                                                 	$("#edit_keywordid").val(key);
-                                                	
-                                                	
                                                 }
                                                 </script>
-                                                
-                                                
-                                                
-                                                
                                                 </div>
-                                                <li class="history_right right_tab"><a href="javascript:void(0);">VERSIONING</a>
+                                               <%--  <li class="history_right right_tab"><a href="javascript:void(0);">VERSIONING</a>
                                                   <div class="icon_right"></div>
                                                 </li>
                                                 <div class="content_right">
-                                                      
-                                                      <%
-                                                      List<FileVersionDetail> versionDetails=currentFolder.getFileVersionsHistory();
+                                                     <%
+                                                     List<FileVersionDetail> versionDetails=currentFolder.getFileVersionsHistory();
                                                      int i=0;
-                                                      for(FileVersionDetail versionDetail:versionDetails){
-                                                    	  if(i>0){
-                                                    	  %>
-                                                             <%--    <td><%=versionDetail.getVersionName() %></td> --%>
-                                                              <%--   <td><%=versionDetail.getCreatedBy() %></td> --%>
-                                                                <!------------/// Row_STARTED HERE ----------->
-                                                                               <div style="margin-left: 20px;" class="row_recent">
-           <!--  <div class="recnt_pdf_doc"> </div> -->
-            <%=versionDetail.getDetails() %> by<a href="javascript:void(0);" class="second"><%=versionDetail.getCreatedBy() %></a> on <a href="javascript:void(0);" class="second"><%=versionDetail.getCreationDate() %></a> </div>
-                                                             <%--    <a href="javascript:void(0);" id="<%=currentFolder.getFilePath() %>,<%=versionDetail.getVersionName() %>" class="" onclick="restoreVersion(this.id)">Restore</a>
-                                                       --%>       <%}i++;} %>
-                                                             
-                                                              
-                  
-                                                </div>
-                                               <!--  <li class="prew right_tab" onclick="getPreviewDoc()"><a href="javascript:void(0);">PREVIEW</a>
+                                                     for(FileVersionDetail versionDetail:versionDetails){
+                                                     if(i>0){
+                                                     %>
+                                                        <td><%=versionDetail.getVersionName() %></td>
+                                                       <td><%=versionDetail.getCreatedBy() %></td>
+                                                     <!------------/// Row_STARTED HERE ----------->
+                                                     <div style="margin-left: 20px;" class="row_recent">
+           											 <!--  <div class="recnt_pdf_doc"> </div> -->
+           											 <%=versionDetail.getDetails() %> by<a href="javascript:void(0);" class="second"><%=versionDetail.getCreatedBy() %></a> on <a href="javascript:void(0);" class="second"><%=versionDetail.getCreationDate() %></a> </div>
+                                                        
+                                                     <a href="javascript:void(0);" id="<%=currentFolder.getFilePath() %>,<%=versionDetail.getVersionName() %>" class="" onclick="restoreVersion(this.id)">Restore</a>
+                                                           
+                                                     <%}i++;} %>
+                                                </div> --%>
+                                                <!--  <li class="prew right_tab" onclick="getPreviewDoc()"><a href="javascript:void(0);">PREVIEW</a>
                                                   <div class="icon_right">
                                                   <script type="text/javascript">
                                                   function getPreviewDoc(){
@@ -217,15 +200,12 @@ if(currentFolder.getFileSize()/1024>1024){
                                               				success : function(data) {
                                               					$('#contentPreviewRight').html(data);
                                               				}
-
-                                                  });
+                                                  			});
                                                 		 }
                                                   </script>
                                                    </div>
                                                 </li>      
-                                                
                                                 <div class="content_right" id="contentPreviewRight">
-
                                                 </div> -->
                                                 <li class="prew right_tab permi"><a href="javascript:void(0);">SHARING AND SECURITY</a>
                                                   <div class="icon_right"> </div>
@@ -239,7 +219,10 @@ if(currentFolder.getFileSize()/1024>1024){
                                                                                <%
                                                        List<String> users=currentFolder.getUserRead();
                                                        String[] user=users.toString().split(",");
+                                                       int ii=1;
                                                        for(String str:user){
+                                                    	   if(ii>1){
+                                                    		   
                                                     	   if(str!="admin"){
                                                     	   str=str.replace("]", "");
                                                     	   str=str.replace("[", "");
@@ -254,7 +237,7 @@ if(currentFolder.getFileSize()/1024>1024){
                                                     		   }
                                                     	   %>
                                                     <tr class="right_text"> 
-                                                    <td class="go_text"><%=str %> </td>
+                                                    <td style="text-transform: none;"  class="go_text"><%=str.toLowerCase() %> </td>
 													<td> : <%=flag %>
 													</td>
 													<%-- <td>
@@ -287,7 +270,9 @@ if(currentFolder.getFileSize()/1024>1024){
 														<%} %>
 
 													</td> --%></tr>
-                                                       <%}}} %>
+                                                       <%}}} 
+                                                    	   ii=2;
+                                                       }%>
                                                        </table>
                                                            </div>
                                                       </div>

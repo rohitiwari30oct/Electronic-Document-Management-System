@@ -24,7 +24,11 @@
     margin-left: 65px;}
 #contactdiv_6 h2{
     margin-left: 65px;}
+#contactdiv_616 h2{
+    margin-left: 65px;}
 #contactdiv_66 h2{
+    margin-left: 65px;}
+contactdiv_getLink h2{
     margin-left: 65px;}
 #contactdiv_666 h2{
     margin-left: 65px;}
@@ -36,7 +40,24 @@
     font-size:18px;
     text-align:center;
 }
+#contactdiv_616 h3{
+    font-size:18px;
+    text-align:center;
+}
 #contactdiv_66 h3{
+font-size: 18px;
+text-align: left;
+font-family: monospace;
+font-weight: bold;
+margin: 0px;
+/* margin-bottom: 6px; */
+border-bottom: 1px solid #CECECE;
+padding-bottom: 8px;
+/* margin-bottom: 0px; */
+margin-bottom: 10px;
+
+}
+#contactdiv_getLink h3{
 font-size: 18px;
 text-align: left;
 font-family: monospace;
@@ -93,6 +114,12 @@ margin: 0PX;
     font-size:18px;
 }
 #contactdiv_6 b{
+    font-size:18px;
+}
+#contactdiv_616 b{
+    font-size:18px;
+}
+#contactdiv_getLink {
     font-size:18px;
 }
 #contactdiv_66 {
@@ -166,6 +193,23 @@ margin: 0PX;
     border-radius:3px;
     padding:5px;
 }
+#contactdiv_616  input[type=text]{
+    width:100%;
+    height:35px;
+    margin-top:5px;
+    border:1px solid #999;
+    border-radius:3px;
+    padding:5px;
+}
+#contactdiv_getLink  input[type=text]{
+ width: 100%;
+height: 16px;
+margin-top: 5px;
+border: 1px solid #999;
+border-radius: 3px;
+padding: 5px;
+margin-bottom: 14px;
+}
 #contactdiv_66  input[type=text]{
  width: 100%;
 height: 16px;
@@ -219,6 +263,22 @@ margin-bottom: 14px;
     padding:5px;margin-bottom: 13px;
 }
 #contactdiv_6  select{
+    width:100%;
+    height:35px;
+    margin-top:5px;
+    border:1px solid #999;
+    border-radius:3px;
+    padding:5px;margin-bottom: 13px;
+}
+#contactdiv_616  select{
+    width:100%;
+    height:35px;
+    margin-top:5px;
+    border:1px solid #999;
+    border-radius:3px;
+    padding:5px;margin-bottom: 13px;
+}
+#contactdiv_getLink  select{
     width:100%;
     height:35px;
     margin-top:5px;
@@ -299,6 +359,28 @@ outline: 0px;
 cursor: pointer;
 }
 #contactdiv_6 input[type=button]{
+cursor: default;
+font-size: 11px;
+font-weight: bold;
+height: 29px;
+line-height: 27px;
+margin: 0 16px 0 0;
+min-width: 72px;
+outline: 0;
+padding: 0 8px;
+}
+#contactdiv_616 input[type=button]{
+cursor: default;
+font-size: 11px;
+font-weight: bold;
+height: 29px;
+line-height: 27px;
+margin: 0 16px 0 0;
+min-width: 72px;
+outline: 0;
+padding: 0 8px;
+}
+#contactdiv_getLink input[type=button]{
 cursor: default;
 font-size: 11px;
 font-weight: bold;
@@ -397,6 +479,11 @@ margin: 0 auto;margin-left: 41px !important;
     padding: 7px;
 	
 	}
+	#contactdiv_616 input[type=file]{
+	border: 1px solid #ccc;
+    padding: 7px;
+	
+	}
 		#contactdiv_66 input[type=file]{
 	border: 1px solid #ccc;
     padding: 7px;
@@ -447,6 +534,16 @@ text-align: justify;
 text-align: justify;
 }
 #contactdiv_5 textarea{
+    width:100%;
+    height:80px;
+    margin-top:5px;
+    border-radius:3px;
+    padding:5px;
+    resize:none;
+	font-family: verdana;
+text-align: justify;
+}
+#contactdiv_616 textarea{
     width:100%;
     height:80px;
     margin-top:5px;
@@ -536,6 +633,31 @@ background: rgba(0, 0, 0, 0.25);
 
 }
 #contactdiv_6{ 
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+background: rgba(0, 0, 0, 0.25);
+    display: none;
+	z-index: 99999;
+
+}
+#contactdiv_616{ 
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+background: rgba(0, 0, 0, 0.25);
+    display: none;
+	z-index: 99999;
+
+}
+
+#contactdiv_getLink{ 
 
     position: absolute;
     top: 0px;

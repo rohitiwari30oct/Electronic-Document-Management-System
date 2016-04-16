@@ -29,8 +29,7 @@
         <logout logout-url="/logout" 
               logout-success-url="/index" delete-cookies="JSESSIONID" />       
 <!--    <logout logout-success-url="/logout" delete-cookies="JSESSIONID"/> -->
-  
-    <!-- enable remember me -->
+   <!-- enable remember me -->
    <!--  <remember-me token-validity-seconds="1209600" data-source-ref="dataSource" /> -->
    
     <!-- enable session management -->

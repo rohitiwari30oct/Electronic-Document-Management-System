@@ -31,7 +31,7 @@
 	      				
 									      				for (Folder folder : folderList) {
 									      					%>
-                                                        <li title=<%=folder.getFolderName() %> class="select_box target" onclick="setFolderPath(this.id)" id='<%=folder.getFolderPath()%>'>
+                                                        <li title="<%=folder.getFolderName() %>" style="  height: 110px;" class="space select_box target folderContextMenuClass" onclick="setFolderPath(this.id)" oncontextmenu="setFolderPath(this.id);getMenu()" id='<%=folder.getFolderPath()%>'>
                                                           <div class="folder_icon"></div>
                                                           <span><%=folder.getFolderName() %></span> </li>
                                                       
@@ -40,7 +40,7 @@
 	      				
 									      				for (File file : fileList) {
 									      					%>
-                                                        <li title=<%=file.getFileName() %> class="select_box target" onclick="setFolderPath(this.id)" id='<%=file.getFilePath()%>'>
+                                                        <li title="<%=file.getFileName() %>" style="  height: 110px;" class="space select_box target folderContextMenuClass" onclick="setFolderPath(this.id)"  oncontextmenu="setFolderPath(this.id);getMenu()" id='<%=file.getFilePath()%>'>
                                                          <%
 							if(file.getFileName().contains(".pdf")){
 						%>
@@ -93,60 +93,160 @@
                                                 </script>
                                                 <script type="text/javascript">
                                                 function deleteFolder(){
-                                                	if(confirm('Do you really want to permanently delete this item ?')){
-                                                	var folderPath=$('#clickedFolder').val();
-                                                	//alert(folderPath);
+                                                	//if(confirm('Do you really want to permanently delete this item ?')){
+													var folPath=	$('#multiPath').val();
+													if(folPath.length>6)
+                                                		  event_del_conf("confirm","Do you want to delete this item ?");
                                                 	
-                                                	
-													var myVar=setTimeout(myFunctionl,500);
-                                                	$.ajax({
-                                        					type : "GET",
-                                        					url : "${pageContext.request.contextPath}/deleteDoc",
-                                        					data : {
-                                        						'folderPath':$('#clickedFolder').val(),
-                                        					},
-                                        					contentType : "application/json",
-                                        					async : false,
-                                        					success : function(data) {
-                                             					if(data=="true"){
-                                          							location.href="index";
-                                          						}
-                                        						//alert(data);
-                                        						
-                                        						getPage('trash');
-
-                                        						myStopFunction(myVar);
-                                        					}
-                                        				}); }
+                                                //	}
                                                 }
                                                 
                                                 </script>
+                                                
+                                                <script >
+
+
+function event_del_conf(type,msg) {
+     //alert(id);
+       var n = noty({
+         text        : msg,
+         type        : type,
+         theme       : 'relax',
+         dismissQueue: false,
+         layout      : 'center',
+         theme       : 'defaultTheme',
+         buttons     : (type != 'confirm') ? false : [
+             {addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
+                 
+               $noty.close();
+             
+//           	var folderPath=$('#clickedFolder').val();
+       		var folderPath=$('#multiPath').val();
+           	//alert(folderPath);
+       	
+       	
+			var myVar=setTimeout(myFunctionl,500);
+       	$.ajax({
+					type : "GET",
+					url : "${pageContext.request.contextPath}/deleteDoc",
+					data : {
+						'folderPath':folderPath,
+					},
+					contentType : "application/json",
+					async : false,
+					success : function(data) {
+    					if(data=="ajaxTrue"){
+ 							location.href="index";
+ 						}
+						//alert(data);
+						
+						getPage('trash');
+						myStopFunction(myVar);
+					}
+				}); 
+             }
+             },
+             {addClass: 'btn btn-danger', text: 'Cancel', onClick: function ($noty) {
+                 $noty.close();
+             
+             }
+             }
+         ]
+     });
+    
+         
+         //console.log(type + ' - ' + n.options.id);
+         return n; 
+          
+     }
+
+
+
+
+</script>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
                                                 <script type="text/javascript">
                                                 function restoreFolder(){
-
-                                                	if(confirm('Do you really want to restore this item ?')){
-                                                	var folderPath=$('#clickedFolder').val();
-                                                	alert(folderPath);
+                                                	var folPath=	$('#multiPath').val();
+													if(folPath.length>6)
+                                          		  event_del_confres("confirm","Do you really want to restore this item ? In case restoration path doesn't exist, it will be restored at home folder!");
+                                                	//if(confirm("Do you really want to restore this item ? In case restoration path doesn't exist, it will be restored at home folder")){
                                                 
-													var myVar=setTimeout(myFunctionl,500);
-                                                	$.ajax({
-                                        					type : "GET",
-                                        					url : "${pageContext.request.contextPath}/restoreDoc",
-                                        					data : {
-                                        						'folderPath':$('#clickedFolder').val(),
-                                        					},
-                                        					contentType : "application/json",
-                                        					async : false,
-                                        					success : function(data) {
-                                             					if(data=="true"){
-                                          							location.href="index";
-                                          						}
-                                        						//alert(data);
-                                        						getPage('trash');
-                                        						myStopFunction(myVar);
-                                        					}
-                                        				}); }
+                                                	//}
                                                 }
+                                                
+                                                
+                                                
+
+                                                function event_del_confres(type,msg) {
+                                                     //alert(id);
+                                                       var n = noty({
+                                                         text        : msg,
+                                                         type        : type,
+                                                         theme       : 'relax',
+                                                         dismissQueue: false,
+                                                         layout      : 'center',
+                                                         theme       : 'defaultTheme',
+                                                         buttons     : (type != 'confirm') ? false : [
+                                                             {addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
+                                                                 
+                                                               $noty.close();
+                                                             
+//                                                       	var folderPath=$('#clickedFolder').val();
+                                                           	//alert(folderPath);
+                                                               
+           													var myVar=setTimeout(myFunctionl,500);
+                                                           	$.ajax({
+                                                   					type : "GET",
+                                                   					url : "${pageContext.request.contextPath}/restoreDoc",
+                                                   					data : {
+                                                   						'folderPath':$('#clickedFolder').val(),
+                                                   					},
+                                                   					contentType : "application/json",
+                                                   					async : false,
+                                                   					success : function(data) {
+                                                        					if(data=="ajaxTrue"){
+                                                     							location.href="index";
+                                                     						}
+                                                        					else{
+                                                        					showMsg("success",data);
+                                                   						getPage('trash');
+                                                   						}
+                                                   						myStopFunction(myVar);
+                                                   					}
+                                                   				}); 
+                                                             }
+                                                             },
+                                                             {addClass: 'btn btn-danger', text: 'Cancel', onClick: function ($noty) {
+                                                                 $noty.close();
+                                                             
+                                                             }
+                                                             }
+                                                         ]
+                                                     });
+                                                    
+                                                         
+                                                         //console.log(type + ' - ' + n.options.id);
+                                                         return n; 
+                                                          
+                                                     }
+                                                
+                                                
+                                                
+                                                
                                                 
                                                 </script>
                                          </div>
@@ -158,6 +258,29 @@
                                   
                         </div>
                         <!----// RIGHT END HERE -->
+<div class="right_click_menu">
+			<ul>
+			
+		
+				<li id="folderRightMenuRestore" onclick="restoreFolder()" id="downloadButton" ><div class="right_images">
+						<img src="images/paste_icon.png" />
+						<div class="clear"></div>
+					</div>
+					<span>Restore</span>
+				<div class="clear"></div></li>
+				<!--  <li class="download_right"><div class="right_images"><img src="images/download.png"/><div class="clear"></div></div><span>download</span><div class="clear"></div></li> -->
+				<li id="folderRightMenuRemove" onclick="deleteFolder()" ><div class="right_images">
+						<img src="images/delete_icon_file.png" />
+						<div class="clear"></div>
+					</div>
+					<span>Permanently Delete</span>
+				<div class="clear"></div></li>
+			
+				
+				
+			</ul>
+		</div>
+<input type="hidden" id="multiPath" />
               <script type="text/javascript">
           var recent_win_he = $(window).height();
           //alert(recent_win_he);
@@ -166,4 +289,18 @@
 
           $('.trash_sroll_content').css('height',recent_win_he-129);
 			</script>
+            <script type="text/javascript">
+        	function getMenu(){
             
+            var docPath=document.getElementById("multiPath").value;
+			var mul=docPath.split(",");
+			
+			
+			if(mul.length>1){
+				$('#folderRightMenuRestore').css('display', 'none');
+			}else{
+
+				$('#folderRightMenuRestore').css('display', 'block');
+				$('#folderRightMenuRemove').css('display', 'block');
+			}}
+				</script>

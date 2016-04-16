@@ -2,15 +2,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		 http://www.directwebremoting.org/schema/spring-dwr
-        http://www.directwebremoting.org/schema/spring-dwr-3.0.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
         
-    <dwr:configuration /> 
 	<mvc:annotation-driven />
 	<context:component-scan base-package="edms" />
 	<mvc:resources location="/WEB-INF/view/jsp/css/" mapping="css/**"/>
@@ -49,6 +45,6 @@
 </bean>
 	<!-- Configure the multipart resolver -->
 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-</bean>
-	<bean id="webContextFactory" class="org.directwebremoting.WebContextFactory"></bean>
+ </bean>
+	<!-- <bean id="webContextFactory" class="org.directwebremoting.WebContextFactory"></bean> -->
 </beans>

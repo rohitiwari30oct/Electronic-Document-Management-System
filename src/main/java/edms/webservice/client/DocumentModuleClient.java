@@ -15,12 +15,16 @@ import edms.wsdl.AddNotesRequest;
 import edms.wsdl.AddNotesResponse;
 import edms.wsdl.AssignSinglePermissionRequest;
 import edms.wsdl.AssignSinglePermissionResponse;
+import edms.wsdl.CheckDocExistRequest;
+import edms.wsdl.CheckDocExistResponse;
 import edms.wsdl.CopyDocRequest;
 import edms.wsdl.CopyDocResponse;
 import edms.wsdl.CreateFileRequest;
 import edms.wsdl.CreateFileResponse;
 import edms.wsdl.CreateFolderRequest;
 import edms.wsdl.CreateFolderResponse;
+import edms.wsdl.CreateWorkspaceRequest;
+import edms.wsdl.CreateWorkspaceResponse;
 import edms.wsdl.DeleteFileRequest;
 import edms.wsdl.DeleteFileResponse;
 import edms.wsdl.DeleteFolderRequest;
@@ -65,6 +69,8 @@ import edms.wsdl.RecycleFileRequest;
 import edms.wsdl.RecycleFileResponse;
 import edms.wsdl.RecycleFolderRequest;
 import edms.wsdl.RecycleFolderResponse;
+import edms.wsdl.RemoveAssignedPermissionRequest;
+import edms.wsdl.RemoveAssignedPermissionResponse;
 import edms.wsdl.RemoveKeywordRequest;
 import edms.wsdl.RemoveKeywordResponse;
 import edms.wsdl.RenameFileRequest;
@@ -81,6 +87,8 @@ import edms.wsdl.SearchDocByDateRequest;
 import edms.wsdl.SearchDocByDateResponse;
 import edms.wsdl.SearchDocByLikeRequest;
 import edms.wsdl.SearchDocByLikeResponse;
+import edms.wsdl.SetPublicLinkRequest;
+import edms.wsdl.SetPublicLinkResponse;
 import edms.wsdl.ShareFileByPathRequest;
 import edms.wsdl.ShareFileByPathResponse;
 import edms.wsdl.ShareFolderByPathRequest;
@@ -88,10 +96,10 @@ import edms.wsdl.ShareFolderByPathResponse;
 
 public class DocumentModuleClient extends WebServiceGatewaySupport {
 
-	public GetFolderResponse getFolderRequest(String path, String userid) {
+	public GetFolderResponse getFolderRequest(String path, String userid,String password) {
 		GetFolderRequest request = new GetFolderRequest();
 		request.setFolderPath(path);
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		GetFolderResponse response = (GetFolderResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
 						request,
@@ -100,9 +108,10 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 		return response;
 	}
 
-	public GetSharedFoldersResponse getSharedFoldersRequest(String userid) {
+	public GetSharedFoldersResponse getSharedFoldersRequest(String userid,String password) {
 		GetSharedFoldersRequest request = new GetSharedFoldersRequest();
 		request.setUserid(userid);
+		request.setPassword(password);
 		GetSharedFoldersResponse response = (GetSharedFoldersResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
 						request,
@@ -113,9 +122,9 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 	}
 
 	public GetSharedFoldersByPathResponse getSharedFoldersByPathRequest(
-			String userid, String path) {
+			String userid,String password, String path) {
 		GetSharedFoldersByPathRequest request = new GetSharedFoldersByPathRequest();
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		request.setPath(path);
 		GetSharedFoldersByPathResponse response = (GetSharedFoldersByPathResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
@@ -145,10 +154,10 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 		 */
 	}
 
-	public HasChildResponse hasChild(String path, String userid) {
+	public HasChildResponse hasChild(String path, String userid,String password) {
 		HasChildRequest request = new HasChildRequest();
 		request.setFolderPath(path);
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		HasChildResponse response = (HasChildResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
 						request,
@@ -158,11 +167,11 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 	}
 
 	public CreateFolderResponse createFolder(String folderName,
-			String parentFolder, String userid, String keywords, String notes) {
+			String parentFolder, String userid,String password, String keywords, String notes) {
 		CreateFolderRequest request = new CreateFolderRequest();
 		request.setFolderName(folderName);
 		request.setParentFolder(parentFolder);
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		request.setKeywords(keywords);
 		request.setNotes(notes);
 		CreateFolderResponse response = (CreateFolderResponse) getWebServiceTemplate()
@@ -174,10 +183,10 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 	}
 
 	public GetFolderByPathResponse getFolderByPath(String folderPath,
-			String userid) {
+			String userid,String password) {
 		GetFolderByPathRequest request = new GetFolderByPathRequest();
 		request.setFolderPath(folderPath);
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		GetFolderByPathResponse response = (GetFolderByPathResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
 						request,
@@ -187,11 +196,11 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 	}
 
 	public ShareFolderByPathResponse shareFolderByPath(String folderPath,
-			String userid, String users, String groups, String userpermissions,
+			String userid,String password, String users, String groups, String userpermissions,
 			String grouppermissions) {
 		ShareFolderByPathRequest request = new ShareFolderByPathRequest();
 		request.setFolderPath(folderPath);
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		request.setUsers(users);
 		request.setGroups(groups);
 		request.setUserpermissions(userpermissions);
@@ -202,17 +211,16 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 						request,
 						new SoapActionCallback(
 								"http://localhost:8080/ws/ShareFolderByPathRequest"));
-
 		return response;
 	}
 
 	public AssignSinglePermissionResponse assignSinglePermission(
-			String folderName, String userid, String user, String value) {
+			String folderName, String userid,String password, String user, String value) {
 		AssignSinglePermissionRequest request = new AssignSinglePermissionRequest();
 		request.setFolderPath(folderName);
 		request.setUser(user);
 		request.setValue(value);
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 
 		AssignSinglePermissionResponse response = (AssignSinglePermissionResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
@@ -223,9 +231,9 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 		return response;
 	}
 
-	public DeleteFolderResponse deleteFolder(String folderName, String userid) {
+	public DeleteFolderResponse deleteFolder(String folderName, String userid,String password) {
 		DeleteFolderRequest request = new DeleteFolderRequest();
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		request.setFolderPath(folderName);
 		DeleteFolderResponse deleteResponse = (DeleteFolderResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
@@ -235,9 +243,9 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 		return deleteResponse;
 	}
 
-	public RecycleFolderResponse recycleFolder(String folderName, String userid) {
+	public RecycleFolderResponse recycleFolder(String folderName, String userid,String password) {
 		RecycleFolderRequest request = new RecycleFolderRequest();
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		request.setFolderPath(folderName);
 		RecycleFolderResponse deleteResponse = (RecycleFolderResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
@@ -247,22 +255,18 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 		return deleteResponse;
 	}
 
-	public RestoreFolderResponse restoreFolder(String folderName, String userid) {
+	public RestoreFolderResponse restoreFolder(String folderName, String userid,String password) {
 		RestoreFolderRequest request = new RestoreFolderRequest();
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		request.setFolderPath(folderName);
-		RestoreFolderResponse deleteResponse = (RestoreFolderResponse) getWebServiceTemplate()
-				.marshalSendAndReceive(
-						request,
-						new SoapActionCallback(
-								"http://localhost:8080/ws/restoreFolderRequest"));
+		RestoreFolderResponse deleteResponse = (RestoreFolderResponse) getWebServiceTemplate().marshalSendAndReceive(request,new SoapActionCallback("http://localhost:8080/ws/restoreFolderRequest"));
 		return deleteResponse;
 	}
 
-	public GetRecycledDocsResponse getRecycledDoc(String userid,
+	public GetRecycledDocsResponse getRecycledDoc(String userid,String password,
 			String folderName) {
 		GetRecycledDocsRequest request = new GetRecycledDocsRequest();
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		request.setPath(folderName);
 		GetRecycledDocsResponse deleteResponse = (GetRecycledDocsResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
@@ -273,11 +277,11 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 	}
 
 	public RenameFolderResponse renameFolder(String oldFolderName,
-			String newFolderName, String userid) {
+			String newFolderName, String userid,String password) {
 		RenameFolderRequest request = new RenameFolderRequest();
 		request.setOldName(oldFolderName);
 		request.setNewName(newFolderName);
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		RenameFolderResponse renameResponse = (RenameFolderResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
 						request,
@@ -287,24 +291,24 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 	}
 
 	public RestoreVersionResponse restoreVersion(String folderPath,
-			String versionName, String userid) {
-		RestoreVersionRequest restoreRequest = new RestoreVersionRequest();
-		restoreRequest.setFolderPath(folderPath);
-		restoreRequest.setUserid(userid);
-		restoreRequest.setVersionName(versionName);
+			String versionName, String userid,String password) {
+		RestoreVersionRequest request = new RestoreVersionRequest();
+		request.setFolderPath(folderPath);
+		request.setUserid(userid);request.setPassword(password);
+		request.setVersionName(versionName);
 		RestoreVersionResponse restoreResponse = (RestoreVersionResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
-						restoreRequest,
+						request,
 						new SoapActionCallback(
 								"http://localhost:8080/ws/restoreVersionRequest"));
 		return restoreResponse;
 	}
 
 	// onfile processing
-	public GetFileResponse getFileRequest(String path, String userid) {
+	public GetFileResponse getFileRequest(String path, String userid,String password) {
 		GetFileRequest request = new GetFileRequest();
 		request.setFilePath(path);
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		GetFileResponse response = (GetFileResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
 						request,
@@ -315,10 +319,10 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 	}
 
 	// onfile processing
-	public GetFileWithOutStreamResponse getFileWithOutStreamRequest(String path, String userid) {
+	public GetFileWithOutStreamResponse getFileWithOutStreamRequest(String path, String userid,String password) {
 		GetFileWithOutStreamRequest request = new GetFileWithOutStreamRequest();
 		request.setFilePath(path);
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		GetFileWithOutStreamResponse response = (GetFileWithOutStreamResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
 						request,
@@ -328,9 +332,9 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 		return response;
 	}
 
-	public GetSharedFilesResponse getSharedFilesRequest(String userid) {
+	public GetSharedFilesResponse getSharedFilesRequest(String userid,String password) {
 		GetSharedFilesRequest request = new GetSharedFilesRequest();
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		GetSharedFilesResponse response = (GetSharedFilesResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
 						request,
@@ -341,9 +345,9 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 	}
 	
 	public GetSharedFilesByPathResponse getSharedFilesByPathRequest(
-			String userid, String path) {
+			String userid,String password, String path) {
 		GetSharedFilesByPathRequest request = new GetSharedFilesByPathRequest();
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		request.setPath(path);
 		GetSharedFilesByPathResponse response = (GetSharedFilesByPathResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
@@ -353,9 +357,9 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 
 		return response;
 	}
-	public GetSharedFilesWithOutStreamResponse getSharedFilesWithOutStreamRequest(String userid) {
+	public GetSharedFilesWithOutStreamResponse getSharedFilesWithOutStreamRequest(String userid,String password) {
 		GetSharedFilesWithOutStreamRequest request = new GetSharedFilesWithOutStreamRequest();
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		GetSharedFilesWithOutStreamResponse response = (GetSharedFilesWithOutStreamResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
 						request,
@@ -366,9 +370,9 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 	}
 	
 	public GetSharedFilesByPathWithOutStreamResponse getSharedFilesByPathWithOutStreamRequest(
-			String userid, String path) {
+			String userid,String password, String path) {
 		GetSharedFilesByPathWithOutStreamRequest request = new GetSharedFilesByPathWithOutStreamRequest();
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		request.setPath(path);
 		GetSharedFilesByPathWithOutStreamResponse response = (GetSharedFilesByPathWithOutStreamResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
@@ -382,9 +386,9 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 	public void printResponse(GetFileResponse response) {
 		FileListReturn country = response.getGetFilesByParentFile();
 
-		System.out.println();
+	/*	System.out.println();
 		System.out.println("Forecast for " + ", "
-				+ country.getFileListResult().getFileList().size());
+				+ country.getFileListResult().getFileList().size());*/
 
 		/*
 		 * SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -401,10 +405,10 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 
 	
 
-	public GetFileByPathResponse getFileByPath(String filePath, String userid) {
+	public GetFileByPathResponse getFileByPath(String filePath, String userid,String password) {
 		GetFileByPathRequest request = new GetFileByPathRequest();
 		request.setFilePath(filePath);
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 
 		GetFileByPathResponse response = (GetFileByPathResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
@@ -414,10 +418,10 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 
 		return response;
 	}
-	public GetFileByPathWithOutStreamResponse getFileByPathWithOutStream(String filePath, String userid) {
+	public GetFileByPathWithOutStreamResponse getFileByPathWithOutStream(String filePath, String userid,String password) {
 		GetFileByPathWithOutStreamRequest request = new GetFileByPathWithOutStreamRequest();
 		request.setFilePath(filePath);
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 
 		GetFileByPathWithOutStreamResponse response = (GetFileByPathWithOutStreamResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
@@ -429,11 +433,11 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 	}
 	
 	public ShareFileByPathResponse shareFileByPath(String filePath,
-			String userid, String users, String groups, String userpermissions,
+			String userid,String password, String users, String groups, String userpermissions,
 			String grouppermissions) {
 		ShareFileByPathRequest request = new ShareFileByPathRequest();
 		request.setFilePath(filePath);
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		request.setUsers(users);
 		request.setGroups(groups);
 		request.setUserpermissions(userpermissions);
@@ -448,9 +452,9 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 		return response;
 	}
 
-	public DeleteFileResponse deleteFile(String fileName, String userid) {
+	public DeleteFileResponse deleteFile(String fileName, String userid,String password) {
 		DeleteFileRequest request = new DeleteFileRequest();
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		request.setFilePath(fileName);
 		DeleteFileResponse deleteResponse = (DeleteFileResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
@@ -460,9 +464,9 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 		return deleteResponse;
 	}
 
-	public RecycleFileResponse recycleFile(String fileName, String userid) {
+	public RecycleFileResponse recycleFile(String fileName, String userid,String password) {
 		RecycleFileRequest request = new RecycleFileRequest();
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		request.setFilePath(fileName);
 		RecycleFileResponse deleteResponse = (RecycleFileResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
@@ -472,9 +476,9 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 		return deleteResponse;
 	}
 
-	public RestoreFileResponse restoreFile(String fileName, String userid) {
+	public RestoreFileResponse restoreFile(String fileName, String userid,String password) {
 		RestoreFileRequest request = new RestoreFileRequest();
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		request.setFilePath(fileName);
 		RestoreFileResponse deleteResponse = (RestoreFileResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
@@ -485,9 +489,9 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 	}
 
 	/*
-	 * public GetRecycledDocsResponse getRecycledDoc(String userid, String
+	 * public GetRecycledDocsResponse getRecycledDoc(String userid,String password, String
 	 * fileName) { GetRecycledDocsRequest request = new
-	 * GetRecycledDocsRequest(); request.setUserid(userid);
+	 * GetRecycledDocsRequest(); request.setUserid(userid);request.setPassword(password);
 	 * request.setPath(fileName); GetRecycledDocsResponse deleteResponse =
 	 * (GetRecycledDocsResponse) getWebServiceTemplate() .marshalSendAndReceive(
 	 * request, new SoapActionCallback(
@@ -496,11 +500,11 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 	 */
 
 	public RenameFileResponse renameFile(String oldFileName,
-			String newFileName, String userid) {
+			String newFileName, String userid,String password) {
 		RenameFileRequest request = new RenameFileRequest();
 		request.setOldName(oldFileName);
 		request.setNewName(newFileName);
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		RenameFileResponse renameResponse = (RenameFileResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
 						request,
@@ -510,10 +514,11 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 	}
 
 	public RecentlyModifiedResponse getRecentlyModified(String path,
-			String userid) {
+			String userid,String password) {
 		RecentlyModifiedRequest req = new RecentlyModifiedRequest();
 		req.setFolderPath(path);
 		req.setUserid(userid);
+		req.setPassword(password);
 		RecentlyModifiedResponse response = (RecentlyModifiedResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
 						req,
@@ -523,12 +528,12 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 	}
 
 	public SearchDocByLikeResponse searchDocByLike(String searchParamValue,
-			String folderPath, String searchParam,String userid) {
+			String folderPath, String searchParam,String userid,String password) {
 		SearchDocByLikeRequest request=new SearchDocByLikeRequest();
 		request.setSearchParamValue(searchParamValue);
 		request.setFolderPath(folderPath);
 		request.setSearchParam(searchParam);
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		SearchDocByLikeResponse response=(SearchDocByLikeResponse)getWebServiceTemplate()
 				.marshalSendAndReceive(
 						request,
@@ -539,12 +544,12 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 	}
 
 	public SearchDocByDateResponse searchDocByDate(String searchParamValue,
-			String folderPath, String searchParam, String userid) {
+			String folderPath, String searchParam, String userid,String password) {
 		SearchDocByDateRequest request=new SearchDocByDateRequest();
 		request.setSearchParamValue(searchParamValue);
 		request.setFolderPath(folderPath);
 		request.setSearchParam(searchParam);
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		SearchDocByDateResponse response=(SearchDocByDateResponse)getWebServiceTemplate()
 				.marshalSendAndReceive(
 						request,
@@ -555,12 +560,12 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 
 
 	public CreateFileResponse createFile(String filename, String parentFolder,
-			String userid, String keywords, String notes, byte[] fileContent,long filesize) {
+			String userid,String password, String keywords, String notes, byte[] fileContent,long filesize) {
 
 		CreateFileRequest request = new CreateFileRequest();
 		request.setFileName(filename);
 		request.setParentFile(parentFolder);
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		request.setKeywords(keywords);
 		request.setFileSize(filesize);
 //		String fileContent=IOUtils.toString(is);
@@ -576,12 +581,12 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 	
 	}
 
-	public AddKeywordResponse addKeyword(String parentFolder, String userid,
+	public AddKeywordResponse addKeyword(String parentFolder, String userid,String password,
 			String keyword) {
 		AddKeywordRequest request=new AddKeywordRequest();
 		request.setFolderPath(parentFolder);
 		request.setKeyword(keyword);
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		AddKeywordResponse response = (AddKeywordResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
 						request,
@@ -589,12 +594,12 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 								"http://localhost:8080/ws/addKeywordRequest"));
 		return response;
 	}
-	public RemoveKeywordResponse removeKeyword(String parentFolder, String userid,
+	public RemoveKeywordResponse removeKeyword(String parentFolder, String userid,String password,
 			String keyword) {
 		RemoveKeywordRequest request=new RemoveKeywordRequest();
 		request.setFolderPath(parentFolder);
 		request.setKeyword(keyword);
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		RemoveKeywordResponse response = (RemoveKeywordResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
 						request,
@@ -602,12 +607,12 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 								"http://localhost:8080/ws/removeKeywordRequest"));
 		return response;
 	}
-	public EditKeywordResponse editKeyword(String parentFolder, String userid,
+	public EditKeywordResponse editKeyword(String parentFolder, String userid,String password,
 			String keyword,String editedKeyword) {
 		EditKeywordRequest request=new EditKeywordRequest();
 		request.setFolderPath(parentFolder);
 		request.setKeyword(keyword);
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		request.setEditedKeyword(editedKeyword);
 		EditKeywordResponse response = (EditKeywordResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
@@ -618,11 +623,11 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 	}
 
 	public MoveDocResponse moveDoc(String sourcePath, String destPath,
-			String userid) {
+			String userid,String password) {
 		MoveDocRequest request=new MoveDocRequest();
 		request.setSrcDocPath(sourcePath);
 		request.setDestDocPath(destPath);
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		MoveDocResponse response = (MoveDocResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
 						request,
@@ -632,11 +637,11 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 	}
 
 	public CopyDocResponse copyDoc(String sourcePath, String destPath,
-			String userid) {
+			String userid,String password) {
 		CopyDocRequest request=new CopyDocRequest();
 		request.setSrcDocPath(sourcePath);
 		request.setDestDocPath(destPath);
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		System.out.println(destPath);
 		CopyDocResponse response = (CopyDocResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
@@ -646,12 +651,12 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 		return response;
 	}
 
-	public AddNotesResponse addNotes(String folderName, String userid,
+	public AddNotesResponse addNotes(String folderName, String userid,String password,
 			String note) {
 		AddNotesRequest request=new AddNotesRequest();
 		request.setFolderPath(folderName);
 		request.setNote(note);
-		request.setUserid(userid);
+		request.setUserid(userid);request.setPassword(password);
 		AddNotesResponse response = (AddNotesResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(
 						request,
@@ -659,6 +664,71 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 								"http://localhost:8080/ws/addNotesRequest"));
 		return response;
 	}
+
+	public RemoveAssignedPermissionResponse removeAssignedPermission(
+			String folderName, String userid, String password, String user,
+			String value) {
+		RemoveAssignedPermissionRequest request=new RemoveAssignedPermissionRequest();
+		request.setFolderPath(folderName);
+		request.setUser(user);
+		request.setValue(value);
+		request.setUserid(userid);
+		request.setPassword(password);
+		
+		RemoveAssignedPermissionResponse response=(RemoveAssignedPermissionResponse) getWebServiceTemplate()
+				.marshalSendAndReceive(
+						request,
+						new SoapActionCallback(
+								"http://localhost:8080/ws/removeAssignedPermissionRequest"));
+		return response;
+	}
+
+	public CheckDocExistResponse checkDocExistRequest(
+			String docPath, String userid, String password, String parent) {
+		CheckDocExistRequest request=new CheckDocExistRequest();
+		request.setDocPath(docPath);
+		request.setUserid(userid);
+		request.setPassword(password);
+		request.setParent(parent);
+		
+		CheckDocExistResponse response=(CheckDocExistResponse) getWebServiceTemplate()
+				.marshalSendAndReceive(
+						request,
+						new SoapActionCallback(
+								"http://localhost:8080/ws/checkDocExistRequest"));
+		return response;
+	}
+
+	public CreateWorkspaceResponse createWorkspaceRequest(String userid, String password, String workspaceName) {
+		CreateWorkspaceRequest request=new CreateWorkspaceRequest();
+		request.setUserid(userid);
+		request.setPassword(password);
+		request.setWorkspaceName(workspaceName);
+		
+		CreateWorkspaceResponse response=(CreateWorkspaceResponse) getWebServiceTemplate()
+				.marshalSendAndReceive(
+						request,
+						new SoapActionCallback(
+								"http://localhost:8080/ws/createWorkspaceRequest"));
+		return response;
+	}
+	public SetPublicLinkResponse setPublicLinkRequest(String filePath, String userid, String password,String guestId) {
+		SetPublicLinkRequest request=new SetPublicLinkRequest();
+		request.setUserid(userid);
+		request.setPassword(password);
+		request.setFilePath(filePath);
+		request.setGuestid(guestId);
+	
+		
+		SetPublicLinkResponse response=(SetPublicLinkResponse) getWebServiceTemplate()
+				.marshalSendAndReceive(
+						request,
+						new SoapActionCallback(
+								"http://localhost:8080/ws/setPublicLinkRequest"));
+		return response;
+	}
+
+	
 
 	
 

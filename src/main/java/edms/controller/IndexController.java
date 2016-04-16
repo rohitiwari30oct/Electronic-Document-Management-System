@@ -1,45 +1,29 @@
 package edms.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.security.Principal;
+import edms.core.Principal;
 import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import edms.chatdwr.ScriptSessList;
-import edms.chatdwr.XmppChatClass;
 import edms.core.Config;
-import edms.model.LoginModel;
 import edms.webservice.client.DocumentModuleClient;
 import edms.webservice.client.UserClient;
 import edms.webservice.client.WorkflowClient;
 import edms.wsdl.Folder;
-import edms.wsdl.GetFileResponse;
 import edms.wsdl.GetFileWithOutStreamResponse;
 import edms.wsdl.GetFolderByPathResponse;
 import edms.wsdl.GetFolderResponse;
 import edms.wsdl.GetRecycledDocsResponse;
 import edms.wsdl.GetUsersListResponse;
-import edms.wsdl.LoginResponse;
 import edms.wsdl.RecentlyModifiedResponse;
-import edms.wsdl.SearchDocByDateResponse;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.Iterator;
-
 import javax.naming.Context;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
@@ -56,7 +40,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class IndexController {
 	
-	@Autowired private ScriptSessList scriptSessList;
+//	@Autowired private ScriptSessList scriptSessList;
 	//@Autowired private Runner runner;
 	
 	@Value ("${xmppDomain}") private String xmppDomain;
@@ -70,47 +54,34 @@ public class IndexController {
 
 	@RequestMapping(value = "/userDashboard", method = RequestMethod.GET)
 	public String getUserDashboard(ModelMap map,Principal principal,HttpServletRequest request) {
+		try{
 		HttpSession hs = request.getSession(false);
 		if(principal==null){
 			return "login";
 		}
-		
-		
 		if (hs.getAttribute("currentFolder") == null) {
-			if(principal.getName().contains("@")){
-			hs.setAttribute("currentFolder", "/"+principal.getName());
-			hs.setAttribute("currentDoc", "/"+principal.getName());
-			}else{
-			hs.setAttribute("currentFolder", "/"+principal.getName()+Config.EDMS_DOMAIN);
-			hs.setAttribute("currentDoc", "/"+principal.getName()+Config.EDMS_DOMAIN);
+				if(principal.getName().contains("@")){
+					hs.setAttribute("currentFolder", "/"+principal.getName());
+					hs.setAttribute("currentDoc", "/"+principal.getName());
+				}else{
+					hs.setAttribute("currentFolder", "/"+principal.getName()+Config.EDMS_DOMAIN);
+					hs.setAttribute("currentDoc", "/"+principal.getName()+Config.EDMS_DOMAIN);
+				}
 			}
-			//	hs.setAttribute("currentFolder", "/");
-			}
-		
-		/*String countryName = "Spain";
-		GetCountryResponse response = folderClient
-				.GetCountryRequest(countryName);
-		folderClient.printResponse(response);*/
 		String path="";
-		
 		if(principal.getName().contains("@")){
 			path = "/"+principal.getName();	
 		}else{
 		path = "/"+principal.getName()+Config.EDMS_DOMAIN;
 		}
-		//String path = "/";
-		
 		String userid="";
 		if(principal.getName().contains("@")){
 			userid=principal.getName();
 			}else{
 				userid=principal.getName()+Config.EDMS_DOMAIN;
 			}
-		
-		GetFolderByPathResponse folderByPath=documentModuleClient.getFolderByPath(path,userid);
-		
-		GetFolderResponse folderResponse = documentModuleClient.getFolderRequest(path,userid);
-
+		GetFolderByPathResponse folderByPath=documentModuleClient.getFolderByPath(path,userid,principal.getPassword());
+		GetFolderResponse folderResponse = documentModuleClient.getFolderRequest(path,userid,principal.getPassword());
 		List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
 				.getFolderListResult().getFolderList();
 		documentModuleClient.printResponse(folderResponse);	
@@ -119,65 +90,410 @@ public class IndexController {
 		map.addAttribute("currentFolder",folderNode);
 		map.addAttribute( "folderList", folderList);
 		map.addAttribute("folderClient",documentModuleClient);
+		map.addAttribute("breadcumPath","/"+userid);
 		map.addAttribute("userid",userid );
 		return "dashboard";
+	}catch(Exception e){
+		return "ajaxTrue";
 	}
-
-
-
+	}
 
 	@RequestMapping(value = "/calender", method = RequestMethod.GET)
 	public String getCalender(ModelMap map,Principal principal) {
-
-		if(principal!=null){
+		if(principal==null){return "ajaxTrue";}else{
 		return "calender";
-		}else{
-			return "ajaxTrue";
 		}
 	}
+	
+	
 
 	@RequestMapping(value = "/workflow", method = RequestMethod.GET)
 	public String getWorkflow(ModelMap map,Principal principal) {
-
-		if(principal!=null){
+		if(principal==null){return "ajaxTrue";}else{
 		return "workflow";
-		}else{
-			return "ajaxTrue";
 		}
 	}
+	
+	@RequestMapping(value = "/travelExpensesReimbursementHistory", method = RequestMethod.GET)
+	public String travelExpensesReimbursementHistory(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "travelExpensesReimbursementHistory";
+		}
+	}
+
+	@RequestMapping(value = "/startTravelExpensesReimbursement", method = RequestMethod.GET)
+	public String startTravelExpensesReimbursement(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "startTravelExpensesReimbursement";
+		}
+	}
+
+	@RequestMapping(value = "/verifyTravelExpensesReimbursement", method = RequestMethod.GET)
+	public String verifyTravelExpensesReimbursement(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "verifyTravelExpensesReimbursement";
+		}
+	}
+
+	@RequestMapping(value = "/approveTravelExpensesReimbursement", method = RequestMethod.GET)
+	public String approveTravelExpensesReimbursement(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "approveTravelExpensesReimbursement";
+		}
+	}
+	
+	@RequestMapping(value = "/authorizeTravelExpensesReimbursement", method = RequestMethod.GET)
+	public String authorizeTravelExpensesReimbursement(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "authorizeTravelExpensesReimbursement";
+		}
+	}
+	@RequestMapping(value = "/accountTravelExpensesReimbursement", method = RequestMethod.GET)
+	public String accountTravelExpensesReimbursement(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "accountTravelExpensesReimbursement";
+		}
+	}
+
+	@RequestMapping(value = "/readjustTravelExpensesReimbursement", method = RequestMethod.GET)
+	public String readjustTravelExpensesReimbursement(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "readjustTravelExpensesReimbursement";
+		}
+	}
+
+	@RequestMapping(value = "/handleIOMFormHistory", method = RequestMethod.GET)
+	public String handleIOMFormHistory(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "handleIOMFormHistory";
+		}
+	}
+
+	@RequestMapping(value = "/attachmentIOMForm", method = RequestMethod.GET)
+	public String attachmentIOMForm(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "attachmentIOMForm";
+		}
+	}
+	@RequestMapping(value = "/startIOMForm", method = RequestMethod.GET)
+	public String startIOMForm(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "startIOMForm";
+		}
+	}
+	@RequestMapping(value = "/handleIOMForm", method = RequestMethod.GET)
+	public String handleIOMForm(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "handleIOMForm";
+		}
+	}
+	@RequestMapping(value = "/handleIOMForm2", method = RequestMethod.GET)
+	public String handleIOMForm2(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "handleIOMForm2";
+		}
+	}
+	@RequestMapping(value = "/readjustIOMForm", method = RequestMethod.GET)
+	public String readjustIOMForm(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "readjustIOMForm";
+		}
+	}
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String test(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "test";
+		}
+	}
+
+	@RequestMapping(value = "/startPurchaseRequisitionApplicationForm", method = RequestMethod.GET)
+	public String startPurchaseRequisitionApplicationForm(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "startPurchaseRequisitionApplicationForm";
+		}
+	}
+	
+	@RequestMapping(value = "/handlePurchaseRequisitionApplicationForm", method = RequestMethod.GET)
+	public String handlePurchaseRequisitionApplicationForm(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "handlePurchaseRequisitionApplicationForm";
+		}
+	}
+	
+
+	@RequestMapping(value = "/approvePurchaseRequisitionApplicationForm", method = RequestMethod.GET)
+	public String approvePurchaseRequisitionApplicationForm(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "approvePurchaseRequisitionApplicationForm";
+		}
+	}
+	
+	
+	@RequestMapping(value = "/handlePurchaseRequisitionApplicationFormHistory", method = RequestMethod.GET)
+	public String handlePurchaseRequisitionApplicationFormHistory(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "handlePurchaseRequisitionApplicationFormHistory";
+		}
+	}
+	@RequestMapping(value = "/lastHandlePurchaseRequisitionApplicationForm", method = RequestMethod.GET)
+	public String lasthandlePurchaseRequisitionApplicationForm(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "lastHandlePurchaseRequisitionApplicationForm";
+		}
+	}
+	
+	
+	@RequestMapping(value = "/readjustPurchaseRequisitionApplicationForm", method = RequestMethod.GET)
+	public String readjustPurchaseRequisitionApplicationForm(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "readjustPurchaseRequisitionApplicationForm";
+		}
+	}
+	
+	
+	@RequestMapping(value = "/startPurchaseRequisitionApplicationFormHO", method = RequestMethod.GET)
+	public String startPurchaseRequisitionApplicationFormHO(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "startPurchaseRequisitionApplicationFormHO";
+		}
+	}
+	
+	@RequestMapping(value = "/handlePurchaseRequisitionApplicationFormHO", method = RequestMethod.GET)
+	public String handlePurchaseRequisitionApplicationFormHO(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "handlePurchaseRequisitionApplicationFormHO";
+		}
+	}
+	
+
+	@RequestMapping(value = "/approvePurchaseRequisitionApplicationFormHO", method = RequestMethod.GET)
+	public String approvePurchaseRequisitionApplicationFormHO(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "approvePurchaseRequisitionApplicationFormHO";
+		}
+	}
+	@RequestMapping(value = "/handlePurchaseRequisitionApplicationFormHOHistory", method = RequestMethod.GET)
+	public String handlePurchaseRequisitionApplicationFormHOHistory(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "handlePurchaseRequisitionApplicationFormHOHistory";
+		}
+	}
+	@RequestMapping(value = "/lastHandlePurchaseRequisitionApplicationFormHO", method = RequestMethod.GET)
+	public String lasthandlePurchaseRequisitionApplicationFormHO(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "lastHandlePurchaseRequisitionApplicationFormHO";
+		}
+	}
+	
+	
+	@RequestMapping(value = "/readjustPurchaseRequisitionApplicationFormHO", method = RequestMethod.GET)
+	public String readjustPurchaseRequisitionApplicationFormHO(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "readjustPurchaseRequisitionApplicationFormHO";
+		}
+	}
+	
+	
+
+	   @RequestMapping(value = "/medicalExpensesReimbursementHistory", method = RequestMethod.GET)
+	    public String medicalExpensesReimbursementHistory(ModelMap map,Principal principal) {
+	        if(principal==null){return "ajaxTrue";}else{
+	        return "medicalExpensesReimbursementHistory";
+	        }
+	    }
+	   @RequestMapping(value = "/startMedicalExpensesReimbursement", method = RequestMethod.GET)
+	    public String startMedicalExpensesReimbursement(ModelMap map,Principal principal) {
+	        if(principal==null){return "ajaxTrue";}else{
+	        return "startMedicalExpensesReimbursement";
+	        }
+	    }
+
+	    @RequestMapping(value = "/verifyMedicalExpensesReimbursement", method = RequestMethod.GET)
+	    public String verifyMedicalExpensesReimbursement(ModelMap map,Principal principal) {
+	        if(principal==null){return "ajaxTrue";}else{
+	        return "verifyMedicalExpensesReimbursement";
+	        }
+	    }
+
+	    @RequestMapping(value = "/approveMedicalExpensesReimbursement", method = RequestMethod.GET)
+	    public String approveMedicalExpensesReimbursement(ModelMap map,Principal principal) {
+	        if(principal==null){return "ajaxTrue";}else{
+	        return "approveMedicalExpensesReimbursement";
+	        }
+	    }
+
+	    @RequestMapping(value = "/authorizeMedicalExpensesReimbursement", method = RequestMethod.GET)
+	    public String authorizeMedicalExpensesReimbursement(ModelMap map,Principal principal) {
+	        if(principal==null){return "ajaxTrue";}else{
+	        return "authorizeMedicalExpensesReimbursement";
+	        }
+	    }
+	    @RequestMapping(value = "/accountMedicalExpensesReimbursement", method = RequestMethod.GET)
+	    public String accountMedicalExpensesReimbursement(ModelMap map,Principal principal) {
+	        if(principal==null){return "ajaxTrue";}else{
+	        return "accountMedicalExpensesReimbursement";
+	        }
+	    }
+
+	    @RequestMapping(value = "/readjustMedicalExpensesReimbursement", method = RequestMethod.GET)
+	    public String readjustMedicalExpensesReimbursement(ModelMap map,Principal principal) {
+	        if(principal==null){return "ajaxTrue";}else{
+	        return "readjustMedicalExpensesReimbursement";
+	        }
+	    }
+	
+	    
+	
+
+		@RequestMapping(value = "/leaveApplicationFormHistory", method = RequestMethod.GET)
+		public String leaveApplicationFormHistory(ModelMap map,Principal principal) {
+			if(principal==null){return "ajaxTrue";}else{
+			return "leaveApplicationFormHistory";
+			}
+		}
+		@RequestMapping(value = "/startLeaveApplicationForm", method = RequestMethod.GET)
+		public String startLeaveApplicationForm(ModelMap map,Principal principal) {
+			if(principal==null){return "ajaxTrue";}else{
+			return "startLeaveApplicationForm";
+			}
+		}
+	
+	@RequestMapping(value = "/verifyLeaveApplicationForm", method = RequestMethod.GET)
+	public String verifyLeaveApplicationForm(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "verifyLeaveApplicationForm";
+		}
+	}
+	
+	@RequestMapping(value = "/approveLeaveApplicationForm", method = RequestMethod.GET)
+	public String approveLeaveApplicationForm(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "approveLeaveApplicationForm";
+		}
+	}
+	
+	@RequestMapping(value = "/authorizeLeaveApplicationForm", method = RequestMethod.GET)
+	public String authorizeLeaveApplicationForm(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "authorizeLeaveApplicationForm";
+		}
+	}
+	
+	@RequestMapping(value = "/readjustLeaveApplicationForm", method = RequestMethod.GET)
+	public String readjustLeaveApplicationForm(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "readjustLeaveApplicationForm";
+		}
+	}
+	
+	
+	@RequestMapping(value = "/startInterOfficeMemoForm", method = RequestMethod.GET)
+	public String startInterOfficeMemoForm(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "startInterOfficeMemoForm";
+		}
+	}
+	
+	
+	@RequestMapping(value = "/startCashPaymentVoucherForm", method = RequestMethod.GET)
+	public String startCashPaymentVoucherForm(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "startCashPaymentVoucherForm";
+		}
+	}
+	
+	
+	@RequestMapping(value = "/handleCashPaymentVoucherForm", method = RequestMethod.GET)
+	public String handleCashPaymentVoucherForm(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "handleCashPaymentVoucherForm";
+		}
+	}
+	
+	
+	@RequestMapping(value = "/readjustCashPaymentVoucherForm", method = RequestMethod.GET)
+	public String readjustCashPaymentVoucherForm(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "readjustCashPaymentVoucherForm";
+		}
+	}
+	
+
+	@RequestMapping(value = "/handleCashPaymentVoucherFormHistory", method = RequestMethod.GET)
+	public String handleCashPaymentVoucherFormHistory(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "handleCashPaymentVoucherFormHistory";
+		}
+	}
+
+	@RequestMapping(value = "/lastHandleCashPaymentVoucherForm", method = RequestMethod.GET)
+	public String lastHandleCashPaymentVoucherForm(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "lastHandleCashPaymentVoucherForm";
+		}
+	}
+	
+	@RequestMapping(value = "/handleCashPaymentVoucherApproveForm", method = RequestMethod.GET)
+	public String handleCashPaymentVoucherApproveForm(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "handleCashPaymentVoucherApproveForm";
+		}
+	}
+	
+	@RequestMapping(value = "/handleCashPaymentVoucherUserForm", method = RequestMethod.GET)
+	public String handleCashPaymentVoucherUserForm(ModelMap map,Principal principal) {
+		if(principal==null){return "ajaxTrue";}else{
+		return "handleCashPaymentVoucherUserForm";
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping(value = "/recently", method = RequestMethod.GET)
 	public String getRecently(ModelMap map,Principal principal) {
-		if(principal!=null){
-		String path="";
-		if(principal.getName().contains("@")){
-			path = "/"+principal.getName();	
-		}else{
-		path = "/"+principal.getName()+Config.EDMS_DOMAIN;
-		}
-		String userid="";
-		if(principal.getName().contains("@")){
-			userid=principal.getName();
+		try{
+		if(principal==null){return "ajaxTrue";}else{
+			String path="";
+			if(principal.getName().contains("@")){
+				path = "/"+principal.getName();	
 			}else{
-				userid=principal.getName()+Config.EDMS_DOMAIN;
+			path = "/"+principal.getName()+Config.EDMS_DOMAIN;
 			}
-		RecentlyModifiedResponse recentlyModifiedResponse = documentModuleClient.getRecentlyModified(path,userid);
-		List<Folder> folderList = recentlyModifiedResponse.getRecentlyModifiedFolders().getFoldersList().getFolderList();
-		map.addAttribute("folderList", folderList);
-		List<edms.wsdl.File> fileList=recentlyModifiedResponse.getRecentlyModifiedFolders().getFilesList().getFileList();
-		map.addAttribute("fileList", fileList);
-		map.addAttribute("userid",userid);
-		GetFolderByPathResponse folderByPath=documentModuleClient.getFolderByPath(path,userid);
-		Folder folderNode=folderByPath.getFolder();
-		map.addAttribute("principal", principal);
-		map.addAttribute("currentFolder",folderNode);
-		return "fileSystem";
-		}else{
-			return "ajaxTrue";
+			String userid="";
+			if(principal.getName().contains("@")){
+				userid=principal.getName();
+				}else{
+					userid=principal.getName()+Config.EDMS_DOMAIN;
+				}
+			
+			RecentlyModifiedResponse recentlyModifiedResponse = documentModuleClient.getRecentlyModified(path,userid,principal.getPassword());
+			List<Folder> folderList = recentlyModifiedResponse.getRecentlyModifiedFolders().getFoldersList().getFolderList();
+			map.addAttribute("folderList", folderList);
+			List<edms.wsdl.File> fileList=recentlyModifiedResponse.getRecentlyModifiedFolders().getFilesList().getFileList();
+			map.addAttribute("fileList", fileList);
+			map.addAttribute("userid",userid);
+			GetFolderByPathResponse folderByPath=documentModuleClient.getFolderByPath(path,userid,principal.getPassword());
+			Folder folderNode=folderByPath.getFolder();
+			map.addAttribute("principal", principal);
+			map.addAttribute("currentFolder",folderNode);
+			map.addAttribute("breadcumPath","/"+userid);
+			return "fileSystem";
 		}
+	}catch(Exception e){
+		return "ajaxTrue";
+	}
 	}
 	@RequestMapping(value = "/getLeftDocument", method = RequestMethod.GET)
 	public String getLeftDocument(ModelMap map,Principal principal,HttpServletRequest request) {
-		if(principal!=null){
+		try{
+		if(principal==null){return "ajaxTrue";}else{
 		String path="";
 		if(principal.getName().contains("@")){
 			path = "/"+principal.getName();	
@@ -186,30 +502,33 @@ public class IndexController {
 		}
 		String userid="";
 		if(principal.getName().contains("@")){
-			userid=principal.getName();
+				userid=principal.getName();
 			}else{
 				userid=principal.getName()+Config.EDMS_DOMAIN;
 			}
 		GetFolderResponse folderResponse = documentModuleClient
-				.getFolderRequest(path, userid);
+				.getFolderRequest(path, userid,principal.getPassword());
 		List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
 				.getFolderListResult().getFolderList();
 		GetFileWithOutStreamResponse fileResponse = documentModuleClient.getFileWithOutStreamRequest(
-				path, userid);
+				path, userid,principal.getPassword());
 		List<edms.wsdl.File> fileList = fileResponse.getGetFilesByParentFile()
 				.getFileListResult().getFileList();
 		map.addAttribute("fileList", fileList);
 		map.addAttribute("folderClient", documentModuleClient);
 		map.addAttribute("folderList", folderList);
 		map.addAttribute("principal", principal);
-	return "myDocument";	}else{
-		return "ajaxTrue";
-	}
+		return "myDocument";	
+		}
+		}catch(Exception e){
+			return "ajaxTrue";
+		}
 	
 	}
 	@RequestMapping(value = "/setting", method = RequestMethod.GET)
 	public String getSetting(ModelMap map,Principal principal) {
-		if(principal!=null){
+		try{
+		if(principal==null){return "ajaxTrue";}else{
 			String userid="";
 			if(principal.getName().contains("@")){
 				userid=principal.getName();
@@ -218,13 +537,15 @@ public class IndexController {
 				}
 			map.addAttribute("userid",userid);
 		return "setting";	
-		}else{
-			return "ajaxTrue";
 		}
+	}catch(Exception e){
+		return "ajaxTrue";
+	}
 	}
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public String dashboard(ModelMap map,Principal principal) {
-		if(principal!=null){
+		try{
+		if(principal==null){return "ajaxTrue";}else{
 			String userid="";
 			if(principal.getName().contains("@")){
 				userid=principal.getName();
@@ -233,13 +554,15 @@ public class IndexController {
 				}
 			map.addAttribute("userid",userid);
 		return "dashboard";	
-		}else{
-			return "ajaxTrue";
 		}
+	}catch(Exception e){
+		return "ajaxTrue";
+	}
 	}
 	@RequestMapping(value = "/trash", method = RequestMethod.GET)
 	public String getTrash(ModelMap map,Principal principal) {
-		if(principal!=null){
+		try{
+		if(principal==null){return "ajaxTrue";}else{
 		String userid="";
 		if(principal.getName().contains("@")){
 			userid=principal.getName();
@@ -247,257 +570,70 @@ public class IndexController {
 				userid=principal.getName()+Config.EDMS_DOMAIN;
 			}
 		String path="/"+userid+"/trash";
-		GetRecycledDocsResponse folderResponse = documentModuleClient.getRecycledDoc(userid, path);
+		GetRecycledDocsResponse folderResponse = documentModuleClient.getRecycledDoc(userid,principal.getPassword(), path);
 		List<Folder> folderList = folderResponse.getGetRecycledDocs().getFoldersList().getFolderList();
 		map.addAttribute("folderList", folderList);
 		map.addAttribute("fileList", folderResponse.getGetRecycledDocs().getFilesList().getFileList());
 		map.addAttribute("userid",userid);
-		return "trash";	}else{
-			return "ajaxTrue";
-		}
+		return "trash";	}
+	}catch(Exception e){
+		return "ajaxTrue";
 	}
-	
-	/*@RequestMapping(value = "/chat", method = RequestMethod.GET)
-		public void getchat(ModelMap map) {
-			System.out.println("in get chat )))))))))))))))))))))))");
-		}
-	 */
-
-	/*
-	 * @Autowired private PersonRepo personRepo;
-	 */
-	@SuppressWarnings("deprecation")
-	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
+	}
+	//@SuppressWarnings("deprecation")
+	@RequestMapping(value = "/welcome", method = RequestMethod.POST)
 	public String getIndex(ModelMap map, Principal principal, HttpServletRequest request) throws  IOException {
-		if(principal==null){
-			return "login";
-		}
 		
-		/*public String getIndex(ModelMap map, Principal principal, HttpServletRequest request) throws  IOException {	*/
-		// System.out.println("in welcome &&&&&&");
-		// Session session=jcrService.getJcrSession();
-		// System.out.println('session in controller : '+session);
-		// map.addAttribute('jcrSession',session);
-
-		/*
-		 * FileInputStream is = new FileInputStream('d:/EDMS2.ppt'); SlideShow
-		 * ppt = new SlideShow(is); is.close();
-		 * 
-		 * Dimension pgsize = ppt.getPageSize();
-		 * pgsize.setSize((pgsize.getWidth())/4, (pgsize.getHeight())/4);
-		 * Slide[] slide = ppt.getSlides(); for (int i = 0; i < slide.length;
-		 * i++) {
-		 * 
-		 * BufferedImage img = new BufferedImage(pgsize.width, pgsize.height,
-		 * BufferedImage.TYPE_INT_RGB); Graphics2D graphics =
-		 * img.createGraphics(); //clear the drawing area
-		 * graphics.setPaint(Color.white); graphics.fill(new
-		 * Rectangle2D.Float(0, 0, pgsize.width, pgsize.height));
-		 * 
-		 * //render slide[i].draw(graphics);
-		 * 
-		 * //save the output FileOutputStream out = new
-		 * FileOutputStream('d:/slide-' + (i+1) + '.png');
-		 * javax.imageio.ImageIO.write(img, 'png', out); out.close(); }
-		 */
-		/*
-		 * For reading of Excel File
-		 * 
-		 * //InputStream inp = new FileInputStream('d:/workbook.xls');
-		 * InputStream inp = new FileInputStream('workbook.xlsx');
-		 * 
-		 * Workbook wb = null; try { wb = WorkbookFactory.create(inp); } catch
-		 * (InvalidFormatException e1) { // TODO Auto-generated catch block
-		 * e1.printStackTrace(); } Sheet sheet = wb.getSheetAt(0); Row row =
-		 * sheet.getRow(2); Cell cell = row.getCell(2);
-		 * System.out.println(cell.getStringCellValue()+' at '+ cell.getRow()+'
-		 * and '+cell.getColumnIndex()); if (cell == null) cell =
-		 * row.createCell(3);
-		 * 
-		 * cell.setCellType(Cell.CELL_TYPE_STRING); cell.setCellValue('Piyush
-		 * Joshi');
-		 * 
-		 * // Write the output to a file FileOutputStream fileOut = new
-		 * FileOutputStream('d:/workbook.xls'); wb.write(fileOut);
-		 * fileOut.close();
-		 */
-
-		
-		/*
-		 * try{ int thumbWidth=50; int thumbHeight=50; // load image from
-		 * filename Image image = Toolkit.getDefaultToolkit().getImage('d:/dd' +
-		 * '.png'); MediaTracker mediaTracker = new MediaTracker(new
-		 * Container()); mediaTracker.addImage(image, 0);
-		 * 
-		 * // determine thumbnail size from WIDTH and HEIGHT double thumbRatio =
-		 * (double)thumbWidth / (double)thumbHeight; int imageWidth =
-		 * image.getWidth(null); int imageHeight = image.getHeight(null); double
-		 * imageRatio = (double)imageWidth / (double)imageHeight; if (thumbRatio
-		 * < imageRatio) { thumbHeight = (int)(thumbWidth / imageRatio); } else
-		 * { thumbWidth = (int)(thumbHeight * imageRatio); }
-		 * 
-		 * // draw original image to thumbnail image object and // scale it to
-		 * the new size on-the-fly BufferedImage thumbImage = new
-		 * BufferedImage(50, thumbHeight, BufferedImage.TYPE_INT_RGB);
-		 * Graphics2D graphics2D = thumbImage.createGraphics();
-		 * graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-		 * RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-		 * graphics2D.drawImage(image, 0, 0, thumbWidth, thumbHeight, null);
-		 * 
-		 * // save thumbnail image to outFilename BufferedOutputStream out = new
-		 * BufferedOutputStream(new FileOutputStream('d:/dd1' + '.png'));
-		 * out.close(); }catch(Exception e){ e.printStackTrace();
-		 * 
-		 * }
-		 */
-		// Repository repository = new TransientRepository();
-		// Session session = repository.login(new SimpleCredentials('username',
-		// 'password'.toCharArray()));
-		/*
-		 * try{ InputStream is =
-		 * getClass().getClassLoader().getResourceAsStream('CustomNodes.cnd');
-		 * 
-		 * Reader cnd = new InputStreamReader(is); NodeType[] nodeTypes =
-		 * CndImporter.registerNodeTypes(cnd, session); }catch(Exception e ){
-		 * e.printStackTrace(); }
-		 */
-		// Node root = session.getRootNode();
-		/*
-		 * System.out.println('no of child of root : '+root.getDepth());
-		 * NodeIterator nodeIterator=root.getNodes(); System.out.println('size
-		 * of root node.. : '+nodeIterator.getSize()); Node
-		 * nod1=nodeIterator.nextNode(); // Node nod2=nodeIterator.nextNode();
-		 * System.out.println('child node of root ........1 : '+nod1.getPath());
-		 * // System.out.println('child node of root ........2 :
-		 * '+nod2.getPath()); System.out.println('have child more :
-		 * '+nodeIterator.hasNext());
-		 * 
-		 * Node hello = root.addNode('hello');
-		 * 
-		 * System.out.println(root.getPrimaryNodeType());
-		 * 
-		 * root.getNode('hello');
-		 */
-		// try {
-
-		/*
-		 * FileInputStream iss =new FileInputStream(new File('D:/edms
-		 * project/spring
-		 * -tool-suite-3.6.0.RELEASE-e4.4-win32-x86_64/sts-bundle/sts
-		 * -3.6.0.RELEASE/repository.xml')); Node contentNode =
-		 * root.addNode('jcr:content', 'nt:resource');
-		 * contentNode.addMixin(JcrConstants.MIX_VERSIONABLE);
-		 * contentNode.setProperty(JcrConstants.JCR_MIMETYPE, 'xml');
-		 * contentNode.setProperty(JcrConstants.JCR_DATA, iss);
-		 * contentNode.setProperty(JcrConstants.JCR_LASTMODIFIED,
-		 * Calendar.getInstance());
-		 */
-		// create versionable node
-		/*
-		 * Node n = root.addNode('childNode', 'nt:unstructured');
-		 * n.addMixin('mix:versionable'); n.setProperty('anyProperty', 'Blah');
-		 * session.save(); Version firstVersion = n.checkin();
-		 * 
-		 * //add new version Node child = root.getNode('childNode');
-		 * child.checkout(); child.setProperty('anyProperty', 'Blah2');
-		 * session.save(); child.checkin();
-		 * 
-		 * 
-		 * 
-		 * // restoring old version child.checkout();
-		 */// child.restore(firstVersion, true);
-		// Node child=root.getNode('newName3');
-
-		/*
-		 * Version ver= child.checkin(); child.restore(ver, true);
-		 * child.checkout();
-		 */
-		// print version history
-		/*
-		 * VersionHistory history = child.getVersionHistory(); for
-		 * (VersionIterator it = history.getAllVersions(); it.hasNext();) {
-		 * Version version = (Version) it.next();
-		 * System.out.println(version.getCreated().getTime()+' version
-		 * description is : '+version.getName()); }
-		 */
-		// System.out.println('base version of newName3 :
-		// '+child.getBaseVersion().getName());
-		// delete
-		/*
-		 * for(int i=1;i<=10;i++){
-		 * 
-		 * root.getNode('hello['+i+']').remove(); session.save(); }
-		 */
-		// child.getSession().move(child.getPath(), child.getParent().getPath()
-		// + '' + 'newName2');
-		/*
-		 * } finally { session.save(); session.logout(); }
-		 */
-
-		// FileInputStream iss =new FileInputStream(new File('D:/edms
-		// project/spring-tool-suite-3.6.0.RELEASE-e4.4-win32-x86_64/sts-bundle/sts-3.6.0.RELEASE/repository.xml'));
-		// InputStream in=iss;
-		/*
-		 * Workspace workspace=session.getWorkspace();
-		 * workspace.getNamespaceRegistry().registerNamespace('ocm1',
-		 * 'http://jackrabbit.apache.org/ocm1'); System.out.println('workspace
-		 * is : '+workspace.getName()); System.out.println('');
-		 */
-		/*	Tika tika = new Tika();
-		// FileOutputStream out = null;
-		try {
-			// out = new FileOutputStream(new File('D:/edms
-			// project/spring-tool-suite-3.6.0.RELEASE-e4.4-win32-x86_64/sts-bundle/sts-3.6.0.RELEASE/repository.xml'));
-			// IOUtils.copy(in, out);
-			String mimeType = tika.detect(new File("D:/testLdap.pdf"));
-			System.out.println(mimeType);
-		} catch (Exception e) {
-			System.err.println(e);
-		}*/
-		// map.addAttribute("loginUser", new LoginModel());
-		  
-		  
 		HttpSession hs = request.getSession(false);
+	
+		try{
+		if(principal==null){
+			return "index";
+		}
+		String userName=request.getParameter("j_username");
+		userName=userName.toLowerCase();
+		String password=request.getParameter("j_password");
+		hs.setAttribute("userName",userName);
+		hs.setAttribute("password",password);
+
+	
+		
+		
+		
 		if (hs.getAttribute("currentFolder") == null) {
 			if(principal.getName().contains("@")){
-				hs.setAttribute("currentFolder", "/"+principal.getName());
-				hs.setAttribute("currentDoc", "/"+principal.getName());
+					hs.setAttribute("currentFolder", "/"+principal.getName());
+					hs.setAttribute("currentDoc", "/"+principal.getName());
 				}else{
-				hs.setAttribute("currentFolder", "/"+principal.getName()+Config.EDMS_DOMAIN);
-				hs.setAttribute("currentDoc", "/"+principal.getName()+Config.EDMS_DOMAIN);
+					hs.setAttribute("currentFolder", "/"+principal.getName()+Config.EDMS_DOMAIN);
+					hs.setAttribute("currentDoc", "/"+principal.getName()+Config.EDMS_DOMAIN);
 				}
-		//	hs.setAttribute("currentFolder", "/");
 			}
-		/*String countryName = "Spain";
-		GetCountryResponse response = folderClient
-				.GetCountryRequest(countryName);
-		folderClient.printResponse(response);*/
-
+		
+		
 		String path="";
 		if(principal.getName().contains("@")){
 			path = "/"+principal.getName();	
+			Config.EDMS_DOMAIN=principal.getName().substring(principal.getName().lastIndexOf("@"));
 		}else{
 		path = "/"+principal.getName()+Config.EDMS_DOMAIN;
 		}
-	//	LoginResponse loginResponse=userClient.loginRequest(principal.getName()+"@avi-oil.com", Config.JCR_PASSWORD);
 		String userid="";
+		
+		
 		if(principal.getName().contains("@")){
 			userid=principal.getName();
 			}else{
 				userid=principal.getName()+Config.EDMS_DOMAIN;
 			}
-		GetFolderByPathResponse folderByPath=documentModuleClient.getFolderByPath(path,userid);
-		
-		GetFolderResponse folderResponse = documentModuleClient.getFolderRequest(path,userid);
-	
-	
+		GetFolderByPathResponse folderByPath=null;
+		 folderByPath=documentModuleClient.getFolderByPath(path,userid,principal.getPassword());
+		GetFolderResponse folderResponse = documentModuleClient.getFolderRequest(path,userid,principal.getPassword());
 		GetFileWithOutStreamResponse fileResponse = documentModuleClient.getFileWithOutStreamRequest(
-				path, userid);
+				path, userid,principal.getPassword());
 		List<edms.wsdl.File> fileList = fileResponse.getGetFilesByParentFile()
 				.getFileListResult().getFileList();
-
 		map.addAttribute("fileList", fileList);
-		
 		List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
 				.getFolderListResult().getFolderList();
 		documentModuleClient.printResponse(folderResponse);	
@@ -506,73 +642,97 @@ public class IndexController {
 		map.addAttribute("currentFolder",folderNode);
 		map.addAttribute( "folderList", folderList);
 		map.addAttribute("folderClient",documentModuleClient);
-		map.addAttribute("userid",userid );
-		// map.addAttribute("nodeIterator", nodeIterator);
-		/*	GetUsersListResponse response=userClient.getUsersListRequest(userid);
-		map.addAttribute("userlist",response.getUsersList());*/
-		/*	//CHAT CODE BEGINS
-		//System.out.println("userid="+loginUser.getUserid());
-		//System.out.println("password="+loginUser.getPassword());
-		XmppChatClass xmppChatClass=new XmppChatClass();
-		//TODO: SEPERATE THE CONFIGURATION
-		xmppChatClass.createConnection(xmppDomain, packetReplyTimeout, request);
-		xmppChatClass.registerListeners(chatImageFolder);
-		//xmppChatClass.performLogin(loginUser.getUserid(), loginUser.getPassword(), onlineStatus);
-		xmppChatClass.performLogin("nirbhay@silvereye.in", "SIS@2009", onlineStatus);
-		scriptSessList.listenScriptSession();
-		request.getSession().setAttribute("xmppChatClass", xmppChatClass);
-		map.addAttribute("imageurl", chatImageFolder);*/
+		map.addAttribute("userid",userid );  
+		GetUsersListResponse response = this.userClient.getUsersListRequest(userid,password);
+        map.addAttribute("userlist", (Object)response.getUsersList());
+		map.addAttribute("breadcumPath","/"+userid);
+	}catch(Exception e){
+		map.addAttribute("message", "Incorrect Username/Password");
+		if(hs!=null){
+			hs.invalidate();
+		}
+		return "login";
+	}
 		return "userDashboard";
 	}
-	
-	
-	
-	/*
-	 * @RequestMapping("/index") public String index(Model model) {
-	 * System.out.println("****************************in getusers"); long begin
-	 * = System.currentTimeMillis(); List<String> list = new
-	 * ArrayList<String>();
-	 * 
-	 * List<String> lt=new ArrayList<String>(); lt.add("dc=silvereye,dc=co"); //
-	 * @formatter:off List<String> ldap = ldapSearch(lt,
-	 * "(objectCategory=person)", "cn"); // @formatter:on
-	 * 
-	 * for (Iterator<String> it = ldap.iterator(); it.hasNext();) { String user
-	 * = it.next(); System.out.println("User name is :"+user); //if
-	 * (!Config.SYSTEM_USER.equals(user)) { // if
-	 * (Config.SYSTEM_LOGIN_LOWERCASE) { // user = user.toLowerCase(); // }
-	 * 
-	 * list.add(user); try { // getRolesByUser(user); // getName(user); //
-	 * getMail(user); } catch (Exception e) { // TODO Auto-generated catch block
-	 * e.printStackTrace(); }
-	 * 
-	 * //} } System.out.println("all done");
-	 * 
-	 * 
-	 * if (Config.PRINCIPAL_LDAP_USERS_FROM_ROLES) { // Get Roles //
-	 * @formatter:off List<String> roles =
-	 * ldapSearch(Config.PRINCIPAL_LDAP_ROLE_SEARCH_BASE,
-	 * Config.PRINCIPAL_LDAP_ROLE_SEARCH_FILTER,
-	 * Config.PRINCIPAL_LDAP_ROLE_ATTRIBUTE); // @formatter:on
-	 * 
-	 * // Get Users by Role for (String role : roles) { // @formatter:off
-	 * List<String> users = ldapSearch(MessageFormat.format(Config.
-	 * PRINCIPAL_LDAP_USERS_BY_ROLE_SEARCH_BASE, role),
-	 * MessageFormat.format(Config.PRINCIPAL_LDAP_USERS_BY_ROLE_SEARCH_FILTER,
-	 * role), Config.PRINCIPAL_LDAP_USERS_BY_ROLE_ATTRIBUTE); // @formatter:on
-	 * 
-	 * for (String user : users) {
-	 * System.out.println("these are users of active directory"); if
-	 * (!Config.SYSTEM_USER.equals(user)) { if (Config.SYSTEM_LOGIN_LOWERCASE) {
-	 * user = user.toLowerCase(); }
-	 * 
-	 * if (!list.contains(user)) { list.add(user); } } } } }
-	 * 
-	 * 
-	 * List<String> persons= personRepo.getAllPersonNames();
-	 * System.out.println(persons.size()); return "index"; }
-	 */
+/*	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
+	public String getIndex1(ModelMap map, Principal principal, HttpServletRequest request) throws  IOException {
+		
+		HttpSession hs = request.getSession(false);
+		if(hs!=null){
+		try{
+		if(principal==null){
+			return "index";
+		}
+		String userName=request.getParameter("j_username");
+		userName=userName.toLowerCase();
+		String password=request.getParameter("j_password");
+		hs.setAttribute("userName",userName);
+		hs.setAttribute("password",password);
 
+	
+		
+		
+		
+		if (hs.getAttribute("currentFolder") == null) {
+			if(principal.getName().contains("@")){
+					hs.setAttribute("currentFolder", "/"+principal.getName());
+					hs.setAttribute("currentDoc", "/"+principal.getName());
+				}else{
+					hs.setAttribute("currentFolder", "/"+principal.getName()+Config.EDMS_DOMAIN);
+					hs.setAttribute("currentDoc", "/"+principal.getName()+Config.EDMS_DOMAIN);
+				}
+			}
+		
+		
+		String path="";
+		if(principal.getName().contains("@")){
+			path = "/"+principal.getName();	
+			Config.EDMS_DOMAIN=principal.getName().substring(principal.getName().lastIndexOf("@"));
+		}else{
+		path = "/"+principal.getName()+Config.EDMS_DOMAIN;
+		}
+		String userid="";
+		
+		
+		if(principal.getName().contains("@")){
+			userid=principal.getName();
+			}else{
+				userid=principal.getName()+Config.EDMS_DOMAIN;
+			}
+		GetFolderByPathResponse folderByPath=null;
+		 folderByPath=documentModuleClient.getFolderByPath(path,userid,principal.getPassword());
+		GetFolderResponse folderResponse = documentModuleClient.getFolderRequest(path,userid,principal.getPassword());
+		GetFileWithOutStreamResponse fileResponse = documentModuleClient.getFileWithOutStreamRequest(
+				path, userid,principal.getPassword());
+		List<edms.wsdl.File> fileList = fileResponse.getGetFilesByParentFile()
+				.getFileListResult().getFileList();
+		map.addAttribute("fileList", fileList);
+		List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
+				.getFolderListResult().getFolderList();
+		documentModuleClient.printResponse(folderResponse);	
+		Folder folderNode=folderByPath.getFolder();
+		map.addAttribute("principal", principal);
+		map.addAttribute("currentFolder",folderNode);
+		map.addAttribute( "folderList", folderList);
+		map.addAttribute("folderClient",documentModuleClient);
+		map.addAttribute("userid",userid );  
+		GetUsersListResponse response = this.userClient.getUsersListRequest(userid,password);
+        map.addAttribute("userlist", (Object)response.getUsersList());
+		map.addAttribute("breadcumPath","/"+userid);
+	}catch(Exception e){
+		map.addAttribute("message", "Incorrect Username/Password");
+		if(hs!=null){
+			hs.invalidate();
+		}
+		return "login";
+	}}else{
+
+		return "login";
+	}
+		return "userDashboard";
+	}*/
+	
 	private List<String> ldapSearch(String searchBase, String searchFilter,
 			String attribute) {
 		List<String> searchBases = new ArrayList<String>();
@@ -580,7 +740,7 @@ public class IndexController {
 		return ldapSearch(searchBases, searchFilter, attribute);
 	}
 
-	@SuppressWarnings("unchecked")
+//	@SuppressWarnings("unchecked")
 	private List<String> ldapSearch(List<String> searchBases,
 			String searchFilter, String attribute) {
 		// System.out.println("ldap search start");
@@ -664,18 +824,9 @@ public class IndexController {
 		env.put(Context.SECURITY_AUTHENTICATION, "simple");
 		env.put(Context.PROVIDER_URL, "ldap://192.168.1.111:389");
 
-		// Enable connection pooling
-		// @see
-		// http://docs.oracle.com/javase/jndi/tutorial/ldap/connect/pool.html
 		env.put("com.sun.jndi.ldap.connect.pool", "true");
 
-		/**
-		 * Referral values: ignore, follow or throw.
-		 * 
-		 * @see http
-		 *      ://docs.oracle.com/javase/jndi/tutorial/ldap/referral/jndi.html
-		 * @see http://java.sun.com/products/jndi/jndi-ldap-gl.html
-		 */
+	
 		env.put(Context.REFERRAL, "follow");
 
 		// Optional is some cases (Max OS/X)
@@ -688,7 +839,6 @@ public class IndexController {
 	}
 
 	public List<String> getRolesByUser(String user) throws Exception {
-		long begin = System.currentTimeMillis();
 		List<String> list = new ArrayList<String>();
 
 		// @formatter:off
@@ -708,7 +858,6 @@ public class IndexController {
 	}
 
 	public String getName(String user) throws Exception {
-		long begin = System.currentTimeMillis();
 		String name = null;
 
 		// @formatter:off
@@ -726,7 +875,6 @@ public class IndexController {
 	}
 
 	public String getMail(String user) throws Exception {
-		long begin = System.currentTimeMillis();
 		String mail = null;
 
 		// @formatter:off

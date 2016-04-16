@@ -358,7 +358,7 @@ cursor: pointer;}
 background: rgba(37, 124, 223, 0.15);
 }
 .initive_people {
-width: 451px !important;
+width: 415px !important;
 outline: 0px;
 border: 1px solid #DBDBDB;
 }
@@ -422,6 +422,10 @@ padding: 6px !important;
 margin-bottom: 15px;
 }
 
+#contactdiv_616 input[type=file] {
+margin-bottom: 15px;
+}
+
 
 
 
@@ -433,6 +437,8 @@ box-shadow: 0 4px 16px rgba(0,0,0,.2);
 margin-left: 10px;
 }
 #contactdiv_6{background: rgba(247, 247, 247, 0.7) !important;}
+#contactdiv_616{background: rgba(247, 247, 247, 0.7) !important;}
+#contactdiv_getLink{background: rgba(247, 247, 247, 0.7) !important;}
 #contactdiv_66{background: rgba(247, 247, 247, 0.7) !important;}
 #contactdiv_77{background: rgba(247, 247, 247, 0.7) !important;}
 #contactdiv_666{background: rgba(247, 247, 247, 0.7) !important;}
@@ -1082,7 +1088,7 @@ line-height: 26px !important;
 
 .mid_loading{  margin: 0 auto;
 width: 200px;
-margin-top: 12%;
+margin-top: 5%;
 position: relative;
 clear: both;
 display: none;
@@ -1367,6 +1373,24 @@ div#fileThumbView >ul>li {
     color: #000;
 	
 }
+.textClose2{
+	
+	float: right;
+    padding: 7px;
+}
+.textClose2 span{
+	
+	
+    padding: 5px;
+    background: #ccc;
+    border-radius: 50%;
+    font-size: 10px;
+    width: 11px;
+    display: block;
+    cursor: pointer;
+    color: #000;
+	
+}
 
 ul#ui-id-1:hover {
 background: #fff;
@@ -1385,6 +1409,8 @@ border-bottom: 1px solid #ccc;
 border-left: 3px solid #ccc;
 font-size: 12px;
 border-right: 1px solid #ccc;
+max-height: 100px;
+overflow: auto;
 }
 
 
@@ -1421,6 +1447,13 @@ width: 200px;
  
  cursor:pointer;
  }
+.finishUpload2{  float: right !important;
+ /* clear: both; */
+ margin-top: 10px !important;
+ margin-bottom: 10px !important;
+ 
+ cursor:pointer;
+ }
 
 .uploadForm1 {
  background: #fff;
@@ -1428,6 +1461,16 @@ width: 200px;
 }
 
 input.finishUpload {
+ background: #D6D6D6;
+ border: 0px;
+ border: 1px solid #ccc;
+ font-size: 17px;
+float: right;
+ /* clear: both; */
+ margin-top: 10px;
+ margin-bottom: 10px;
+}
+input.finishUpload2 {
  background: #D6D6D6;
  border: 0px;
  border: 1px solid #ccc;
@@ -1509,8 +1552,84 @@ padding-right: 15px;
 	
 }
 
+td.invite_people_list {
+    display: block;
+    width: 100% !important;
+}
+.share_content{}
+.select_option{}
+.remove_select{}
+.share_content,.select_option,.remove_select{ float:left;}
+.select_append {
+  padding: 4px;
+  border-bottom: 1px solid #Ccc;
+}
+.share_content {
+    width: 473px;  line-height: 22px;
+}
+.select_option {
+  font-size: 12px;
+  margin-left: 12px;
+  margin-right: 12px;
+  line-height: 19px;
+    width: 94px;
+  text-align: left;
+}
+.remove_select {
+  font-size: 12px;
+  line-height: 18px;
+  cursor: pointer;
+  margin-top:6px;
+  margin-left:12px;
+}
+.sharing_mange >.table_append >table >tbody >tr >td {
+  font-size: 14px;
+  padding: 5px;
+  width: 50%;
+}   /******  LINE 1524 contect_css********/
+.userforshhare{
+	 border-width: 0;
+    font-size: 15px;
+ 
+    margin-top: 6px;
+}
+.clearBorder{
+	border:0px !important;
+}
+.clearBorderLeft{
+	border-left:0px !important;
+}
+.clearBorderRight{
+	border-right:0px !important;
+}
+.clearBorderBottom{
+	border-bottom:0px !important;
+}
+
+.attachClass{
+	height:30px;
+	border:0px;
+}
+.getHistory{
+	background: #ccc;
+	padding: 4px;
+	border-radius: 2px;
+	cursor: pointer;
+}
+.getAttch{
+	background: #ccc;
+	padding: 4px;
+	border-radius: 2px;
+	cursor: pointer;
+}
 <!-- mozilla started here-->
 @-moz-document url-prefix() {
+	
+#contactdiv_getLink input[type="button"] {
+    line-height: 22px ;
+   font-weight: normal;
+   font-family: arial;
+}
 #contactdiv_66 input[type="button"] {
     line-height: 22px ;
    font-weight: normal;
@@ -1522,7 +1641,15 @@ padding-right: 15px;
    font-weight: normal;
    font-family: arial;
 }
+#contactdiv_616 input[type="button"] {
+    line-height: 22px ;
+   font-weight: normal;
+   font-family: arial;
+}
 #contactdiv_6 input[type="file"] {
+   margin-bottom: 18px;
+}
+#contactdiv_616 input[type="file"] {
    margin-bottom: 18px;
 }
 

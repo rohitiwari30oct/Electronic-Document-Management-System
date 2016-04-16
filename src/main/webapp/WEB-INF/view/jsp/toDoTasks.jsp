@@ -1,19 +1,21 @@
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.Set"%>
+<%@page import="java.util.Collections"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.TreeMap"%>
 <%@page import="edms.wsdl.GetFetchGroupTaskResponse"%>
 <%@page import="edms.wsdl.GetFetchUserTaskResponse"%>
 <%@page import="edms.wsdl.Task"%>
 <%@page import="edms.webservice.client.WorkflowClient"%>
-<%@page import="edms.service.DemoUserService"%>
-<%@page import="edms.service.DemoUser2ServiceImpl"%>
-<%@page import="edms.service.DemoUserServiceImpl"%>
+
 <%@page import="java.util.List"%>
-<%@page import="edms.service.DemoUser1ServiceImpl"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <script src="js/jquery-1.7.2.min.js" type="application/javascript"></script>
 <script src="js/left_event.js" type="application/javascript"></script>
 <script src="js/jquery_popup.js"></script>
@@ -74,7 +76,7 @@
 			tid : taskId,
 			uid : userid,
 		}, function(data) {
-				if(data=="true"){
+				if(data=="ajaxTrue"){
 						location.href="index";
 					}
 			$("#activitiForms").html(data);
@@ -86,31 +88,35 @@
 		jQuery.get("toDoTasks_getCommonWorkflowForm", {
 			tid : taskId,
 		}, function(data) {
-				if(data=="true"){
+				if(data=="ajaxTrue"){
 						location.href="index";
 					}
+			//alert(data);static/handlePurchaseRequisitionApplicationForm.jsp
 			//alert(data);
 			$("#activitiForms").html(data);
 		});
 	}
 </script>
+
+<!-- <script type="text/javascript" src="js/jquery-latest.js"></script> 
+<script type="text/javascript" src="js/jquery.tablesorter.js"></script>  -->
 </head>
 <body>
 	<%
-		DemoUserService demoUser = (DemoUserService) request
-				.getAttribute("demoUserService");
-		WorkflowClient workflow = (WorkflowClient) request
-				.getAttribute("workflow");
-		GetFetchUserTaskResponse respUserTask = workflow
-				.getFetchUserTaskRequest(demoUser.getEmpid());
-		List<Task> userTasks = respUserTask.getUserTaskListReturn()
-				.getUserTaskList();
-		GetFetchGroupTaskResponse respGroupTask = workflow
-				.getFetchGroupTaskRequest(demoUser.getDeptid());
-		List<Task> groupTasks = respGroupTask.getGroupTaskListReturn()
-				.getGroupTaskList();
+		String userid = (String) request.getAttribute("userid");
+		WorkflowClient workflow = (WorkflowClient) request.getAttribute("workflow");
+		GetFetchUserTaskResponse respUserTask = workflow.getFetchUserTaskRequest(userid);
+		List<Task> userTasks = respUserTask.getUserTaskListReturn().getUserTaskList();
+		Map<Integer, Task> tkl=new TreeMap<Integer,Task>(Collections.reverseOrder());
+
+		for(Task tskk:userTasks){
+			tkl.put(Integer.parseInt(tskk.getProcessInstanceId()), tskk);
+		}
+		
+		//GetFetchGroupTaskResponse respGroupTask = workflow.getFetchGroupTaskRequest(demoUser.getDeptid());
+		//List<Task> groupTasks = respGroupTask.getGroupTaskListReturn().getGroupTaskList();
 	%>
-	<input type="hidden" value="<%=demoUser.getEmpid()%>" id="employeeId">
+	<input type="hidden" value="<%=userid%>" id="employeeId">
 	<div class="right other_pages">
 		<!-------------/// TRASH PAGES STARED HERE --------->
 
@@ -126,7 +132,7 @@
 					<!---------/// TAB MENU STERED HERE --------->
 					<ul class="tabs todo_chat">
 						<li class="active" rel="tab41">My Available Tasks</li>
-						<li rel="tab32">Available Group Tasks</li>
+						<!-- <li rel="tab32">Available Group Tasks</li> -->
 					</ul>
 					<!------------/// TAB MENU END HERE ---------->
 					<div class="clear"></div>
@@ -136,10 +142,11 @@
 						<div id="tab41" class="tab_content first_tab">
 							<table>
 								<tr class="heading">
+									<td>Initiator</td>
 									<td>Task Name</td>
 									<td>Workflow ID</td>
-									<td>Task ID</td>
-									<td>Description</td>
+									<td>Date</td>
+									<td>Status</td>
 									<td>Task Action</td>
 								</tr>
 								<%
@@ -151,28 +158,40 @@
 									<td></td>
 									<td></td>
 									<td></td>
+									<td></td>
 								</tr>
 								<%
 									} else {
-										for (Task ut : userTasks) {
+										 Set set = tkl.entrySet();
+									      Iterator iterator = set.iterator();
+									      while(iterator.hasNext()) {
+									         Map.Entry mentry = (Map.Entry)iterator.next();
+										Task ut=(Task)mentry.getValue();
+											
 								%>
 								<tr>
+									<td><%=ut.getAssignee()%></td>
 									<td><%=ut.getName()%></td>
 									<td><%=ut.getProcessInstanceId()%></td>
-									<td><%=ut.getId()%></td>
+									<td><%=ut.getCategory()%></td>
 									<td><%=ut.getDescription()%></td>
 									<input type="hidden" value="<%=ut.getFormKey()%>"
 										id="indFormKey<%=ut.getId()%>"
-										name="indFormKey<%=ut.getId()%>">
+										name="indFormKey<%=ut.getId()%>" />
 									<td><a href="javascript:void(0);"
-										onclick="getCommonWorkflowForm('<%=ut.getId()%>')">Complete
-											Task</a></td>
+										onclick="getCommonWorkflowForm('<%=ut.getId()%>')">Complete Task</a>
+									</td>
+								<%-- 	<td><a href="javascript:void(0);"
+										onclick="getClaimTaskForm('<%=ut.getId()%>')">Claim
+											Task</a></td> --%>
 									<%
 										}
 										}
 									%>
 								</tr>
-								<tr>
+								
+<tr>
+									<td>&nbsp;</td>
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
@@ -185,7 +204,7 @@
 
 						</div>
 						<!-- #tab1 -->
-						<div id="tab32" class="tab_content">
+						<%-- <div id="tab32" class="tab_content">
 							<table>
 								<tr class="heading">
 									<td>Task Name</td>
@@ -221,7 +240,7 @@
 										}
 										}
 									%>
-								</tr>
+								</tr> 
 								<tr>
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
@@ -233,7 +252,7 @@
 
 							</table>
 
-						</div>
+						</div>--%>
 						<!-- #tab2 -->
 
 
