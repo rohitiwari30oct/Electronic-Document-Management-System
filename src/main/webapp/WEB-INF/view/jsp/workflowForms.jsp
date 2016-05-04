@@ -268,7 +268,6 @@ $( document ).ready(function() {
 	<%
 		String htmlPage = (String) request.getAttribute("htmlWorkflowPage");
 		String taskId = (String) request.getAttribute("taskid");
-		//System.out.println(taskId);
 	%>
 	<input type="hidden" value="<%=taskId%>" id="taskid" name="taskid" />
 	<input type="hidden" value="<%=htmlPage%>" id="htmlPage"

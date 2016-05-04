@@ -186,15 +186,8 @@ public class DocumentController extends HttpServlet {
 							outStream.close();
 							return fl.getPath().replaceAll("\\\\", "/");
 							
-							/*attachmentID=(String)hs.getAttribute("attachmentID");
-							if(attachmentID!=null){
-								hs.setAttribute("attachmentID",attachmentID+fl.getAbsolutePath()+",");
-							}else{
-							hs.setAttribute("attachmentID",fl.getAbsolutePath()+",");
-							}System.out.println(attachmentID);*/
-							//return "";
+							
 						} else {
-						//	return ",please select a file";
 						}
 					}
 					return attachmentID;
@@ -673,7 +666,7 @@ public class DocumentController extends HttpServlet {
 				return url;
 			}
 			
-			return "Sorry, fail to find link";
+			return "Sorry, failed to find link";
 			}
 			} catch (Exception e) {
 			return "ajaxTrue";

@@ -299,7 +299,6 @@ if(permissions[0] == "false"&&permissions[1] == "false"&&permissions[2] == "fals
 <%
 List<Folder> folderList = (List<Folder>) request.getAttribute("folderList"); 
 List<File> fileList = (List<File>) request.getAttribute("fileList");
-System.out.println(fileList.size());
 String breadcum=(String)request.getAttribute("breadcum");
 Folder currentFolder=(Folder)request.getAttribute("currentFolder");
 String userid=(String)request.getAttribute("userid");
@@ -322,7 +321,6 @@ String userid=(String)request.getAttribute("userid");
  	String[] breadcm=currentFolder.getFolderPath().split("/");
   	String bdm="";
   	for(int i=0;i<breadcm.length;i++){
-  		System.out.println("clicked on Bread cum "+breadcm[i]);
   		bdm+="/"+breadcm[i];
  %> --%><%--  <span id='<%=bdm%>' style='cursor: pointer'
 			onclick='getFileSystem(this.id)'> <%=breadcm[i]%> /
@@ -340,7 +338,6 @@ String userid=(String)request.getAttribute("userid");
   	}
   	
   	for(int i=1;i<breadcm.length;i++){
-  		System.out.println("clicked on Bread cum "+breadcm[i]);
   		bdm+="/"+breadcm[i];
   		
   		if(i==1){
@@ -658,7 +655,6 @@ width: 100%;"  onclick="getDocProperties(this.id);hideOptions()"
 							folderName=(String) hs.getAttribute("currentFile");
 						}
 
-						//System.out.println("current folder or file value is : "+folderName);
 							for (Folder folder : folderList) {
 				%>
 				<ul  

@@ -119,7 +119,6 @@ public class FolderController {
 		else{
 			HttpSession hs = request.getSession(false);
 			if (hs != null) {
-				System.out.println((String) hs.getAttribute("currentFolder"));
 			}
 			path=path.replace("//", "/");
 			breadcumPath=breadcumPath.replace("//", "/");
@@ -267,7 +266,6 @@ public class FolderController {
 		Folder folderNode = folderByPath.getFolder();
 		List<Folder> folderList = folderResponse.getGetFoldersByParentFolder()
 				.getFolderListResult().getFolderList();
-		System.out.println("length of folderlist "+folderList.size());
 		GetFileWithOutStreamResponse fileResponse = documentModuleClient.getFileWithOutStreamRequest(
 				path, userid,principal.getPassword());
 		List<edms.wsdl.File> fileList = fileResponse.getGetFilesByParentFile()
@@ -296,7 +294,6 @@ try{
 		// listLdapUsersDetails(principal.getName()+Config.EDMS_DOMAIN);
 		HttpSession hs = request.getSession(false);
 		if (hs != null) {
-			System.out.println((String) hs.getAttribute("currentFolder"));
 		}
 		String[] str = path.split("/");
 		String calcPath = "";
@@ -364,7 +361,6 @@ folderNode.setNoOfDocuments(""+fileList.size());*/
 				// listLdapUsersDetails(principal.getName()+Config.EDMS_DOMAIN);
 				HttpSession hs = request.getSession(false);
 				if (hs != null) {
-					System.out.println((String) hs.getAttribute("currentFolder"));
 				}
 				breadcumPath = breadcumPath.replace("//", "/");
 				String[] str = path.split("/");
@@ -385,11 +381,9 @@ folderNode.setNoOfDocuments(""+fileList.size());*/
 				GetFolderByPathResponse folderByPath = documentModuleClient.getFolderByPath(calcPath, userid,principal.getPassword());
 				Folder folderNode = folderByPath.getFolder();
 				boolean success = folderResponse.getGetFoldersByParentFolder().isSuccess();
-				System.out.println("response of list folder " + success);
 				if (success) {
 					List<Folder> folderList = folderResponse.getGetFoldersByParentFolder().getFolderListResult()
 							.getFolderList();
-					System.out.println("size of folder List " + folderList.size());
 					map.addAttribute("currentFolder", folderNode);
 
 					GetFileWithOutStreamResponse fileResponse = documentModuleClient.getFileWithOutStreamRequest(calcPath, userid, principal.getPassword());
@@ -438,38 +432,7 @@ folderNode.setNoOfDocuments(""+fileList.size());*/
 		}
 	}
 
-/*	private void listLdapUsersDetails(String userid) {
-		// TODO Auto-generated method stub
-		List<String> result = ldapTemplate.search(
-				query().where("mail").is(userid), new AbstractContextMapper() {
-					protected String doMapFromContext(DirContextOperations ctx) {
-						Attributes attributes = ctx.getAttributes();
-						NamingEnumeration results = attributes.getAll();
-						int i = 0;
-						try {
-							while (results.hasMore()) {
 
-								System.out.println(results.next());
-							}
-						} catch (NamingException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-
-						System.out.println(attributes);
-
-						return ctx.getStringAttribute("sn");
-					}
-				});
-
-		if (result.size() != 1) {
-			throw new RuntimeException("User not found or not unique");
-		}
-
-		// System.out.println("folder service object : "+folderService);
-		System.out.println(result.get(0) + " size = " + result.size());
-	}
-*/
 	@RequestMapping(value = "/getSubFolders", method = RequestMethod.GET)
 	public String getSubFolders(ModelMap map, Principal principal,
 			HttpServletRequest request, @RequestParam String path) {
@@ -482,7 +445,6 @@ folderNode.setNoOfDocuments(""+fileList.size());*/
 		path = path.replaceAll("_spc_spc_", " ");
 		path = path.replaceAll("_", "/");
 		path = path.replaceAll("pahlesetha", "_");
-		//System.out.println(path);
 		String userid="";
 		if(principal.getName().contains("@")){
 			userid=principal.getName();
@@ -534,7 +496,6 @@ folderNode.setNoOfDocuments(""+fileList.size());*/
 		CreateFolderResponse createFolderResponse = documentModuleClient
 				.createFolder(folderName, parentFolder, userid,principal.getPassword(), keywords, notes);
 		Folder folder = createFolderResponse.getFolder();
-//		System.out.println(folder.getFolderPath());
 		
 		String newFolder = "";
 		if (folder != null) {
@@ -817,8 +778,7 @@ newFolder="</span></li>";
 		String folderName ="";
 		boolean res =false;
 		if(principal==null){return "ajaxTrue";}else{
-			//String[] str=docPath.split(",");
-		//	for (int i = 0; i < str.length; i++) {
+			
 			String userid = "";
 			if (principal.getName().contains("@")) {
 				userid = principal.getName();
@@ -826,27 +786,15 @@ newFolder="</span></li>";
 				userid = principal.getName() + Config.EDMS_DOMAIN;
 			}
 			HttpSession hs = request.getSession(false);
-			// folderName = docPath;
+			
 			folderName =(String) hs.getAttribute("currentDoc");
-		/*	if (folderName != "") {
-
-			} else {
-				folderName =(String) hs.getAttribute("currentFile");
-			}*/
+		
 			RecycleFolderResponse recycleFolderResponse = documentModuleClient
 					.recycleFolder(docPath, userid,principal.getPassword());
 			String resp = recycleFolderResponse.getRecycleFolderResponse();
-			//System.out.println(resp);
-			//System.out.println(Boolean.getBoolean(resp)					+ folderName.substring(0, folderName.lastIndexOf("/")));
-			// res = Boolean.parseBoolean(resp);
-		
-		//}
-			/*	if (res) {
-				return folderName.substring(0,folderName.lastIndexOf("/"));
-			} else {
-				System.out.println("response after recycle doc fails"+ folderName);*/
+			
 				return resp;
-			//}
+			
 		}  
 	}catch(Exception e){
 
@@ -1032,7 +980,6 @@ newFolder="</span></li>";
 		}else{
 			folderName=(String) hs.getAttribute("currentFile");
 		}
-		//	System.out.println("destination path is : "+destPath);
 		CopyDocResponse response = documentModuleClient.copyDoc(str[i],  destPath,userid,principal.getPassword());
 		}
 		return destPath;
@@ -1180,7 +1127,6 @@ newFolder="</span></li>";
 		}else{
 			folderName=(String) hs.getAttribute("currentFile");
 		}
-		System.out.println(destPath);
 		CopyDocResponse response = documentModuleClient.copyDoc(str[i],destPath,userid);
 		return destPath;
 		}else{

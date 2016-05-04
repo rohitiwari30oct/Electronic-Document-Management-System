@@ -1,4 +1,3 @@
-
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@page import="edms.wsdl.File"%>
 <%@page import="java.util.ArrayList"%>
@@ -293,8 +292,6 @@ if(permissions[0] == "false"&&permissions[1] == "false"&&permissions[2] == "fals
 <%
 List<Folder> folderList = (List<Folder>) request.getAttribute("folderList"); 
 List<File> fileList = (List<File>) request.getAttribute("fileList");
-System.out.println(fileList.size());
-//String breadcum=(String)request.getAttribute("breadcum");
 Folder currentFolder=(Folder)request.getAttribute("currentFolder");
 String userid=(String)request.getAttribute("userid");
 	String[] breadcm=((String)request.getAttribute("breadcumPath")).split("/");
@@ -641,7 +638,6 @@ width: 100%;"  onclick="getDocProperties(this.id);hideOptions()"
 							folderName=(String) hs.getAttribute("currentFile");
 						}
 
-						//System.out.println("current folder or file value is : "+folderName);
 							for (Folder folder : folderList) {
 				%>
 				<ul  
@@ -766,7 +762,6 @@ width: 100%;"  onclick="getDocProperties(this.id);hideOptions()"
 			<ul>
 			
 			<%
-		//	System.out.println("now is "+currentFolder.getCreatedBy()+userid);
 			if(!currentFolder.getCreatedBy().equalsIgnoreCase(userid)&&!currentFolder.getCreatedBy().equalsIgnoreCase("admin")&&!currentFolder.getFolderPath().contains(userid)){
 					if(currentFolder.getUserSecurity().toString().contains(userid)){
 					
@@ -1218,7 +1213,6 @@ width: 100%;"  onclick="getDocProperties(this.id);hideOptions()"
 								async : true,
 								success : function(data) {
 									if(data=="true"){location.href="ajaxTrue";}else{
-									
 										var breadcumPath=$('#breadcumPathHome').val();
 										//alert(typeof(breadcumPath) == "undefined");
 										if(typeof(breadcumPath) == "undefined")
@@ -1251,8 +1245,8 @@ width: 100%;"  onclick="getDocProperties(this.id);hideOptions()"
 <div id="contactdiv_getLink">
 	<form class="form" action="#" id="contact">
 		<h3>Public link</h3>
-		
-		
+<label>		<input type="radio" name="publiclinkflag" value="1" />On</label>
+<label>		<input type="radio" name="publiclinkflag" value="0"/>Off</label>	
 		<input type="text" id="publicLink"  readonly="readonly"  /> 
 		<br />
 		<div class="clear"></div>

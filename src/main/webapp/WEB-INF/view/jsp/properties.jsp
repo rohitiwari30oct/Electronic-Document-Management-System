@@ -95,7 +95,6 @@ String userid=(String)request.getAttribute("userid");
                                                              <%
                                                              List<String> keywords=currentFolder.getKeywords();
                                                              for(String str:keywords){
-                                                            	 System.out.println(str);
                                                             	 String[] key=str.split(",");
                                                             	 for(int i=0;i<key.length;i++){
                                                             		 if(key[i]!=""&&(!key[i].equals(""))){
@@ -234,7 +233,6 @@ String userid=(String)request.getAttribute("userid");
                                                     	   if(str!="admin"){
                                                     	   str=str.replace("]", "");
                                                     	   str=str.replace("[", "");
-                                                    	   System.out.println(str+(str.equals(",")||str.equals("")||str.equals(" ")||str.equals("]")||str.equals("[")));
                                                     	   
                                                     	   if((str.equals(",")||str.equals("")||str.equals(" ")||str.equals("]")||str.equals("["))){}else{
                                                     		   String flag="Can View";

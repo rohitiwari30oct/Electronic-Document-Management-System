@@ -35,7 +35,6 @@ public class ActivitiDiagramsController {
 	@RequestMapping(value="/activitiDiagram_getActivitiDiagram", method=RequestMethod.POST)
 	public @ResponseBody String changeConfiguration(HttpServletRequest request,Principal principal){
 		if(principal!=null&&principal.getName()!=null){
-		System.out.println("in activityDiagram_getActivit");
 		String value = request.getParameter("tv");
 		String [] values = value.split(":");
 		String workflowKey = values[0];

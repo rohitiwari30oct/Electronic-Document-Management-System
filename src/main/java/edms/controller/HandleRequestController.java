@@ -62,16 +62,12 @@ public class HandleRequestController {
 		if (principal == null) {
 			return "ajaxTrue";
 		} else {
-			// boolean flag=true;
 			String taskid = request.getParameter("taskid");
 			String json = request.getParameter("json");
 			String formType = request.getParameter("formType");
 			String requestType = request.getParameter("reqtype");
 			JSONObject jsonDataObject = (JSONObject) JSONValue.parse(json);
-			// get an array from the JSON object
 			JSONArray jsonArr = (JSONArray) jsonDataObject.get("workflowForm");
-			System.out.println("jsonDataObject size= " + jsonDataObject.size());
-			System.out.println("json array size= " + jsonArr.size() + " taskid = " + taskid);
 
 			GetHistoryTaskInstanceResponse respHistTaskInstt = workflowHistoryClient
 					.getHistoryTaskInstanceRequest(taskid);
@@ -82,14 +78,9 @@ public class HandleRequestController {
 			String formName = "";
 			GetTaskFormDataResponse respTaskFormData = workflowClient.getTaskFormDataRequest(taskid);
 			TaskFormData taskFormData = respTaskFormData.getTaskFormData();
-			// TaskFormData taskFormData = workflow.getTaskFormData(taskid);
-			System.out.println("task form data ========================= " + taskFormData.getFormKey());
 			String frmNmae = taskFormData.getFormKey();
 			List<TaskFormProperty> formProperties = taskFormData.getTaskFormProperties();
-			// List<FormProperty> formProperties =
-			// taskFormData.getFormProperties();
 			for (TaskFormProperty tf : formProperties) {
-				System.out.println("id iiiiiiiiiiid " + tf.getId());
 			}
 			List<edms.wsdl.HashMap> taskVariables = new ArrayList<edms.wsdl.HashMap>();
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -102,7 +93,6 @@ public class HandleRequestController {
 
 				// take each value from the json array separately
 				JSONObject jsonFormObj = (JSONObject) jsonArr.get(0);
-				System.out.println("slide ******************* " + jsonFormObj);
 				Set<String> keys = jsonFormObj.keySet();
 				Iterator<String> it = keys.iterator();
 				Map<Integer,HashMap> hmpset=new TreeMap<Integer,HashMap>();
@@ -242,8 +232,6 @@ public class HandleRequestController {
 					String key = (String) it.next();
 					// loop to get the dynamic key
 					String value = (String) jsonFormObj.get(key);
-					// System.out.print("key : " + key);
-					// System.out.println(" value : " + value);
 
 					if (key.equals("filledDaete")) {
 					//	workflowClient.getAuthorizeUserRequest(value);
@@ -2898,7 +2886,6 @@ mailContent += "<strong>Request Category: </strong> " + formName + "<br>" +
 					  HashMap value = entry.getValue();
 					  workflowClient.getAuthorizeUserRequest((String)value.getValue());
 					  taskVariables.add(value);
-					  System.out.println(key + " => " + value);
 					}
 				
 				
@@ -2937,7 +2924,6 @@ mailContent += "<strong>Request Category: </strong> " + formName + "<br>" +
 				StreamResult result = new StreamResult(new StringWriter());
 				transformer.transform(source, result);
 				String xmlFormString = result.getWriter().toString();
-				// System.out.println("xmlstring = " + xmlFormString);
 
 				byte[] compressedXml = stringOperationService.compressString(xmlFormString);
 

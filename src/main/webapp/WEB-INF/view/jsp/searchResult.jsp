@@ -244,7 +244,6 @@ String userid=(String)request.getAttribute("userid");
                                                        for(String str:user){
                                                     	   str=str.replace("]", "");
                                                     	   str=str.replace("[", "");
-                                                    	   System.out.println(str+(str.equals(",")||str.equals("")||str.equals(" ")||str.equals("]")||str.equals("[")));
                                                     	   if((str.equals(",")||str.equals("")||str.equals(" ")||str.equals("]")||str.equals("["))){}else{
                                                     	   %>
                                                     <tr class="right_text"> 

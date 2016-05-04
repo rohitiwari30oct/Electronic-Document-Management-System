@@ -311,7 +311,6 @@ No available Tasks!
 Process ID: <%=gt.getProcessInstanceId() %> <br>
 Task ID: <%=gt.getId() %> <br>
 Description= <%=gt.getDescription() %><br>
-<%System.out.println("after rendering form"); %>
 <input type="hidden" value="<%=gt.getFormKey()%>" id="formKey<%=gt.getId() %>" name="formKey<%=gt.getId() %>">
 <a href="javascript:void(0);" onclick="getClaimTaskForm('<%=gt.getId()%>')">Claim Task</a>
 <br><br>

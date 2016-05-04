@@ -16,8 +16,6 @@
 					String userid="";
 					HttpSession mydoc=request.getSession(false);
 					String currentFolder=(String)mydoc.getAttribute("currentFolder");
-				/* 	System.out.println(currentFolder.replace("_", "pahlesetha").replace('/', '_')
-							.replace('.', '_').replaceFirst("@","_avi").replace(" ","_spc_spc_")+" is the current folder to expand"); */
 					
 					
 					if(principal.getName().contains("@")){
@@ -25,24 +23,15 @@
 						}else{
 							userid=principal.getName()+Config.EDMS_DOMAIN;
 						}
-					System.out.println("userid is "+userid);
 									DocumentModuleClient folderClient = (DocumentModuleClient) request
 											.getAttribute("folderClient");
 									List<Folder> folderList = (List<Folder>) request.getAttribute("folderList");
-									System.out.println("check 1 :"+folderList.size());
 									for (Folder folder : folderList) {
 										HasChildResponse hasChild = folderClient.hasChild(folder
 												.getFolderPath(),userid,principal.getPassword());
 
-										//System.out.println("folderPath is "+folder.getFolderPath());
-										//if(!folder.getFolderName().equals(Config.JCR_SYSTEM)&&(!folder.getFolderProperty(JcrConstants.JCR_PRIMARYTYPE).getString().equals(JcrConstants.NT_RESOURCE))){
-										/*  		if(folder.getFolderPrimaryNodeType().getName().equals(JcrConstants.NT_FOLDER)){ */
-					%>
-					<%
+					
 						if (hasChild.isHasChild()) {
-							
-							
-						
 					%>
 					<li
 						class="subfolder_11"><div   id="listli<%=folder.getFolderPath().replace("_", "pahlesetha").replace('/', '_')

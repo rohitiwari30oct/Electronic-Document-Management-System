@@ -41,7 +41,6 @@ function openMsg()
 	
 	<div class="login-fullwidith">
 	<%
-			System.out.println(message+" is a error message");
 				if(message!=null){
 				%>
 				<div id="errorbox" class="login-c3" style="margin-top: 50px ! important; width: 354px; text-align: center;" id="alert_div">

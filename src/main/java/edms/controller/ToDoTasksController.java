@@ -35,7 +35,6 @@ public class ToDoTasksController {
 	public String getCommonWorkflowForm(HttpServletRequest request,Principal principal,@RequestParam Map<String, String> requestParams, ModelMap map)throws Exception{
 		if(principal!=null){
 			HttpSession hs=request.getSession(false);
-		//System.out.println(" in toDoTasks_getCompleteTaskForm");
 		String taskId=requestParams.get("tid");
 		GetTaskFormDataResponse respTaskFormData = workflowClient.getTaskFormDataRequest(taskId);
 		TaskFormData taskFormData = respTaskFormData.getTaskFormData();
@@ -48,7 +47,6 @@ public class ToDoTasksController {
 		GetProcessVariablesResponse respProcessVariables = workflowHistoryClient.getProcessVariablesRequest(processInstId);
 	    HistDetVrblInstUpdateEntityReturn variableUpdateReturn = respProcessVariables.getHistDetVrblInstUpdateEntityReturn();
 	    HistDetVrblInstUpdateEntity historicVariableUpdate = variableUpdateReturn.getHistDetVrblInstUpdateEntity();
-		//System.out.println("variable update name ======== "+historicVariableUpdate.getName());
 		String compressedForm = (String)historicVariableUpdate.getValue();
 		hs.setAttribute("processInstId", processInstId);
 		map.addAttribute("processInstId", processInstId);
@@ -64,20 +62,16 @@ public class ToDoTasksController {
 	public String getCommonWorkflowFormHitory(HttpServletRequest request,Principal principal,@RequestParam Map<String, String> requestParams, ModelMap map)throws Exception{
 		if(principal!=null){
 			HttpSession hs=request.getSession(false);
-		//System.out.println(" in toDoTasks_getCompleteTaskForm");
 		String taskId=requestParams.get("tid");
 		GetTaskFormDataFromHistoryResponse respTaskFormData = workflowClient.getTaskFormDataFromHistoryRequest(taskId);
 		TaskFormData taskFormData = respTaskFormData.getTaskFormData();
 		String completeTaskPage = taskFormData.getFormKey();
 		map.addAttribute("taskid", taskId);
 		GetHistoryTaskInstanceResponse respHistTaskInstt = workflowHistoryClient.getHistoryTaskInstanceRequest(taskId);
-		//HistTaskInstListReturn historicTaskListReturn = respHistTaskInstt.getHistTaskInstListReturn();
-		//List<HistTaskInstList> historicTaskInstance = historicTaskListReturn.getHistTaskInstList();
 		String processInstId =taskId;
 		GetProcessVariablesResponse respProcessVariables = workflowHistoryClient.getProcessVariablesRequest(processInstId);
 	    HistDetVrblInstUpdateEntityReturn variableUpdateReturn = respProcessVariables.getHistDetVrblInstUpdateEntityReturn();
 	    HistDetVrblInstUpdateEntity historicVariableUpdate = variableUpdateReturn.getHistDetVrblInstUpdateEntity();
-		//System.out.println("variable update name ======== "+historicVariableUpdate.getName());
 		String compressedForm = (String)historicVariableUpdate.getValue();
 		hs.setAttribute("processInstId", processInstId);
 		map.addAttribute("processInstId", processInstId);
@@ -100,7 +94,6 @@ public class ToDoTasksController {
 	@RequestMapping(value="/toDoTasks_claimTask", method=RequestMethod.POST)
 	public String claimTask(@RequestParam Map<String, String> requestParams,Principal principal){
 		if(principal!=null){
-		System.out.println("in toDoTasks_claimTask ******************************");
 		String taskId=requestParams.get("tid");
 		String userId=requestParams.get("uid");
 		workflowClient.getClaimTaskRequest(taskId, userId);

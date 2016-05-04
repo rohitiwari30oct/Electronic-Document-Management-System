@@ -226,7 +226,6 @@ if(currentFolder.getFileSize()/1024>1024){
                                                     	   if(str!="admin"){
                                                     	   str=str.replace("]", "");
                                                     	   str=str.replace("[", "");
-                                                    	   System.out.println(str+(str.equals(",")||str.equals("")||str.equals(" ")||str.equals("]")||str.equals("[")));
                                                     	   if((str.equals(",")||str.equals("")||str.equals(" ")||str.equals("]")||str.equals("["))){}else{
                                                     		   String flag="Can View";
                                                     		   if(currentFolder.getUserWrite().toString().contains(str)){

@@ -1,6 +1,5 @@
 <div id="activitiForms">
 <%
-System.out.println("user dashboard !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 %>
 <div class="right other_pages_user">
    	<!--------/// MID CONTENT STARTED HERE ---------->

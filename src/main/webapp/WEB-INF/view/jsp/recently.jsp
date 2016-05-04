@@ -15,7 +15,6 @@
                                        List<Folder> folderList = (List<Folder>) request.getAttribute("folderList"); 
                                        List<File> fileList = (List<File>) request.getAttribute("fileList"); 
 					      				for (Folder folder : folderList) {
-					      					System.out.println("created by "+folder.getCreatedBy());
 					      					if(!folder.getCreatedBy().equals("admin")){
 					      					if(folder.getFolderName().equals("trash")){}{
 				      					%>

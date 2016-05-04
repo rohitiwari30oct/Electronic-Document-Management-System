@@ -18,7 +18,6 @@ public class HeaderController {
 	@RequestMapping(value="/header_activity", method=RequestMethod.GET)
 	public String getActivitiLeft(Principal principal){
 		if(principal!=null){
-		System.out.println("in header_activity..........");
 		return "leftActiviti";
 		}else{
 			return "ajaxTrue";
@@ -28,7 +27,6 @@ public class HeaderController {
 	@RequestMapping(value="/header_activitydiagrams", method=RequestMethod.GET)
 	public String getActivitiForms(ModelMap map,Principal principal){
 		if(principal!=null){
-		System.out.println("in header_activitydiagrams..........");
 		map.addAttribute("workflow", workflowClient);
 		return "activitiDiagrams";}else{
 			return "ajaxTrue";

@@ -11,7 +11,6 @@
 		hs.setAttribute("currentFolder", "/");
 		hs.setAttribute("currentDoc", "/");
 	}
-	//System.out.println("path is : "+request.getParameter("path"));
 	List<Folder> folderList = (List<Folder>) request.getAttribute("folderList");
 %>
 <!---// RIGHT --->
