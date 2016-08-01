@@ -60,9 +60,9 @@ public class StartLeaveApplicationForm {
 			System.out.println("in submit form");
 			String json = request.getParameter("json");
 			System.out.println(" json = " + json);
-boolean flag=true;
+			boolean flag=true;
 			JSONObject jsonDataObject = (JSONObject) JSONValue.parse(json);
-String remark="";
+			String remark="";
 			// get an array from the JSON object
 			JSONArray jsonArr = (JSONArray) jsonDataObject.get("workflowForm");
 

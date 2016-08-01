@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "tiles-config_3_0.dtd">
+       
+<tiles-definitions>
+    <definition name="indexTemplate" template="/WEB-INF/tilestemplate/jsp/indexTemplate.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="body" value="" />
+    </definition> 
+    <definition name="ajaxTemplate" template="/WEB-INF/tilestemplate/jsp/ajaxTemplate.jsp">
+        <put-attribute name="body" value="" />
+    </definition> 
+    
+    
+    
+    <definition name="login" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Login" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/login.jsp" />
+    </definition>
+    
+    
+    
+    <definition name="chat" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil chat" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/chat.jsp" />
+    </definition>
+      <definition name="leftActiviti" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Activiti" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/leftActiviti.jsp" />
+    </definition>
+      <definition name="myDocument" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil My Document" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/myDocument.jsp" />
+    </definition>
+      <definition name="leftDocument" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil My Document" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/leftDocument.jsp" />
+    </definition>
+      <definition name="getPreview" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil My Document" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/documentPreview.jsp" />
+    </definition>
+      <definition name="getDocProperties" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil My Document" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/properties.jsp" />
+    </definition>
+      <definition name="getFileProperties" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil My Document" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/fileproperties.jsp" />
+    </definition>
+      <definition name="sharingPopup" extends="indexTemplate">
+        <put-attribute name="title" value="" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/sharingPopup.jsp" />
+    </definition>
+    
+    <definition name="activitiDiagrams" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Activiti" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/activitiDiagrams.jsp" />
+    </definition>
+    <definition name="workflowForms" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Activiti" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/workflowForms.jsp" />
+    </definition>
+    <definition name="activity_history" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil activity history" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/activity_history.jsp" />
+    </definition>
+    <definition name="toDoTasks" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Tasks" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/toDoTasks.jsp" />
+    </definition>
+    <definition name="workflows" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Workflows" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/workflows.jsp" />
+    </definition>
+    <definition name="workflowHistory" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Workflow History" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/workflowHistory.jsp" />
+    </definition>
+    
+    
+    <definition name="test" extends="indexTemplate">
+        <put-attribute name="title" value="test" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/test.jsp" />
+    </definition>
+    
+    
+    
+    <definition name="travelExpensesReimbursementHistory" extends="indexTemplate">
+        <put-attribute name="title" value="travelExpensesReimbursementHistory" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/TravelReimbursement/travelExpensesReimbursementHistory.jsp" />
+    </definition>
+    
+    <definition name="startTravelExpensesReimbursement" extends="indexTemplate">
+        <put-attribute name="title" value="startTravelExpensesReimbursement" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/TravelReimbursement/startTravelExpensesReimbursement.jsp" />
+    </definition>
+    <definition name="verifyTravelExpensesReimbursement" extends="indexTemplate">
+        <put-attribute name="title" value="verifyTravelExpensesReimbursement" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/TravelReimbursement/verifyTravelExpensesReimbursement.jsp" />
+    </definition>
+    <definition name="approveTravelExpensesReimbursement" extends="indexTemplate">
+        <put-attribute name="title" value="approveTravelExpensesReimbursement" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/TravelReimbursement/approveTravelExpensesReimbursement.jsp" />
+    </definition>
+    <definition name="authorizeTravelExpensesReimbursement" extends="indexTemplate">
+        <put-attribute name="title" value="authorizeTravelExpensesReimbursement" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/TravelReimbursement/authorizeTravelExpensesReimbursement.jsp" />
+    </definition>
+    <definition name="readjustTravelExpensesReimbursement" extends="indexTemplate">
+        <put-attribute name="title" value="readjustTravelExpensesReimbursement" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/TravelReimbursement/readjustTravelExpensesReimbursement.jsp" />
+    </definition>
+    
+    
+    <definition name="startInterOfficeMemoForm" extends="indexTemplate">
+        <put-attribute name="title" value="startInterOfficeMemoForm" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/Iom/startInterOfficeMemoForm.jsp" />
+    </definition>
+    <definition name="handleIOMFormHistory" extends="indexTemplate">
+        <put-attribute name="title" value="handleIOMFormHistory" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/Iom/handleIOMFormHistory.jsp" />
+    </definition>
+    <definition name="attachmentIOMForm" extends="indexTemplate">
+        <put-attribute name="title" value="attachmentIOMForm" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/Iom/attachmentIOMForm.jsp" />
+    </definition>
+    <definition name="startIOMForm" extends="indexTemplate">
+        <put-attribute name="title" value="startIOMForm" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/Iom/startIOMForm.jsp" />
+    </definition>
+    <definition name="handleIOMForm" extends="indexTemplate">
+        <put-attribute name="title" value="handleIOMForm" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/Iom/handleIOMForm.jsp" />
+    </definition>
+    <definition name="handleIOMForm2" extends="indexTemplate">
+        <put-attribute name="title" value="handleIOMForm2" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/Iom/handleIOMForm2.jsp" />
+    </definition>
+    <definition name="readjustIOMForm" extends="indexTemplate">
+        <put-attribute name="title" value="readjustIOMForm" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/Iom/readjustIOMForm.jsp" />
+    </definition>
+    
+    
+    
+    <definition name="startPurchaseRequisitionApplicationForm" extends="indexTemplate">
+        <put-attribute name="title" value="startPurchaseRequisitionApplicationForm" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/PrPlant/startPurchaseRequisitionApplicationForm.jsp" />
+    </definition>
+    
+    <definition name="handlePurchaseRequisitionApplicationForm" extends="indexTemplate">
+        <put-attribute name="title" value="handlePurchaseRequisitionApplicationForm" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/PrPlant/handlePurchaseRequisitionApplicationForm.jsp" />
+    </definition>
+    
+    <definition name="lastHandlePurchaseRequisitionApplicationForm" extends="indexTemplate">
+        <put-attribute name="title" value="lasthandlePurchaseRequisitionApplicationForm" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/PrPlant/lastHandlePurchaseRequisitionApplicationForm.jsp" />
+    </definition>
+    <definition name="handlePurchaseRequisitionApplicationFormHistory" extends="indexTemplate">
+        <put-attribute name="title" value="handlePurchaseRequisitionApplicationFormHistory" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/PrPlant/handlePurchaseRequisitionApplicationFormHistory.jsp" />
+    </definition>
+    <definition name="approvePurchaseRequisitionApplicationForm" extends="indexTemplate">
+        <put-attribute name="title" value="approvePurchaseRequisitionApplicationForm" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/PrPlant/approvePurchaseRequisitionApplicationForm.jsp" />
+    </definition>
+    
+    <definition name="readjustPurchaseRequisitionApplicationForm" extends="indexTemplate">
+        <put-attribute name="title" value="readjustPurchaseRequisitionApplicationForm" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/PrPlant/readjustPurchaseRequisitionApplicationForm.jsp" />
+    </definition>
+    
+    
+     
+    <definition name="medicalExpensesReimbursementHistory" extends="indexTemplate">
+        <put-attribute name="title" value="medicalExpensesReimbursementHistory" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/Medical/medicalExpensesReimbursementHistory.jsp" />
+    </definition>
+    <definition name="startMedicalExpensesReimbursement" extends="indexTemplate">
+        <put-attribute name="title" value="startMedicalExpensesReimbursement" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/Medical/startMedicalExpensesReimbursement.jsp" />
+    </definition>
+    <definition name="verifyMedicalExpensesReimbursement" extends="indexTemplate">
+        <put-attribute name="title" value="verifyMedicalExpensesReimbursement" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/Medical/verifyMedicalExpensesReimbursement.jsp" />
+    </definition>
+    <definition name="approveMedicalExpensesReimbursement" extends="indexTemplate">
+        <put-attribute name="title" value="approveMedicalExpensesReimbursement" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/Medical/approveMedicalExpensesReimbursement.jsp" />
+    </definition>
+    <definition name="authorizeMedicalExpensesReimbursement" extends="indexTemplate">
+        <put-attribute name="title" value="authorizeMedicalExpensesReimbursement" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/Medical/authorizeMedicalExpensesReimbursement.jsp" />
+    </definition>
+    <definition name="readjustMedicalExpensesReimbursement" extends="indexTemplate">
+        <put-attribute name="title" value="readjustMedicalExpensesReimbursement" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/Medical/readjustMedicalExpensesReimbursement.jsp" />
+    </definition>
+    
+    
+    
+     <definition name="startPurchaseRequisitionApplicationFormHO" extends="indexTemplate">
+        <put-attribute name="title" value="startPurchaseRequisitionApplicationFormHO" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/PrHo/startPurchaseRequisitionApplicationFormHO.jsp" />
+    </definition>
+    
+    <definition name="handlePurchaseRequisitionApplicationFormHO" extends="indexTemplate">
+        <put-attribute name="title" value="handlePurchaseRequisitionApplicationFormHO" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/PrHo/handlePurchaseRequisitionApplicationFormHO.jsp" />
+    </definition>
+    
+    <definition name="handlePurchaseRequisitionApplicationFormHOHistory" extends="indexTemplate">
+        <put-attribute name="title" value="handlePurchaseRequisitionApplicationFormHOHistory" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/PrHo/handlePurchaseRequisitionApplicationFormHOHistory.jsp" />
+    </definition>
+    <definition name="lastHandlePurchaseRequisitionApplicationFormHO" extends="indexTemplate">
+        <put-attribute name="title" value="lasthandlePurchaseRequisitionApplicationFormHO" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/PrHo/lastHandlePurchaseRequisitionApplicationFormHO.jsp" />
+    </definition>
+    <definition name="approvePurchaseRequisitionApplicationFormHO" extends="indexTemplate">
+        <put-attribute name="title" value="approvePurchaseRequisitionApplicationFormHO" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/PrHo/approvePurchaseRequisitionApplicationFormHO.jsp" />
+    </definition>
+    
+    <definition name="readjustPurchaseRequisitionApplicationFormHO" extends="indexTemplate">
+        <put-attribute name="title" value="readjustPurchaseRequisitionApplicationFormHO" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/PrHo/readjustPurchaseRequisitionApplicationFormHO.jsp" />
+    </definition>
+    
+    
+    <definition name="leaveApplicationFormHistory" extends="indexTemplate">
+        <put-attribute name="title" value="leaveApplicationFormHistory" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/LeaveApplication/leaveApplicationFormHistory.jsp" />
+    </definition>
+    <definition name="startLeaveApplicationForm" extends="indexTemplate">
+        <put-attribute name="title" value="startLeaveApplicationForm" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/LeaveApplication/startLeaveApplicationForm.jsp" />
+    </definition>
+    
+    <definition name="verifyLeaveApplicationForm" extends="indexTemplate">
+        <put-attribute name="title" value="verifyLeaveApplicationForm" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/LeaveApplication/verifyLeaveApplicationForm.jsp" />
+    </definition>
+    
+    <definition name="approveLeaveApplicationForm" extends="indexTemplate">
+        <put-attribute name="title" value="approveLeaveApplicationForm" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/LeaveApplication/approveLeaveApplicationForm.jsp" />
+    </definition>
+    
+    <definition name="authorizeLeaveApplicationForm" extends="indexTemplate">
+        <put-attribute name="title" value="authorizeLeaveApplicationForm" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/LeaveApplication/authorizeLeaveApplicationForm.jsp" />
+    </definition>
+    
+    <definition name="readjustLeaveApplicationForm" extends="indexTemplate">
+        <put-attribute name="title" value="readjustLeaveApplicationForm" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/LeaveApplication/readjustLeaveApplicationForm.jsp" />
+    </definition>
+    
+    
+    
+    
+    
+   
+    
+    <definition name="startCashPaymentVoucherForm" extends="indexTemplate">
+        <put-attribute name="title" value="startCashPaymentVoucherForm" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/CashPaymentVoucher/startCashPaymentVoucherForm.jsp" />
+    </definition>
+    
+    <definition name="handleCashPaymentVoucherForm" extends="indexTemplate">
+        <put-attribute name="title" value="handleCashPaymentVoucherForm" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/CashPaymentVoucher/handleCashPaymentVoucherForm.jsp" />
+    </definition>
+    
+    <definition name="readjustCashPaymentVoucherForm" extends="indexTemplate">
+        <put-attribute name="title" value="readjustCashPaymentVoucherForm" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/CashPaymentVoucher/readjustCashPaymentVoucherForm.jsp" />
+    </definition>
+    
+    <definition name="lastHandleCashPaymentVoucherForm" extends="indexTemplate">
+        <put-attribute name="title" value="lastHandleCashPaymentVoucherForm" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/CashPaymentVoucher/lastHandleCashPaymentVoucherForm.jsp" />
+    </definition>
+    <definition name="handleCashPaymentVoucherFormHistory" extends="indexTemplate">
+        <put-attribute name="title" value="handleCashPaymentVoucherFormHistory" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/CashPaymentVoucher/handleCashPaymentVoucherFormHistory.jsp" />
+    </definition>
+    
+    <definition name="handleCashPaymentVoucherApproveForm" extends="indexTemplate">
+        <put-attribute name="title" value="handleCashPaymentVoucherApproveForm" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/CashPaymentVoucher/handleCashPaymentVoucherApproveForm.jsp" />
+    </definition>
+    
+    
+    <definition name="handleCashPaymentVoucherUserForm" extends="indexTemplate">
+        <put-attribute name="title" value="handleCashPaymentVoucherUserForm" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/static/CashPaymentVoucher/handleCashPaymentVoucherUserForm.jsp" />
+    </definition>
+    
+    
+    
+    
+    
+    
+
+    <definition name="userDashboardTemplate" template="/WEB-INF/tilestemplate/jsp/userDashboardTemplate.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="/WEB-INF/view/jsp/header.jsp" />
+        <put-attribute name="left" value="" />
+        <put-attribute name="chat" value="" />
+      <put-attribute name="chat" value="/WEB-INF/view/jsp/chat.jsp" />
+        <put-attribute name="body" value="" />
+    </definition> 
+    <definition name="userDashboard" extends="userDashboardTemplate">
+        <put-attribute name="title" value="Avi-Oil Dashboard" />
+        <put-attribute name="left" value="/WEB-INF/view/jsp/leftDocument.jsp" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/userDashboard.jsp" />
+    </definition>
+    
+    <definition name="activitiTemplate" template="/WEB-INF/tilestemplate/jsp/activitiTemplate.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="activitiMenu" value="/WEB-INF/view/jsp/activitiMenu.jsp" />
+        <put-attribute name="body" value="" />
+    </definition> 
+    
+    
+    
+    
+    
+    
+    
+    
+   
+    <definition name="dashboard" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Shared" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/userDashboard.jsp" />
+    </definition>
+   
+    <definition name="shared" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Shared" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/shared.jsp" />
+    </definition>
+    <definition name="calender" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Calender" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/calender.jsp" />
+    </definition>
+    <definition name="userStatistics" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil User Statistics" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/userStatistics.jsp" />
+    </definition>
+    <definition name="recently" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil User Dashboard" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/recently.jsp" />
+    </definition>
+    <definition name="trash" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil User Dashboard" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/trash.jsp" />
+    </definition>
+    <definition name="index" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Login" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/index.jsp" />
+    </definition>
+    
+    <definition name="adminDashboard" extends="indexTemplate">
+        <put-attribute name="title" value="Avi-Oil Welcome User" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/adminDashboard.jsp" />
+    </definition>
+    <definition name="fileSystem" extends="ajaxTemplate">
+        <put-attribute name="body" value="/WEB-INF/view/jsp/fileSystem.jsp" />
+    </definition>
+    <definition name="dashboard" extends="ajaxTemplate">
+        <put-attribute name="body" value="/WEB-INF/view/jsp/dashboard.jsp" />
+    </definition>
+    <definition name="ajaxTrue" extends="ajaxTemplate">
+        <put-attribute name="body" value="/WEB-INF/view/jsp/ajaxTrue.jsp" />
+    </definition>
+    <definition name="setting" extends="ajaxTemplate">
+        <put-attribute name="body" value="/WEB-INF/view/jsp/setting.jsp" />
+    </definition>
+    
+    
+    
+    <definition name="searchResult" extends="ajaxTemplate">
+        <put-attribute name="body" value="/WEB-INF/view/jsp/searchResult.jsp" />
+    </definition>
+</tiles-definitions>

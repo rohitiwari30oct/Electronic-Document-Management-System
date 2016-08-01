@@ -73,6 +73,8 @@ import edms.wsdl.RemoveAssignedPermissionRequest;
 import edms.wsdl.RemoveAssignedPermissionResponse;
 import edms.wsdl.RemoveKeywordRequest;
 import edms.wsdl.RemoveKeywordResponse;
+import edms.wsdl.RemovePublicLinkRequest;
+import edms.wsdl.RemovePublicLinkResponse;
 import edms.wsdl.RenameFileRequest;
 import edms.wsdl.RenameFileResponse;
 import edms.wsdl.RenameFolderRequest;
@@ -137,9 +139,7 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 
 	public void printResponse(GetFolderResponse response) {
 		FolderListReturn country = response.getGetFoldersByParentFolder();
-		System.out.println();
-		System.out.println("Forecast for " + ", "
-				+ country.getFolderListResult().getFolderList().size());
+	
 
 		/*
 		 * SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -386,9 +386,7 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 	public void printResponse(GetFileResponse response) {
 		FileListReturn country = response.getGetFilesByParentFile();
 
-	/*	System.out.println();
-		System.out.println("Forecast for " + ", "
-				+ country.getFileListResult().getFileList().size());*/
+	
 
 		/*
 		 * SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -728,8 +726,20 @@ public class DocumentModuleClient extends WebServiceGatewaySupport {
 		return response;
 	}
 
+	public RemovePublicLinkResponse removePublicLinkRequest(String filePath, String userid, String password,
+			String guestId) {
+		RemovePublicLinkRequest request=new RemovePublicLinkRequest();
+		request.setUserid(userid);
+		request.setPassword(password);
+		request.setFilePath(filePath);
+		request.setGuestid(guestId);
 	
-
-	
-
+		
+		RemovePublicLinkResponse response=(RemovePublicLinkResponse) getWebServiceTemplate()
+				.marshalSendAndReceive(
+						request,
+						new SoapActionCallback(
+								"http://localhost:8080/ws/removePublicLinkRequest"));
+		return response;
+	}
 }

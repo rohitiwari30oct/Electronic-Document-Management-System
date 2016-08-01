@@ -15,39 +15,39 @@
     
     
     <definition name="login" extends="indexTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/login.jsp" />
     </definition>
     
     
     
     <definition name="chat" extends="indexTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="body" value="" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/chat.jsp" />
     </definition>
       <definition name="leftActiviti" extends="indexTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/leftActiviti.jsp" />
     </definition>
       <definition name="myDocument" extends="indexTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/myDocument.jsp" />
     </definition>
       <definition name="leftDocument" extends="indexTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/leftDocument.jsp" />
     </definition>
       <definition name="getPreview" extends="indexTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/documentPreview.jsp" />
     </definition>
       <definition name="getDocProperties" extends="indexTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/properties.jsp" />
     </definition>
       <definition name="getFileProperties" extends="indexTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/fileproperties.jsp" />
     </definition>
       <definition name="sharingPopup" extends="indexTemplate">
@@ -56,27 +56,27 @@
     </definition>
     
     <definition name="activitiDiagrams" extends="indexTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/activitiDiagrams.jsp" />
     </definition>
     <definition name="workflowForms" extends="indexTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/workflowForms.jsp" />
     </definition>
     <definition name="activity_history" extends="indexTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/activity_history.jsp" />
     </definition>
     <definition name="toDoTasks" extends="indexTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/toDoTasks.jsp" />
     </definition>
     <definition name="workflows" extends="indexTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/workflows.jsp" />
     </definition>
     <definition name="workflowHistory" extends="indexTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/workflowHistory.jsp" />
     </definition>
     
@@ -325,7 +325,7 @@
         <put-attribute name="body" value="" />
     </definition> 
     <definition name="userDashboard" extends="userDashboardTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="left" value="/WEB-INF/view/jsp/leftDocument.jsp" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/userDashboard.jsp" />
     </definition>
@@ -345,37 +345,37 @@
     
    
     <definition name="dashboard" extends="indexTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/userDashboard.jsp" />
     </definition>
    
     <definition name="shared" extends="indexTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/shared.jsp" />
     </definition>
     <definition name="calender" extends="indexTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/calender.jsp" />
     </definition>
     <definition name="userStatistics" extends="indexTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/userStatistics.jsp" />
     </definition>
     <definition name="recently" extends="indexTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/recently.jsp" />
     </definition>
     <definition name="trash" extends="indexTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/trash.jsp" />
     </definition>
     <definition name="index" extends="indexTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/index.jsp" />
     </definition>
     
     <definition name="adminDashboard" extends="indexTemplate">
-        <put-attribute name="title" value="Avi-Oil  (Digital Vault)" />
+        <put-attribute name="title" value="Digital Vault" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/adminDashboard.jsp" />
     </definition>
     <definition name="fileSystem" extends="ajaxTemplate">

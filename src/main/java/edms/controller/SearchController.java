@@ -170,9 +170,7 @@ public class SearchController {
 						} else {
 							name = name + " " + str[i + 1];
 						}
-
 					}
-
 				}
 				SearchDocByLikeResponse searchResponse = documentModuleClient.searchDocByLike(name, folderPath,
 						Config.EDMS_KEYWORDS, userid, principal.getPassword());

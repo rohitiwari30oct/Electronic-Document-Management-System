@@ -883,10 +883,8 @@ newFolder="</span></li>";
 			AssignSinglePermissionResponse response = documentModuleClient
 				.assignSinglePermission(str[i].trim(), userid.trim(),principal.getPassword().trim(), user.trim(), value.trim());
 		 	resp = response.getAssignSinglePermissionResponse();
-		 	//MailUtils.sendComposeMail("192.168.0.53", "25", "edms@avi-oil.com", "google@2009", userid, "Shared with me", "dsdd");
 			}
-			}	//MailUtils.sendComposeMail("192.168.0.53", "25", "edms@avi-oil.com", "google@2009", userid, "Shared with me", "This is mail to inform you that someone have shared document with you.");
-			//MailUtils.sendComposeMail("mail.silvereye.in", "25", "rohit@silvereye.in", "yahoo@2009", "nirbhay@silvereye.in", "Shared with me", "This is mail to inform you that someone have shared document with you.");
+			}	
 			return resp;
 		} 
 	}catch(Exception e){
@@ -910,7 +908,6 @@ newFolder="</span></li>";
 			RemoveAssignedPermissionResponse response = documentModuleClient
 				.removeAssignedPermission(folderPath.trim(), userid.trim(),principal.getPassword().trim(), user.trim(), value.trim());
 		 	resp = response.getAssignSinglePermissionResponse();
-			//MailUtils.sendComposeMail("192.168.0.53", "25", "edms@avi-oil.com", "google@2009", userid, "Shared with me", "This is mail to inform you that someone have shared document with you.");
 			return resp;
 		} 
 	}catch(Exception e){

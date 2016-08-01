@@ -64,8 +64,8 @@ function openMsg()
 		
             <div class="logo_new">
             <!-- style="height: 66px;width:133px;"  -->
-             <img  src="images/logo_avi.png" />
-             <!--    <img style="width: 178px;" src="images/Digital Vault2.png" /> -->
+<!--              <img  src="images/logo_avi.png" /> -->
+                <img style="width: 178px;" src="images/Digital Vault2.png" />
             </div>
 			<div class="login-c1">
 				<div class="cpadding50">

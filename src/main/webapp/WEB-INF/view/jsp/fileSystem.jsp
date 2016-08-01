@@ -365,92 +365,15 @@ String userid=(String)request.getAttribute("userid");
 		
 		<%} %>
 	</div> 
-	<!--------/// NEW TWO ICON ------------>
-	<!-------/// NEW CHANGES FOR FOLDER AND FILE VIEW ********** -->
-
-	<!------/// NEW CHANGES FOR FOLDER STRED HERE ------>
-	<!-- <div class="new_option_folder">
-		<ul>
-			<li class="share_link link_share"><img
-				src="images/share_linl.png" /></li>
-			<li class="share_people share_link mange_sharing"><img
-				src="images/48094.png" /></li>
-			<li class="more_delete"><img src="images/delete.png" /></li>
-			<li class="new_more_icon_folder"><img src="images/more_icon.png" /></li>
-		</ul>
-
-		<div class="new_more_folder">
-			<ul>
-				<li class="renameFolder">rename</li>
-			</ul>
-		</div>
-
-
-	</div> -->
-	<!-------// NEW CHANGES FOR FOLDER END HERE ---------->
-
-	<!--  <li data-tooltip="Home">
-                                                    <a href="javascript:void(0);" id="fileSystem"  onclick="getPage(this.id)"><div class="home"></div> Home<div class="claer"></div></a> 
-                                                 </li>
-                                                 <li data-tooltip="Download"> 
-                                                    <a href="javascript:void(0);"><div class="download"></div>Download</a>
-                                                 </li>
-                                                 <li class="add_folder " data-tooltip="Create"> 
-                                                    <a href="javascript:void(0);"><div class="create"></div> CREATE</a> 
-                                                 </li>
-                                                 <li class="folder_icon_1" data-tooltip="Upload"> 
-                                                    <a href="javascript:void(0);"><div class="upload"></div>UPLOAD</a>
-                                                 </li>
-                                                 <li > 
-                                                    <a href="javascript:void(0);" title="Create"><div class="create_doc"></div>CREATE</a>
-                                                 </li>
-                                                 <li data-tooltip="Rename" > 
-                                                   <a href="javascript:void(0);"class="renameFolder"><div class="edit"></div>Rename</a> 
-                                                 </li>
-                                                 <li class="share" data-tooltip="Share"> 
-                                                   <a href="javascript:void(0);"><div class="update"></div>SHARE</a> 
-                                                 </li>
-                                                <li class="delete_folder"  data-tooltip="Delete"> 
-                                                   <a href="javascript:void(0);" title="Delete"><div class="delet"></div>DELETE</a> 
-                                                </li> -->
-
-	<!------/// NEW CHANGES FOR file STRED HERE ------>
-<!-- 	<div class="new_option_file">
-		<ul>
-			<li class="share_link link_share"><img
-				src="images/share_linl.png" /></li>
-			<li class="share_people share_link mange_sharing"><img
-				src="images/48094.png" /></li>
-			<li class="share_link preview_file "><img
-				src="images/eye-24-256.png" /></li>
-			<li class="more_delete"><img src="images/delete.png" /></li>
-			<li class="new_more_icon_file"><img src="images/more_icon.png" /></li>
-		</ul>
-
-		<div class="new_more_file">
-			<ul>
-				<li class="downloadFolder" onclick="getFileContent(this.id)">download</li>
-				<li class="renameFolder">rename</li>
-			</ul>
-		</div>
-	</div> -->
-	<!-------// NEW CHANGES FOR FOLDER END HERE ---------->
-
-	<!-------/// NEW CHANGES FOR FOLDER AND FILE VIEW ********** -->
+	
 </div>
 
 <div class="user_dasboard_1">
 
-	<!--------------//// ALLL CHAT SUB HTML PAGES HERE STARED HERE ------------>
-	<!-------/// Chat Downarrow option--------->
-
-	<!------------/// Chat Downarrow Option End ------>
-	<!--------------- ALL CHAT SUB HTML FOLDER END HERE ---------------->
 
 
 	<div class="middle-pane middle-pane_new left_border">
 
-		<!-------------/// ROW FIRST CONTENT STARTED HERE ---------------------->
 		<div class="thum_view_middle new_width">
 <script type="text/javascript">
 function hideOptions(){
@@ -477,13 +400,9 @@ width: 100%;"  onclick="getDocProperties(this.id);hideOptions()"
 							
 							String folPath="";
 							String folPat=folder.getFolderPath().substring(1);
-							/* if(folPat.indexOf("/")==folPat.lastIndexOf("/")){
-
-								 folPath="/"+userid+"/"+folder.getFolderName();
-							}else{ */
+						
 								folPath=folder.getFolderPath();
-							/* } */
-							//folPath=folPath.substring(folPath.indexOf("/"));
+						
 					if(folder.getUserRead().toString().indexOf(userid)>=0)
 					{	
 					%>
@@ -560,12 +479,7 @@ width: 100%;"  onclick="getDocProperties(this.id);hideOptions()"
 						oncontextmenu="getFileProperties(this.id);getRightClickMenuFile(this.id)">
 						<div style="display: none;"
 			id="filePermissions<%=file.getFilePath()%>"><%=file.getUserRead().toString().contains(userid)%>,<%=file.getUserWrite().toString().contains(userid)%>,<%=file.getUserSecurity().toString().contains(userid)%></div>
-						
-						
-						
-						<!-- <img src="images/ms_excel_big.png" />
-										<div class="clear"></div>
-										 --> <%
+			 <%
  	if(file.getFileName().contains(".pdf")){
  %>
 						<div class="new_pdf"></div> <%
@@ -1242,11 +1156,67 @@ width: 100%;"  onclick="getDocProperties(this.id);hideOptions()"
 	</form>
 </div>
 
+<script type="text/javascript">
+document.getElementById("copyButton").addEventListener("click", function() {
+    copyToClipboard(document.getElementById("publicLink"));
+});
+
+function copyToClipboard(elem) {
+	  // create hidden text element, if it doesn't already exist
+    var targetId = "_hiddenCopyText_";
+    var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
+    var origSelectionStart, origSelectionEnd;
+    if (isInput) {
+        // can just use the original source element for the selection and copy
+        target = elem;
+        origSelectionStart = elem.selectionStart;
+        origSelectionEnd = elem.selectionEnd;
+    } else {
+        // must use a temporary form element for the selection and copy
+        target = document.getElementById(targetId);
+        if (!target) {
+            var target = document.createElement("textarea");
+            target.style.position = "absolute";
+            target.style.left = "-9999px";
+            target.style.top = "0";
+            target.id = targetId;
+            document.body.appendChild(target);
+        }
+        target.textContent = elem.textContent;
+    }
+    // select the content
+    var currentFocus = document.activeElement;
+    target.focus();
+    target.setSelectionRange(0, target.value.length);
+    
+    // copy the selection
+    var succeed;
+    try {
+    	  succeed = document.execCommand("copy");
+    } catch(e) {
+        succeed = false;
+    }
+    // restore original focus
+    if (currentFocus && typeof currentFocus.focus === "function") {
+        currentFocus.focus();
+    }
+    
+    if (isInput) {
+        // restore prior selection
+        elem.setSelectionRange(origSelectionStart, origSelectionEnd);
+    } else {
+        // clear temporary content
+        target.textContent = "";
+    }
+    return succeed;
+}
+</script>
 <div id="contactdiv_getLink">
 	<form class="form" action="#" id="contact">
 		<h3>Public link</h3>
-<label>		<input type="radio" name="publiclinkflag" value="1" />On</label>
-<label>		<input type="radio" name="publiclinkflag" value="0"/>Off</label>	
+<label id="add_link_give_link">		<input type="radio" name="publiclinkflag" value="1" />On</label>
+<label id="remove_link_give_link">		<input type="radio" name="publiclinkflag" value="0"/>Off</label>	
+	<input style="float: right;margin-right: 0px;" type="button" value="Copy to Clipboard" id="copyButton" />
 		<input type="text" id="publicLink"  readonly="readonly"  /> 
 		<br />
 		<div class="clear"></div>
@@ -1255,3 +1225,58 @@ width: 100%;"  onclick="getDocProperties(this.id);hideOptions()"
 	</form>
 </div>
 
+<script type="text/javascript">
+document.getElementById("copyButton").addEventListener("click", function() {
+    copyToClipboard(document.getElementById("copyTarget"));
+});
+
+function copyToClipboard(elem) {
+	  // create hidden text element, if it doesn't already exist
+    var targetId = "_hiddenCopyText_";
+    var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
+    var origSelectionStart, origSelectionEnd;
+    if (isInput) {
+        // can just use the original source element for the selection and copy
+        target = elem;
+        origSelectionStart = elem.selectionStart;
+        origSelectionEnd = elem.selectionEnd;
+    } else {
+        // must use a temporary form element for the selection and copy
+        target = document.getElementById(targetId);
+        if (!target) {
+            var target = document.createElement("textarea");
+            target.style.position = "absolute";
+            target.style.left = "-9999px";
+            target.style.top = "0";
+            target.id = targetId;
+            document.body.appendChild(target);
+        }
+        target.textContent = elem.textContent;
+    }
+    // select the content
+    var currentFocus = document.activeElement;
+    target.focus();
+    target.setSelectionRange(0, target.value.length);
+    
+    // copy the selection
+    var succeed;
+    try {
+    	  succeed = document.execCommand("copy");
+    } catch(e) {
+        succeed = false;
+    }
+    // restore original focus
+    if (currentFocus && typeof currentFocus.focus === "function") {
+        currentFocus.focus();
+    }
+    
+    if (isInput) {
+        // restore prior selection
+        elem.setSelectionRange(origSelectionStart, origSelectionEnd);
+    } else {
+        // clear temporary content
+        target.textContent = "";
+    }
+    return succeed;
+}
+</script>

@@ -16,29 +16,7 @@
                       <h1 class="user user_option user_select">Users</h1><h1 class="user_group">Group</h1>
                       <div class="group_shared_size user_inner">
                       
-                         <table>
                          
-                         <tr style="background-color: #e1e1e1;">
-                         <td><input type="checkbox"  id="usersselectall" /> <img style=" padding-top: 1px;
-    width: 13px;"  src="images/single_user.png" />Users</td>
-                         </tr>
-                     			<tr>
-                               <td align="top" ><input type="checkbox" name="users" value="sanjay@avi-oil.com"/>
-                               <img style=" padding-top: 1px;
-    width: 13px;" src="images/single_user.png" />sanjay@avi-oil.com</td>
-                             </tr>
-                             
-                             <tr>
-                               <td align="top" ><input type="checkbox" name="users" value="santosh@avi-oil.com"/>
-                               <img style=" padding-top: 1px;
-    width: 13px;"  src="images/single_user.png" />santosh@avi-oil.com</td>
-                             </tr>
-                              <tr>
-                               <td align="top" ><input type="checkbox" name="users" value="janak@avi-oil.com"/>
-                               <img style=" padding-top: 1px;
-    width: 13px;"  src="images/single_user.png" />janak@avi-oil.com</td>
-                             </tr>
-                      </table>
                       </div>
                       <div class="group_shared_size group_inner">
                          <table>
@@ -310,29 +288,7 @@
                       <h1 class="user user_option user_select">Users</h1><h1 class="user_group">Group</h1>
                       <div class="group_shared_size user_inner">
                       
-                         <table>
                          
-                         <tr style="background-color: #e1e1e1;">
-                         <td><input type="checkbox"  id="usersselectall" /> <img style=" padding-top: 1px;
-    width: 13px;"  src="images/single_user.png" />Users</td>
-                         </tr>
-                     			<tr>
-                               <td align="top" ><input type="checkbox" name="users" value="sanjay@avi-oil.com"/>
-                               <img style=" padding-top: 1px;
-    width: 13px;" src="images/single_user.png" />sanjay@avi-oil.com</td>
-                             </tr>
-                             
-                             <tr>
-                               <td align="top" ><input type="checkbox" name="users" value="santosh@avi-oil.com"/>
-                               <img style=" padding-top: 1px;
-    width: 13px;"  src="images/single_user.png" />santosh@avi-oil.com</td>
-                             </tr>
-                              <tr>
-                               <td align="top" ><input type="checkbox" name="users" value="janak@avi-oil.com"/>
-                               <img style=" padding-top: 1px;
-    width: 13px;"  src="images/single_user.png" />janak@avi-oil.com</td>
-                             </tr>
-                      </table>
                       </div>
                       <div class="group_shared_size group_inner">
                          <table>
@@ -352,64 +308,7 @@
                       </div>
                       <h1 class="Permissions">Permissions</h1>
                       <div class="group_shared_bottom user_details">
-                             <table class="shared_heading">
-                             <tr style="background-color: #e1e1e1;">
-                               <td   align="top" class="space_td">Users</td>
-                               <td >Read </td>
-                               <td >Read &amp; Write </td>
-                               <td >Delete </td>
-                               <td >Modify Access Control </td>
-                             </tr>
-                           <!--   <tr>
-                               <td align="top" class="space_td" id="readAccess"><img  style=" padding-top: 1px;
-   								 width: 13px;"   src="images/single_user.png" /> Full control</td>
-                               <td><input type="checkbox"  id="userpermissionselectall"/></td>
-                               <td class="deny"><input type="checkbox"  id="userdenypermissionselectall"/></td>
-                             </tr> -->
-                             <tr>
-                               <td align="top" class="space_td">
-                               <img  style="padding-top: 1px;width: 13px;"  src="images/single_user.png" />sanjay@avi-oil.com </td>
-                               <td><input type="checkbox" name='userpermission' value='sanjay@avi-oil.com,ur' /></td>
-                               <td><input type="checkbox" name='userpermission' value='sanjay@avi-oil.com,uw' /></td>
-                               <td><input type="checkbox" name='userpermission' value='sanjay@avi-oil.com,ud' /></td>
-                               <td><input type="checkbox" name='userpermission' value='sanjay@avi-oil.com,us' /></td>
-                             </tr>
-                             <tr>
-                               <td align="top" class="space_td">
-                               <img  style="padding-top: 1px;width: 13px;"  src="images/single_user.png" />santosh@avi-oil.com </td>
-                               <td><input type="checkbox" name='userpermission' value='santosh@avi-oil.com,ur' /></td>
-                               <td><input type="checkbox" name='userpermission' value='santosh@avi-oil.com,uw' /></td>
-                               <td><input type="checkbox" name='userpermission' value='santosh@avi-oil.com,ud' /></td>
-                               <td><input type="checkbox" name='userpermission' value='santosh@avi-oil.com,us' /></td>
-                             </tr>
-                             <!-- <tr>
-                               <td align="top" class="space_td"><img   style=" padding-top: 1px;
-    width: 13px;"   src="images/single_user.png" />santosh@avi-oil.com </td>
-                               <td><input type="checkbox"  name='userpermission' value='2'/></td>
-                               <td><input type="checkbox" name='denyuserpermission' value='-2'/></td>
-                               <td><input type="checkbox"  name='userpermission' value='2'/></td>
-                               <td><input type="checkbox" name='denyuserpermission' value='-2'/></td>
-                             </tr>
-                             <tr>
-                               <td align="top" class="space_td"><img  style=" padding-top: 1px;
-    width: 13px;"  src="images/single_user.png" />janak@avi-oil.com</td>
-                               <td><input type="checkbox" name='userpermission' value='4'/></td>
-                               <td><input type="checkbox" name='denyuserpermission' value='-4'/></td>
-                               <td><input type="checkbox" name='userpermission' value='4'/></td>
-                               <td><input type="checkbox" name='denyuserpermission' value='-4'/></td>
-                             </tr>
-                              <tr>
-                               <td align="top" class="space_td"><img   style=" padding-top: 1px;
-    width: 13px;" src="images/single_user.png" /> ModifyAccessControl </td>
-                             <td><input type="checkbox" name='userpermission' value='true'/></td>
-                             <td><input type="checkbox" name='denyuserpermission' value='false'/></td>
-                             <td><input type="checkbox" name='userpermission' value='true'/></td>
-                             <td><input type="checkbox" name='denyuserpermission' value='false'/></td>
-                             </tr>
-                              -->
-                              
-                      </table>
-                      
+                             
                     
                       </div>
                     <div class="group_shared_bottom group_details">

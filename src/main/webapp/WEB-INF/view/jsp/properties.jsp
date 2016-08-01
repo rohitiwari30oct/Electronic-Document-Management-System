@@ -234,7 +234,7 @@ String userid=(String)request.getAttribute("userid");
                                                     	   str=str.replace("]", "");
                                                     	   str=str.replace("[", "");
                                                     	   
-                                                    	   if((str.equals(",")||str.equals("")||str.equals(" ")||str.equals("]")||str.equals("["))){}else{
+                                                    	   if((str.equals(",")||str.equals("")||str.equals(" ")||str.equals("]")||str.equals("[")||str.equals("guestforpubliclink")||str=="guestforpubliclink")){}else{
                                                     		   String flag="Can View";
                                                     		   if(currentFolder.getUserWrite().toString().contains(str)){
                                                     			   flag="Can Edit";
@@ -247,36 +247,7 @@ String userid=(String)request.getAttribute("userid");
                                                     <td style="text-transform: none;" class="go_text"><%=str.toLowerCase() %> </td>
 													<td> : <%=flag %>
 													</td>
-													<%-- <td>
-													<%if(currentFolder.getUserWrite().toString().contains(str)){ %>
-														<input type="checkbox" onclick="assignPermissions(this.value)"  name="userpermission" value="<%=str%>,uw" id="<%=str.replace("@", "")
-														.replace(".", "")%>uw" checked="checked"/>
-														<%}else{ %>
-														<input type="checkbox" onclick="assignPermissions(this.value)"  name="userpermission" value="<%=str%>,uw" id="<%=str.replace("@", "")
-														.replace(".", "")%>uw"/>
-														<%} %>
-													</td>
-													<td>
-													<%if(currentFolder.getUserDelete().toString().contains(str)){ %>
-
-														<input type="checkbox" onclick="assignPermissions(this.value)"  name="userpermission"  value="<%=str%>,ud" id="<%=str.replace("@", "")
-														.replace(".", "")%>ud" checked="checked"/>
-														<%}else{ %>
-
-														<input type="checkbox" onclick="assignPermissions(this.value)"  name="userpermission"  value="<%=str%>,ud" id="<%=str.replace("@", "")
-														.replace(".", "")%>ud"/>
-														<%} %>
-													</td>
-													<td>
-													<%if(currentFolder.getUserSecurity().toString().contains(str)){ %>
-														<input type="checkbox" onclick="assignPermissions(this.value)"  name="userpermission" value="<%=str%>,us" id="<%=str.replace("@", "")
-														.replace(".", "")%>us" checked="checked"/>
-														<%}else{ %>
-														<input type="checkbox" onclick="assignPermissions(this.value)"  name="userpermission" value="<%=str%>,us" id="<%=str.replace("@", "")
-														.replace(".", "")%>us"/>
-														<%} %>
-
-													</td> --%></tr>
+													</tr>
                                                        <%}}}ii=2;} %>
                                                        </table>
                                                            </div>

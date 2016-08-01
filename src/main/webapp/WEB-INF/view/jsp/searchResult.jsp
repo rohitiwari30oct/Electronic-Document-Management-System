@@ -202,15 +202,7 @@ String userid=(String)request.getAttribute("userid");
                                 
                                                <!------------/// LEFT PART ---------->
                                                  <div class="left_part">
-                                                       <!----// NEW ---->
-                                                       <div class="new_1">sanjay@avi-oil.com</div>
-                                                       <!----/// NEW ---->
-                                                        <!----// NEW ---->
-                                                       <div class="new_1">santosh@avi-oil.com</div>
-                                                       <!----/// NEW ---->
-                                                        <!----// NEW ---->
-                                                       <div class="new_1">janak@avi-oil.com</div>
-                                                       <!----/// NEW ---->
+                                                     
                                                  
                                                  </div>
                                                <!---------// LEFT PART END ------------>

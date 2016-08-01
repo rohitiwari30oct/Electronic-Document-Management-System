@@ -993,17 +993,15 @@ if(key!=null){
 					 subject = "Action Required : " + formName;
 					 mailContent = "<br>Dear Sir/Madam,<br><br>" ;
 						//	 if(frmNmae.equalsIgnoreCase("verifyMedicalExpensesReimbursement"))
-								 mailContent += "You have new request for Approval<br><br><br>" ;
+					 mailContent += "You have new request for Approval<br><br><br>" ;
 							/* else
 								 mailContent += "You have new request for Verification<br><br><br>" ;*/
-mailContent += "<strong>Request Category: </strong> " + formName + "<br>" +
-					"<strong> Amount: " + gtotal + "</strong><br><br><br>" +
-
+					mailContent += "<strong>Request Category: </strong> " + formName + "<br>" +
+					"<strong>Amount: " + gtotal + "</strong><br><br><br>" +
 					"<strong>Name : </strong>" + empName + "<br>" +
 					"<strong>Emp. Code : </strong>" + empNo + "<br>" +
 					"<strong>Designation : </strong>" + empDesig + "<br>" +
 					"<strong>Department : </strong>" + deptName + "<br><br><br>" +
-
 					"Initiated By: " + employeeID + "<br><br>";
 					if (remark != null)
 						mailContent += "Remark: " + remark + "<br><br><br>";
@@ -1138,7 +1136,7 @@ mailContent += "<strong>Request Category: </strong> " + formName + "<br>" +
 					 subject = "Info : " + formName;
 					 mailContent = "<br>Dear Sir/Madam,<br><br>" +
 
-					"Your payment is ready. <br><br><br>" +
+					"Your payment is under process. <br><br><br>" +
 
 					"<strong>Request Category: </strong> " + formName + "<br>" +
 					"<strong> Amount: " + gtotal + "</strong><br><br><br>" +
@@ -1232,19 +1230,12 @@ mailContent += "<strong>Request Category: </strong> " + formName + "<br>" +
 				
 				
 				
-				
-				
-				
-				
-				
-				
-				
 
 				
 				
 
 				//for Leave Application accept after rejection
-				if(requestType.equals("accept")&&(frmNmae.equalsIgnoreCase("readjustMedicalExpensesReimbursement"))){
+				if(requestType.equals("accept")&&(frmNmae.equalsIgnoreCase("readjustLeaveApplicationForm"))){
 					//for verifier
 					 subject = "Action Required : " + formName;
 					 mailContent = "<br>Dear Sir/Madam,<br><br>" +
@@ -1598,7 +1589,7 @@ mailContent += "<strong>Request Category: </strong> " + formName + "<br>" +
 					 subject = "Info : " + formName;
 					 mailContent = "<br>Dear Sir/Madam,<br><br>" +
 
-					"Your payment is ready. <br><br><br>" +
+					"Your payment is under process. <br><br><br>" +
 
 					"<strong>Request Category: </strong> " + formName + "<br><br><br>" +
 					"<strong> Amount: " + gtotal + "</strong><br><br><br>" +

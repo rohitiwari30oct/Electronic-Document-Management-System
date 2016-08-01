@@ -54,6 +54,7 @@ import edms.wsdl.CreateFileResponse;
 import edms.wsdl.GetAttachmentResponse;
 import edms.wsdl.GetFileByPathResponse;
 import edms.wsdl.GetFileByPathWithOutStreamResponse;
+import edms.wsdl.RemovePublicLinkResponse;
 import edms.wsdl.SetPublicLinkRequest;
 import edms.wsdl.SetPublicLinkResponse;
 
@@ -636,7 +637,7 @@ public class DocumentController extends HttpServlet {
 			return "ajaxTrue";
 		}
 	}
-	
+
 	@RequestMapping("/setPublicLinkRequest")
 	@ResponseBody
 	public String setPublicLinkRequest(ModelMap map, Principal principal, HttpServletRequest request) {
@@ -669,7 +670,39 @@ public class DocumentController extends HttpServlet {
 			return "Sorry, failed to find link";
 			}
 			} catch (Exception e) {
-			return "ajaxTrue";
+			return "Sorry, failed to find link";
+		}
+	}
+	
+
+	@RequestMapping("/removePublicLinkRequest")
+	@ResponseBody
+	public String removePublicLinkRequest(ModelMap map, Principal principal, HttpServletRequest request) {
+		try {
+			if (principal == null) {
+				return "ajaxTrue";
+			} else {
+				String filePath = "";
+				// ArrayList<String> imageString=new ArrayList<String>();
+				HttpSession hs = request.getSession(false);
+				if (hs != null) {
+					filePath = (String) hs.getAttribute("currentFile");
+				}
+				String userid = "";
+				if (principal.getName().contains("@")) {
+					userid = principal.getName();
+				} else {
+					userid = principal.getName() + Config.EDMS_DOMAIN;
+				}
+			RemovePublicLinkResponse fileByPath = documentModuleClient.removePublicLinkRequest(filePath, userid, principal.getPassword(), Config.EDMS_GUEST);
+			if(fileByPath.getResponseMessage().equals("success")){
+				return "";
+			}
+			
+			return "Sorry, failed to find link";
+			}
+			} catch (Exception e) {
+			return "Sorry, failed to find link";
 		}
 	}
 	

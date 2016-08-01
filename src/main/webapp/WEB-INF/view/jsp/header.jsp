@@ -637,10 +637,10 @@ Processing Please wait...
                                      <div onclick="getPage('fileSystem')" style="cursor: pointer;" class="logo_space">
                                           <!---/// LOGO --->
                                           <!-- style=" height: 65px;width: 150px;" -->
-                                          <img src="images/logo.png"  />
+<!--                                           <img src="images/logo.png"  /> -->
                                           
                                           
-                                           <!--  <img src="images/Digital Vault2.png" style="width:164px;" />  -->
+                                            <img src="images/Digital Vault2.png" style="width:164px;" /> 
                                             <!---//LOGO END -->
                                      </div>
                                     <!--------// SEARCH HERE --------->
@@ -1991,7 +1991,6 @@ newWin.document.close();
 
 <script type="text/javascript">
 $(document).on("click",".set_link_give_link",function(){
-
 	var myVar=setTimeout(myFunctionl,500);
  	var note=$('#notesnote').val();
 	$.ajax({
@@ -2005,6 +2004,10 @@ $(document).on("click",".set_link_give_link",function(){
           						$("#publicLink").val(data);
           						//$(document).on("click",".set_link_give_link",function(){
           					        $("#contactdiv_getLink").css("display", "block");
+          					      var $radios = $('input:radio[name=publiclinkflag]');
+          					    //if($radios.is(':checked') === false) {
+          					        $radios.filter('[value=1]').prop('checked', true);
+          					    //}
           					   // });
           						
 			myStopFunction(myVar);
@@ -2012,9 +2015,47 @@ $(document).on("click",".set_link_give_link",function(){
 		
 		}
 	});
-	
-	
 	});
-
-
+$(document).on("click","#remove_link_give_link",function(){
+	var myVar=setTimeout(myFunctionl,500);
+ 	var note=$('#notesnote').val();
+	$.ajax({
+		type : "GET",
+		url : "${pageContext.request.contextPath}/removePublicLinkRequest",
+		contentType : "application/json",
+		async : true,
+		success : function(data) {
+			if(data=="true"){location.href="ajaxTrue";}else{
+          					//	showMsg("success",data);
+          						$("#publicLink").val(data);
+          						//$(document).on("click",".set_link_give_link",function(){
+          					    //    $("#contactdiv_getLink").css("display", "block");
+          					   // });
+			myStopFunction(myVar);
+			}
+		}
+	});
+	});
+$(document).on("click","#add_link_give_link",function(){
+	var myVar=setTimeout(myFunctionl,500);
+ 	var note=$('#notesnote').val();
+	$.ajax({
+		type : "GET",
+		url : "${pageContext.request.contextPath}/setPublicLinkRequest",
+		contentType : "application/json",
+		async : true,
+		success : function(data) {
+			if(data=="true"){location.href="ajaxTrue";}else{
+          					//	showMsg("success",data);
+          						$("#publicLink").val(data);
+          						//$(document).on("click",".set_link_give_link",function(){
+          					    //    $("#contactdiv_getLink").css("display", "block");
+          					   // });
+          						
+			myStopFunction(myVar);
+			}
+		
+		}
+	});
+	});
 </script>
